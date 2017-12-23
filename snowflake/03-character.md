@@ -17,7 +17,7 @@
   * wann und warum
   * Paketmitschnitte anfertigen
   * Paketmitschnitte auswerten
-* Protokolle
+* Logs
   * Systemlogs
   * Debug-Logs
 * aktive Tests
