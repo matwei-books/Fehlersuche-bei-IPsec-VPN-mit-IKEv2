@@ -1,14 +1,38 @@
+2018-04-23 17:27 CEST (user)
+	- Quellen aufgesetzt
+
+	  $ sphinx-quickstart
+
+	  > Separate source and build directories (y/n) [n]: y
+
+	  > Project name: Fehlersuche bei IKEv2 IPsec VPN
+	  > Author name(s): Mathias Weidner
+	  > Project release []: 0.1
+
+	  > Project language [en]: de
+
+	  > Do you want to use the epub builder (y/n) [n]: y
+
+	  > todo: write "todo" entries that can be shown or hidden on build (y/n) [n]: y 
+
+	  > Create Windows command file? (y/n) [y]: n
+
+	  $ echo '^build$' >> .mtn-ignore 
+	  $ mtn add --unknown --recursive
+	  $ mtn commit
+
+
 2018-04-23 17:18 CEST (user)
 	- virtuelle Python-Umgebung für Sphinx aufgesetzt
 
-	  virtualenv-3.4 venv
-	  activate_venv 
-	  pip install -U sphinx
-	  pip freeze > python-requirements.txt
+	  $ virtualenv-3.4 venv
+	  $ activate_venv 
+	  $ pip install -U sphinx
+	  $ pip freeze > python-requirements.txt
 
-	  echo '^venv$' >> .mtn-ignore
-	  mtn add --unknown 
-	  mtn commit
+	  $ echo '^venv$' >> .mtn-ignore
+	  $ mtn add --unknown 
+	  $ mtn commit
 
 
 
