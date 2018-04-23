@@ -1,0 +1,14 @@
+2018-04-23 17:18 CEST (user)
+	- virtuelle Python-Umgebung für Sphinx aufgesetzt
+
+	  virtualenv-3.4 venv
+	  activate_venv 
+	  pip install -U sphinx
+	  pip freeze > python-requirements.txt
+
+	  echo '^venv$' >> .mtn-ignore
+	  mtn add --unknown 
+	  mtn commit
+
+
+
