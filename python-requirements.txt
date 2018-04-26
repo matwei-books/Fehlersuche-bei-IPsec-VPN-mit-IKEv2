@@ -5,7 +5,6 @@ certifi==2018.4.16
 chardet==3.0.4
 docutils==0.14
 evernote==1.25.2
-geeknote==0.2a0
 html2text==2016.9.19
 httplib2==0.10.3
 idna==2.6
