@@ -8,9 +8,12 @@ Welcome to Fehlersuche bei IKEv2 IPsec VPN's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Inhalt:
 
-
+   vorwort
+   vorgehen/fragen
+   grundlagen/theoretisch
+   grundlagen/praktisch
 
 Indices and tables
 ==================

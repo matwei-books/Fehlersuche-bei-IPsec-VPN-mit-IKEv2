@@ -1,0 +1,30 @@
+@startuml
+start
+if (Tritt das Problem jetzt auf?) then (ja)
+	if (Funktioniert alles?) then (ja)
+		if (Ist es schnell genug?) then (ja)
+			note: Problem woanders!
+			stop
+		else (nein)
+			:mache es schneller;
+			detach
+		endif
+	else (nein)
+		if (Funktioniert irgendetwas?) then (ja)
+			:behebe Teilausfall;
+			detach
+		else (nein)
+			:behebe Totalausfall;
+			detach
+		endif
+	endif
+else (nein)
+	if (Ist es behoben?) then (ja)
+		note: Problem gelöst!
+		stop 
+	else (nein)
+		:Jag das Phantom;
+		detach
+	endif
+endif
+@enduml
