@@ -13,6 +13,7 @@ Welcome to Fehlersuche bei IKEv2 IPsec VPN's documentation!
    vorwort
    vorgehen/problemstellung
    vorgehen/fragen
+   vorgehen/kategorisierung
    vorgehen/tritt-das-problem-jetzt-auf
    vorgehen/funktioniert-irgendetwas
    vorgehen/funktioniert-alles
