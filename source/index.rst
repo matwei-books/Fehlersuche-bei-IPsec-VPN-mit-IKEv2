@@ -14,10 +14,6 @@ Welcome to Fehlersuche bei IKEv2 IPsec VPN's documentation!
    vorgehen/problemstellung
    vorgehen/fragen
    vorgehen/kategorisierung
-   vorgehen/tritt-das-problem-jetzt-auf
-   vorgehen/funktioniert-irgendetwas
-   vorgehen/funktioniert-alles
-   vorgehen/ist-es-schnell-genug
    grundlagen/theoretisch
    grundlagen/ikev2
    grundlagen/praktisch
