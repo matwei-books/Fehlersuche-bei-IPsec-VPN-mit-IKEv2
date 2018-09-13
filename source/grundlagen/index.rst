@@ -10,15 +10,8 @@ Fehlersuche bei IKEv2 IPsec VPN
    :maxdepth: 2
    :caption: Inhalt:
 
-   vorwort
-   vorgehen/problemstellung
-   vorgehen/fragen
-   vorgehen/antworten
-   vorgehen/kategorisierung
-   ikev2/index
-   grundlagen/index
-   grundlagen/praktisch
-   anhang/anhang
+   praktisch
+   theoretisch
 
 Indices and tables
 ==================
