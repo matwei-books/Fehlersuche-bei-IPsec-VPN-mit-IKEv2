@@ -1,6 +1,6 @@
 
-Grundlegende Fragen
-===================
+Fragen
+======
 
 Die besten Erfolgsaussichten bei einer Fehlersuche habe ich, wenn ich
 mit den richtigen Fragen anfange. Darum beginne ich immer mit den selben
