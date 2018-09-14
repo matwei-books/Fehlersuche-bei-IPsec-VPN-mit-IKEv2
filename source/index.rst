@@ -11,6 +11,7 @@ Fehlersuche bei IKEv2 IPsec VPN
    :caption: Inhalt:
 
    vorwort
+   einfuehrung
    vorgehen/problemstellung
    vorgehen/fragen
    vorgehen/antworten
@@ -20,10 +21,5 @@ Fehlersuche bei IKEv2 IPsec VPN
    grundlagen/praktisch
    anhang/anhang
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+:ref:`genindex`
 
