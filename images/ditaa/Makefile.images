@@ -1,5 +1,0 @@
-#
-# Makefile.images - list of images
-#
-IMAGES = ipsec-ike-datagram-options.png \
-
