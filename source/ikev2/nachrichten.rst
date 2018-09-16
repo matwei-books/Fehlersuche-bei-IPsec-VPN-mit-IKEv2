@@ -15,12 +15,22 @@ manchmal auch von einem *Request/Response* Paar.
 
 .. index:: Nachrichten; initiale
 
-Die ersten beiden Exchanges werden IKE_SA_INIT und IKE_AUTH genannt
-und etablieren eine IKE SA, das heißt eine Security Association für
-den nachfolgenden IKE-Nachrichtenverkehr. Alle nachfolgenden Exchanges
-sind entweder vom Typ CREATE_CHILD_SA oder INFORMATIONAL.
+Die ersten beiden Exchanges sind IKE_SA_INIT und IKE_AUTH.
+Sie bilden den initialen Nachrichtenaustausch, der im einfachsten Fall
+ausreichend ist, um Daten mit IPsec zu sichern.
 
-Nachfolgend gehe ich auf alle vier Exchanges näher ein.
+Der IKE_SA_INIT-Exchange verhandelt die kryptografischen Parameter
+sowohl für IKE selbst als auch für die erste IPsec SA, er tauscht Nonces
+aus und führt den Diffie-Hellman-Austausch durch. Im Idealfall werden
+dabei nur zwei Datagramme - zwei in jeder Richtung - gesendet.
+
+Der IKE_AUTH-Exchange authentisiert die vorherigen Nachrichten, tauscht
+Identitäten und Zertifikate und etabliert die erste IPsec SA.
+
+Alle nachfolgenden Exchanges sind kryptographisch geschützt und entweder
+vom Typ CREATE_CHILD_SA oder INFORMATIONAL.
+
+Im folgenden gehe ich auf alle vier Exchanges näher ein.
 
 .. index:: ! IKE_SA_INIT
    single: Nachrichten; IKE_SA_INIT
