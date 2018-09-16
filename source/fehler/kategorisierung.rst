@@ -1,6 +1,6 @@
 
-Wie weiter?
-===========
+Problemkategorien
+=================
 
 Das Problem identifiziert zu haben, ist nur ein Schritt auf dem Weg zur
 Lösung. Um es zu lösen sind weitere Schritte nötig. Möglicherweise

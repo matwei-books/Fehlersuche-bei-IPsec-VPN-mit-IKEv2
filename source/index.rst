@@ -15,7 +15,7 @@ Fehlersuche bei IKEv2 IPsec VPN
    vorgehen/problemstellung
    vorgehen/fragen
    vorgehen/antworten
-   vorgehen/kategorisierung
+   fehler/index
    ikev2/index
    grundlagen/index
    grundlagen/praktisch
