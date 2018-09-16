@@ -38,6 +38,8 @@ Im folgenden gehe ich auf alle vier Exchanges näher ein.
 IKE_SA_INIT
 -----------
 
+.. image:: /images/ike-sa-init.png
+
 .. index:: ! IKE_AUTH
    single: Nachrichten; IKE_AUTH
 
