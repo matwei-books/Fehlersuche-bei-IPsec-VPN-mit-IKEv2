@@ -19,6 +19,5 @@ Fehlersuche bei IKEv2 IPsec VPN
    ikev2/index
    grundlagen/index
    anhang/anhang
-
-:ref:`genindex`
+   anhang/datagram-header
 

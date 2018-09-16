@@ -1,6 +1,8 @@
 #
 IMAGES = entscheidungsbaum-alternativ.png \
        	 entscheidungsbaum.png \
+	 ike-sa-init.png \
+	 ipsec-ike-datagram-gph.png \
 	 ipsec-ike-datagram-options.png \
 	 nat.png \
 	 vpn.png \
