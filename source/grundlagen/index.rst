@@ -6,7 +6,6 @@ Grundlagen
    :maxdepth: 2
    :caption: Inhalt:
 
-   praktisch
    theoretisch
    paketmitschnitt
 
