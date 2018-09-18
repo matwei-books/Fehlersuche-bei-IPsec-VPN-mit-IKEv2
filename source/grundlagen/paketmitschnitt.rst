@@ -87,17 +87,25 @@ Paketmitschnitt auf dem VPN-Gateway
 Will ich Datagramme direkt auf dem VPN-Gateway mitschneiden, muss ich
 die nötigen Befehle kennen. Auf der Kommandozeile sind das 
 
-bei Cisco ASA::
+* bei Cisco ASA::
 
-  capture nameOfCapture ...
+    capture nameOfCapture ...
+    capture nameOfCapture type isakmp ...
 
-bei Fortinet::
+  Der Typ ``isakmp`` bei der Cisco ASA ist
+  insbesondere bei Mitschnitten der verschlüsselten Seite interessant,
+  weil dann die ASA Pseudo-IP-Datagramme erzeugt und in den Mitschnitt
+  einfügt, die den Inhalt der entschlüsselten IKE-Datagramme enthalten.
+  Das erleichtert das Finden von Fehlkonfigurationen bei den
+  IKE-Parametern.
 
-  diag sniff packet ...
+* bei Fortinet (siehe :cite:`FortinetPacketCaptureCLI`)::
 
-bei Checkpoint, GeNUScreen, Linux- oder BSD-Firewalls mit VPN::
+    diag sniff packet ...
 
-  tcpdump -w nameOfCaptureFile ...
+* bei Checkpoint, GeNUScreen, Linux- oder BSD-Firewalls mit VPN::
+
+    tcpdump -w nameOfCaptureFile ...
 
 Die genaue Syntax der Befehle findet sich in der entsprechenden
 Dokumentation.
@@ -279,10 +287,128 @@ beziehungsweise bei NAT-T::
 
   ... and udp and port 4500 and udp[8:4] != 0
 
-Welchen der beiden Ausdrücke ich nehmen muss, erkenne ich indem ich kurz
-sämtlichen UDP-Traffic zwischen beiden Peers mitschneide und nachschaue,
-ob UDP-Port 4500 verwendet wird.
+Welchen der beiden Ausdrücke ich nehmen muss, kann ich erkennen, indem
+ich kurz sämtlichen UDP-Traffic zwischen beiden Peers mitschneide und
+nachschaue, ob UDP-Port 4500 verwendet wird.
 
 Paketmitschnitte auswerten
 --------------------------
+
+Am schnellsten geht die Auswertung des Paketmitschnitts direkt auf der
+Kommandozeile des Gerätes, wo er angefertigt wurde.
+
+* Bei Cisco ASA::
+
+    show capture nameOfCapture ...
+
+* Bei Fortinet habe ich die Ausgabe direkt in der SSH-Sitzung, in der ich
+  den Paketmitschnitt gestartet habe.
+
+* Bei allen Geräten mit tcpdump::
+
+    tcpdump -n -r nameOfCaptureFile ...
+
+Bequemer ist die Auswertung mit *Wireshark*, einem grafischen
+Netzwerk-Sniffer, der umfangreiche Möglichkeiten zur Analyse eines
+Mitschnitts bietet. Dafür muss ich die Datei mit dem Mitschnitt erstmal
+auf meinen Rechner kopieren.
+
+* Bei Cisco ASA benötige ich einen TFTP-Server um die PCAP-Datei zu
+  kopieren::
+
+    copy /pcap capture:nameOfCapture tftp://adress/nameOfCapture.pcap
+
+* Bei Fortinet kann ich den Mitschnitt kopieren, wenn ich ihn in der
+  grafischen Benutzeroberfläche gestartet habe (siehe
+  :cite:`FortinetPacketCaptureGUI`).
+
+* Bei den Geräten, die tcpdump verwenden, kann ich die Datei
+  möglicherweise mit *scp* kopieren.
+
+Auswertung bei Cisco ASA im CLI
+...............................
+
+Die ASA stellt bei der Auswertung von Paketmitschnitten bei VPNs
+ausführliche Informationen bereit, so dass ich hier kurz auf die
+verschiedenen Möglichkeiten eingehen will.
+
+Generell bekomme ich mit::
+
+  show capture
+
+eine Übersicht über alle Paketmitschnitte und wieviel Daten bereits
+mitgeschnitten sind.::
+
+  show capture nameOfCapture [options]
+
+zeigt die Datagramme eines einzelnen Mitschnitts. Mit zusätzlichen
+Optionen kann ich die Ausgabe steuern:
+
+detail
+  zeigt zusätzliche Details zum Datagramm, die Ausgabe wird dann
+  zweizeilig, mich interessiert davon meist nur die TTL des Datagramms,
+decode
+  zeigt bei IKE-Datagrammen den Inhalt der IKE-Payloads bei
+  unverschlüsselten Datagrammen (IKE_SA_INIT) beziehungssweise bei
+  allen IKE-Datagrammen, wenn das Capture vom Typ ``isakmp`` ist,
+dump
+  zeigt zu jedem Datagramm den Hexdump aller Oktetts an,
+packet-number nummer
+  zeigt das Paket mit Nummer *nummer* an,
+count anzahl
+  zeigt *anzahl* Pakete an, in Kombination mit Option ``packet-number``
+  kann ich gezielt bestimmte Pakete betrachten,
+
+Auswertung mit tcpdump
+......................
+
+Bei der Auswertung eines Paketmitschnitts mit tcpdump verwende ich meist
+den Pager *less* um in der Ausgabe bequem zu navigieren::
+
+  tcpdump -n -r fileName [optionen] | less
+
+Außer den Optionen ``-n`` um Adressauflösungen zu vermeiden und ``-r``
+um die Datei mit dem Mitschnitt anzugeben, verwende ich je nach Bedarf
+noch die folgenden Optionen:
+
+-e   zeigt den link-level Header an,
+
+     Diese Option verwende ich nur, wenn ich Zweifel habe, zu welchem
+     Next-Hop das Datagramm gesendet wird, beziehungsweise von welchem es
+     kam.
+
+-#   zeigt eine fortlaufende Nummer vor den Datagrammen an,
+
+     Diese Option hilft mir, ein bestimmtes Datagramm bei späteren
+     Untersuchungen wiederzufinden.
+
+-v   zeigt mehr dekodierte Informationen zu dem Datagramm an,
+
+     Die Option ``-v`` kann ich mehrfach, bis zu dreimal, angeben um noch
+     mehr Informationen aus dem Datagramm zu erhalten.
+
+-X
+-XX  zeigt den Inhalt des Datagramms in Hex und ASCII an,
+
+     Mit zwei ``X`` wird der Link-Level-Header zusätzlich ausgegeben,
+     mit einem ``X`` beginnt die Ausgabe beim IP-Header.
+
+Auswertung mit Wireshark
+........................
+
+.. figure:: /images/wireshark-datagram-http.png
+   :alt: Paketmitschnitt mit Wireshark
+
+   Paketmitschnitt mit Wireshark
+
+Der Bildschirm ist bei Wireshark in drei Bereiche geteilt, von denen
+einer die Liste der mitgeschnittenen Datagramme enthält, einer die
+Informationen über das aktuell in obiger Liste ausgewählte Datagramm
+und der unterste den Inhalt dieses Datagramms in Hex und ASCII.
+
+Über den drei Bereichen ist ein Eingabefeld für einen Anzeigefilter,
+mit dem ich die im obersten Bereich angezeigte Liste reduzieren kann.
+
+Bei der Analyse eines Mitschnitts helfen mir vor allem die Menüpunkte
+*Analyse* und *Statistics* in der oberen Menüleiste.
 
