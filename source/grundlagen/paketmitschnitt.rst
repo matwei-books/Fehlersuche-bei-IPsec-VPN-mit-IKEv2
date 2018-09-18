@@ -283,3 +283,6 @@ Welchen der beiden Ausdrücke ich nehmen muss, erkenne ich indem ich kurz
 sämtlichen UDP-Traffic zwischen beiden Peers mitschneide und nachschaue,
 ob UDP-Port 4500 verwendet wird.
 
+Paketmitschnitte auswerten
+--------------------------
+
