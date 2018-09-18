@@ -209,3 +209,77 @@ aussehen::
 Paketmitschnitt auf der verschlüsselten Seite
 .............................................
 
+Auf der verschlüsselten Seite bin ich im Allgemeinen nur an der IP-Adresse des
+Peer-VPN-Gateways interessiert. Normalerweise sollten alle Datagramme
+hier entweder als Sender oder Empfänger die Adressse des eigenen
+VPN-Gateways haben. Darum filtere ich hier in erster Linie auf die
+Adresse des Peer-Gateways. Lediglich, wenn ich Netzwerkprobleme zwischen
+den beiden VPN-Gateways vermute, filtere ich zusätzlich auf ICMP wie bei
+Inside-Traffic.
+
+Bei tcpdump kann ich die Option ``-p`` verwenden, so dass die
+Netzwerkschnittstelle nicht extra in den Promiscuous Mode umgeschaltet
+wird.
+
+Der einfachste Filterausdruck auf der verschlüsselten Seite ist::
+
+  host peerAddress
+
+wobei *peerAddress* für die IP-Addresse des VPN-Gateways beim Peer
+steht. Mit diesem Filter bekomme ich sowohl IKE- als auch IPsec-Traffic.
+In den meisten Fällen bin ich nur am IKE-Traffic interessiert, bei
+Problemen mit dem Aufbau des VPN ist das jedoch egal, da dann sowieso
+noch kein ESP-Traffic vorkommt.
+
+Vermute ich Netzwerkprobleme zwischen den beiden VPN-Gateways, so muss
+ich zusätzlich ICMP-Traffic mitschneiden. Der Filterausdruck dafür kann
+dann so aussehen::
+
+  ICMP or host peerAddress
+
+Dabei bekomme ich allerdings auch ICMP-Traffic, der sich auf andere VPNs
+bezieht. Das muss ich dann bei der Auswertung berücksichtigen.
+
+Bisher ging ich davon aus, dass das VPN-Gateway an dieser Schnittstelle
+nur VPN-Traffic hat. Wird das VPN-Gateway zusätzlich noch als Router
+oder Firewall verwendet, so dass ich hier auch regulären Traffic für
+andere Adressen finde, muss ich den Filter etwas enger fassen::
+
+  host myGwAddress and host peerAddress
+
+  host myGwAddress and ( ICMP or host peerAddress )
+
+Interessanter wird es, wenn ich nur IKE- oder nur ESP-Traffic
+mitschneiden möchte. IKE-Traffic ist üblicherweise UDP mit Port 500.
+Dafür kann ich den Filter wie folgt ergänzen::
+
+  ... and udp and port 500
+
+Liegt eines der beiden Gateways hinter einer NAT-Box, so dass
+NAT-Traversal verwendet wird, wird es komplizierter::
+
+  ... and udp and ( port 500 or port 4500 and udp[8:4] = 0 )
+
+.. index:: Non-ESP-Marker
+
+Der Ausdruck ``udp[8:4] = 0`` bezeichnet den Non-ESP-Marker, mit bei
+NAT-T IKE-Traffic von ESP unterschieden werden kann. Will ich den
+gesamten IKE-Traffic, so muss ich sowohl UDP-Port 500 als auch 4500
+mitschneiden, da bei NAT-T der Wechsel von Port 500 zu 4500 mit dem
+IKE_AUTH-Exchange erfolgt.
+
+Bei den meisten Problemen bin ich eher am IKE-Traffic als an ESP
+interessiert. Wenn ich jedoch Replay- oder MTU-Probleme vermute, kann es
+sinnvoll nur den ESP-Traffic zu beobachten.
+Dafür kann ich die folgende Ergänzung verwenden::
+
+  ... and esp
+
+beziehungsweise bei NAT-T::
+
+  ... and udp and port 4500 and udp[8:4] != 0
+
+Welchen der beiden Ausdrücke ich nehmen muss, erkenne ich indem ich kurz
+sämtlichen UDP-Traffic zwischen beiden Peers mitschneide und nachschaue,
+ob UDP-Port 4500 verwendet wird.
+
