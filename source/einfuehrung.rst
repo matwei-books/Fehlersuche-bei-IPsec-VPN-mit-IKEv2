@@ -88,7 +88,8 @@ bekomme.
 Schließlich gehe ich auf einige typische Probleme ein, die mir in der
 Praxis begegnet sind, wie ich diese erkenne und schließlich behebe.
 
-Im Anhang sind führe ich einige Datagramm-Header auf, die mir die Arbeit
+Im Anhang führe ich einige Datagramm-Header auf, die mir die Arbeit
 mit Paketmitschnitten und generell das Verständnis der ausgetauschten
-Nachrichten erleichtern.
+Nachrichten erleichtern. Außerdem beschreibe ich einige Hilfsmittel, die
+allgemein die Arbeit bei der Fehlersuche erleichtern können. 
 
