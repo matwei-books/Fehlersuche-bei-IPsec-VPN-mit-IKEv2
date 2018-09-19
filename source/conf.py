@@ -41,6 +41,7 @@ release = '0.1'
 extensions = [
     'sphinxcontrib.bibtex',
     'sphinx.ext.todo',
+    'sphinx.ext.autosectionlabel',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -186,5 +187,7 @@ epub_exclude_files = ['search.html']
 todo_include_todos = True
 
 numfig = True
+
+autosectionlabel_prefix_document = True
 
 # vim: set sw=4 ts=4 et:
