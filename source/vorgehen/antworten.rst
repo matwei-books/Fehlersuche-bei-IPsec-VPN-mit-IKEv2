@@ -29,9 +29,26 @@ bekommen:
 Aussagen von VPN-Benutzern
 --------------------------
 
-.. todo::
+Aussagen von VPN-Benutzern in Form von Fehlermeldungen sind oft der
+Anlass für eine Fehlersuche bei einem VPN.
 
-   Text zu Aussagen von VPN-Benutzern
+Gerade am Anfang der Untersuchung ist es daher wichtig, so viel wie
+möglich von den Benutzern über die genauen Umstände des Problems zu
+erfahren: seit wann tritt das Problem auf, welche Geräte sind daran
+beteiligt, bei welchen Aktionen tritt das Problem auf.
+
+Am Ende der Fehlersuche gehört es einfach dazu, dass man denjenigen, der
+ein Problem gemeldet hat, befragt, ob es wirklich beseitigt ist. Dieser
+Moment wird gern benutzt, um das nächste Problem zu melden, in so einem
+Fall sollte man ein neues Ticket aufmachen, sobald klar wird, dass es
+nicht mehr um das ursprüngliche Problem geht.
+
+Leider sind die Aussagen der Endbenutzer bei der eigentlichen
+Fehlersuche oft wenig hilfreich. Dann ist es sinnvoll die
+Anwendungsbetreuer, die Administratoren der Server und eventuell auch
+die Netzwerkadministratoren (wenn diese in einer anderen Gruppe arbeiten
+als die VPN-Administratoren) zu Rate zu ziehen, um das Problem
+einzugrenzen und die beteiligten Adressen zu erfahren.
 
 Systemlogs vom VPN-Gateway
 --------------------------
@@ -57,7 +74,7 @@ sich bei diesen Logeinträgen um ausgehenden Traffic handelte, für den in
 diesem Fall keine Antwort vom Peer-Gateway ankam. Unglücklicherweise
 hatte sich der VPN-Administrator der vorherigen Schicht überreden
 lassen, die VPN-Konfiguration "testweise" zu ändern, so dass wir nach
-Beseitigung des eigentlichen Problems das VPN wirklich reparieren
+Beseitigung des eigentlichen Problems das VPN wirklich "reparieren"
 mussten.
 
 Wichtig ist also, insbesondere bei Logeinträgen, die man nicht kennt,
