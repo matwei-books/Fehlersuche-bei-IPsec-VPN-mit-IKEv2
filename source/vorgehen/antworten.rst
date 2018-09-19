@@ -149,9 +149,35 @@ später bekamen wir zeitnahen Zugriff auf die VPN-Logs.
 Paketmitschnitte
 ----------------
 
-.. todo::
+In diesem Abschnitt geht es nicht um die konkrete Durchführung von
+Paketmitschnitten, für diese verweise ich auf den Abschnitt
+:ref:`grundlagen/paketmitschnitt:Paketmitschnitt` bei den Grundlagen.
 
-   Text zu Paketmitschnitten mit Verweis auf Abschnitt in den Grundlagen
+Ich verwende Paketmitschnitte bei der Fehlersuche sehr häufig, und zwar
+
+* wenn Logs nicht eindeutig sind,
+* wenn Tests nicht eindeutig sind oder nicht funktionieren,
+* zur Überprüfung von Vermutungen die ich anderweitig bekommen habe und
+  denen ich nicht ganz traue.
+
+Ein Paketmitschnitt kann schneller einen Überblick über den groben
+Ablauf einer IKE-Konversation geben als die Debug-Informationen,
+insbesondere wenn man sich bei letzteren erst durch viele irrelevante
+Details kämpfen muss.
+
+Auch kann ich komplexe Probleme, wie zum Beispiel eine reduzierte MTU
+mit einem geeigneten Paketmitschnitt nachweisen falls der Peer diese
+Information nicht von sich aus bereitstellt. Der Paketmitschnitt zeigt
+mir dann auch, ob meine Abhilfe wirksam ist.
+
+Was mir der Paketmitschnitt nicht anzeigt ist der Inhalt der
+verschlüsselten IKE-Nachrichten. Vermute ich hierbei Probleme, muss ich
+auf Debugmeldungen zurückgreifen. Allerdings gibt es auch hier eine
+Ausnahme: die Cisco ASA kann einen Paketmitschnitt vom Typ ``isakmp``
+schreiben, bei dem sie zusätzlich zu den verschlüsselten Datagrammen
+Pseudo-Datagramme mit den entschlüsselten Informationen in den
+Mitschnitt einfügt. Diese Information kann mir unter Umständen das
+Einschalten der Debugmeldungen ersparen.
 
 Debugausgaben
 -------------
