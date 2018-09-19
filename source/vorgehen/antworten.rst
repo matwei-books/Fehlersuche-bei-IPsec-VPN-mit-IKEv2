@@ -29,13 +29,28 @@ bekommen:
 Aussagen von VPN-Benutzern
 --------------------------
 
+.. todo::
+
+   Text zu Aussagen von VPN-Benutzern
+
 Systemlogs vom VPN-Gateway
 --------------------------
+
+.. todo::
+
+   Text zu Systemlogs
 
 Paketmitschnitte
 ----------------
 
+.. todo::
+
+   Text zu Paketmitschnitten mit Verweis auf Abschnitt in den Grundlagen
+
 Debugausgaben
 -------------
 
+.. todo::
+
+   Text zu Debugausgaben
 
