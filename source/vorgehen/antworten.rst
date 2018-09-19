@@ -18,3 +18,24 @@ keinen Sinn ergeben, muss ich die Voraussetzungen und die
 Zwischenschritte - das heißt, die gefundenen Antworten - hinterfragen
 und kontrollieren.
 
+Im Wesentlichen habe drei Möglichkeiten, Antworten auf meine Fragen zu
+bekommen:
+
+* Aussagen von VPN-Benutzern
+* Systemlogs vom VPN-Gateway
+* Paketmitschnitte
+* Debugausgaben
+
+Aussagen von VPN-Benutzern
+--------------------------
+
+Systemlogs vom VPN-Gateway
+--------------------------
+
+Paketmitschnitte
+----------------
+
+Debugausgaben
+-------------
+
+
