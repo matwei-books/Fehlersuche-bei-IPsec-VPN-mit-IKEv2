@@ -182,7 +182,89 @@ Einschalten der Debugmeldungen ersparen.
 Debugausgaben
 -------------
 
-.. todo::
+Debugausgaben verwende ich, wenn die Logmeldungen zu ungenau für die
+Eingrenzung des Problems sind und im Paketmitschnitt nicht die nötigen
+Informationen zu finden sind.
 
-   Text zu Debugausgaben
+Konkret suche ich in den Debugausgaben nach den vier Nachrichtentypen,
+die bei IKEv2 ausgetauscht werden, deren Parametern und den Reaktionen
+meines VPN-Gateways auf diese Nachrichten. Die Nachrichten sind im
+Abschnitt :ref:`ikev2/nachrichten:IKEv2 Nachrichten` näher beschrieben.
+
+Die Reaktionen auf diese Nachrichten fallen
+durchaus unterschiedlich aus, je nachdem, welche Seite Initiator
+beziehungsweise Responder ist. Meist ist eine IKE-Sitzung einfacher auf
+der Seite des Responders zu debuggen.
+
+.. index: Beifang
+
+Dabei habe ich das Problem, das in den Debugmeldungen sehr viel Text zu
+finden ist, der es nicht einfacher macht, die relevanten Informationen
+zu finden. Die richtigen Einstellungen sind nicht leicht zu finden, ich
+kann sie in diesem Buch auch nicht geben, da diese von Software zu
+Software und bei diesen von Version zu Version variieren. Wenn ein
+Testlab zur Verfügung steht, kann ich eine Situation nachstellen und in
+Ruhe ausprobieren, welche Debugeinstellungen genügend Informationen und
+möglichst wenig Beifang liefern.
+
+Da ich in den meisten Fällen trotzdem bei den Debugmeldungen mit sehr
+viel Text umgehen muss, muss ich mir überlegen, wie ich den Text in eine
+Datei bekomme, die ich mit einem guten Pager wie z.B. *less* oder
+aushilfsweise mit einem sehr guten Editor untersuchen kann. Wichtig ist,
+dass ich gut und schnell suchen kann und dabei den Text nicht aus
+Versehen ändere.
+
+Meist habe ich eine von zwei Möglichkeiten, an Debugmeldungen zu kommen:
+
+* über die Standardausgabe beziehungsweise Standardfehlerausgabe direkt
+  in meine SSH-Sitzung, oder
+* direkt in die Systemlogs.
+
+Im ersten Fall protokolliere ich meine Sitzung in eine Datei, entwerde
+mit dem Programm *script* oder, zum Beispiel bei Putty, durch die
+Log-Funktion des SSH-Programms.
+
+Im zweiten Fall filtere ich die Debugnachrichten aus den Systemlogs aus.
+Dabei muss ich aufpassen, dass ich alles relevante und möglichst wenig
+irrelevantes bekomme. Bei der Cisco ASA haben zum Beispiel alle
+Debugnachrichten im Systemlog die gleiche ASA-Nummer, so dass ich sie
+recht einfach separieren kann. Habe ich nur ein oder sehr wenige aktive
+VPN auf dem Gateway kann ich mir das Ausfiltern eventuell auch sparen.
+
+Bei den Debugmeldungen in der Standardausgabe fehlen oft die
+Zeitstempel. Diese kann ich aushilfsweise erzeugen, wenn die Konsole
+Befehle entgegennimmt und ich mit *date* (BSD, Linux) oder *show clock*
+(Cisco ASA) dann und wann einen Pseudo-Zeitstempel in die Ausgabe
+einfügen kann.
+
+In den Systemlogs habe ich automatisch Zeitstempel für jede einzelne
+Zeile, wodurch diese dann natürlich länger werden. Dafür bekomme ich
+hier beim Debugging ein Gefühl für den Aussagewert der normalen
+Systemlogs, wenn ich mir diese zusätzlich für die Analyse ausfiltere.
+
+Debugausgaben ein- und ausschalten
+..................................
+
+Bei der Cisco ASA verwende ich die folgenden drei Befehle um
+Debugnachrichten einzuschalten::
+
+  debug crypto condition peer $address
+  debug crypto ikev2 protocol 127
+  debug crypto ikev2 platform 127
+
+Der erste Befehl ist nur wichtig, wenn es mehr als ein VPN auf dem
+Gateway gibt.
+
+Habe ich meine Informationen, schalte ich die Debugnachrichten wie folgt
+ab::
+
+  undebug all
+
+Bei strongSwan kann ich die Menge der Debugausgaben mit folgendem Befehl
+steuern::
+
+  ipsec stroke loglevel ike $loglevel
+
+Mehr Informationen zu den Loglevel und Nachrichtenquellen finde ich bei
+:cite:`StrongSwanLoggerConfiguration`.
 
