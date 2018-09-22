@@ -1,0 +1,17 @@
+' diagram for IKEv2 IKE_SA_INIT with Cookie
+'
+' Mathias Weidner, 2018
+
+@startuml
+
+hide footbox
+
+participant "Initiator" as I
+participant "Responder" as R
+
+I -> R: HDR,SAi1,KEi,Ni
+R -> I: HDR,N(Cookie)
+I -> R: HDR,N(Cookie),SAi1,KEi,Ni
+R -> I: HDR,SAr1,KEr,Nr[,CertReq]
+
+@enduml
