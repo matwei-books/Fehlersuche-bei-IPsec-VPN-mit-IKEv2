@@ -196,7 +196,7 @@ durchaus unterschiedlich aus, je nachdem, welche Seite Initiator
 beziehungsweise Responder ist. Meist ist eine IKE-Sitzung einfacher auf
 der Seite des Responders zu debuggen.
 
-.. index: Beifang
+.. index:: Beifang
 
 Dabei habe ich das Problem, das in den Debugmeldungen sehr viel Text zu
 finden ist, der es nicht einfacher macht, die relevanten Informationen
