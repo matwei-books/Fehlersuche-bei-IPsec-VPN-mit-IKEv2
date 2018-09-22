@@ -5,10 +5,10 @@ Glossar
 .. index:: ! Beifang
 
 Beifang:
-  Als Beifang werden in der Fischerei diejenigen Fische und andere
+  *Als Beifang werden in der Fischerei diejenigen Fische und andere
   Meerestiere bezeichnet, die zwar mit dem Netz oder anderen
   Massenfanggeräten gefangen werden, nicht aber das eigentliche
-  Fangziel des Fischens sind.
+  Fangziel des Fischens sind. [Wikipedia]*
 
   Im Rahmen der Fehlersuche bezeichne ich als Beifang die Informationen,
   die ich - mehr oder weniger - unvermeidlich mit sammle, die aber nicht
