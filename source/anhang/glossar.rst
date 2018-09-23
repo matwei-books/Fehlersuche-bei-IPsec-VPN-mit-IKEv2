@@ -110,6 +110,10 @@ Security Association (SA):
   Protokolle AH, ESP beziehungsweise ESP implementiert. Zustandsdaten
   der einzelnen SA werden in der SA Database gespeichert.
 
+  Die konkreten kryptographischen Algorithmen mit den eventuell nötigen
+  Parametern werden in einer SA durch :ref:`Transforms <Transform>`
+  beschrieben.
+
 .. index:: ! Security Parameters Index
    see: SPI; Security Parameters Index
 .. _SPI:
@@ -129,3 +133,10 @@ Security Parameters Index (SPI):
 SPI:
   siehe
   :ref:`Security Parameters Index <SPI>`.
+
+.. index:: Transform
+.. _Transform:
+
+Transform:
+  Ein Transform beschreibt genau einen kryptographischen Algorithmus in
+  einer :ref:`Security Association <SA>`.
