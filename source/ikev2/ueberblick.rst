@@ -38,10 +38,15 @@ einer Security Association Database (SAD) abzulegen. Dabei gibt es sowohl
 SA für die IKE-Sitzung, in der die Parameter ausgehandelt werden als
 auch für die durch IPsec geschützten Daten.
 
-Eine Transformation ist ein Datensatz in der SAD, der durch den
-*Security Parameters Index* (SPI) im Datagramm identifiziert wird und die
-nötigen Informationen enthält, um das Datagramm zu entschlüsseln
-beziehungsweise seine Integrität zu prüfen.
+Eine SA besteht aus einer oder mehreren Proposals die jeweils ein
+Protokoll umfassen. Jedes dieser Protokolle enthält eine oder
+mehrere Transforms, die ihrerseits einen kryptographischen Algorithmus
+beschreiben. Ein Transform kann Attribute enthalten falls das notwendig
+ist, um den kryptographischen Algorithmus komplett zu beschreiben.
+
+In einem Datagramm wird die SA, an die der Empfänger das Datagramm
+binden soll und in der er die nötigen Angaben zum Entschlüsseln findet,
+durch einen *Security Parameter Index* (SPI) identifiziert.
 
 Die Protokolle AH und ESP enthalten nur den für den Empfänger nötigen SPI
 in ihrem Header. Im Datagramm-Header von IKE gibt es zwei SPI bei denen
