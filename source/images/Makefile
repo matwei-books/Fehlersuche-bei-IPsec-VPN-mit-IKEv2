@@ -6,6 +6,7 @@ IMAGES = entscheidungsbaum-alternativ.png \
 	 ike-sa-init-inv-ke.png \
 	 ipsec-ike-datagram-gph.png \
 	 ipsec-ike-datagram-options.png \
+	 ipsec-overview.png \
 	 nat.png \
 	 vpn.png \
 	 vpn-mit-sonde.png \

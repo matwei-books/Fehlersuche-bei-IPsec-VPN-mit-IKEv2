@@ -2,9 +2,9 @@
 IKEv2
 =====
 
-IKEv2 ist in :cite:`RFC7296` beschrieben.
-
-
+Da die meisten Probleme bei IPsec-VPN beim IKE-Protokoll auftreten,
+nehme ich mir etwas Zeit, um auf die Grundlagen dieses Protokolls,
+speziell von IKEv2 einzugehen.
 
 .. toctree::
    :maxdepth: 2
