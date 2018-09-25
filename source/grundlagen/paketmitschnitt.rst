@@ -81,6 +81,8 @@ bekomme ich durch Monitoring der Switch-Ports heraus.
 Fall c) ist am teuersten, kann mir dafür die Gewähr bieten, dass keine
 Datagramme verloren gehen.
 
+.. _Paketmitschnitt auf dem VPN-Gateway:
+
 Paketmitschnitt auf dem VPN-Gateway
 ...................................
 
