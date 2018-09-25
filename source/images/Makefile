@@ -1,6 +1,7 @@
 #
 IMAGES = entscheidungsbaum-alternativ.png \
        	 entscheidungsbaum.png \
+	 ike-auth.png \
 	 ike-sa-init.png \
 	 ike-sa-init-cookie.png \
 	 ike-sa-init-inv-ke.png \

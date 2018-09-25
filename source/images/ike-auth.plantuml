@@ -1,0 +1,15 @@
+' diagram for IKEv2 IKE_AUTH
+'
+' Mathias Weidner, 2018
+
+@startuml
+
+hide footbox
+
+participant "Initiator" as I
+participant "Responder" as R
+
+I -> R: HDR,SK{IDi[,Cert][,CertReq][,AUTH],SAi2,TSi,TSr}
+R -> I: HDR,SK{IDr[,Cert][,AUTH],SAr2,TSi,TSr}
+
+@enduml

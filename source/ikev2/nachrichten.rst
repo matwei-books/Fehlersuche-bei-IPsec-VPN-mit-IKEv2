@@ -185,6 +185,24 @@ Moment noch keine IKE-Version größer als 2 gibt.
 IKE_AUTH
 --------
 
+Der IKE_AUTH-Exchange ist der zweite Nachrichtenaustausch einer
+IKEv2-Sitzung und hat die Message-ID 1. In diesem Austausch
+authentisieren sich die beiden VPN-Peers und bauen die erste und
+manchmal einzige ESP- oder AH-SA auf.
+
+.. figure:: /images/ike-auth.png
+   :alt: Sequenzdiagramm für IKE_AUTH-Exchange
+
+   IKE_AUTH-Exchange
+
+Der IKE_AUTH-Exchange erfolgt bereits verschlüsselt. Im Normalfall kann
+ich in einem Paketmitschnitt nur aus äußeren Merkmalen schließen, ob
+er erfolgreich war. Insbesondere, wenn anschließend ESP- oder
+AH-Datagramme ausgetauscht werden, kann ich vermuten, dass der
+IKE_AUTH-Austausch funktioniert hat. Eine Ausnahme sind Paketmitschnitte
+vom Type ``isakmp`` bei Cisco ASA (siehe dazu
+:ref:`Paketmitschnitt auf dem VPN-Gateway`).
+
 .. index:: ! CREATE_CHILD_SA
    single: Nachrichten; CREATE_CHILD_SA
 
