@@ -2,6 +2,10 @@
 IKEv2 Nachrichten
 =================
 
+.. todo:: Message-ID
+   
+   RFC7296: 2.2 Use of Sequence Numbers for Message ID
+
 .. index:: Exchange
    see: Exchange; Nachrichten
 
@@ -195,6 +199,27 @@ manchmal einzige ESP- oder AH-SA auf.
 
    IKE_AUTH-Exchange
 
+Die Abkürzungen stehen für folgende Informationen:
+
+*HDR*
+  IKE header
+*SK{...}*
+  der Inhalt in geschweiften Klammern ist verschlüsselt
+*IDi, IDr*
+  die Identität von Initiator und Responder
+*Cert*
+  Zertifikate, falls vom Peer angefordert, wenn mehrere Zertifikate
+  gesendet werden, muss das erste den öffentlichen Schlüssel für das
+  betreffende AUTH-Feld enthalten
+*CertReq*
+  Zertifikatanforderung (optional)
+*AUTH*
+  die Authentifizierungsdaten (siehe Abschnitt 2.15 in :cite:`RFC7296`)
+*SAi2, SAr2*
+  Proposals beziehungsweise Transforms für die erste Child-SA
+*TSi, TSr*
+  Traffic-Selektoren für die erste Child-SA
+
 Der IKE_AUTH-Exchange erfolgt bereits verschlüsselt. Im Normalfall kann
 ich in einem Paketmitschnitt nur aus äußeren Merkmalen schließen, ob
 er erfolgreich war. Insbesondere, wenn anschließend ESP- oder
@@ -202,6 +227,52 @@ AH-Datagramme ausgetauscht werden, kann ich vermuten, dass der
 IKE_AUTH-Austausch funktioniert hat. Eine Ausnahme sind Paketmitschnitte
 vom Type ``isakmp`` bei Cisco ASA (siehe dazu
 :ref:`Paketmitschnitt auf dem VPN-Gateway`).
+
+In den meisten Fällen reichen zwei Datagramme für den
+IKE_AUTH-Austausch. Wird hingegen EAP verwendet, kann es mehrere
+IKE_AUTH-Exchanges geben, bei denen dann die Message-ID hochgezählt
+wird. Weitere Informationen zu EAP finden sich in :cite:`RFC7296`
+Abschnitt 2.16.
+
+Fehler beim IKE_AUTH-Exchange
+.............................
+
+Jeder Fehler bei IKE_AUTH, der dazu führt, dass die Authentisierung
+fehlschlägt, sollte zu einer *AUTHENTICATION_FAILED* Nachricht führen.
+Tritt der Fehler beim Responder auf, so schickt er die Nachricht im
+Response-Datagramm. Tritt der Fehler beim Initiator auf, kann er die
+*AUTHENTICATION_FAILED* in einem separaten INFORMATIONAL-Exchange
+senden.
+
+Ist die Authentisierung erfolgreich, wird die IKE-SA aufgebaut. Jedoch
+kann das Erzeugen der Child-SA oder die Anforderung von
+Konfigurationsinformationen immer noch fehlschlagen. Das führt nicht
+automatisch dazu, dass die IKE-SA gelöscht wird. Insbesondere der
+Responder kann alle für die Authentisierung nötigen Informationen
+zusammen mit der Fehlermeldung für den angehängten Austausch
+(NO_PROPOSAL_CHOSEN, FAILED_CP_REQUIRED, ...) senden. Der Initiator darf
+deswegen nicht die Authentisierung scheitern lassen. Jedoch ist es
+möglich, dass der Initiator anschließend die IKE-SA mit einer
+DELETE-Nachricht löscht.
+
+Nur bei den folgenden drei Benachrichtigungen während eines
+IKE_AUTH-Austausches beziehungsweise im unmittelbar folgenden
+INFORMATIONAL-Austausch wird die IKE-SA nicht erzeugt:
+
+* UNSUPPORTED_CRITICAL_PAYLOAD,
+* INVALID_SYNTAX,
+* AUTHENTICATION_FAILED.
+
+Falls nur das Erzeugen der ersten Child-SA während des IKE_AUTH-Austauschs
+fehlschlägt, wird die IKE-SA trotzdem wie üblich erzeugt. Die folgenden
+Fehlermeldungen deuten darauf hin, dass nur das Erzeugen der Child-SA
+fehlschlug und die IKE-SA trotzdem angelegt wurde:
+
+* NO_PROPOSAL_CHOSEN
+* TS_UNACCEPTABLE
+* SINGLE_PAIR_REQUIRED
+* INTERNAL_ADDRESS_FAILURE
+* FAILED_CP_REQUIRED
 
 .. index:: ! CREATE_CHILD_SA
    single: Nachrichten; CREATE_CHILD_SA
