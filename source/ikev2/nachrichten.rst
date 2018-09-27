@@ -34,23 +34,6 @@ Identitäten und Zertifikate und etabliert die erste IPsec SA.
 Alle nachfolgenden Exchanges sind kryptographisch geschützt und entweder
 vom Typ CREATE_CHILD_SA oder INFORMATIONAL.
 
-Bei den nachfolgenden Diagrammen werden folgende Abkürzungen verwendet:
-
-*HDR*
-  IKE header
-*SAi1*
-  Sets von vorgeschlagenen kryptografischen Algorithmen
-*SAr1*
-  ausgewählte kryptografische Algorithmen
-*KEi, KEr*
-  Schlüsselmaterial für DH-Austausch
-*Ni, Nr*
-  Nonces (Number used once)
-*CertReq*
-  Zertifikatanforderung (optional)
-*N(Cookie)*
-  COOKIE
-
 Allgemeine Fehlerregeln
 -----------------------
 
@@ -80,6 +63,23 @@ IKE_SA_INIT
    :alt: Sequenzdiagramm für einfachen IKE_SA_INIT-Exchange
 
    Einfacher IKE_SA_INIT-Exchange
+
+Die Abkürzungen stehen für folgende Informationen
+
+*HDR*
+  IKE header
+*SAi1*
+  Sets von vorgeschlagenen kryptografischen Algorithmen
+*SAr1*
+  ausgewählte kryptografische Algorithmen
+*KEi, KEr*
+  Schlüsselmaterial für DH-Austausch
+*Ni, Nr*
+  Nonces (Number used once)
+*CertReq*
+  Zertifikatanforderung (optional)
+*N(Cookie)*
+  COOKIE
 
 Das ist der einzige Austausch, der unverschlüsselt über das Netz geht
 und in jedem Paketmitschnitt analysiert werden kann. Der Initiator kann
