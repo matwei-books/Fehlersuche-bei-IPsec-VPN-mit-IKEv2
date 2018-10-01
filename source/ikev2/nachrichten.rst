@@ -17,6 +17,13 @@ Austausch von Nachrichten.
 Bei jedem Paar von Nachrichten spricht man von einem *Exchange*,
 manchmal auch von einem *Request/Response* Paar.
 
+.. index:: Initiator, Responder
+
+Der Peer, der IKE_SA_INIT-Request sendet wird *Initiator* genannt,
+derjenige, welcher darauf antwort *Responder*.
+Nach dem Rekeying der IKE-SA ist derjenige der Initiator, der das
+Rekeying veranlasst hat.
+
 .. index:: Nachrichten; initiale
 
 Die ersten beiden Exchanges sind IKE_SA_INIT und IKE_AUTH.
@@ -33,6 +40,26 @@ Identitäten und Zertifikate und etabliert die erste IPsec SA.
 
 Alle nachfolgenden Exchanges sind kryptographisch geschützt und entweder
 vom Typ CREATE_CHILD_SA oder INFORMATIONAL.
+
+.. index:: ! Message ID
+
+Jede Nachricht enthält eine 32-Bit große Message-ID (MID) als Teil des
+festen IKE-Headers.
+Diese Message-ID wird verwendet um Requests und Responses einander
+zuzuordnen und Nachrichtenwiederholungen zu erkennen. Wiederholungen
+einer IKE-Nachricht müssen die gleiche MID verwenden.
+
+Die MID beginnt mit 0 beim IKE_SA_INIT-Requests des Initiators und wird
+fortlaufend hochgezählt.
+Beim Rekeying einer IKE-SA wird die MID für die neue SA auf 0 gesetzt.
+
+Der erste IKE-Request des Responders beginnt ebenfalls mit MID 0, so
+dass zu einer IKE-SA gleichzeitig zwei MID-Nummernkreise existieren
+können, einer für den nächsten Request, den ein Peer sendet und einer
+für den nächsten Request den er erwartet.
+Die beiden Nummernkreise kann man an den Flags des IKE-Headers
+unterscheiden (siehe Abschnitt :ref:`anhang/datagram-header:IKE Header`
+bei den Datagramm-Headern im Anhang).
 
 Allgemeine Fehlerregeln
 -----------------------

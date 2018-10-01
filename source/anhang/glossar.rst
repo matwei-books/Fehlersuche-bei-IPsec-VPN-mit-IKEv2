@@ -90,6 +90,19 @@ ISAKMP:
   siehe
   :ref:`Internet Security Assiociation and Key Management Protocol <ISAKMP>`
 
+.. index:: Message ID
+   see: MID; Message ID
+.. _MID:
+
+Message ID:
+  Jede IKE-Nachricht enthält eine Message-ID (MID) als Teil des festen
+  IKE-Headers.
+  Diese Message-ID wird verwendet um Requests und Responses einander
+  zuzuordnen und Nachrichtenwiederholungen zu erkennen.
+
+MID:
+  siehe :ref:`Message ID <MID>`.
+
 .. index:: ! Responder
 
 Responder:
