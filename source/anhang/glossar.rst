@@ -31,6 +31,15 @@ Beifang:
   untersuchte VPN betreffen, aber keinen nennenswerten Aussagewert für
   die Fehlersuche haben.
 
+.. index:: ! Child-SA
+   see: IPsec SA; Child-SA
+.. _Child-SA:
+
+Child-SA:
+  Als Child-SA werden die Security Associations für AH oder ESP
+  bezeichnet, die im Rahmen einer IKE-Sitzung ausgehandelt werden.
+  Hin und wieder wird dafür auch die Bezeichnung IPsec-SA verwendet.
+
 .. index:: ! Encapsulating Security Payload
    see: ESP; Encapsulating Security Payload
 .. _ESP:
@@ -85,6 +94,9 @@ Internet Security Assiociation and Key Management Protocol (ISAKMP):
   ISAKMP verwies bereits in RFC2408 auf :ref:`IKE <IKE>` für den
   Schlüsselaustausch. RFC7296 beschreibt die momentan aktuelle Version
   IKEv2 (siehe :cite:`RFC7296`).
+
+IPsec SA:
+  siehe :ref:`Child-SA <Child-SA>`
 
 ISAKMP:
   siehe

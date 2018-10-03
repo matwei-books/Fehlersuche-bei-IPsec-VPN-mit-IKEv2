@@ -307,6 +307,77 @@ fehlschlug und die IKE-SA trotzdem angelegt wurde:
 CREATE_CHILD_SA
 ---------------
 
+Der CREATE_CHILD_SA-Exchange wird zum Aushandeln neuer Child-SA
+zusätzlich zu der bei IKE_AUTH ausgehandelten sowie zum Rekeying sowohl
+der IKE-SA als auch aller Child-SA verwendet.
+
+Jeder der beiden Peers kann einen CREATE_CHILD_SA-Austausch initiieren,
+so dass man unterscheiden muss zwischen dem Initiator der IKE-Sitzung,
+der an den Flags im IKE-Header identifiziert werden kann und dem
+Initiator des CREATE_CHILD_SA-Austausches, der den Request mit der
+CREATE_CHILD_SA-Nachricht sendet. In diesem Abschnitt beziehen sich die
+Begriffe Initiator und Responder auf den jeweiligen
+CREATE_CHILD_SA-Austausch.
+
+.. index:: NO_ADDITIONAL_SAS
+   single: Fehlermeldung; NO_ADDITIONAL_SAS
+
+Es ist möglich, dass eine minimale Implementation keine weiteren außer
+der bei IKE_AUTH ausgehandelten Child-SA erlaubt. In diesem Fall sendet
+sie eine NO_ADDITIONAL_SAS-Benachrichtigung. Mit dieser Meldung kann
+auch das Rekeying zurückgewiesen werden.
+
+.. index:: INVALID_KE_PAYLOAD
+   single: Fehlermeldung; INVALID_KE_PAYLOAD
+
+Optional können mit den CREATE_CHILD_SA-Nachrichten frisches
+Schlüsselmaterial mit einer KE-Payload gesendet werden. In diesem Fall
+muss mindestens eines der Proposals die DH-Gruppe des Schlüsselmaterials
+enthalten. Wenn der Responder ein Proposal mit einer anderen DH-Gruppe
+wählt, muss er die Nachricht mit der Fehlermeldung INVALID_KE_PAYLOAD
+zurückweisen und die passende DH-Gruppe angeben.
+
+Neue Child-SA mit CREATE_CHILD_SA erzeugen
+..........................................
+
+.. todo:: Sequenzdiagramm für CREATE_CHILD_SA (RFC 7296, S. 14ff)
+
+Der Initiator sendet SA-Vorschläge in der SA-Payload, eine Nonce in der
+Ni-Payload, optional Schlüsselmaterial in der KEi-Payload und die
+Traffic-Selektoren für die vorgeschlagene Child-SA in der TSi- und
+TSr-Payload.
+
+Der Responder antwortet (mit der selben MID) mit dem akzeptierten
+Vorschlag in der SA-Payload einer Nonce in der Nr-Payload eine
+DH-Payload, DH-Schlüsselmaterial in der KEr-Payload falls der Initiator
+ebenfalls Schlüsselmaterial gesendet hatte und der gewählten
+kryptographischen Suite, die diese DH-Gruppe enthält.
+
+Die Traffic-Selektoren in der TSi- und TSr-Payload können eine Teilmenge
+der vorgeschlagenen Traffic-Selektoren sein.
+
+.. index:: USE_TRANSPORT_MODE, Transportmode
+
+Um für den Child-SA Transportmode zu vereinbaren, kann der Initiator die
+Benachrichtigung USE_TRANSPORT_MODE in den Request einfügen. Falls der
+Request akzeptiert wird, muss der Responder ebenfalls die Benachrichtigung
+USE_TRANSPORT_MODE in die Antwort einfügen. Falls der Responder diese
+Aufforderung zurückweist, wird der Child-SA im Tunnelmode etabliert. Ist
+das für den Initiator unakzeptabel, muss er den SA löschen.
+
+Ein fehlgeschlagener Versuch, eine Child-SA zu erzeugen sollte nicht zum
+Abbau der IKE-SA führen.
+
+Rekeying von IKE-SA mit CREATE_CHILD_SA
+.......................................
+
+.. todo:: Rekeying von IKE-SA (RFC 7296 S.16)
+
+Rekeying von Child-SA mit CREATE_CHILD_SA
+.........................................
+
+.. todo:: Rekeying von Child-SA (RFC 7296 S.16)
+
 .. index:: ! INFORMATIONAL
    single: Nachrichten; INFORMATIONAL
 
