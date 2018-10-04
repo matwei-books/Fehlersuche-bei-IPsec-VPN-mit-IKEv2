@@ -392,7 +392,46 @@ IKE-SA im Detail.
 Rekeying von Child-SA mit CREATE_CHILD_SA
 .........................................
 
-.. todo:: Rekeying von Child-SA (RFC 7296 S.16)
+.. todo:: Sequenzdiagramm zu Rekeying von Child-SA (RFC 7296 S.16)
+
+Der Initiator sendet SA-Vorschläge in der SA-Payload, eine Nonce in Ni,
+optional einen Diffie-Hellmann-Wert in KEi und die vorgeschlagenen
+Traffic-Selektoren für die neue Child-SA in TSi und TSr.
+
+.. index:: USE_TRANSPORT_MODE
+
+Die Benachrichtigungen, die beim Erzeugen von Child-SA versendet wurden,
+können ebenfalls beim Rekeying versendet werden. Üblicherweise sind das
+die gleichen Benachrichtigungen wie beim originalen Austausch, zum
+Beispiel wird beim Rekeying einer Transportmode-SA die Benachrichtigung
+USE_TRANSPORT_MODE verwendet.
+
+The REKEY_SA notification MUST be included in a CREATE_CHILD_SA
+   exchange if the purpose of the exchange is to replace an existing ESP
+   or AH SA.  The SA being rekeyed is identified by the SPI field in the
+   Notify payload; this is the SPI the exchange initiator would expect
+   in inbound ESP or AH packets.  There is no data associated with this
+   Notify message type.  The Protocol ID field of the REKEY_SA
+   notification is set to match the protocol of the SA we are rekeying,
+   for example, 3 for ESP and 2 for AH.
+
+.. index:: REKEY_SA
+
+Die REKEY_SA-Benachrichtigung muss in einem CREATE_CHILD_SA-Austausch
+enthalten sein, wenn dieser eine existierende ESP- oder AH-SA ersetzen
+soll. Die zu ersetzende SA wird durch das SPI-Feld dieser Notify-Payload
+identifiziert. Das ist die SPI, die der Exchange-Initiator in
+ankommenden ESP- oder AH-Datagrammen erwarten würde. Das Feld
+Protokoll-ID der REKEY_SA-Benachrichtigung ist passend zum Protokoll der
+SA, die ersetzt wird, zum Beispiel 3 für ESP oder 2 für AH.
+
+Der Responder antwortet mit dem akzeptierten Vorschlag in der
+SA-Payload, einer Nonce in Nr und einem Diffie-Hellman-Wert in KEr,
+falls KEi im Request enthalten war und die gewählte kryptografische
+Suite diese Gruppe enthält.
+
+Die Traffic-Selektoren für die SA sind in den TS-Payloads im Response
+und können eine Teilmenge dessen sein, was der Initiator vorschlug.
 
 .. index:: ! INFORMATIONAL
    single: Nachrichten; INFORMATIONAL
