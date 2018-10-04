@@ -371,7 +371,23 @@ Abbau der IKE-SA führen.
 Rekeying von IKE-SA mit CREATE_CHILD_SA
 .......................................
 
-.. todo:: Rekeying von IKE-SA (RFC 7296 S.16)
+.. todo:: Sequenzdiagramm zum Rekeying von IKE-SA (RFC 7296 S.16)
+
+Der Initiator sendet SA-Vorschläge in der SA-Payload, eine Nonce in Ni
+und den Diffie-Hellman-Wert in der KEi-Payload. Eine neue Initiator-SPI
+stellt er im SPI-Feld der SA-Payload bereit.
+
+Wenn ein Peer eine Aufforderung zum Rekeying erhält, sollte er keine
+neuen CREATE_CHILD_SA-Exchanges für diesen IKE-SA mehr starten.
+
+Der Responder antwortet mit der gleichen Message-ID mit dem akzeptierten
+SA-Vorschlag in der SA-Payload, einer Nonce in Nr und dem
+Diffie-Hellman-Wert in KEr, wenn die gewählte kryptographische Suite
+diese DH-Gruppe enthält. Außerdem sendet er eine neue Responder-SPI in
+der SA-Payload.
+
+Sektion 2.18 in RFC7296 (:cite:`RFC7296`) behandelt das Rekeying von
+IKE-SA im Detail.
 
 Rekeying von Child-SA mit CREATE_CHILD_SA
 .........................................
