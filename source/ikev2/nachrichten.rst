@@ -340,7 +340,11 @@ zurückweisen und die passende DH-Gruppe angeben.
 Neue Child-SA mit CREATE_CHILD_SA erzeugen
 ..........................................
 
-.. todo:: Sequenzdiagramm für CREATE_CHILD_SA (RFC 7296, S. 14ff)
+.. figure:: /images/create-child-sa.png
+   :alt: Sequenzdiagramm für CREATE_CHILD_SA-Exchange zum Erzeugen von
+         Child-SA
+
+   CREATE_CHILD_SA-Exchange zum Erzeugen von Child-SA
 
 Der Initiator sendet SA-Vorschläge in der SA-Payload, eine Nonce in der
 Ni-Payload, optional Schlüsselmaterial in der KEi-Payload und die
@@ -371,7 +375,11 @@ Abbau der IKE-SA führen.
 Rekeying von IKE-SA mit CREATE_CHILD_SA
 .......................................
 
-.. todo:: Sequenzdiagramm zum Rekeying von IKE-SA (RFC 7296 S.16)
+.. figure:: /images/create-child-sa-rekey-ike.png
+   :alt: Sequenzdiagramm für CREATE_CHILD_SA-Exchange zum Rekeying von
+         IKE
+
+   CREATE_CHILD_SA-Exchange zum Rekeying von IKE
 
 Der Initiator sendet SA-Vorschläge in der SA-Payload, eine Nonce in Ni
 und den Diffie-Hellman-Wert in der KEi-Payload. Eine neue Initiator-SPI
@@ -392,7 +400,11 @@ IKE-SA im Detail.
 Rekeying von Child-SA mit CREATE_CHILD_SA
 .........................................
 
-.. todo:: Sequenzdiagramm zu Rekeying von Child-SA (RFC 7296 S.16)
+.. figure:: /images/create-child-sa-rekey-child.png
+   :alt: Sequenzdiagramm für CREATE_CHILD_SA-Exchange zum Rekeying von
+         Child-SA
+
+   CREATE_CHILD_SA-Exchange zum Rekeying von Child-SA
 
 Der Initiator sendet SA-Vorschläge in der SA-Payload, eine Nonce in Ni,
 optional einen Diffie-Hellmann-Wert in KEi und die vorgeschlagenen
@@ -405,15 +417,6 @@ können ebenfalls beim Rekeying versendet werden. Üblicherweise sind das
 die gleichen Benachrichtigungen wie beim originalen Austausch, zum
 Beispiel wird beim Rekeying einer Transportmode-SA die Benachrichtigung
 USE_TRANSPORT_MODE verwendet.
-
-The REKEY_SA notification MUST be included in a CREATE_CHILD_SA
-   exchange if the purpose of the exchange is to replace an existing ESP
-   or AH SA.  The SA being rekeyed is identified by the SPI field in the
-   Notify payload; this is the SPI the exchange initiator would expect
-   in inbound ESP or AH packets.  There is no data associated with this
-   Notify message type.  The Protocol ID field of the REKEY_SA
-   notification is set to match the protocol of the SA we are rekeying,
-   for example, 3 for ESP and 2 for AH.
 
 .. index:: REKEY_SA
 

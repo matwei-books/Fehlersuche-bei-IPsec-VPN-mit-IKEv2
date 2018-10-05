@@ -1,0 +1,15 @@
+' diagram for IKEv2 CREATE_CHILD_SA
+'
+' Mathias Weidner, 2018
+
+@startuml
+
+hide footbox
+
+participant "Initiator" as I
+participant "Responder" as R
+
+I -> R: HDR,SK{SA,Ni[,KEi],TSi,TSr}
+R -> I: HDR,SK{SA,Nr[,KEr],TSi,TSr}
+
+@enduml
