@@ -2,10 +2,6 @@
 IKEv2 Nachrichten
 =================
 
-.. todo:: Message-ID
-   
-   RFC7296: 2.2 Use of Sequence Numbers for Message ID
-
 .. index:: Exchange
    see: Exchange; Nachrichten
 
