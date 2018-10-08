@@ -11,6 +11,10 @@ IMAGES = entscheidungsbaum-alternativ.png \
 	 ipsec-ike-datagram-gph.png \
 	 ipsec-ike-datagram-options.png \
 	 ipsec-overview.png \
+	 ipsec-sa-payload.png \
+	 ipsec-sa-payload-proposal.png \
+	 ipsec-sa-payload-transform.png \
+	 ipsec-sa-payload-transform-attribute.png \
 	 nat.png \
 	 vpn.png \
 	 vpn-mit-sonde.png \
