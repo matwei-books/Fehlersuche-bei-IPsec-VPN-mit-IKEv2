@@ -2,6 +2,13 @@
 Datagramm-Header
 ================
 
+Die genaue Kenntnis der Datagramm-Header und -Datenstrukturen ist mit
+den bei Wireshark, tcpdump oder *show capture ... decode* vorhandenen
+Dissektoren nicht unbedingt nötig.
+Mir hilft sie einerseits, zu verstehen in welchem Datagramm ich welche
+Information wo erwarten kann und andererseits die Debugmeldungen besser
+zu interpretieren wenn ich für eine Fehlersuche auf diese zurückgreife.
+
 .. index:: Datagramm-Header; IKE
 
 IKE Header
