@@ -176,6 +176,47 @@ Abschnitten 3.2 bis 3.16 von :cite:`RFC7296` beschrieben.
 Security Association Payload
 ----------------------------
 
+Mit der Security Association Payload (SA-Payload im Folgenden) werden die Attribute einer SA ausgehandelt.
+Sie kann mehrere Proposals enthalten.
+Tut sie es, müssen diese vom bevorzugten zum unbeliebtesten Proposal sortiert sein.
+Jedes Proposal enthält genau ein IPsec-Protokoll (IKE, ESP oder AH), jedes Protokoll kann mehrere Transforms enthalten und jedes Transform mehrere Attribute.
+Proposals, Transforms und Attribute haben - wie die Payload selbst - ihre eigene Struktur mit variabler Länge.
+Sie sind verschachtelt, so dass die Payload-Length einer SA den gesamten Umfang der Proposals, Transforms und Attribute umfasst.
+Die Länge eines Proposals umfasst die Länge aller enthaltenen Transforms und Attribute.
+Die Länge eines Transforms umfasst die Länge aller enthaltenen Attribute.
+
+.. todo:: Übersetzung 'standard crypto cipher' -> Standardchiffre verifizieren
+
+.. todo:: Übersetzung 'combined mode chiffre' -> kombinierte Chiffre verifizieren
+
+Die Proposals in der SA-Payload sind - beginnend bei 1 - durchnummeriert.
+Ein Initiator kann sowohl Standardchiffren als kombinierte Chiffren vorschlagen, muss dann aber verschiedene Proposals verwenden, da diese nicht im selben Proposal gemischt werden können.
+
+Jede Proposal-Struktur wird gefolgt von einer oder mehreren Transform-Strukturen.
+Die Anzahl der verschiedenen Transforms wird durch das Protokoll bestimmt.
+AH hat im Allgemeinen zwei Transforms: Extended Sequence Numbers (ESN) und den Algorithmus zur Integritätsprüfung.
+ESP hat im Allgemeinen drei: ESN, den Verschlüsselungsalgorithmus und den Algorithmus zur Integritätsprüfung.
+Bei IKE sind es vier: eine Diffie-Hellman-Gruppe, ein Algorithmus zur Integritätsprüfung, ein PRF-Algorithmus und ein Verschlüsselungsalgorithmus.
+
+Gibt es mehrere Transforms vom gleichen Typ, so gilt im Proposal die ODER-Verknüpfung der einzelnen Transforms.
+Gibt es mehrere Transforms mit verschiedenem Typ, so gilt die UND-Verknüpfung der einzelnen Transforms.
+Zum Beispiel bietet ein Proposal für ESP mit 3DES, AES-CBC, HMAC_MD5 und HMAC_SHA zwei Kandidaten mit Transform-Typ 1 (3DES, AES-CBC) und zweiKandidaten mit Transform-Typ 3 (HMAC_MD5, HMAC_SHA) an, was effektiv vier möglichen Kombinationen dieser Algorithmen entspricht.
+Will der Initiator nur ein Subset der vier Kombinationen anbieten, gibt es keine Möglichkeit, das in einem einzigen Proposal zu kodieren, er muss mehrere Proposals verwenden.
+
+Ein Transform kann ein oder mehrere Attribute haben, zum Beispiel die Schlüssellänge bei einem Verschlüsselungsalgorithmus mit variabler Schlüssellänge.
+Das Transform würde den Algorithmus spezifizieren und das Attribut die Schlüssellänge.
+Ein Transform darf nicht mehrere Attribute vom gleichen Typ haben.
+Um alternative Werte für ein Attribut vorzuschlagen, muss der Initiator mehrere Transforms vom gleichen Typ mit unterschiedlichen Attributen vorschlagen.
+
+Die Semantik von Transforms und Attributen unterscheidet sich zwischen IKEv1 und IKEv2.
+Bei IKEv1 konnte ein einzelnes Transform mehrere Algorithmen für ein Protokoll haben bei denen eines im Transform enthalten war und die anderen in den Attributen.
+
+.. figure:: /images/ipsec-sa-payload.png
+   :alt: SA-Payload aus RFC 7269, Abschnitt 3.3
+   :name: ipsec-sa-payload
+
+   Security Association Payload
+
 Die SA-Payload ist in :cite:`RFC7296`, Abschnitt 3.3 ausführlich
 beschrieben.
 
