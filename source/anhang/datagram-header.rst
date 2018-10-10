@@ -224,8 +224,79 @@ Bei IKEv1 konnte ein einzelnes Transform mehrere Algorithmen für ein Protokoll 
 
    Security Association Payload
 
-Die SA-Payload ist in :cite:`RFC7296`, Abschnitt 3.3 ausführlich
+Der Payload-Typ für Security Associations - zu finden im IKE-Header
+beziehungsweise im Feld *Next Payload* der vorhergehenden Payload - ist
+33.
+
+In :cite:`RFC7296`, Abschnitt 3.3 ist die SA-Payload ausführlich
 beschrieben.
+
+Proposal-Unterstrukturen
+........................
+
+.. figure:: /images/ipsec-sa-payload-proposal.png
+   :alt: Proposal-Unterstruktur einer SA-Payload aus RFC 7269, Abschnitt 3.3.1
+   :name: ipsec-sa-payload-proposal
+
+   Proposal-Unterstruktur
+
+Last Substruc (1 Oktett):
+  Gibt an, ob dieses das letzte Proposal ist oder nicht.
+  Das Feld hat den Wert 0, wenn es das letzte ist und den Wert 2, wenn
+  es noch mehr Proposals gibt.
+
+RESERVED (1 Oktett):
+  Muss auf 0 gesetzt werden, muss beim Empfang ignoriert werden
+
+Proposal Length (2 Oktetts, unsigned integer):
+  Die Länge dieses Proposals inklusive aller Transforms und Attribute.
+
+Proposal Num (1 Oktett):
+  Wenn Proposals gesendet werden, muss das erste die Nummer 1 haben und
+  die Nummern aller folgenden müssen jeweils um 1 größer sein als die
+  des vorhergehenden. Wenn ein Proposal angenommen wird, muss die zurück
+  gesendete Nummer der des akzeptierten Proposals entsprechen.
+
+Protocol ID (1 Oktett):
+  Spezifiziert das IPsec-Protokoll für das Proposal.
+
+  Die Werte der folgenden Tabelle entsprechen dem Stand von RFC 7296.
+  Die aktuell gültigen Werte finden sich in :cite:`IKEv2parameters`.
+
+  ======== ===========
+  Protocol Protocol ID
+  ======== ===========
+  IKE                1
+  AH                 2
+  ESP                3
+  ======== ===========
+
+SPI Size (1 Octett):
+  Bei einer initialen IKE-SA-Verhandlung muss das Feld 0 sein, es gilt
+  die SPI des äußeren Headers. In folgenden Verhandlungen ist es gleich
+  der Größe des SPI des entsprechenden Protokolls (8 für IKE, 4 für ESP
+  und AH)
+
+Num Transforms (1 Octett):
+  gibt die Anzahl der Transforms in diesem Proposal an.
+
+SPI (variabel):
+  Der SPI des Senders des Datagrams.
+  Wenn das Feld *SPI Size* 0 ist, fehlt dieses Feld.
+
+Transforms (variabel):
+  eine oder mehrere Transform-Unterstrukturen.
+
+Transform-Unterstruktur
+.......................
+
+.. figure:: /images/ipsec-sa-payload-transform.png
+   :alt: Transform-Unterstruktur einer SA-Payload aus RFC 7269, Abschnitt 3.3.2
+   :name: ipsec-sa-payload-transform
+
+   Transform-Unterstruktur
+
+
 
 .. todo:: SA-Payload
 
