@@ -231,7 +231,7 @@ beziehungsweise im Feld *Next Payload* der vorhergehenden Payload - ist
 In :cite:`RFC7296`, Abschnitt 3.3 ist die SA-Payload ausführlich
 beschrieben.
 
-Proposal-Unterstrukturen
+Proposal-Substrukturen
 ........................
 
 .. figure:: /images/ipsec-sa-payload-proposal.png
@@ -277,7 +277,7 @@ SPI Size (1 Octett):
   der Größe des SPI des entsprechenden Protokolls (8 für IKE, 4 für ESP
   und AH)
 
-Num Transforms (1 Octett):
+Num Transforms (1 Oktett):
   gibt die Anzahl der Transforms in diesem Proposal an.
 
 SPI (variabel):
@@ -287,7 +287,7 @@ SPI (variabel):
 Transforms (variabel):
   eine oder mehrere Transform-Unterstrukturen.
 
-Transform-Unterstruktur
+Transform-Substruktur
 .......................
 
 .. figure:: /images/ipsec-sa-payload-transform.png
@@ -296,7 +296,67 @@ Transform-Unterstruktur
 
    Transform-Unterstruktur
 
+Last Substruc (1 Oktett):
+  Gibt an, ob das das letzte Transform ist.
+  Das Feld hat den Wert 0, wenn es das letzte Transform ist und 3 sonst.
 
+RESERVED (1 Oktett):
+  Muss auf 0 gesetzt werden, muss beim Empfang ignoriert werden
 
-.. todo:: SA-Payload
+Transform Length:
+  Die Länge der Transform-Substruktur in Oktetts inklusive Header und
+  Attributes.
 
+Transform Type (1 Oktett):
+  Die Art des Transforms.
+  Einige Transforms können optional sein.
+  Wenn der Initiator vorschlagen will, dass ein optionales Transform
+  weggelassen wird, sendet er es nicht im Proposal. Will der Initiator
+  die Verwendung optional für den Responder machen, sendet er eine
+  Transform-Substruktur mit Transform ID = 0.
+
+  Die Werte der folgenden Tabelle entsprechen dem Stand von RFC 7296.
+  Die aktuell gültigen Werte finden sich in :cite:`IKEv2parameters`.
+
+  =============================== ======= ==========================
+  Beschreibung                    Trans.  Verwendet in
+                                   Type
+  =============================== ======= ==========================
+  Encryption Algorithm (ENCR)     1       IKE and ESP
+  Pseudorandom Function (PRF)     2       IKE
+  Integrity Algorithm (INTEG)     3       IKE*, AH, optional in ESP
+  Diffie-Hellman Group (D-H)      4       IKE, optional in AH & ESP
+  Extended Sequence Numbers (ESN) 5       AH and ESP
+  =============================== ======= ==========================
+
+  (*) Das Aushandeln eines Intigritätsalgorithmus (INTEG) ist
+  verbindlich für die in RFC 7296 spezifizierten verschlüsselten
+  Payloads. :cite:`RFC5282` zum Beispiel spezifiziert zusätzliche
+  Formate, die auf authentisierter Verschlüsselung beruhen und in denen
+  kein separater Integritätsalgorithmus ausgehandelt wird.
+
+Transform ID (2 Oktetts):
+  Die spezifische Instanz des Transform Type der vorgeschlagen wird.
+
+Für Transform Type 1 sind die Transform-ID in nachfolgender Tabelle
+aufgelistet.  Die Werte der Tabelle entsprechen dem Stand von RFC 7296.
+Die aktuell gültigen Werte finden sich in :cite:`IKEv2parameters`.
+
+Name           Nummer Definiert in
+-------------- ------ -----------------------------
+ENCR_DES_IV64  1      (UNSPECIFIED)
+ENCR_DES       2      :cite:`RFC2405`, [DES]
+ENCR_3DES      3      :cite:`RFC2451`
+ENCR_RC5       4      :cite:`RFC2451`
+ENCR_IDEA      5      :cite:`RFC2451`, [IDEA]
+ENCR_CAST      6      :cite:`RFC2451`
+ENCR_BLOWFISH  7      :cite:`RFC2451`
+ENCR_3IDEA     8      (UNSPECIFIED)
+ENCR_DES_IV32  9      (UNSPECIFIED)
+ENCR_NULL      11     :cite:`RFC2410`
+ENCR_AES_CBC   12     :cite:`RFC3602`
+ENCR_AES_CTR   13     :cite:`RFC3686`
+
+.. todo:: BibTeX für [DES] und [IDEA] (Referenzen aus RFC7296)
+
+.. todo:: SA-Payload (weiter ab RFC7296 S.83)
