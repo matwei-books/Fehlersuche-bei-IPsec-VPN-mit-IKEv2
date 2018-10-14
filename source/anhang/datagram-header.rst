@@ -261,7 +261,6 @@ Protocol ID (1 Oktett):
   Spezifiziert das IPsec-Protokoll für das Proposal.
 
   Die Werte der folgenden Tabelle entsprechen dem Stand von RFC 7296.
-  Die aktuell gültigen Werte finden sich in :cite:`IKEv2parameters`.
 
   ======== ===========
   Protocol Protocol ID
@@ -316,7 +315,6 @@ Transform Type (1 Oktett):
   Transform-Substruktur mit Transform ID = 0.
 
   Die Werte der folgenden Tabelle entsprechen dem Stand von RFC 7296.
-  Die aktuell gültigen Werte finden sich in :cite:`IKEv2parameters`.
 
   =============================== ======= ==========================
   Beschreibung                    Trans.  Verwendet in
@@ -338,12 +336,12 @@ Transform Type (1 Oktett):
 Transform ID (2 Oktetts):
   Die spezifische Instanz des Transform Type der vorgeschlagen wird.
 
-Für Transform Type 1 sind die Transform-ID in nachfolgender Tabelle
+Für Transform-Typ 1 sind die Transform-ID in nachfolgender Tabelle
 aufgelistet.  Die Werte der Tabelle entsprechen dem Stand von RFC 7296.
-Die aktuell gültigen Werte finden sich in :cite:`IKEv2parameters`.
 
+============== ====== =============================
 Name           Nummer Definiert in
--------------- ------ -----------------------------
+============== ====== =============================
 ENCR_DES_IV64  1      (UNSPECIFIED)
 ENCR_DES       2      :cite:`RFC2405`, [DES]
 ENCR_3DES      3      :cite:`RFC2451`
@@ -356,7 +354,85 @@ ENCR_DES_IV32  9      (UNSPECIFIED)
 ENCR_NULL      11     :cite:`RFC2410`
 ENCR_AES_CBC   12     :cite:`RFC3602`
 ENCR_AES_CTR   13     :cite:`RFC3686`
+============== ====== =============================
 
 .. todo:: BibTeX für [DES] und [IDEA] (Referenzen aus RFC7296)
 
-.. todo:: SA-Payload (weiter ab RFC7296 S.83)
+Die folgende Tabelle listet die Transform-ID für Transform-Typ 2
+(Pseudorandom Function, PRF) mit Stand von RFC 7296.
+
+============== ====== ==================================
+Name           Nummer Definiert in
+============== ====== ==================================
+PRF_HMAC_MD5   1      :cite:`RFC2104`, [MD5]
+PRF_HMAC_SHA1  2      :cite:`RFC2104`, [FIPS.180-4.2012]
+PRF_HMAC_TIGER 3      (UNSPECIFIED)
+============== ====== ==================================
+
+.. todo:: BibTeX für [MD5] und [FIPS.180-4.2012] (Referenzen aus RFC7296)
+
+Die definierten Werte für die Transform-ID für Transform-Typ 3
+(Integrity Algorithm) mit Stand von RFC 7296 listet die folgende Tabelle.
+
+================= ====== ===============
+Name              Nummer Definiert in
+================= ====== ===============
+NONE              0
+AUTH_HMAC_MD5_96  1      :cite:`RFC2403`
+AUTH_HMAC_SHA1_96 2      :cite:`RFC2404`
+AUTH_DES_MAC      3      (UNSPECIFIED)
+AUTH_KPDK_MD5     4      (UNSPECIFIED)
+AUTH_AES_XCBC_96  5      :cite:`RFC3566`
+================= ====== ===============
+
+Für den Transform-Typ 4 (Diffie-Hellman-Gruppe) listet die folgende
+Tabelle die Transform-ID mit Stand von RFC 7296.
+
+=================== ======= =======================
+Name                Nummer  Definiert in
+=================== ======= =======================
+NONE                0
+768-bit MODP Group  1       Appendix B von RFC 7296
+1024-bit MODP Group 2       Appendix B von RFC 7296
+1536-bit MODP Group 5       [ADDGROUP]
+2048-bit MODP Group 14      [ADDGROUP]
+3072-bit MODP Group 15      [ADDGROUP]
+4096-bit MODP Group 16      [ADDGROUP]
+6144-bit MODP Group 17      [ADDGROUP]
+8192-bit MODP Group 18      [ADDGROUP]
+=================== ======= =======================
+
+.. todo:: BibTeX für [ADDGROUP] (Referenzen aus RFC7296)
+
+Obwohl ESP und AH einen Diffie-Hellman-Austausch nicht direkt enthalten,
+kann dieser für die Child-SA ausgehandelt werden. Damit kann Perfect
+Forward Secrecy für die Child-SA-Schlüssel gewährleistet werden.
+
+Die aufgelisteten MODP Diffie-Hellman-Gruppen benötigen keine speziellen
+Gültigkeitstests. Andere DH-Gruppen können zusätzliche Tests benötigen, um
+sie sicher zu verwenden. Weitere Informationen zu diesem Thema finden sich
+in :cite:`RFC6989`.
+
+Die für Transform-Typ 5 (Extendend Sequence Numbers) definierten
+Transform-ID mit Stand von RFC7296 sind in der folgenden Tabelle
+gelistet.
+
+============================ ======
+Name                         Nummer
+============================ ======
+No Extended Sequence Numbers 0
+Extended Sequence Numbers    1
+============================ ======
+
+Ein Initiator der ESN unterstützt wird üblicherweise zwei ESN-Transforms
+verwenden, mit den Werten "0" und "1" in seinen Proposals. Ein Proposal
+dass einen einzigen ESN-Transform mit dem Wert "1" enthält bedeutet,
+dass die Verwendung von normalen (nicht erweiterten) Sequenznummern
+nicht akzeptabel ist.
+
+Seit der Veröffentlichung von RFC 4306, auf die sich alle in RFC 7296
+gelisteten Transform-ID beziehen, wurden zahlreiche weitere
+Transform-Typen definiert. Bitte beziehen sie sich auf die IANA Registry
+"Internet Key Exchange Version 2 (IKEv2) Parameters"
+:cite:`IKEv2parameters` für Details.
+
