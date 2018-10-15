@@ -438,3 +438,54 @@ und können eine Teilmenge dessen sein, was der Initiator vorschlug.
 INFORMATIONAL
 -------------
 
+Zum Senden von Steuernachrichten über Fehlerbedingungen oder bestimmte
+Ereignisse dienen INFORMATIONAL-Nachrichten. Diese dürfen erst nach dem
+initialen Austausch gesendet werden, kryptografisch geschützt durch die
+ausgehandelten Schlüssel.
+
+Die Nachrichten in einem INFORMATIONAL-Exchange enthalten keine, eine
+oder mehrere Notification-, Delete- oder Configuration-Payloads. Der
+Empfänger muss eine Antwort senden, ansonsten nimmt der Sender an, dass
+die Nachricht verloren ging und wiederholt sie. Die Antwort kann eine
+leere Nachricht sein. Auch die INFORMATIONAL-Anfrage kann leer sein. Auf
+diese Art kann ein Peer den anderen befragen, ob er noch am Leben ist.
+
+Die Verarbeitung eines INFORMATIONAL-Austauschs wird durch die
+gesendeten Payloads bestimmt.
+
+Eine SA löschen
+...............
+
+ESP- und AH-SA existieren immer paarweise, mit einer SA in jeder
+Richtung. Wenn eine SA geschlossen wird, müssen immer beide SA des
+Paares geschlossen (das heißt gelöscht) werden.
+Jeder Endpunkt muss sein ankommende SA löschen und dem Peer erlauben,
+dessen ankommende SA dieses Paares zu löschen.
+Um eine SA zu löschen, sendet ein Peer eine INFORMATIONAL-Nachricht mit
+einer oder mehreren Delete-Payloads, die die zu löschenden SA angeben.
+Der Empfänger muss die angegebenen SA schließen.
+Es werden niemals Delete-Payloads für beide Seiten einer SA in einer
+INFORMATIONAL-Nachricht gesendet.
+Wenn mehrere SA zur selben Zeit gelöscht werden sollen, sendet man
+Delete-Payloads für die ankommende Hälfte der SAs.
+
+Normalerweise werden INFORMATIONAL-Nachrichten mit Delete-Payloads
+beantwortet mit Delete-Payloads für die andere Richtung.
+Wenn zufälligerweise beide Peers zur gleichen Zeit entscheiden ein Paar
+von SAs zu schließen und sich die Requests kreuzen, ist es möglich, dass
+die Responses keine Delete-Payloads enthalten.
+
+Ahnlich den ESP- und AH-SA werden auch IKE-SA mit Delete-Payloads
+geschlossen, wobei noch verbliebene Child-SA ebenfalls mit geschlossen
+werden.
+Die Antwort auf einen Request, der eine IKE-SA löscht, ist eine leere
+INFORMATIONAL-Nachricht.
+
+Halbgeschlossene ESP- oder AH-Verbindungen sind regelwidrig.
+Ein Peer kann ankommende Daten für eine halbgeschlossene SA ablehnen und
+darf nicht einseitig eine SA schließen und die andere Hälfte des Paares
+weiter verwenden.
+Wenn eine Verbindung genügend verhunzt ist, kann ein Peer die IKE-SA
+schließen und anschließend eine neue IKE-SA mit den nötigen Child-SA
+erzeugen.
+
