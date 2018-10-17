@@ -438,6 +438,8 @@ und können eine Teilmenge dessen sein, was der Initiator vorschlug.
 INFORMATIONAL
 -------------
 
+.. todo:: Sequenzdiagramm für INFORMATIONAL (s. RFC 7296, Abschnitt C.6.)
+
 Zum Senden von Steuernachrichten über Fehlerbedingungen oder bestimmte
 Ereignisse dienen INFORMATIONAL-Nachrichten. Diese dürfen erst nach dem
 initialen Austausch gesendet werden, kryptografisch geschützt durch die
@@ -489,3 +491,46 @@ Wenn eine Verbindung genügend verhunzt ist, kann ein Peer die IKE-SA
 schließen und anschließend eine neue IKE-SA mit den nötigen Child-SA
 erzeugen.
 
+INFORMATIONAL-Nachrichten außerhalb von IKE-SA
+..............................................
+
+Es gibt Fälle, in denen ein Knoten Datagramme erhält, die er nicht
+verarbeiten kann, bei denen er seinen Peer aber darüber unterrichten
+will:
+
+* Wenn ein ESP- oder AH-Datagramm ankommt, dessen SPI der Empfänger
+  nicht kennt.
+* Wenn ein verschlüsseltes IKE-Datagramm mit unbekannter SPI ankommt.
+* Wenn ein IKE-Datagramm mit einer höheren Version ankommt, als die
+  aktuell verwendete Software unterstützt.
+
+.. index:: INVALID_SPI
+   single: Fehlermeldung; INVALID_SPI
+
+Im ersten Fall kann der Empfänger, wenn er eine aktive IKE-SA zum Sender
+unterhält, über diese eine INVALID_SPI-Benachrichtigung über das empfangene
+Datagramm in einem INFORMATIONAL-Austausch senden. Die
+Benachrichtigungsdaten enthalten dann die unbekannte SPI.
+Wenn keine aktive IKE-SA existiert kann der Knoten eine INFORMATIONAL-Nachricht ohne
+kryptografischen Schutz an den Absender schicken, wobei er die Adressen
+und Portnummer des angekommenen Datagramms nimmt und jeweils Absender
+und Empfänger vertauscht. Der Empfänger dieser INFORMATIONAL-Nachricht
+sollte diese nur als Hinweis ansehen, dass etwas schiefgegangen ist
+(weil diese Nachricht sehr leicht gefälscht werden kann). Auf keinen
+Fall darf der Empfänger der INFORMATIONAL-Nachricht auf diese antworten.
+Diese Nachricht wird wie folgt konstruiert: da der Empfänger keine SPI
+für diese Nachricht hat, sind sowohl 0 als auch zufällige Werte für die
+Initiator-SPI akzeptabel, das Initiator-Flag wird auf 1 gesetzt, das
+Response-Flag auf 0.
+
+.. index:: INVALID_IKE_SPI, INVALID_MAJOR_VERSION
+   single: Fehlermeldung; INVALID_IKE_SPI
+   single: Fehlermeldung; INVALID_MAJOR_VERSION
+
+Im zweiten und dritten Fall wird die Nachricht immer ohne
+kryptografischen Schutz gesendet und enthält entweder eine
+INVALID_IKE_SPI- oder INVALID_MAJOR_VERSION-Benachrichtigung (ohne
+weitere Daten). Die Nachricht ist eine Antwort und wird dahin gesendet,
+woher sie kam, mit den gleichen IKE-SPI wobei Message-ID und
+Exchange-Typ aus dem Request kopiert werden. Das Response-Flag wird auf
+1 gesetzt.
