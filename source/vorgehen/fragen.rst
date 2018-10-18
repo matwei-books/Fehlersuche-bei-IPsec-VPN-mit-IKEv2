@@ -81,6 +81,15 @@ willkürlich hervorrufen kann, indem ich die dafür nötigen Umstände
 herbeiführe. Dann bedeutet "jetzt": unter diesen Umständen. Das brauche
 ich, um am Ende zeigen zu können, dass das Problem behoben ist.
 
+Die Antworten auf diese Frage bekomme ich mitunter aus der
+entsprechenden Problemmeldung oder dem Ticket, manchmal auch aus den
+Logs oder einem Paketmitschnitt.
+Oft muss ich nachfragen, via E-Mail, Rückfrage im Ticket, Anruf oder
+persönlichem Gespräch.
+Welcher Weg am besten passt ist von Fall zu Fall verschieden.
+Wichtig ist, dass ich das Problem erkenne und idealerweise zu
+Testzwecken selbst hervorrufen kann.
+
 Ich habe schon Problemmeldungen geschlossen, weil da kein Problem war,
 als ich nachschaute. Und ich bin `nicht der
 einzige <https://xkcd.com/583/>`__. Die beste `Fehlersuche geht ins
