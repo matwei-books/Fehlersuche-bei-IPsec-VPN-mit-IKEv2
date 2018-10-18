@@ -438,7 +438,23 @@ und können eine Teilmenge dessen sein, was der Initiator vorschlug.
 INFORMATIONAL
 -------------
 
-.. todo:: Sequenzdiagramm für INFORMATIONAL (s. RFC 7296, Abschnitt C.6.)
+.. figure:: /images/informational.png
+   :alt: Sequenzdiagramm für INFORMATIONAL-Exchange
+
+   INFORMATIONAL-Exchange
+
+Die Abkürzungen stehen für folgende Informationen:
+
+*HDR*
+  IKE header
+*SK{...}*
+  der Inhalt in geschweiften Klammern ist verschlüsselt
+*N+*
+  keine, eine oder mehrere Benachrichtigungen
+*D+*
+  keine, eine oder mehrere Löschaufforderungen
+*CP+*
+  keine, eine oder mehrere Konfigurationsinformationen
 
 Zum Senden von Steuernachrichten über Fehlerbedingungen oder bestimmte
 Ereignisse dienen INFORMATIONAL-Nachrichten. Diese dürfen erst nach dem
