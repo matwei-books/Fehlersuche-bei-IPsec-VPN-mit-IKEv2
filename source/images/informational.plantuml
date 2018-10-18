@@ -1,0 +1,15 @@
+' diagram for IKEv2 INFORMATIONAL
+'
+' Mathias Weidner, 2018
+
+@startuml
+
+hide footbox
+
+participant "Initiator" as I
+participant "Responder" as R
+
+I -> R: HDR,SK{[N,][D,][CP,]...}
+R -> I: HDR,SK{[N,][D,][CP,]...}
+
+@enduml
