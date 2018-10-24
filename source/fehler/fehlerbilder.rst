@@ -108,5 +108,47 @@ betreffenden Administratoren in's Boot holen.
 VPN-Tunnel aber kein Traffic
 ----------------------------
 
+Habe ich mich davon überzeugt, dass  IKE- und IPsec-SA (für ESP oder AH)
+zum Peer aufgebaut werden, schaue ich als nächstes ob durch die
+zugehörigen Tunnel auch Daten ausgetauscht werden, das heißt, ob die
+Traffic-Counter hochzählen.
+
+Stehen die Counter einige Zeit nach dem Einrichten der IPsec SA immer
+noch auf 0, muss ich nachschauen, woran es liegt.
+
+Dazu ist es nützlich, zu wissen, welche Seite die Verbindungen durch den
+Tunnel aufbaut, das heißt bei TCP das erste Datagramm mit SYN-Flag
+sendet. Auf dieser Seite schaue ich zuerst nach.
+
+Kommt dieser interessante Traffic vom Peer, schaue ich mit einem
+Packet-Capture auf der Outside, ob außer den IKE-Datagrammen für den
+Aufbau und die Pflege des Tunnels auch ESP- oder AH-Datagramme
+auftauchen.
+Sehe ich diese Datagramme nicht, kann ich das Problem delegieren und den
+Peer bitten, den entsprechenden Traffic zu schicken.
+
+Sehe ich hingegen ESP- oder AH-Datagramme, kann ich auf der Inside
+nachschauen, ob entsprechender unverschlüsselter Traffic herauskommt.
+Das würde allerdings nicht dem aktuellen Fehlerbild entsprechen, weil
+dann auch der Traffic-Counter mit Sicherheit hochzählen würde.
+
+Kommt verschlüsselter Traffic auf der Outside an, ohne dass auf der
+Inside entsprechende Datagramme hinausgehen, muss ich auf meinem
+VPN-Gateway suchen, wo die Datagramme bleiben.
+
+Eine mögliche Ursache ist, dass der SPI der ankommenden Datagramme auf
+eine IPsec-SA verweist, die auf meinem VPN-Gateway nicht vorhanden ist,
+so dass die Datagramme nicht entschlüsselt werden können.
+In diesem Fall würde ich vermutlich eine entsprechende Meldung in den
+Logs finden und im Packet-Capture eventuell IKE-Datagramme mit
+INFORMATIONAL-Nachrichten, die nicht als Paar (Request und Response)
+auftreten.
+
+Ein andere mögliche Ursache ist, dass die IP-Adressen der Datagramme,
+die verschlüsselt ankommen, nicht zu den Traffic-Selektoren der
+betreffenden IPsec-SA passen.
+In diesem Fall verwerfen etliche VPN-Gateways (z.B. Cisco ASA) die
+Datagramme und schreiben einen entsprechende Meldung in das Systemlog.
+
 Traffic nur in einer Richtung
 -----------------------------
