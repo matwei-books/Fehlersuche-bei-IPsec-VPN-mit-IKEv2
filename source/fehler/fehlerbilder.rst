@@ -117,8 +117,9 @@ Stehen die Counter einige Zeit nach dem Einrichten der IPsec SA immer
 noch auf 0, muss ich nachschauen, woran es liegt.
 
 Dazu ist es nützlich, zu wissen, welche Seite die Verbindungen durch den
-Tunnel aufbaut, das heißt bei TCP das erste Datagramm mit SYN-Flag
-sendet. Auf dieser Seite schaue ich zuerst nach.
+Tunnel aufbaut, das heißt bei TCP, welche Seite das erste Datagramm mit
+SYN-Flag sendet.
+Auf dieser Seite schaue ich zuerst nach.
 
 Kommt dieser interessante Traffic vom Peer, schaue ich mit einem
 Packet-Capture auf der Outside, ob außer den IKE-Datagrammen für den
@@ -150,5 +151,70 @@ betreffenden IPsec-SA passen.
 In diesem Fall verwerfen etliche VPN-Gateways (z.B. Cisco ASA) die
 Datagramme und schreiben einen entsprechende Meldung in das Systemlog.
 
+Wenn alles nicht hilft, muss ich eskalieren und mir Hilfe zu diesem
+Problem suchen.
+
+Erwarte ich den interessanten Traffic auf der Inside, prüfe ich dort mit
+einem Packet Capture, ob er auch wirklich ankommt.
+Kommt er nicht, handelt es sich um ein - aus Sicht des
+VPN-Administrators - externes Problem, dass ich delegieren kann, wenn
+ich nicht selbst auch für das interne Netz zuständig bin.
+
+Sehe ich den Traffic auf der Inside ankommen, aber keinen adäquaten
+verschlüsselten Traffic auf der Outside abgehen, muss ich die
+Konfiguration meines VPN-Gateways noch einmal genau prüfen und mir
+gegebenenfalls Hilfe holen.
+
+Bei der Cisco ASA kann ich den Traffic, der auf Inside ankommen soll mit
+dem Befehl ``packet-tracer`` simulieren, und bekomme dann die einzelnen
+Phasen angezeigt, die ein Datagramm von Inside nach Outside durchläuft.
+Das kann schon einen Hinweis auf die Stelle geben, an der ich genauer
+hinschauen sollte.
+
+Generell ist es von Vorteil, wenn mir die VPN-Konfiguration zur Prüfung
+als Text vorliegt, weil ich darin mit einem guten Editor oder auch schon
+mit dem Pager *less* sehr gut navigieren kann und interessante Stellen
+schnell finde.
+Auch eine Suche mit *grep* fördert oft interessante Erkenntnisse aus
+einer Konfiguration in Textform zutage.
+
 Traffic nur in einer Richtung
 -----------------------------
+
+Sehe ich IKE- und Child-SA mit Traffic, wobei der Traffic-Counter nur in
+einer Richtung hochzählt, kann ich in den meisten Fällen davon ausgehen,
+dass die VPN-Konfiguration in Ordnung ist.
+
+Trotzdem muss ich mich vergewisseren, dass der gezählte Traffic auch
+wirklich mein VPN-Gateway verlässt.
+Das heißt, ich schaue mit einem Packet-Capture auf der Inside oder
+Outside nach, ob ich dort Klartext- oder verschlüsselte Datagramme in
+der entsprechenden Anzahl abgehen sehe, die der Zähler angibt.
+Bei dieser Gelegenheit sehe ich auch, ob auf der gleichen Seite
+passende Datagramme in der Gegenrichtung ankommen.
+
+Kommen keine Datagramme in der Gegenrichtung an, kann ich das Problem
+delegieren, es liegt in der Richtung, aus der die Datagramme kommen
+müssen.
+
+Sehe ich allerdings Datagramme in der Gegenrichtung, muss ich mein
+VPN-Gateway untersuchen.
+Dazu muss ich den Debug-Level soweit hochdrehen, bis Hinweise auf die
+ankommenden Datagramme ausgegeben werden.
+Das erzeugt im Allgemeinen sehr viel Text, den ich mit einem guten
+Editor, mit *less* oder mit im Laufe der Zeit entstandenen Skripten
+auswerten kann.
+
+Kommen die Datagramme verschlüsselt vom VPN-Peer, kann ich zum Beispiel
+nachschauen, ob ich eine zum Datagramm passende SA in der SA-Datenbank
+finde. Der SA, den ich suche, steht ganz von im ESP- oder AH-Header.
+
+Kommen die Datagramme auf der Inside, kann ich die Konfiguration nach
+ACL, NAT- und Firewall-Regeln absuchen, die die Adressen des Datagramms
+umfassen und dabei immer größere Netzmasken betrachten. Finde ich
+mehrere Regeln, muss ich die Reihenfolge betrachten, in der die
+Regeln wirksam werden.
+
+VPN funktioniert, aber kein Dateitransfer möglich
+-------------------------------------------------
+
