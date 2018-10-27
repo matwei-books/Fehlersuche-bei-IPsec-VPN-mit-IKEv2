@@ -215,6 +215,139 @@ umfassen und dabei immer größere Netzmasken betrachten. Finde ich
 mehrere Regeln, muss ich die Reihenfolge betrachten, in der die
 Regeln wirksam werden.
 
-VPN funktioniert, aber kein Dateitransfer möglich
--------------------------------------------------
+VPN funktioniert, aber Dateitransfer nicht
+------------------------------------------
+
+Ein Problem, dass nur hin und wieder auftritt, aber beim ersten mal
+etwas Mühe macht, die Ursache zu erkennen, ist das folgende.
+
+Beim Test des VPNs "funktioniert" scheinbar alles, alle Child-SA gehen
+auf, die Testverbindungen zu den Endsystemen funktionieren.
+Trotzem melden die Anwender, dass manchmal oder immer bei bestimmten
+Aktionen die Verbindung hängt oder gar abbricht.
+
+Schaut man sich die Verbindungen im Packet Capture an, sieht
+oberflächlich alles in Ordnung aus.
+
+Tatsächlich unterscheiden sich die Captures in einem wesentlichen Punkt,
+abhängig davon, bei welchem Peer man die Datagramme mitschneidet.
+Bei einem Peer gehen große Datagramme in das VPN hinein, werden aber vom
+Peer nicht beantwortet.
+Beim anderen Peer kommen eben diese großen Datagramme nicht an.
+
+Der eine oder andere wird sich jetzt vielleicht denken, worum es geht.
+Vergleicht aber bitte die Situation bei beiden Peers und denkt daran,
+dass dem VPN-Administrator in vielen Fällen nur eines dieser beiden
+Captures zur Verfügung steht.
+
+Was passiert, ist, dass die Path-MTU zwischen beiden Gateways zu klein
+ist für die großen Datagramme, so dass diese nicht beim anderen Peer
+ankommen.
+Normalerweise fängt Path-MTU-Discovery dieses Problem ab, in diesem Fall
+funktioniert das aber nicht, sonst würden die IP-Stacks der Endgeräte
+die Datagrammgröße automatisch begrenzen.
+
+An einer Stelle im Netz zwischen den beiden VPN-Gateways ist die MTU
+kleiner als die MTU unmittelbar an den Geräten (meist 1500 Bytes).
+
+Das ist die Ursache, aber normalerweise würde Path-MTU-Discovery das
+Problem entschärfen.
+Wenn idese nicht funktioniert, kommen folgende Möglichkeiten in
+Betracht:
+
+1. Die ICMP-Fehlermeldungen gelangen nicht zum VPN-Gateway, das die
+   großen Datagramme sendet.
+
+   Das kann ich mit einem Packet-Capture an der Outside überprüfen,
+   indem ich nach ICMP-Datagrammen vom Typ 3, Code 4
+   (Fragmentierung nötig, Don’t Fragment aber gesetzt) filtere.
+
+2. Die ICMP-Fehlermeldungen kommen an der Outside an, aber das VPN
+   übersetzt sie nicht für den Datenstrom auf der Inside.
+
+   Das kann ich mit einem Packet-Capture an der Inside auf die gleiche
+   Art wie in Punkt 1. überprüfen.
+
+3. Das VPN-Gateway setzt die ICMP-Nachrichten um, aber diese kommen
+   nicht beim Endgerät an.
+
+   Das kann ich mit einem Packet-Capture am Endgerät verifizieren.
+
+4. Die Host-Firewall des Endgerätes verwirft die ICMP-Nachrichten.
+
+   Das kann ich durch temporäres Abschalten der Host-Firewall
+   verifizieren.
+   
+Am passiven Ende des VPNs, also auf der Seite, wo die großen Datagramme
+nicht ankommen, kann ich nicht viel machen.
+Da aber jede der beiden Seiten prinzipiell große Datagramme senden kann,
+kann ich obige Prüfungen auch hier vornehmen, wenn ich große Datagramme
+(zum Beispiel mit PING) in das VPN senden kann.
+
+Auf der aktiven Seite prüfe ich die vier genannten Punkte, um wenn
+möglich Path-MTU-Discovery wieder gangbar zu machen.
+
+Bei Punkt 1 kann ich nur etwas machen, wenn ich Einfluß auf die Stelle
+nehmen kann, an der die ICMP-Datagramme verworfen oder gar nicht erst
+generiert werden.
+Verworfen werden sie meist von einem Paketfilter, den ein übereifriger
+unerfahrener Administrator zu eng eingestellt hat.
+Hier habe ich manchmal die Chance, Einfluss zu nehmen, wenn der
+Paketfilter meiner Organisation gehört.
+Generiert werden die ICMP-Nachrichten üblicherweise von dem Router oder
+Gateway, an dessen abgehendem Interface die MTU kleiner ist als das
+angekommene Datagramm.
+Dieses Gateway lässt sich eventuell mit Traceroute und Ping ermitteln.
+
+Bei Punkt 2 muss ich vielleicht die Konfiguration meines VPN-Gateways
+ändern oder eine neuere Software-Version einspielen.
+Gegebenenfalls muss ich mich beim Hersteller erkundigen.
+Prinzipiell ist es möglich, aus dem mit der ICMP-Fehlermeldung
+gesendeten Anfang des Datagramms das zugehörige Klartext-Datagramm zu
+ermitteln und damit eine geeignete ICMP-Fehlermeldung für den Sender auf
+der Inside zu generieren.
+Allerdings unterstützt das nicht jede IPsec-Software in jeder Version
+und manchmal ist das Feature auch deaktiviert, weil es zusätzliche
+Ressourcen am VPN-Gateway benötigt.
+
+Punkt 3 wird ähnlich behandelt wie Punkt 1, hier habe ich vielleicht
+eher eine Chance Einfluss auf die Konfiguration des betreffenden
+Paketfilters zu nehmen.
+
+Bei Punkt 4 muss eine geeignete Ausnahmeregel auf der Host-Firewall
+eingerichtet werden.
+
+.. note::
+
+   Bei manchen modernen Betriebssystemen kann der TCP-Stack automatisch
+   die Datagrammgröße herunterregeln, wenn große Datagramme nicht
+   bestätigt werden.
+   Oft wird dann automatisch eine obere Grenze von etwa 700 Byte
+   eingestellt.
+
+   In diesem Fall wird das Problem manchmal gar nicht bemerkt, weil die
+   Verbindung nur kurz stockt und dann weiter funktioniert.
+
+   Hier habe ich aber für die großen Datagramme einen bis zu doppelten
+   Overhead an Protokolldaten, wodurch die Effizienz der
+   Datenübertragung leidet.
+
+Kann ich Path-MTU-Discovery nicht reparieren, bleiben mir noch zwei
+Möglichkeiten:
+
+a) Für TCP-Verbindungen kann ich mit MSS-Clamping die maximale
+   Datagrammgröße beschränken.
+
+   Das VPN-Gateway macht sowieso automatisch MSS-Clamping um den
+   Protokoll-Overhead für IPsec zu berücksichtigen.
+   Diesen automatisch eingestellten Wert müsste ich per Konfiguration
+   noch kleiner machen.
+
+b) An den Endgeräten kann ich die MTU des entsprechenden
+   Netzwerk-Interfaces reduzieren.
+   Das wirkt sich allerdings auf alle Datenübetragungen des Endgerätes
+   aus und sollte nur als allerletztes Mittel verwendet werden.
+
+Beide Möglichkeiten führen auch für andere Verbindungen zu einem
+ungünstigeren Verhältnis von Nutzdaten zu Protokoll-Overhead.
 
