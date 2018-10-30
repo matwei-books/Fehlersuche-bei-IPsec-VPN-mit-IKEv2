@@ -2,6 +2,9 @@
 Fehlerursachen
 ==============
 
+Falsche Crypto-Parameter
+------------------------
+
 Keine Verbindung
 ----------------
 
@@ -41,4 +44,13 @@ Lediglich UDP Port 500, 4500 und ESP, AH brauche ich nicht.
 Da die Endpunkte auf meiner Seite nicht mit dem VPN-Gateway
 kommunizieren möchten, sondern mit den Endpunkten auf Peer-Seite muss
 das Routing dorthin über das VPN-Gateway führen.
+
+NAT
+---
+
+Path-MTU
+--------
+
+Inkompatibilität
+----------------
 
