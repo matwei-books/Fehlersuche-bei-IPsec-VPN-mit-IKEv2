@@ -174,6 +174,187 @@ Seite einen neuen Schlüssel aushandeln will.
 NAT
 ---
 
+Eine weitere Fehlerursache, mit der ich gerade bei IPv4 sehr häufig
+rechnen muss, ist Netzwerkadressumsetzung (NAT).
+
+Immer wenn NAT ins Spiel kommt, habe ich latent ein
+Verständigungsproblem, weil für dieselben Datenströme an verschiedenen
+Stellen des Netzes unterschiedliche Adressen verwendet werden.
+Schon allein diese Tatsache erschwert die Fehlersuche.
+
+Generell unterscheide ich am VPN zwei Formen von NAT:
+
+* *Externes NAT* meint in diesem Zusammenhang, dass die Adressen der
+  Datagramme zwischen den VPN-Gateways verändert werden.
+
+* *Internes NAT* meint die Modifizierung der Adressen der Datagramme,
+  die durch das VPN gesendet werden.
+
+Externes NAT
+............
+
+Bei IKEv1 stellte NAT zwischen den VPN-Gateways noch ein Problem dar,
+dass nachträglich durch die Einführung von NAT-T mit der Kapselung der
+IPsec-Datagramme in UDP gelöst wurde.
+
+Bei IKEv2 sind entsprechende Mechanismen bereits im
+IKE_SA_INIT-Austausch eingebaut, so dass die Peers erkennen können,
+ob die Adressen ihrer Datagramme manipuliert werden und automatisch auf
+UDP-Encapsulation umschalten.
+Damit sollte es also keine größeren Probleme geben.
+Ich muss lediglich dafür sorgen, dass sowohl UDP Port 500 als auch UDP
+Port 4500 in der Firewall freigegeben sind.
+
+Schwierig könnte es werden, wenn beide VPN-Gateways hinter NAT-Boxen
+platziert sind.
+
+NAT macht die Diagnose mit Paketmitschnitt etwas komplizierter, weil
+sowohl IKE als auch ESP und AH UDP Port 4500 verwenden.
+Um diese Protokolle auseinander zu halten, brauche ich einen speziellen
+Filter beim Paketmitschnitt.
+
+.. index:: PCAP-Filter
+
+Zum Beispiel bekomme ich mit dem folgenden PCAP-Filter bei tcpdump und
+Wireshark die IKE-Datagramme.
+
+.. code::
+
+   proto udp and ( port 500 or ( port 4500 and udp[8:4] = 0 ) )
+
+Bei einem VPN-Gateway mit mehreren Peers ergänze ich den Filter noch mit
+der IP-Adresse des Peers.
+
+Internes NAT
+............
+
+Probleme mit NAT werden mir vermutlich häufiger beim internen NAT
+begegnen, das heißt bei der Umsetzung von Adressen der Datagramme, die
+über das VPN transportiert werden.
+
+Diese Probleme sind fast immer auf eine Fehlkonfiguration am VPN-Gateway
+zurückzuführen, das heißt, wenn ich sie diagnostiziert habe, liegt es
+meist auch an mir, sie zu beheben.
+
+Leider bin ich bei IPv4 auf Grund der Adressenknappheit oft genug
+gezwungen, in meinen organisationseigenen Netzen Adressen zu verwenden,
+die über das Internet nicht zu mir geroutet werden.
+Manche Organisationen verwenden dann beliebige öffentliche Adressen, die
+anderen zugeteilt wurden, was ganz eigene Probleme mit sich bringt.
+Aber auch wenn ich mit Adressen, die nach RFC1918 :cite:`RFC1918`
+reserviert sind, arbeite, muss ich oft genug auf NAT zurückgreifen.
+Ich muss NAT immer dann verwenden, wenn auf beiden Seiten des VPNs
+überlappende Adressbereiche verwendet werden.
+
+Ein anderer möglicher Grund für NAT ist, wenn das VPN-Gateway an
+zentraler Stelle im Netz positioniert ist und ich allen Datenverkehr für
+das VPN durch einfaches Routing dorthin schicken will.
+Dann lege ich in meinem organisationsinternen Netz allen Traffic für
+VPNs auf einen bestimmten Adressbereich und muss die daraus verwendeten
+Adressen beim VPN-Gateway auf die Adressen bei den Peers abbilden.
+Das betrifft die Zieladressen in allen Datagrammen, die von meiner
+Organisation zum Peer gehen und die Absenderadressen aller Datagramme,
+die vom Peer an meine Organisation gesendet werden.
+
+Will oder muss ich hingegen die Adressen, die in meiner Organisation
+verwendet werden, vor dem Peer verbergen, muss ich die Absenderadressen
+aller Datagramme von uns zum Peer sowie die Zieladressen der Datagramme
+vom Peer zu uns umsetzen.
+
+Bei den meisten VPN-Gateways reicht es für internes NAT aus, eine
+Richtung und die Umsetzung für Quell- und/oder Zieladressen anzugeben
+und die Gegenrichtung wird automatisch abgedeckt.
+Trotzdem ist aus dem vorigen Absatz hoffentlich deutlich geworden, dass
+NAT die Arbeit mit Rechnernetzen erheblich komplizierter macht.
+Bei IPv6 lässt sich NAT im Moment noch vermeiden, wenn man konsequent
+eindeutige Adressen verwendet, auch wenn diese nicht über das Internet
+geroutet werden.
+
+Das war das Vorgeplänkel zu internem NAT, kommen wir nun zu konkreten
+Problemen damit, die ich identifizieren und beheben kann.
+Dabei hilft uns das folgende Diagramm, das aufzeigt, an welchen Stellen
+die Datagramme welche Adressen haben können.
+
+.. todo:: Diagramm mit den NAT-Adressen
+
+Dieses Diagramm kann auch bei Verständigungsproblemen mit dem Peer
+während der Fehlersuche helfen.
+
+Wichtig ist insbesondere bei policy-based VPN, dass die Adressen der
+Datagramme, die verschlüsselt im ESP-Tunnel gesendet werden, genau zu
+den für die Child-SA ausgehandelten Traffic-Selektoren passen.
+Einige VPN-Gateways nehmen das nicht so genau, während andere
+VPN-Gateways die erfolgreich entschlüsselten Datagramme dann verwerfen,
+weil die Adressen nicht zu den Traffic-Selektoren passen.
+Einen Hinweis darauf finde ich meist in den Logs.
+Beheben muss dieses Problem der Administrator des sendenden
+VPN-Gateways.
+
+Ein weiteres Problem sind umfassende NAT-Regeln, die vor den
+spezifischen Regeln für ein einzelnes VPN greifen, insbesondere, wenn
+Objekten statt Adressen verwendet werden. 
+Diese Regeln können die zum Tunnel gesendeten Datagramme so verändern,
+dass sie entweder nicht mehr zur Policy des VPN passen und gar nicht
+verschlüsselt versendet werden oder sie passen nicht zu den
+Traffic-Selektoren und werden vom anderen VPN-Gateway verworfen.
+
+Dieser Fall lässt sich leichter identifizieren, wenn ich für die
+Diagnose der NAT-Regeln auf die Adressen in Textform zugreifen kann,
+oder - falls das nicht geht - wenn ich die Adressen konsequent in allen
+Objektnamen kodiert habe.
+
+Um das Problem zu verdeutlichen, nehmen wir an, dass in den NAT-Regeln
+zwei Objekte verwendet werden:
+
+* Object_A mit Adresse a.b.0.0/16
+* Object_B mit Adresse a.b.c.d/32
+
+Vermute ich Probleme mit der Adressumsetzung von Object_B, dann finde
+ich die Regeln mit Object_A nicht, wenn ich es nicht schon vorher kenne
+und weiß, dass es Probleme mit diesem geben kann.
+Kann ich jedoch in den NAT-Regeln mit den Adressen suchen, dann such ich
+der Reihe nach mit diesen Mustern:
+
+* a.b.c.d
+* a.b.c.
+* a.b.
+* a.
+* 0.0.0.0
+
+Zwar werde ich immer mehr Regeln betrachten müssen, aber trotzdem nicht
+alle.
+
+Bei NAT-Regeln kommt es auf die Reihenfolge an, das heißt, ich muss
+immer nur die Regeln betrachten, die vor derjenigen für das betroffene
+VPN stehen.
+Und natürlich muss diese Regel korrekt sein, darum schaue ich sie als
+allererstes an.
+
+Diese Problem mögen vielleicht etwas weit hergeholt erscheinen, sie sind
+mir sämtlich schon bei der Arbeit mit VPNs begegnet.
+
+In einem Fall sollte zu einem Peer ein VPN eingerichtet werden, bei dem
+für den Peer extra ein Adressbereich (/24) ausgewählt worden war, der
+bisher nicht verwendet wurde.
+In den Traffic-Selektoren verwendeten wir genau diesen Adressbereich, so
+dass kein NAT notwendig war.
+Um so größer war unser Erstaunen, als wir beim Testlauf sahen, dass für
+den Traffic zu diesem VPN die Adressen trotzdem umgesetzt wurden, darum
+nicht mehr zur Policy passten und nicht über das VPN gesendet wurden.
+Bei der Untersuchung der NAT-Regeln mit den Adressen fanden wir recht
+schnell eine NAT-Regel für einen /22-Netzbereich in dem das neue VPN das
+vierte Subnet belegte.
+Von den in der NAT-Regel abgedeckten Adressen waren aber nur das erste
+und das dritte /24-Subnet wirklich verwendet worden und die NAT-Regel
+nur aus Bequemlichkeit auf /22 gelegt, um nicht mehrere NAT-Regeln bzw.
+NAT-Regeln mit mehreren Bereichen anlegen zu müssen.
+
+Bei der Vorbereitung eines Workshops habe ich es geschafft, dass ein
+VPN-Gateway den Return-Traffic zu verschlüsselt über das VPN
+angekommenen Daten unverschlüsselt mit nur halb umgesetzten Adressen
+zurückging.
+Ursache war eine übriggebliebenen globale NAT-Regel.
+
 Path-MTU
 --------
 
