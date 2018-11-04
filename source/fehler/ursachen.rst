@@ -316,9 +316,9 @@ Kann ich jedoch in den NAT-Regeln mit den Adressen suchen, dann such ich
 der Reihe nach mit diesen Mustern:
 
 * a.b.c.d
-* a.b.c.
-* a.b.
-* a.
+* a.b.c
+* a.b
+* a
 * 0.0.0.0
 
 Zwar werde ich immer mehr Regeln betrachten müssen, aber trotzdem nicht
