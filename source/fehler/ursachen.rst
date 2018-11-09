@@ -358,6 +358,141 @@ Ursache war eine übriggebliebenen globale NAT-Regel.
 Path-MTU
 --------
 
+Eine zu geringe MTU auf dem Weg der Datagramme vom Sender zum Empfängeer
+kann schon bei der einfachen Datenübertragung Probleme verursachen.
+Bei einem VPN wächst die Anzahl der potentiellen Fehlerquellen.
+
+Worum geht es?
+
+In jedem Netzsegment ist die maximale Größe eines Datagramms, dass in
+einem Stück übertragen werden kann, begrenzt.
+Als Maß für diese Obergrenze wird die Maximum Transfer Unit (MTU)
+verwendet, die angibt, wieviel Oktetts ein Endgerät oder ein Gateway für
+ein Datagramm der OSI-Ebene 3 (IPv4 oder IPv6) zur Verfügung stehen.
+Das sind bei Ethernet 1500 Bytes, mit Jumbo-Frames auch mehr.
+Bei PPP gehen davon 8 Byte für die PPP-Verwaltungsinformationen drauf,
+so dass bei einem Internetanschluß mit PPPoe nur noch 1492 Byte für das
+IP-Protokoll zur Verfügung stehen.
+Eine Aufstellung gängiger Größen findet sich in RFC1191 (:cite:`RFC1191`).
+
+Die MTU bezieht sich immer auf direkt angeschlossene Netzsegmente.
+Auf dem Weg vom Empfänger zum Ziel passiert ein Datagramm oft mehrere
+Netzsegmente, die eine unterschiedliche MTU aufweisen können.
+Für diese Strecke ist die Path-MTU (PMTU) die geringste MTU aller
+Netzsegmente, die ein Datagramm durchquert.
+
+.. note::
+
+   Eine Datenübertragung nutzt einen Kanal optimal aus, wenn das
+   Verhältnis von Nutzdaten zu Verwaltungsdaten möglichst groß ist.
+   Das ist es, wenn die Daten mit möglichst großen Datagrammen gesendet
+   werden, da jedes Datagramm die gleichen Verwaltungsinformationen mit
+   sich führt.
+
+Jedes Endgerät, jedes Gateway kann nur die MTU der direkt
+angeschlossenen Netzsegmente kennen.
+Die PMTU kann hingegen für verschiedene Datenströme eines Endgerätes
+unterschiedlich sein, sie ist daher eine Merkmal jedes einzelnen Flows
+und muss für diesen ermittelt werden.
+
+Wie , ist in RFC1191 (:cite:`RFC1191`) beschrieben.
+IPv4 verwendet hierfür das DF-Bit des IP-Headers und ICMP-Datagramme vom
+Typ 3 (Destination Unreachable), Subtyp 4 (Fragmentierung nötig, Don’t
+Fragment aber gesetzt).
+IPv6-Datagramme dürfen per Definition nicht fragmentiert werden, darum
+ist hier kein DF-Bit im IP-Header notwendig.
+Für die Signalisierung einer zu geringen MTU werden ICMPv6-Datagramme
+vom Typ 2 (Packet Too Big) verwendet.
+
+Damit PMTU-Discovery überhaupt funktioniert müssen die Gateways die
+entsprechenden ICMP- beziehungsweise ICMPv6-Nachrichten generieren und
+die Firewalls unterwegs müssen sie durchlassen.
+
+Bei einem VPN gibt es im Prinzip drei Stellen, an denen die Path-MTu zu
+klein sein kann:
+
+* vor dem eigenen VPN-Gateway,
+* zwischen den VPN-Gateways,
+* hinter dem VPN-Gateway des Peers.
+
+Jede Position bringt ihre eigenen Probleme mit sich.
+
+Ist die MTU eines Netzsegments vor dem eigenen VPN-Gateway zu gering,
+greifen die oben beschriebenen Mechanismem und der IP-Stack des
+sendenden Rechners sollte sich automatisch darauf einstellen.
+Gehen die zur PMTU-Discovery benötigten Datagramme verloren, oder werden
+gar nicht erst gesendet, ist das kein Problem für den VPN-Administrator
+sondern für die Administratoren der Firewalls beziehungsweise Netze.
+
+Durch den Overhead der IPsec-Protokolle (ESP oder AH) sinkt die MTU des
+MTU gegenüber den Netzen, über die es läuft, erheblich.
+Dieser Effekt wird von den VPN-Gateways bereits berücksichtigt,, indem
+sie den Protokoll-Overhead von der MTU des abgehenden Interfaces abziehen.
+Bei TCP-Verbindungen setzen die VPN-Gateways MSS-Clamping ein, damit zu
+große Datagramme gar nicht erst gesendet werden.
+Allerdings beziehen sich die VPN-Gateways dabei immer auf die MTU des
+Netzsegmentes, an dem sie angeschlossen sind.
+Ist auf dem Weg zwischen den beiden VPN-Gateways die PMTU geringer, so
+gehen die Fehlernachrichten an das sendende VPN-Gateway und nicht an den
+Sender des im VPN transportierten Datagramms.
+
+Da mit den ICMP-Nachrichten auch immer der Anfang des verursachenden
+Datagramms an das sendende VPN-Gateway geschickt wird, kann dieses
+anhand der SPI und der Sequenznummer prinzipiell den ursprünglichen
+Datenstrom bestimmen und eine angepasste ICMP-Nachricht für den
+ursprünglichen Sender generieren.
+
+Prinzipiell heißt nicht immer, sondern nur unter bestimmten
+Voraussetzungen.
+Damit das funktioniert, muss
+
+* das sendende VPN-Gateway diese Funktionalität unterstützen,
+* diese Funktion in der Konfiguration aktiviert sein,
+* die notwendige Information, um ein geeignetes ICMP-Datagramm für den
+  Absender zu generieren, noch vorhanden sein.
+
+Ist die MTU eines Segments hinter dem VPN-Gateway des Peers zu gering,
+gibt es bei policy-based VPN oft das Problem, dass die Absenderadresse
+der ICMP-Nachricht nicht in der Policy steht und damit die Rückmeldung
+bereits beim VPN verworfen wird und PMTU-Discovery nicht funktioniert.
+Bei route-based VPN tritt dieses Problem nicht auf, wenn die
+begleitenden Firewall-Regeln die benötigten ICMP-Nachrichten durch
+lassen.
+Zum Glück ist die MTU der Netzsegmente hinter dem VPN selten geringer
+als die MTU des VPN selbst, so dass dieser Fall wohl kaum in der Praxis
+vorkommen wird.
+
+Grundsätzlich muss ich mir merken, dass ich mich bei einem VPN nicht
+darauf verlassen kann, dass PMTU-Discovery funktioniert.
+
+Habe ich es, mit Hilfe von Paketmitschnitten oder durch Kenntnis der
+Netztopologie als Problemursache identifiziert, muss ich unter Umständen
+ander Wege suchen, um das Problem zu umgehen.
+
+Der beste Weg wäre, das Segment mit der niedrigen MTU durch ein anderes
+zu ersetzen.
+Das gelingt jedoch nicht, wenn ich keine Kontrolle über dieses Segment
+habe oder wenn mir die Mittel fehlen.
+
+Der nächste Gedanke wäre, am VPN-Gateway die MTU entsprechend zu
+reduzieren, so dass dieses automatisch mit niedrigeren Werten arbeitet.
+Das beeinflusst dann allerdings alle VPN dieses Gateways und die
+Effizienz der Datenübertragung leidet für alle Flows, die dieses VPN
+passieren.
+
+Bei TCP kann ich, wenn die Software es zulässt, mit MSS-Clamping die
+Größe der Datagramme von vornehrein beschränken.
+Auch das betrifft wiederum alle Datenströme, wenn ich MSS-Clamping nicht
+auf einzelne Verbindungen beschränken kann.
+
+Schließlich kann ich die MTU des sendenden Rechners per Konfiguration
+reduzieren.
+Das würde die Effizienz aller Datenübertragungen die an diesem Rechner
+über dieses Interface gehen, beeinträchtigen.
+Kann ich den Datenverkehr mit und ohne VPN an diesem Rechner auf
+verschiedene Interfaces aufteilen, wären allerdings nur alle
+VPN-Verbindnugen dieses Rechners betroffen.
+
 Inkompatibilität
 ----------------
 
