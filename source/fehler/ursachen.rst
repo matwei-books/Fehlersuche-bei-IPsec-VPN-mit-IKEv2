@@ -496,3 +496,42 @@ VPN-Verbindnugen dieses Rechners betroffen.
 Inkompatibilität
 ----------------
 
+Eine weitere mögliche Fehlerursache sind schlicht Inkompatibilitäten
+zwischen verschiedenen IPsec-Implementierungen.
+Es ist mir nicht möglich, diese erschöpfend in einem Buch zu behandeln.
+In den meisten Föllen lassen sie sich darauf zurückführen, dass
+bestimmte Funktionalitäten manchmal nicht oder nur teilweise
+implementiert wurden.
+Dabei gibt es nicht nur Unterschiede von Software zu Software, sondern
+auch von Version zu Version der gleichen Software.
+Oft werden verschiedene Geräte vom gleichen Hersteller unterschiedlich
+konfiguriert und haben verschiedene Features implementiert.
+
+Im einfachsten Fall kann es sein, dass bestimmte Crypto-Parameter
+einfach nicht funktionieren.
+Ich persönlich habe verschiedentlich Probleme mit SHA384 bei bestimmten
+Versionen von Checkpoint erlebt.
+
+In anderen Fällen kann es sein, dass bestimmte Parameter zwar
+prinzipiell funktionieren, aber nicht an jeder Stelle der Konfiguration.
+Als konkretes Beispiel ist mir hier ein VPN zu einer Gegenstelle
+erinnerlich, dass in einer Richtung problemlos aufgebaut werden konnte,
+in der anderen Richtung nicht mal IKE.
+Nach längerem Debugging und Rückfragen bei den Herstellern erwies sich
+als Ursache, dass die eine Seite die vereinbarten Parameter für IKE erst
+im neunten Proposal des IKE_SA_INIT-Requests sendete, die andere Seite
+aber nur acht Proposals auswertete und darum nicht die erwarteten
+Parameter fand.
+
+Insbesondere, wenn man VPN-Gateways mit vielen unterschiedlichen Peers
+betreibt, ist der VPN-Administrator gut beraten, seine im Laufe der Zeit
+gemachten Erfahrungen in einer Wissensdatenbank festzuhalten und diese
+regelmäßig zu ergänzen.
+Im einfachsten Fall können das eine oder mehrere Textdateien sein, die
+sich schnell durchsuchen lassen.
+Aber auch ein Spreadsheet oder eine spezielle Software für die
+Wissensdatenbank kann geeignet sein.
+Wichtig ist die regelmäßige Pflege und die Konsultation der Datenbank
+vor dem Einrichten von neuen VPN.
+Dazu muss die Wissensdatenbank einfach und schnell zu bedienen sein.
+
