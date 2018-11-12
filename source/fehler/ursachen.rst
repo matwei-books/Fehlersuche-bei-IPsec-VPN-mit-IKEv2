@@ -535,3 +535,45 @@ Wichtig ist die regelmäßige Pflege und die Konsultation der Datenbank
 vor dem Einrichten von neuen VPN.
 Dazu muss die Wissensdatenbank einfach und schnell zu bedienen sein.
 
+Policy-based VPN versus route-based VPN
+---------------------------------------
+
+.. todo:: RFC2784 (GRE) und RFC 2637 (PPTP) anbringen
+
+Der grundlegende Unterschied zwischen diesen beiden Ausprägungen von VPN
+ist, dass bei route-based VPN ein virtuelles Netzwerkinterface auf jedem
+VPN-Gateway angelegt wird, das mit dem des Peers verbunden ist.
+Diese beiden Interfaces terminieren jeweils auf einer öffentlichen
+IP-Adresse der VPN-Gateways und genau für diese beiden Adressen brauche
+ich nur eine einzige Child-SA.
+
+Sind die GRE-Interfaces eingerichtet und durch IPsec geschützt
+miteinander verbunden, bekommen sie je eine Adresse in einem beliebigen
+Transfernetz.
+Dieses Transfernetz dient nur dem Routing des abgehenden Datenverkehrs.
+Auf der ankommenden Seite muss der Traffic durch Firewall-Regeln
+reguliert werden.
+
+Da das VPN selbst nur die von den GRE-Devices verwendeten Adressen
+sieht, kann der Tunnel im Transport-Modus konfiguriert werden, um etwas
+Protokoll-Overhead einzusparen.
+
+Beim policy-based VPN wird jedem Tunnel zwischen zwei Netzwerken eine
+eigene Child-SA bei den Peers zugeordnet.
+Auf der sendenden Seite wird nicht über die Zieladressen sondern über
+die IPsec-Policies entschieden, ob der Traffic verschlüsselt wird und
+mit welchen SA.
+Auf der empfangenden Seite kümmert sich die IPsec-Implementierung darum,
+dass nur erlaubter Traffic über das VPN kommt.
+Ich benötige hier keine zusätzlichen GRE-Interfaces.
+Dafür bin ich gezwungen, das VPN im Tunnel-Modus zu konfigurieren.
+
+Es gibt verschiedene Gründe, sich für die eine oder andere Variante zu
+entscheiden, deren Erörterung an dieser Stelle zu weit führen würde.
+
+Aus dem vorgenannten ergibt sich, dass route-based VPN inkompatibel zu
+policy-based VPN sind.
+Zwar können auf demselben VPN-Gateway beide Arten von VPN betrieben
+werden, aber beide Peers eines konkreten VPN müssen die selbe Art
+verwenden.
+
