@@ -54,6 +54,17 @@ ESP:
   siehe
   :ref:`Encapsulating Security Payload <ESP>`
 
+.. index:: ! Flow
+
+Flow:
+  Jede paketbasierte Datenübertragung, zum Beispiel mit dem Internet
+  Protokoll, basiert auf Datagrammen, einzelnen Dateneinheiten, die
+  Nacheinander versendet werden.
+  Wenn ich von einem Flow spreche, meine ich alle Datagramme, die zu
+  eine einzelnen Kommunikationsbeziehung gehören. Das umfasst neben den
+  Datagrammen, die von einer Seite zur anderen gesendet werden, als auch
+  die zugehörigen Antwortpakete in der Gegenrichtung.
+
 .. index:: ! Initiator
 
 .. _Initiator:
@@ -66,6 +77,13 @@ Initiator:
   Am Anfang ist der Initiator derjenige, der den IKE_SA_INIT-Request
   gesendet hat. Nach dem Rekeying derjenige, der das letzte Rekeying
   initiiert hat.
+
+.. index:: ! Inside
+
+Inside:
+  In diesem Buch meint Inside die Seite eines VPN-Gateways, wo die
+  Datagramme unverschlüsselt übertragen werden, das heißt in den meisten
+  Fällen die dem lokalen Netzwerk zugewandte Seite.
 
 IKE:
   siehe :ref:`Internet Key Exchange Protocol <IKE>`
@@ -114,6 +132,13 @@ Message ID:
 
 MID:
   siehe :ref:`Message ID <MID>`.
+
+.. index:: ! Outside
+
+Outside:
+  In diesem Buch meint Outside die Seite eines VPN-Gateways, wo die
+  Datagramme verschlüsselt übertragen werden, das heißt in den meisten
+  Fällen die dem Internet zugewandte Seite.
 
 .. index:: ! Responder
 
