@@ -577,3 +577,54 @@ Zwar können auf demselben VPN-Gateway beide Arten von VPN betrieben
 werden, aber beide Peers eines konkreten VPN müssen die selbe Art
 verwenden.
 
+Anti-Replay-Check-Probleme
+--------------------------
+
+.. todo:: Cisco-Dokument 116858 als Referenz einarbeiten
+
+Mitunter finden sich in den Logs Hinweise auf fehlgeschlagene
+Anti-Replay-Checks.
+Dies bedeuten, dass das zugehörige Datagramm vom Empfänger ohne weitere
+Bearbeitung verworfen wurde.
+Treten diese Meldungen häufiger auf, ist es an der Zeit, ihnen
+nachzugehen.
+
+Anti-Replay-Checks sind ein wichtiges Sicherheitsmerkmal von IPsec.
+Sie nutzen die in jdem ESP- oder AH-Header mitgesendeten Sequenznummer.
+Das empfangende VPN-Gateway führt in einem gleitenden Fenster Buch,
+welche Datagramme jeder SA bereits verarbeitet wurden und welche Nummern
+erwartet werden.
+Der Hauptzweck der Sequenznummer und des gleitenden Fensters ist der
+Schutz vor Replay-Attacken, bei denen Datagramme in böser Absicht
+mehrfach gesendet werden.
+Leider gibt es neben Attacken auf das VPN auch noch andere Gründe, wegen
+denen der Anti-Replay-Check fehlschlagen kann:
+
+* Datagramme können während der Übertragung umsortiert werden und somit
+  in falscher Reihenfolge eintreffen.
+
+* Durch QoS beim sendenden VPN können die Datagramme bereits beim
+  sendenden VPN-Gateway so umsortiert werden, dass Datagramme aus dem
+  gleitenden Fenster herausfallen.
+
+* Die Bearbeitungszeit von Datagrammen kann sich so stark unterscheiden,
+  dass große Datagramme aus dem gleitenden Fenster heraus sind, bevor
+  sie komplett verarbeitet wurden.
+
+Diese Probleme werden durch hohe Bandbreite und dementsprechend viele
+Datagramme, die in kurzer Zeit hintereinander eintreffen, noch
+verschärft.
+
+Habe ich ein Problem mit Anti-Replay-Checks, muss ich die verworfenen
+Datagramme anhand der Lognachrichten identifizieren und mit einem
+gleichzeitig laufenden Paketmitschnitt verifizieren, ob es sich um eine
+Replay-Attacke handelt oder eine andere Ursache in Frage kommt.
+Zum Beispiel eine der oben genannten.
+Je nach ermittelter Ursache muss ich entsprechende Maßnahmen ergreifen.
+
+Wird das Problem vor allem durch starken Traffic verschärft, kann ich in
+Erwägung ziehen, dass gleitende Fenster zu vergrößern.
+Dafür benötigt das VPN-Gateway mehr Speicher, so dass ich mich vor
+diesem Schritt genau mit der aktuellen Auslastung des Geräts vertraut
+machen muss und am besten den Hersteller zu Rate ziehe.
+
