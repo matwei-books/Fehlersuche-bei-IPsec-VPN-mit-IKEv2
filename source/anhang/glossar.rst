@@ -143,12 +143,12 @@ Maximum Segment Size (MSS):
   TCP-Verbindung.
 
 .. index:: Maximum Transmission Unit
-   see:: MTU; Maximum Transmission Unit
+   see: MTU; Maximum Transmission Unit
 
 Maximum Transmission Unit (MTU):
   Die Maximum Transmission Unit gibt die maximale Paketgröße eines
-  Datagramms der Vermittlungsschicht (OSI Ebene 3, z.B. IPv4, IPv6) an,
-  die in einem Netz der Sicherungsschicht (OSI Ebene 2, z.B. Ethernet)
+  Datagramms der Vermittlungsschicht (OSI-Ebene 3, z.B. IPv4, IPv6) an,
+  die in einem Netz der Sicherungsschicht (OSI-Ebene 2, z.B. Ethernet)
   übertragen werden kann ohne es zu fragmentieren.
   Sie gilt immer nur für ein Netzsegment.
 
@@ -193,6 +193,15 @@ Nonce:
   kryptographischen Protokolls gefährdet, wenn die Nonce mehrfach
   verwendet wird.
 
+.. index:: OSI
+
+OSI:
+  Das OSI-Modell ist ein Referenz-Modell für Netzwerkprotokolle als
+  Schichtenarchitektur mit 7 Schichten.
+  Für die Fehlersuche bei VPN sind vor allem die Schichten
+  2 (Sicherung, Data Link), 3 (Vermittlung, Network) und 4 (Transport)
+  relevant.
+
 .. index:: ! Outside
 
 Outside:
@@ -224,6 +233,35 @@ Path-MTU-Discovery:
   wiederholt werden müssen.
   Aus diesem Grund reduzieren VPN-Gateways mit MSS-Clamping automatisch
   die Datagrammgröße für TCP-Verbindungen.
+
+.. index:: Payload
+
+Payload:
+  Bei der Datenübertragung bezeichnet Payload die Nutzdaten, die mit
+  einem Protokoll zwischen zwei Partnern übertragen werden.
+
+  Bei der Beschreibung von Protokoll-Headern, hier insbesondere der
+  IKE-Header bezeichnet der Begriff Payload die Attribute, die in
+  einem größeren Protokoll-Element zusammengefasst sind und und denen
+  ein Protokoll-Subheader vorangestellt ist.
+
+.. index:: Proposal
+
+Proposal:
+  Bei IKE ist ein Proposal ein Vorschlag für einen Satz von Algorithmen,
+  den die eine Seite (Initiator) der anderen unterbreitet und die von
+  der Gegenseite (Responder) angenommen wird oder nicht.
+  Oft sendet der Initiator mehrere Proposals in seiner Anfrage, aus
+  denen der Responder eines auswählt.
+
+.. index:: QoS
+
+QoS:
+  Quality-of-Service umfasst verschiedene Massnahmen, um den
+  Datendurchsatz durch ein Netzwerk zu optimieren.
+  Zu diesen Maßnahmen zählt unter anderem das Umsortieren der
+  Reihenfolge, in der Datagramme gesendet werden, sowie das Verwerfen
+  von Datagrammen.
 
 .. index:: ! Responder
 
