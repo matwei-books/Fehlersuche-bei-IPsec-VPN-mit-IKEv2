@@ -65,6 +65,18 @@ Flow:
   Datagrammen, die von einer Seite zur anderen gesendet werden, als auch
   die zugehörigen Antwortpakete in der Gegenrichtung.
 
+.. index:: GUI
+
+GUI:
+  Eine graphische Benutzeroberfläche (Graphical User Interface) macht
+  eine Software mit grafischen Symbolen und Steuerelementen nutzbar.
+  Gut gemacht ist sie manchmal intuitiv benutzbar und insbesondere für
+  weniger häufig ausgeführte Operationen vorteilhaft.
+
+  Ein Nachteil für die Problemanalyse ist, dass die Konfiguration oft
+  über mehrere Bildschirmelemente verteilt ist, die durch eine manchmal
+  umständliche Navigation nur nacheinander betrachtbar sind.
+
 .. index:: ! Initiator
 
 .. _Initiator:
@@ -120,6 +132,26 @@ ISAKMP:
   siehe
   :ref:`Internet Security Assiociation and Key Management Protocol <ISAKMP>`
 
+.. index:: Maximum Segment Size
+   see: MSS; Maximum Segment Size
+
+Maximum Segment Size (MSS):
+  Die Maximum Segment Size kennzeichnet bei TCP die maximale Anzahl von
+  Bytes, die als Nutzdaten in einem Datagramm versendet werden können.
+  Sie wird zu Beginn jeder TCP-Sitzung mit den ersten beiden Datagrammen
+  in zusätzlichen TCP-Optionen ausgehandelt und gilt für jeweils eine
+  TCP-Verbindung.
+
+.. index:: Maximum Transmission Unit
+   see:: MTU; Maximum Transmission Unit
+
+Maximum Transmission Unit (MTU):
+  Die Maximum Transmission Unit gibt die maximale Paketgröße eines
+  Datagramms der Vermittlungsschicht (OSI Ebene 3, z.B. IPv4, IPv6) an,
+  die in einem Netz der Sicherungsschicht (OSI Ebene 2, z.B. Ethernet)
+  übertragen werden kann ohne es zu fragmentieren.
+  Sie gilt immer nur für ein Netzsegment.
+
 .. index:: Message ID
    see: MID; Message ID
 .. _MID:
@@ -132,6 +164,34 @@ Message ID:
 
 MID:
   siehe :ref:`Message ID <MID>`.
+  
+.. index:: MSS-Clamping
+
+MSS-Clamping:
+  Mittels MSS-Clamping kann ein Router oder Gateway künstlich die
+  maximale Datagrammgröße einer TCP-Sitzung beschränken um zum Beispiel
+  Path-MTU-Discovery unnötig zu machen, wenn die maximale MTU im Voraus
+  bekannt ist.
+  Dabei wird der Wert in der TCP-Option MSS in den ersten beiden
+  Datagrammen der TCP-Sitzung vom Router oder Gateway reduziert.
+
+.. index:: Netzsegment
+
+Netzsegment:
+  Ein Netzsegment ist ein Teilnetz mit zwei oder mehreren Geräten, die
+  über das selbe Element der Sicherungsschicht (OSI-Ebene 2, z.B.
+  Ethernet) verbunden sind.
+  Bei der Übertragung eines Datagramms vom Sender zum Empfänger ist ein
+  Netzsegment die Verbindung zwischen zwei Gateways, die das Datagramm
+  weiter transportieren.
+
+.. index:: Nonce
+
+Nonce:
+  In der Kryptographie wird als "nonce" eine Zahl verstanden, die nur
+  einmal verwendet wird. Mitunter ist die Sicherheit des
+  kryptographischen Protokolls gefährdet, wenn die Nonce mehrfach
+  verwendet wird.
 
 .. index:: ! Outside
 
@@ -139,6 +199,31 @@ Outside:
   In diesem Buch meint Outside die Seite eines VPN-Gateways, wo die
   Datagramme verschlüsselt übertragen werden, das heißt in den meisten
   Fällen die dem Internet zugewandte Seite.
+
+.. index:: Path-MTU
+   see: PMTU; Path-MTU
+
+Path-MTU:
+  Die Path-MTU ist die kleinste MTU aller Netzsegmente auf dem Weg
+  zwischen dem Sender eines Datagramms und dem Empfänger.
+
+.. index:: Path-MTU-Discovery
+   see: PMTU-Discovery; Path-MTU-Discovery
+
+Path-MTU-Discovery:
+  Path-MTU-Discovery ist ein Verfahren, um die Path-MTU einer Verbindung
+  zu bestimmen.
+  Es funktioniert im wesentlichen so, dass der Sender verbietet, ein
+  Datagramm zu fragmentieren und das erste Gateway, dass das Datagramm
+  nicht ohne es zu fragmentieren weitersenden kann, in einer
+  Fehlermeldung die MTU des nächsten Netzsegments mitteilt.
+
+  Muss die maximale Datagrammgröße durch die Path-MTU-Discovery
+  reduziert werden, geht das immer mit Paketverlusten einher, so dass
+  die verloren gegangenen Daten vom Sender mit kleineren Datagrammen
+  wiederholt werden müssen.
+  Aus diesem Grund reduzieren VPN-Gateways mit MSS-Clamping automatisch
+  die Datagrammgröße für TCP-Verbindungen.
 
 .. index:: ! Responder
 
