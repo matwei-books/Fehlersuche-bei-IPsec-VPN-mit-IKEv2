@@ -81,4 +81,5 @@ konzentrieren, die ich als wesentlich für die Fehlersuche erachte:
    :caption: Inhalt:
 
    cisco-asa
+   mikrotik-router
 
