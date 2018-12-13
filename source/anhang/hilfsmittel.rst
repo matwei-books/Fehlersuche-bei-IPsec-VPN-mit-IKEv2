@@ -154,3 +154,75 @@ dieser Stelle eine gute Lösung.
 
 Sonde zum Injizieren von Traffic
 --------------------------------
+
+> The proof of the pudding is in the eating.
+
+Ob ein VPN funktioniert, sieht man am besten, wenn Traffic durchgeht.
+Und genau hier liegt das Problem für viele VPN-Administratoren in
+größeren Netzwerkumgebungen. Sie kommen oft nicht an die Geräte heran,
+die miteinander kommunizieren sollen.
+
+Manchmal besteht die Möglichkeit, über Fernzugriff auf den Rechnern der
+Anwender nach dem Rechten zu schauen. Aber auch das reißt die Anwender
+aus ihrer täglichen Arbeit und erfordert Koordination.
+
+Bei Cisco ASA habe ich die Möglichkeit, mit dem Befehl ``packet-tracer``
+die benötigten Datagramme zu simulieren und damit auch den Aufbau des
+VPNs und der benötigten Child-SA zu initiieren. Allerdings wird dabei
+nicht wirklich ein Datagramm hinausgeschickt, so dass ich nicht die
+komplette Verbindung zum Zielrechner auf Peer-Seite testen kann.
+
+Eine andere Möglichkeit, die sich unabhängig vom VPN-Gateway anbietet,
+ist eine Sonde, die den gewünschten Traffic im Netzwerk injizieren kann.
+Gemeint ist ein Rechner im internen Netz meines VPN-Gateways, der in der
+Lage ist, den gewünschten Traffic zu erzeugen. Das kann ein kleiner
+Einplatinenrechner sein, eine virtuelle Maschine oder ein anderweitig
+gerade nicht benötigter Rechner. Wichtig ist, dass auf ihm eine
+geeignete Software zum Injizieren von Datagrammen installiert ist.
+
+Ich kann damit allerdings nur Traffic testen, der aus meinem Netz zum
+Netz der Peers gesendet und die Antworten darauf auswerten. Für Traffic
+in der anderen Richtung müsste der Peer den benötigten Traffic
+einspeisen.
+
+Wenn ich den Testtraffic nicht an der Stelle einspeise, wo der Traffic
+von der originalen Quelle herkommt, werde ich die Antwort der Gegenseite
+nicht an der Sonde empfangen. Ich muss dann auf Paketmitschnitte
+zurückgreifen, um zu sehen, ob die richtige Antwort vom VPN zurückkommt.
+Mit Paketmitschnitten bin ich aber ohnehin vertraut.
+Eventuell sind meine Tests auch in den Firewall-Logs zu finden.
+
+Bei TCP-Tests werde ich zusätzlich zur Antwort aus dem VPN eventuell
+TCP-Reset-Datagramme vom echten Rechner mit der getesteten Quell-Adresse
+sehen. Das ist eine normale Reaktion und nicht schädlich.
+
+Welche Software ist nun geeignet?
+
+Neben einigen anderen Programmen (mit etwas Geschick geht auch *netcat*)
+halte ich *hping3* für empfehlenswert. Für die Testzwecke komme ich mit
+den folgenden Optionen aus:
+
+.. todo:: hping Optionen auflisten
+
+Ich teste generell mit einem Datagramm, dass ich zur Peer-Seite schicke
+und schaue im Paketmitschnitt nach, ob die Antwort meinen Erwartungen
+entspricht.
+
+Mit TCP ist das einfach, weil die ersten beiden Datagramme immer gleich
+aussehen, brauche ich nur die Adressen und Ports variieren. In meinem
+Test-Datagramm ist nur das SYN-Flag und einige Optionen, wie z.B. die
+MSS gesetzt. Der Aufruf für hping sieht wie folgt aus:
+
+.. todo:: hping Aufruf für TCP-Test
+
+Bei UDP-Protokollen sieht es etwas schwieriger aus, weil hier der Inhalt
+der Datagramme je nach Protokoll unterschiedlich aussehen muss. Für
+einige Protokolle, wie z.B. DNS kann ich ein mitgeschnittenes Datagramm
+nehmen und daraus eine Signatur für das mit hping gesendete Datagramm
+bauen.
+
+.. todo:: hping Aufruf mit Signatur für UDP-Test
+
+Wenn auch das nicht geht, kann ich vielleicht auf ein Anwenderprogramm
+(z.B.  ntpdate für NTP) zurückgreifen und die Quell-Adresse modifizieren.
+
