@@ -155,7 +155,7 @@ dieser Stelle eine gute Lösung.
 Sonde zum Injizieren von Traffic
 --------------------------------
 
-> The proof of the pudding is in the eating.
+  The proof of the pudding is in the eating.
 
 Ob ein VPN funktioniert, sieht man am besten, wenn Traffic durchgeht.
 Und genau hier liegt das Problem für viele VPN-Administratoren in
@@ -190,7 +190,6 @@ von der originalen Quelle herkommt, werde ich die Antwort der Gegenseite
 nicht an der Sonde empfangen. Ich muss dann auf Paketmitschnitte
 zurückgreifen, um zu sehen, ob die richtige Antwort vom VPN zurückkommt.
 Mit Paketmitschnitten bin ich aber ohnehin vertraut.
-Eventuell sind meine Tests auch in den Firewall-Logs zu finden.
 
 Bei TCP-Tests werde ich zusätzlich zur Antwort aus dem VPN eventuell
 TCP-Reset-Datagramme vom echten Rechner mit der getesteten Quell-Adresse
@@ -199,10 +198,75 @@ sehen. Das ist eine normale Reaktion und nicht schädlich.
 Welche Software ist nun geeignet?
 
 Neben einigen anderen Programmen (mit etwas Geschick geht auch *netcat*)
-halte ich *hping3* für empfehlenswert. Für die Testzwecke komme ich mit
-den folgenden Optionen aus:
+halte ich *hping3* für empfehlenswert. Für die Testzwecke komme ich
+meist mit den folgenden Optionen aus:
 
-.. todo:: hping Optionen auflisten
+``-n, --numeric``:
+  kein Versuch, symbolische Namen für Hostadressen aufzulösen.
+
+``-q, --quiet``:
+  es wird nichts ausgegeben außer der Zusammenfassung beim Startup und
+  am Ende.
+
+``-I $if, --interface $if``:
+  gibt die Netzwerkschnittstelle ($if) vor, zu der das Datagramm hinaus
+  gesendet wird.
+
+``-0, --rawip``:
+  Damit sendet hping3 IP-Datagramme mit den Daten, die mit der Option
+  ``--sign`` oder ``--file`` angegeben wurden.
+
+``-1, --icmp``:
+  Damit sendet hping3 ICMP-Echo-Requests. Andere Typen/Codes können mit
+  ``--icmptype`` und ``--icmpcode`` spezifiziert werden.
+
+``-2, --udp``:
+  Damit sendet hping3 UDP-Datagramme an den Port 0 des Zielrechners. Mit
+  ``--baseport``, ``--destport`` und ``--keep`` können die
+  UDP-Einstellungen modifiziert werden.
+
+``-a $host, --spoof $host``:
+  gibt eine gefälschte Absenderadresse für das gesendete Datagramm vor.
+
+``-H $proto, --ipproto``:
+  setzt das IP-Protokoll bei Option ``-0``.
+
+``-y, --dontfrag``:
+  setzt das Don't-Fragment-IP-Flag, kann zum Testen der Path-MTU
+  verwendet werden.
+
+``--icmp*``:
+  Verschiedene Optionen zum Spezifizieren von ICMP-Datagrammen mit ``-1``.
+
+``--s $port, --baseport $port``:
+  setzt die Quellportnummer des ersten Datagramms. Hping3 erhöht die
+  Quellportnummer bei jedem Datagramm um 1, wenn nicht zusätzlich die
+  Option ``--keep`` angegeben wird.
+
+``-p $port, --destport $port``:
+  setzt die Zielportnummer (Default ist 0).
+
+``--keep``:
+  behält die angegebene Quellportnummer bei.
+
+``-S, --syn``:
+  setzt das SYN-Flag bei TCP.
+
+``--tcp-mss $mss``:
+  aktiviert die TCP-MSS-Option und setzt sie auf den Wert $mss.
+
+``-d $size, --data $size``:
+  gibt die Größe der Daten nach dem Protokoll-Header vor.
+
+``-E $fname, --file $fname``:
+  sende den Inhalt der Datei $fname als Daten.
+
+``-e $sign, --sign $sign``:
+  füllt die ersten Bytes des Datenbereichs im Datagramm mit $sign.
+
+Per Default sendet hping3 TCP-Datagramme. Um UDP-, ICMP- oder andere
+IP-Datagramme zu senden, muss ich eine der Optionen ``-2``, ``-1`` oder
+``-0`` verwenden.
 
 Ich teste generell mit einem Datagramm, dass ich zur Peer-Seite schicke
 und schaue im Paketmitschnitt nach, ob die Antwort meinen Erwartungen
@@ -211,17 +275,15 @@ entspricht.
 Mit TCP ist das einfach, weil die ersten beiden Datagramme immer gleich
 aussehen, brauche ich nur die Adressen und Ports variieren. In meinem
 Test-Datagramm ist nur das SYN-Flag und einige Optionen, wie z.B. die
-MSS gesetzt. Der Aufruf für hping sieht wie folgt aus:
+MSS gesetzt. Der Aufruf für hping sieht wie folgt aus::
 
-.. todo:: hping Aufruf für TCP-Test
+   hping3 -a $saddr -p $dport -S --tcp-mss 1460 $daddr
 
 Bei UDP-Protokollen sieht es etwas schwieriger aus, weil hier der Inhalt
 der Datagramme je nach Protokoll unterschiedlich aussehen muss. Für
 einige Protokolle, wie z.B. DNS kann ich ein mitgeschnittenes Datagramm
 nehmen und daraus eine Signatur für das mit hping gesendete Datagramm
 bauen.
-
-.. todo:: hping Aufruf mit Signatur für UDP-Test
 
 Wenn auch das nicht geht, kann ich vielleicht auf ein Anwenderprogramm
 (z.B.  ntpdate für NTP) zurückgreifen und die Quell-Adresse modifizieren.
