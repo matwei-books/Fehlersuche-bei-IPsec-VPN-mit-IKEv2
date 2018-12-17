@@ -9,6 +9,7 @@ IMAGES = entscheidungsbaum-alternativ.png \
 	 ike-sa-init-cookie.png \
 	 ike-sa-init-inv-ke.png \
 	 informational.png \
+	 ipsec-esp-datagram.png \
 	 ipsec-ike-datagram-gph.png \
 	 ipsec-ike-datagram-options.png \
 	 ipsec-overview.png \

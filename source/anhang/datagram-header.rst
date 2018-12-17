@@ -436,3 +436,56 @@ Transform-Typen definiert. Bitte beziehen sie sich auf die IANA Registry
 "Internet Key Exchange Version 2 (IKEv2) Parameters"
 :cite:`IKEv2parameters` für Details.
 
+ESP-Datagramm
+-------------
+
+Bild :numref:`ipsec-esp-datagram` zeigt den Aufbau eines ESP-Datagramms.
+Der äußere Header, der ihm unmittelbar voran geht, soll den Wert 50 in
+seinem Protokollfeld (IPv4) beziehungsweise Next-Header-Feld (IPv6,
+Extensions) enthalten.
+
+Das Datagramm beginnt mit zwei 4-Byte-großen Feldern, denen die
+verschlüsselten Nutzlastdaten folgen. Diesen wiederum folgt das Padding,
+dessen Länge sowie das Next-Header-Feld. Das abschließende Feld mit dem
+Integrity-Check-Wert ist optional.
+
+.. figure:: /images/ipsec-esp-datagram.png
+   :alt: Toplevel-Format eines ESP-Datagrams aus RFC 4303, Abschnitt 2
+   :name: ipsec-esp-datagram
+
+Die Nutzlastdaten enthalten eine Substruktur, die abhängig vom gewählten
+Verschlüsselungsalgorithmus und dessen Modus ist.
+
+Der explizite ESP-Trailer besteht aus dem Padding, dessen Länge und dem
+Next-Header-Feld. Die Integritäts-Check-Daten zählen zum impliziten
+ESP-Trailer.
+
+Der Integritätsschutz des Datagramms umfasst den SPI, die Sequenznummer,
+die Nutzlastdaten und den ESP-Trailer (explizit und implizit).
+
+Wenn die Vertraulichkeit des Datagramms geschützt wird, besteht der
+verschlüsselte Teil aus den Nutzlastdaten (mit Ausnahme der Daten für
+die kryptographische Synchronisierung, die darin enthalten sind) und dem
+expliziten ESP-Trailer.
+
+Bei der Nutzung von ESN werden nur die niederwertigen 32 Bit der
+64-bittigen Sequenznummer im ESP-Header des Datagramms übermittelt. Die
+höherwertigen Bits werden beim Sender und Empfänger im entsprechenden
+Zähler mitgeführt und gehen in die Integritätsberechnung ein.
+
+Im Transportmodus wird der ESP-Header nach dem IP-Header und vor dem
+Header der nächsten Protokollschicht eingefügt.
+
+Im Tunnelmodus wird der ESP-Header vor dem gekapselten IP-Datagramm
+eingefügt.
+
+Bei NAT-Traversal (NAT-T) wird das gesamte ESP-Datagramm als Nutzlast in
+einem UDP-Datagramm transportiert. Dabei ist der Zielport des
+UDP-Datagramms in der einen Richtung 4500 und in der anderen Richtung
+der Port, auf den die NAT-Box den Absenderport beim ersten IKE-Datagramm
+umgesetzt hat. Die ESP-Datagramme unterscheiden sich von IKE-Datagrammen
+dadurch, dass mindestens ein Bit der ersten vier Oktetts (SPI) nach dem
+UDP-Header gesetzt ist während der Non-ESP-Marker aus vier Oktetts mit
+dem Wert 0 besteht.
+
+
