@@ -436,6 +436,52 @@ Transform-Typen definiert. Bitte beziehen sie sich auf die IANA Registry
 "Internet Key Exchange Version 2 (IKEv2) Parameters"
 :cite:`IKEv2parameters` für Details.
 
+.. index:: ! Delete Payload
+
+Delete Payload
+--------------
+
+Die Delete Payload enthält einen protokollspezifischen SA-Identifikator,
+den der Sender aus seiner SAD entfernt hat, der somit nicht mehr gültig
+ist.
+
+Bild :numref:`ipsec-ike-datagram-delete-payload` zeigt das Format der
+Delete Payload. Sie kann mehrere SPI enthalten, jedoch müssen alle für
+das gleiche Protokoll (IKE, ESP oder AH) sein. Verschiedene Protokolle
+dürfen nicht in einer Delete Payload gemischt werden. Es ist jedoch
+möglich, mehrere Delete Payloads in einem INFORMATIONAL Exchange zu
+senden von denen jede Payload SPIs für ein anderes Protokoll
+kennzeichnet.
+
+Die Löschung einer IKE-SA wird durch die Protokoll-ID 1 angezeigt, ohne
+SPIs. Das Löschen einer Child-SA wird durch die entsprechende
+Protokoll-ID (2 für AH, 3 für ESP) angezeigt zusammen mit den SPI die
+der Sender der Delete Payload für ankommende ESP- oder AH-Datagramme
+erwarten würde.
+
+.. figure:: /images/ipsec-ike-datagram-delete-payload.png
+   :alt: Delete Payload aus RFC 7269, Abschnitt 3.11
+   :name: ipsec-ike-datagram-delete-payload
+
+   Delete Payload
+
+Protocol ID (1 Oktett):
+  1 für IKE, 2 für AH oder 3 für ESP.
+
+SPI Size (1 Oktett):
+  Länge in Oktetts des SPI, der durch die Protocol ID bestimmt wird. 0
+  für IKE, 4 für AH oder ESP.
+
+Num of SPIs (2 Oktetts, Integer):
+  Anzahl der SPIs in dieser Payload.
+
+Security Parameter Index(es) (variable Länge):
+  Identifiziert die Security Associations, die gelöscht werden sollen.
+  Die Länge dieses Feldes ergibt sich aus den Feldern *SPI Size* und
+  *Num of SPIs*.
+
+Der Payload-Typ für die Delete-Payload ist 42.
+
 ESP-Datagramm
 -------------
 
