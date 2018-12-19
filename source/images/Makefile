@@ -11,6 +11,7 @@ IMAGES = entscheidungsbaum-alternativ.png \
 	 informational.png \
 	 ipsec-esp-datagram.png \
 	 ipsec-ike-datagram-delete-payload.png \
+	 ipsec-ike-datagram-notify-payload.png \
 	 ipsec-ike-datagram-gph.png \
 	 ipsec-ike-datagram-options.png \
 	 ipsec-overview.png \

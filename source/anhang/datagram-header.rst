@@ -436,6 +436,110 @@ Transform-Typen definiert. Bitte beziehen sie sich auf die IANA Registry
 "Internet Key Exchange Version 2 (IKEv2) Parameters"
 :cite:`IKEv2parameters` für Details.
 
+.. index:: ! Notify Payload
+
+Notify Payload
+--------------
+
+Mit der Notify Payload werden informelle Daten, wie Fehlerbedingungen
+und Zustandsänderungen an den IKE-Peer gesendet. Sie kann in
+Response-Nachrichten auftauchen, wo sie üblicherweise angibt, warum ein
+Request abgelehnt wurde, oder in einem INFORMATIONAL-Exchange um einen
+Fehler zu berichten, der nicht mit einem IKE-Request zusammenhängt, oder
+in anderen Nachrichten um Fähigkeiten des Senders anzuzeigen oder die
+Bedeutung eines Requests zu modifizieren.
+
+
+.. figure:: /images/ipsec-ike-datagram-notify-payload.png
+   :alt: Notify Payload aus RFC 7269, Abschnitt 3.10
+   :name: ipsec-ike-datagram-notify-payload
+
+   Notify Payload
+
+.. index:: INVALID_SELECTORS, REKEY_SA, CHILD_SA_NOT_FOUND
+
+Protocol ID (1 octet):
+  Wenn die Benachrichtigung einen existierenden SA betrifft, dessen SPI
+  im SPI-Feld angegeben ist, zeigt dieses Feld den Typ dieses SAs an.
+  Wenn das SPI-Feld leer ist, muss in diesem Feld der Wert 0 gesendet
+  werden und es muss beim Empfang ignoriert werden.
+  
+  Für Benachrichtigungen bezüglich Child-SAs muss dieses Feld entweder
+  den Wert 2 enthalten, um AH anzuzeigen oder den Wert 3 für ESP.
+  Bei den in RFC7269 definierten Benachrichtigungen ist der SPI nur mit
+  INVALID_SELECTORS, REKEY_SA und CHILD_SA_NOT_FOUND eingeschlossen.
+
+SPI Size (1 octet):
+  Länge in Oktetts des SPI, der durch die Protocol ID bestimmt wird. 0
+  für IKE, 4 für AH oder ESP.
+
+Notify Message Type (2 octets):
+  Gibt den Typ der Nachricht an.
+
+SPI (variable Länge):
+  Security Parameter Index
+
+Notification Data (variable Länge):
+  Status- oder Fehlerdaten, die zusätzlich zum Message Type gesendet
+  werden. Die Werte für dieses Feld hängen vom Typ ab.
+
+Der Payload-Typ für die Notify Payload ist 42.
+
+Notify-Message-Typen
+....................
+
+Die folgenden Tabellen listen lediglich die Namen der Nachrichten und
+ihren numerischen Wert. Für Details verweise ich auf RFC7269, Abschnitt
+3.10. Die Tabellen sind aktuell für den Stand von RFC7269.
+
+Werte von 0 - 16383 sind für das Melden von Fehlern vorgesehen.
+Wenn eine IPsec-Implementierung eine Nachricht mit einem dieser Typen
+erhält, den sie nicht versteht, muss sie annehmen, dass der zugehörige
+Request vollständig fehlgeschlagen ist. Unbekannte Fehlertypen in einem
+Request beziehungsweise unbekannte Statustypen in einem Request oder
+Response müssen ignoriert und sollten protokolliert werden.
+
+=============================== ====
+NOTIFY Nachrichten: Fehlertypen Wert
+=============================== ====
+UNSUPPORTED_CRITICAL_PAYLOAD       1
+INVALID_IKE_SPI                    4
+INVALID_MAJOR_VERSION              5
+INVALID_SYNTAX                     7
+INVALID_MESSAGE_ID                 9
+INVALID_SPI                       11
+NO_PROPOSAL_CHOSEN                14
+INVALID_KE_PAYLOAD                17
+AUTHENTICATION_FAILED             24
+SINGLE_PAIR_REQUIRED              34
+NO_ADDITIONAL_SAS                 35
+INTERNAL_ADDRESS_FAILURE          36
+FAILED_CP_REQUIRED                37
+TS_UNACCEPTABLE                   38
+INVALID_SELECTORS                 39
+TEMPORARY_FAILURE                 43
+CHILD_SA_NOT_FOUND                44
+=============================== ====
+
+Werte größer als 16383 kennzeichnen Statustypen.
+
+=============================== =====
+NOTIFY Nachrichten: Statustypen  Wert
+=============================== =====
+INITIAL_CONTACT                 16384
+SET_WINDOW_SIZE                 16385
+ADDITIONAL_TS_POSSIBLE          16386
+IPCOMP_SUPPORTED                16387
+NAT_DETECTION_SOURCE_IP         16388
+NAT_DETECTION_DESTINATION_IP    16389
+COOKIE                          16390
+USE_TRANSPORT_MODE              16391
+HTTP_CERT_LOOKUP_SUPPORTED      16392
+REKEY_SA                        16393
+ESP_TFC_PADDING_NOT_SUPPORTED   16394
+NON_FIRST_FRAGMENTS_ALSO        16395
+=============================== =====
+
 .. index:: ! Delete Payload
 
 Delete Payload
@@ -480,7 +584,7 @@ Security Parameter Index(es) (variable Länge):
   Die Länge dieses Feldes ergibt sich aus den Feldern *SPI Size* und
   *Num of SPIs*.
 
-Der Payload-Typ für die Delete-Payload ist 42.
+Der Payload-Typ für die Delete Payload ist 42.
 
 ESP-Datagramm
 -------------
