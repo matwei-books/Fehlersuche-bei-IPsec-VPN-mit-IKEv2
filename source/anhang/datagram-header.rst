@@ -343,7 +343,7 @@ aufgelistet.  Die Werte der Tabelle entsprechen dem Stand von RFC 7296.
 Name           Nummer Definiert in
 ============== ====== =============================
 ENCR_DES_IV64  1      (UNSPECIFIED)
-ENCR_DES       2      :cite:`RFC2405`, [DES]
+ENCR_DES       2      :cite:`RFC2405`, :cite:`ANSI-X3.106`
 ENCR_3DES      3      :cite:`RFC2451`
 ENCR_RC5       4      :cite:`RFC2451`
 ENCR_IDEA      5      :cite:`RFC2451`, [IDEA]
@@ -356,7 +356,7 @@ ENCR_AES_CBC   12     :cite:`RFC3602`
 ENCR_AES_CTR   13     :cite:`RFC3686`
 ============== ====== =============================
 
-.. todo:: BibTeX für [DES] und [IDEA] (Referenzen aus RFC7296)
+.. todo:: BibTeX für [IDEA] (Referenz aus RFC7296)
 
 Die folgende Tabelle listet die Transform-ID für Transform-Typ 2
 (Pseudorandom Function, PRF) mit Stand von RFC 7296.
