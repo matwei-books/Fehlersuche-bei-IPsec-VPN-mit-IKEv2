@@ -1,0 +1,93 @@
+--- venv/lib/python2.7/site-packages/sphinx/texinputs/sphinxmanual.cls.orig	2018-12-21 13:57:08.734071861 +0100
++++ venv/lib/python2.7/site-packages/sphinx/texinputs/sphinxmanual.cls	2018-12-21 13:57:44.427095606 +0100
+@@ -30,48 +30,48 @@
+ \setcounter{secnumdepth}{2}
+ \setcounter{tocdepth}{1}
+ 
+-% Change the title page to look a bit better, and fit in with the fncychap
+-% ``Bjarne'' style a bit better.
+-%
+-\renewcommand{\maketitle}{%
+-  \let\spx@tempa\relax
+-  \ifHy@pageanchor\def\spx@tempa{\Hy@pageanchortrue}\fi
+-  \hypersetup{pageanchor=false}% avoid duplicate destination warnings
+-  \begin{titlepage}%
+-    \let\footnotesize\small
+-    \let\footnoterule\relax
+-    \noindent\rule{\textwidth}{1pt}\par
+-      \begingroup % for PDF information dictionary
+-       \def\endgraf{ }\def\and{\& }%
+-       \pdfstringdefDisableCommands{\def\\{, }}% overwrite hyperref setup
+-       \hypersetup{pdfauthor={\@author}, pdftitle={\@title}}%
+-      \endgroup
+-    \begin{flushright}%
+-      \sphinxlogo
+-      \py@HeaderFamily
+-      {\Huge \@title \par}
+-      {\itshape\LARGE \py@release\releaseinfo \par}
+-      \vfill
+-      {\LARGE
+-        \begin{tabular}[t]{c}
+-          \@author
+-        \end{tabular}
+-        \par}
+-      \vfill\vfill
+-      {\large
+-       \@date \par
+-       \vfill
+-       \py@authoraddress \par
+-      }%
+-    \end{flushright}%\par
+-    \@thanks
+-  \end{titlepage}%
+-  \setcounter{footnote}{0}%
+-  \let\thanks\relax\let\maketitle\relax
+-  %\gdef\@thanks{}\gdef\@author{}\gdef\@title{}
+-  \if@openright\cleardoublepage\else\clearpage\fi
+-  \spx@tempa
+-}
++%% Change the title page to look a bit better, and fit in with the fncychap
++%% ``Bjarne'' style a bit better.
++%%
++%\renewcommand{\maketitle}{%
++%  \let\spx@tempa\relax
++%  \ifHy@pageanchor\def\spx@tempa{\Hy@pageanchortrue}\fi
++%  \hypersetup{pageanchor=false}% avoid duplicate destination warnings
++%  \begin{titlepage}%
++%    \let\footnotesize\small
++%    \let\footnoterule\relax
++%    \noindent\rule{\textwidth}{1pt}\par
++%      \begingroup % for PDF information dictionary
++%       \def\endgraf{ }\def\and{\& }%
++%       \pdfstringdefDisableCommands{\def\\{, }}% overwrite hyperref setup
++%       \hypersetup{pdfauthor={\@author}, pdftitle={\@title}}%
++%      \endgroup
++%    \begin{flushright}%
++%      \sphinxlogo
++%      \py@HeaderFamily
++%      {\Huge \@title \par}
++%      {\itshape\LARGE \py@release\releaseinfo \par}
++%      \vfill
++%      {\LARGE
++%        \begin{tabular}[t]{c}
++%          \@author
++%        \end{tabular}
++%        \par}
++%      \vfill\vfill
++%      {\large
++%       \@date \par
++%       \vfill
++%       \py@authoraddress \par
++%      }%
++%    \end{flushright}%\par
++%    \@thanks
++%  \end{titlepage}%
++%  \setcounter{footnote}{0}%
++%  \let\thanks\relax\let\maketitle\relax
++%  %\gdef\@thanks{}\gdef\@author{}\gdef\@title{}
++%  \if@openright\cleardoublepage\else\clearpage\fi
++%  \spx@tempa
++%}
+ 
+ \newcommand{\sphinxtableofcontents}{%
+   \pagenumbering{roman}%

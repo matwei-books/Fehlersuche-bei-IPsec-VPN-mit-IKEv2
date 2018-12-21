@@ -125,6 +125,26 @@ latex_elements = {
     # Latex figure (float) alignment
     #
     # 'figure_align': 'htbp',
+    'maketitle': r'''
+%\titlehead{This is the titlehead}
+%\subject{This is the subject}
+%\subtitle{This is the subtitle}
+%\author{This is the author with a footnote\thanks{Footnote to author}}
+%\date{21.12.2018}
+%\publishers{These are the publishers}
+%\extratitle{\centering This is the extra title}
+\uppertitleback{
+    This work is licensed under a Creative Commons\\
+    Attribution-NonCommercial-ShareAlike 3.0 Unported License
+}
+%\lowertitleback{The lower part of the backtitle}
+%\dedication{This sample is dedicated to all unsuccessful trials so far}
+\maketitle
+''',
+}
+
+latex_docclass = {
+   'manual': 'scrbook',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
