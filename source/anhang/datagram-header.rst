@@ -346,7 +346,7 @@ ENCR_DES_IV64  1      (UNSPECIFIED)
 ENCR_DES       2      :cite:`RFC2405`, :cite:`ANSI-X3.106`
 ENCR_3DES      3      :cite:`RFC2451`
 ENCR_RC5       4      :cite:`RFC2451`
-ENCR_IDEA      5      :cite:`RFC2451`, [IDEA]
+ENCR_IDEA      5      :cite:`RFC2451`, :cite:`IDEA`
 ENCR_CAST      6      :cite:`RFC2451`
 ENCR_BLOWFISH  7      :cite:`RFC2451`
 ENCR_3IDEA     8      (UNSPECIFIED)
@@ -356,20 +356,16 @@ ENCR_AES_CBC   12     :cite:`RFC3602`
 ENCR_AES_CTR   13     :cite:`RFC3686`
 ============== ====== =============================
 
-.. todo:: BibTeX für [IDEA] (Referenz aus RFC7296)
-
 Die folgende Tabelle listet die Transform-ID für Transform-Typ 2
 (Pseudorandom Function, PRF) mit Stand von RFC 7296.
 
 ============== ====== ==================================
 Name           Nummer Definiert in
 ============== ====== ==================================
-PRF_HMAC_MD5   1      :cite:`RFC2104`, [MD5]
-PRF_HMAC_SHA1  2      :cite:`RFC2104`, [FIPS.180-4.2012]
+PRF_HMAC_MD5   1      :cite:`RFC2104`, :cite:`RFC1321`
+PRF_HMAC_SHA1  2      :cite:`RFC2104`, :cite:`FIPS.180-4.2012`
 PRF_HMAC_TIGER 3      (UNSPECIFIED)
 ============== ====== ==================================
-
-.. todo:: BibTeX für [MD5] und [FIPS.180-4.2012] (Referenzen aus RFC7296)
 
 Die definierten Werte für die Transform-ID für Transform-Typ 3
 (Integrity Algorithm) mit Stand von RFC 7296 listet die folgende Tabelle.
