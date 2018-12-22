@@ -147,6 +147,11 @@ latex_docclass = {
    'manual': 'scrbook',
 }
 
+# This is needed to remove the \renewcommand{\maketitle}{...}.
+latex_additional_files = [
+    'sphinxmanual.cls'
+]
+
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
