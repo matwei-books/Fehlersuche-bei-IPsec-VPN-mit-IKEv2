@@ -390,15 +390,13 @@ Name                Nummer  Definiert in
 NONE                0
 768-bit MODP Group  1       Appendix B von RFC 7296
 1024-bit MODP Group 2       Appendix B von RFC 7296
-1536-bit MODP Group 5       [ADDGROUP]
-2048-bit MODP Group 14      [ADDGROUP]
-3072-bit MODP Group 15      [ADDGROUP]
-4096-bit MODP Group 16      [ADDGROUP]
-6144-bit MODP Group 17      [ADDGROUP]
-8192-bit MODP Group 18      [ADDGROUP]
+1536-bit MODP Group 5       :cite:`RFC3526`
+2048-bit MODP Group 14      :cite:`RFC3526`
+3072-bit MODP Group 15      :cite:`RFC3526`
+4096-bit MODP Group 16      :cite:`RFC3526`
+6144-bit MODP Group 17      :cite:`RFC3526`
+8192-bit MODP Group 18      :cite:`RFC3526`
 =================== ======= =======================
-
-.. todo:: BibTeX für [ADDGROUP] (Referenzen aus RFC7296)
 
 Obwohl ESP und AH einen Diffie-Hellman-Austausch nicht direkt enthalten,
 kann dieser für die Child-SA ausgehandelt werden. Damit kann Perfect
