@@ -112,11 +112,11 @@ htmlhelp_basename = 'FehlersuchebeiIKEv2IPsecVPNdoc'
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #
-    # 'papersize': 'letterpaper',
+    'papersize': 'paperheight=7in,paperwidth=9.1in',
 
     # The font size ('10pt', '11pt' or '12pt').
     #
-    # 'pointsize': '10pt',
+    'pointsize': '11pt',
 
     # Additional stuff for the LaTeX preamble.
     #
