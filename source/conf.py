@@ -156,7 +156,7 @@ latex_additional_files = [
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'FehlersuchebeiIKEv2IPsecVPN.tex', 'Fehlersuche bei IKEv2 IPsec VPN Documentation',
+    (master_doc, 'FehlersuchebeiIKEv2IPsecVPN.tex', 'Fehlersuche bei IKEv2 IPsec VPN',
      'Mathias Weidner', 'manual'),
 ]
 
@@ -166,7 +166,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'fehlersuchebeiikev2ipsecvpn', 'Fehlersuche bei IKEv2 IPsec VPN Documentation',
+    (master_doc, 'fehlersuchebeiikev2ipsecvpn', 'Fehlersuche bei IKEv2 IPsec VPN',
      [author], 1)
 ]
 
@@ -177,7 +177,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'FehlersuchebeiIKEv2IPsecVPN', 'Fehlersuche bei IKEv2 IPsec VPN Documentation',
+    (master_doc, 'FehlersuchebeiIKEv2IPsecVPN', 'Fehlersuche bei IKEv2 IPsec VPN',
      author, 'FehlersuchebeiIKEv2IPsecVPN', 'One line description of project.',
      'Miscellaneous'),
 ]
