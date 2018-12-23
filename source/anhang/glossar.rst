@@ -40,6 +40,15 @@ Child-SA:
   bezeichnet, die im Rahmen einer IKE-Sitzung ausgehandelt werden.
   Hin und wieder wird dafür auch die Bezeichnung IPsec-SA verwendet.
 
+.. index:: CLI
+
+CLI:
+  Die Kommandozeile (englisch: command-line interface) ist eine
+  Benutzerschnittstelle, die typischerweise im Textmodus arbeitet.
+  Diese Schnittstelle hat den Vorteil - wenn Kopieren und Einfügen
+  funktioniert - dass Änderungen sehr einfach vorbereitet und
+  dokumentiert werden können.
+
 .. index:: ! Encapsulating Security Payload
    see: ESP; Encapsulating Security Payload
 .. _ESP:
@@ -272,6 +281,19 @@ Responder:
 SA:
   siehe :ref:`Security Association <SA>`.
 
+.. index:: SAD
+
+SAD:
+  In der Security Association Database werden die SA verwaltet. Diese
+  bestimmen wie der im VPN übertragene Traffic verschlüsselt werden
+  soll. Wenn ein IKE-, ESP- oder AH-Datagramm empfangen wird, findet der
+  Empfänger die zur Entschlüsselung notwendigen Angaben in der SAD. Der
+  Sender hingegen schaut in der SAD nach, wie er ein Datagramm für den
+  Peer verschlüsseln muss.
+
+  Im Gegensatz zur SPD ändert sich die SAD sehr häufig, mit jeder
+  neuen SA, die ausgehandelt und jeder alten SA, die gelöscht wird.
+
 .. index:: ! Security Association
    see: SA; Security Association
 .. _SA:
@@ -302,6 +324,16 @@ Security Parameters Index (SPI):
   seiner Rolle im IKE-Datenaustausch entscheiden, welcher für ihn gültig
   ist. Für Details siehe Abschnitt
   :ref:`anhang/datagram-header:IKE Header` im Anhang.
+
+.. index:: SPD
+
+SPD:
+  In der Security Policy Database ist hinterlegt, welcher Traffic
+  verschlüsselt werden soll. Sie umfasst die Peer-Gateways, die
+  Access-Control-Listen, die die erlaubten Traffic-Selektoren bestimmen
+  und die erlaubten Verschlüsselungsverfahren.
+
+  Im Gegensatz zur SAD sind die Einträge in der SPD eher statisch.
 
 SPI:
   siehe
