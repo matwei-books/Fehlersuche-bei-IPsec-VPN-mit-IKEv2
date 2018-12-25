@@ -192,12 +192,8 @@ Sie sind verschachtelt, so dass die Payload-Length einer SA den gesamten Umfang 
 Die Länge eines Proposals umfasst die Länge aller enthaltenen Transforms und Attribute.
 Die Länge eines Transforms umfasst die Länge aller enthaltenen Attribute.
 
-.. todo:: Übersetzung 'standard crypto cipher' -> Standardchiffre verifizieren
-
-.. todo:: Übersetzung 'combined mode chiffre' -> kombinierte Chiffre verifizieren
-
 Die Proposals in der SA-Payload sind - beginnend bei 1 - durchnummeriert.
-Ein Initiator kann sowohl Standardchiffren als kombinierte Chiffren vorschlagen, muss dann aber verschiedene Proposals verwenden, da diese nicht im selben Proposal gemischt werden können.
+Ein Initiator kann sowohl Standardchiffren als Authenticated-Encryption-Chiffren vorschlagen, muss dann aber verschiedene Proposals verwenden, da diese nicht im selben Proposal gemischt werden können.
 
 Jede Proposal-Struktur wird gefolgt von einer oder mehreren Transform-Strukturen.
 Die Anzahl der verschiedenen Transforms wird durch das Protokoll bestimmt.

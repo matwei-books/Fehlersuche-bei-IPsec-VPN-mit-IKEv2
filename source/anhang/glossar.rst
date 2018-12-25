@@ -5,6 +5,22 @@ Glossar
 AH:
   siehe :ref:`Authentication Header <AH>`
 
+.. index:: ! Authenticated Encryption
+   see: Combinded Mode Chiffre; Authenticated Encryption
+.. _AuthenticatedEncryption:
+
+Authenticated Encryption:
+  Einige kryptographische Operationsmodi bei Blockchiffren gewährleisten
+  nur die Vertraulichkeit der verschlüsselten Daten, aber nicht deren
+  Authentizität. Das heißt, sie schützen nicht vor einer Veränderung der
+  übertragenen Daten. Darum müssen die übertragenen Daten zusätzlich
+  noch durch MAC (Message Authentication Codes) gegen Veränderung
+  geschützt werden.
+
+  Demgegenüber schützen Authenticated Encryption Modi sowohl die
+  Vertraulichkeit als auch die Authentizität. Diese werden auch als
+  Combined Mode Chiffre bezeichnet.
+
 .. index:: ! Authentication Header
    see: AH; Authentication Header
 .. _AH:
@@ -48,6 +64,9 @@ CLI:
   Diese Schnittstelle hat den Vorteil - wenn Kopieren und Einfügen
   funktioniert - dass Änderungen sehr einfach vorbereitet und
   dokumentiert werden können.
+
+Combined Mode Chiffre:
+  siehe :ref:`Authenticated Encryption <AuthenticatedEncryption>`
 
 .. index:: ! Encapsulating Security Payload
    see: ESP; Encapsulating Security Payload
