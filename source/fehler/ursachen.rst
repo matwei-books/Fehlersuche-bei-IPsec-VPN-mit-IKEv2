@@ -270,15 +270,60 @@ Bei IPv6 lässt sich NAT im Moment noch vermeiden, wenn man konsequent
 eindeutige Adressen verwendet, auch wenn diese nicht über das Internet
 geroutet werden.
 
+.. figure:: /images/nat.png
+   :name: vpn-nat
+
+   NAT bei VPN-Datenverkehr
+
 Das war das Vorgeplänkel zu internem NAT, kommen wir nun zu konkreten
 Problemen damit, die ich identifizieren und beheben kann.
-Dabei hilft uns das folgende Diagramm, das aufzeigt, an welchen Stellen
+Dabei hilft uns das Diagramm :numref:`vpn-nat`, das aufzeigt, an welchen Stellen
 die Datagramme welche Adressen haben können.
-
-.. todo:: Diagramm mit den NAT-Adressen
-
 Dieses Diagramm kann auch bei Verständigungsproblemen mit dem Peer
 während der Fehlersuche helfen.
+
+Betrachte ich die Datagramme zwischen zwei Endpunkten in den Netzwerken
+A und B, dann können die Absender- und Zieladressen ein und desselben
+Datagramms sich an den drei hervorgehobenen Bereichen voneinander
+unterscheiden.
+Sind beide Seiten des VPN lediglich verschiedene Standorte ein und
+derselben Organisation, dann werden die Adressen Aa, Av, Ab
+beziehungsweise Ba, Bv und Bb vermutlich überall dieselben sein, weil bei
+geschickter Netzplanung kein NAT notwendig ist.
+
+Komplizierter wird es, wenn das VPN die Netze zweier Organisationen
+verbindet.
+Da beide Netze dann unabhängig voneinander geplant sind, ist es durchaus
+möglich, dass es zu Überschneidungen bei den Adressen auf beiden Seiten
+kommt.
+Insbesondere, wenn Adressen aus den in RFC1918 :cite:`RFC1918` genannten
+Adressbereichen verwendet werden.
+In diesem Fall müssen beide Seiten Adressbereiche finden, die zu ihrem
+eigenen Netz und zum Netz des Peers passen.
+Unterhält ein VPN-Gateway mehrere VPN zu unterschiedlichen Peers, so
+müssen für dieses Gateway die Adressen des Peers sich von denen aller
+anderen Peers unterscheiden, damit sie korrekt zugeordnet werden können.
+
+Bei einem neu einzurichtenden VPN zu einem fremden Peer bestimme ich
+zunächst die Anzahl der benötigten Adressen auf beiden Seiten und dann
+die verfügbaren Adressen für die Traffic-Selektoren.
+Dabei muss jede Seite die bereits bei anderen VPN auf dem gleichen
+Gateway verwendeten Adressen vermeiden.
+Habe ich mich mit dem Peer auf die im VPN verwendeten Traffik-Selektoren
+geeinigt, muss ich die Adressen aus meinem Netz umsetzen, wenn sie vom
+ausgehandelten Traffic-Selektor abweichen.
+Der Peer muss das gleiche entsprechen auf seiner Seite tun.
+Verwende ich ein zentrales VPN-Gateway mit einem bestimmten
+Adressbereich, der in meinen Netzen für alle VPN reserviert ist, dann
+muss ich die Peer-Adresse des Traffic-Selektors umsetzen, wenn diese
+nicht in dem Reservierten Adressbereich liegt.
+
+Somit kann es vorkommen, dass ich an meinem VPN-Gateway keine Adressen,
+nur die lokalen Adressen, nur die Adressen des Peers oder beide Adressen
+umsetzen muss.
+Für den Peer gilt das gleiche auf seiner Seite.
+Das muss ich wissen und gegebenenfalls bei der Fehlersuche
+berücksichtigen.
 
 Wichtig ist insbesondere bei policy-based VPN, dass die Adressen der
 Datagramme, die verschlüsselt im ESP-Tunnel gesendet werden, genau zu
