@@ -583,14 +583,15 @@ Dazu muss die Wissensdatenbank einfach und schnell zu bedienen sein.
 Policy-based VPN versus route-based VPN
 ---------------------------------------
 
-.. todo:: RFC2784 (GRE) und RFC 2637 (PPTP) anbringen
-
 Der grundlegende Unterschied zwischen diesen beiden Ausprägungen von VPN
 ist, dass bei route-based VPN ein virtuelles Netzwerkinterface auf jedem
 VPN-Gateway angelegt wird, das mit dem des Peers verbunden ist.
 Diese beiden Interfaces terminieren jeweils auf einer öffentlichen
 IP-Adresse der VPN-Gateways und genau für diese beiden Adressen brauche
 ich nur eine einzige Child-SA.
+
+Als virtuelles Netzwerkinterface nimmt man ein GRE-Interface, wie in
+:cite:`RFC2784` beschrieben oder PPTP (:cite:`RFC2637`).
 
 Sind die GRE-Interfaces eingerichtet und durch IPsec geschützt
 miteinander verbunden, bekommen sie je eine Adresse in einem beliebigen
