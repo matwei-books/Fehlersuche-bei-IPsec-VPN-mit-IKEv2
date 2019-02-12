@@ -85,9 +85,10 @@ benötige.
 Systemlogs und Debug-Informationen
 ----------------------------------
 
-.. todo:: Quelle für Informationen in die Referenzen
-
-   z.B.: https://www.cisco.com/c/en/us/td/docs/security/asa/asa82/configuration/guide/config/monitor_syslog.html
+Im Internet sind Informationen zur Konfiguration von Cisco-Geräten sehr
+leicht zu finden.
+Die ultimative Referenz findet man auf den Webseiten von Cisco selbst,
+zum Beispiel :cite:`cisco-asa-log-config`.
 
 Möchte ich die Systemlogs in der Konsole oder SSH-Sitzung sehen, gebe
 ich einen der folgenden Befehle ein::
