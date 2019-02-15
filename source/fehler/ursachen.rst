@@ -49,8 +49,8 @@ Die wohl häufigste Fehlerursache bei nicht funktionierenden VPN sind
 verschiedene Crypto-Parameter auf den beiden VPN-Gateways.
 Da diese meist im Vorfeld vereinbart werden, kann man durchaus von
 falschen Parametern auf mindestens einer Seite sprechen.
-Wurden die Parameter nicht im Vorfeld vereinbart, spriecht man besser
-von verschiedenen Parametern.
+Wurden die Parameter nicht im Vorfeld vereinbart, spricht man besser
+von unterschiedlichen Parametern.
 
 Diese Fehler fallen in die Kategorie Fehlkonfiguration, das heißt für
 die Behebung sind die VPN-Administratoren zuständig.
