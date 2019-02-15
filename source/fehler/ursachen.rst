@@ -626,14 +626,15 @@ verwenden.
 Anti-Replay-Check-Probleme
 --------------------------
 
-.. todo:: Cisco-Dokument 116858 als Referenz einarbeiten
-
 Mitunter finden sich in den Logs Hinweise auf fehlgeschlagene
 Anti-Replay-Checks.
 Dies bedeuten, dass das zugehörige Datagramm vom Empfänger ohne weitere
 Bearbeitung verworfen wurde.
 Treten diese Meldungen häufiger auf, ist es an der Zeit, ihnen
 nachzugehen.
+Im Internet findet sich eine anschauliche Erläuterung unter
+:cite:`cisco-document-116858`, auch wenn diese die Sicht von Cisco
+und den Umgang mit dem Problem auf deren Geräten beschreibt.
 
 Anti-Replay-Checks sind ein wichtiges Sicherheitsmerkmal von IPsec.
 Sie nutzen die in jdem ESP- oder AH-Header mitgesendeten Sequenznummer.
