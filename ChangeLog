@@ -1,3 +1,9 @@
+2019-02-15 15:49 CET (mathias)
+	- Problem mit epubcheck kann umgangen werden, wenn man das EPUB
+	  einmal mit `sigil` öffnet und dabei die Fehler automatisch
+	  reparieren lässt. Anschließend abspeichern und `epubcheck`
+	  findet keine Fehler mehr.
+
 2018-04-23 17:27 CEST (user)
 	- Quellen aufgesetzt
 
