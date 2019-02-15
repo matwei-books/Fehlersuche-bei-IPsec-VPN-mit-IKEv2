@@ -38,6 +38,10 @@ einer Security Association Database (SAD) abzulegen. Dabei gibt es sowohl
 SA für die IKE-Sitzung, in der die Parameter ausgehandelt werden als
 auch für die durch IPsec geschützten Daten.
 
+Die kryptografischen Algorithmen für IKE2 beschreibt :cite:`RFC4307`,
+während :cite:`RFC4305` die Anforderungen an die Implementation von
+kryptografischen Algorithmen für ESP und AH beschreibt.
+
 Eine SA besteht aus einer oder mehreren Proposals die jeweils ein
 Protokoll umfassen. Jedes dieser Protokolle enthält eine oder
 mehrere Transforms, die ihrerseits einen kryptographischen Algorithmus
