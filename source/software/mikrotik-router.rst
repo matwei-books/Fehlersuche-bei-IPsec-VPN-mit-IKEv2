@@ -65,15 +65,8 @@ Um einen VPN-Tunnel zu beenden verwende ich die Befehle::
 Systemlogs und Debug-Informationen
 ----------------------------------
 
-Die Logs finde ich direkt auf der MikroTik mit dem Befehl::
-
-  /log print
-
-Ich kann hier auch filtern, bevorzuge aber die Arbeit mit Textwerkzeugen
-auf dem eigenen Rechner.
-
-Was protokolliert wird und wohin, bestimme ich mit den Befehlen der
-Kategorie ``/system logging``.
+Was auf der MikroTik protokolliert wird und wohin, bestimme ich mit
+den Befehlen der Kategorie ``/system logging``.
 
 Von diesen sind vor allem zwei wichtig:
 
@@ -85,30 +78,73 @@ Von diesen sind vor allem zwei wichtig:
   definiert die Log-Kanäle, die ich nutzen kann (Hauptspeicher, Datei,
   Logserver, ...).
 
-.. todo:: Befehle zur Log-Konfiguration bei MikroTik kontrollieren und ergänzen
+Die Logs, die sich im lokalen Speicher der MikroTik befinden, lese ich
+mit dem Befehl::
 
-Protokolliere ich in eine Datei, kann ich diese anschließend via SCP auf
-meinen Rechner kopieren und dort auswerten. Das bietet sich zum Beispiel
-an, wenn ich einen bereits konfigurierten Syslog-Server nicht mit
-Debugmeldungen verunreinigen will.
+  /log print
+
+Ich kann hier filtern, bevorzuge aber meist die Arbeit mit
+Textwerkzeugen auf dem eigenen Rechner.
+Dafür habe ich mehrere Möglichkeiten.
+
+Am schnellsten geht, die Ausgabe von ``/log print`` in eine Textdatei
+umzuleiten. Zum Beispiel, indem ich via SSH nur diesen Befehl aufrufe
+und die SSH-Sitzung zum Beispiel mit ``script`` protokolliere::
+
+  script mikrotik.log
+  ssh user@mikrotik /log print
+  exit
+
+Die ersten und letzten Zeilen schneide ich ab von der Datei
+*mikrotik.log* und kann diese in aller Ruhe untersuchen.
+
+Sind die interessanten Lognachrichten schlecht im Hauptspeicher zu
+finden, weil dieser vielleicht nicht so viele Nachrichten fassen kann,
+muss ich auf andere Art auf die Logs zugreifen.
+
+Eine andere Möglichkeit ist, die Logs zu einem Syslog-Server zu senden
+und dann bei diesem abzuholen.
+Um zum Syslog-Server mit Adresse a.b.c.d zu protokollieren, verwende
+ich die folgenden Befehle::
+
+  /system logging action
+  add name=remote remote=a.b.c.d
+
+  /system logging
+  add action=remote topics=...
+
+Bei den Topics interessiert mich vor allem ``ipsec``.
+Leider wird die Priorität, das heißt der Loglevel, ebenfalls über das
+Attribut *topic* eingestellt.
+Darum kombiniere ich ``ipsec`` meist mit den gewünschten Levels.
+
+``topics=ipsec,!packet``
+  lässt den Packet-Dump der Datagramme aus.
+  Diesen will ich auf dem Syslog-Server sowieso nicht haben.
+
+``topics=ipsec,debug,!packet``
+  schalte ich ein, wenn ich Probleme mit einem VPN untersuche.
+
+``topics=ipsec,!debug,!packet``
+  habe ich im Normalbetrieb eingestellt.
+
+Schließlich kann ich die Logs in eine Datei schreiben lassen und diese
+Datei zum Beispiel via SCP für die Untersuchung abzuholen.
 Die Befehle dazu sind::
 
   /system/logging/action
-  add action=file name=vpn.log ...
+  add action=file name=vpn.log
   /system logging topic
-  add topics=ipsec,debug action=file
+  add action=file topics=ipsec,debug
 
 Sehen kann ich die Dateien auf dem Gerät in der Kategorie ``/file``::
 
   /file print
 
-Um zum Syslog-Server mit Adresse a.b.c.d zu protokollieren, verwende
-ich die folgenden Befehle::
+Von meinem Rechner aus kann ich sie zum Beispiel mittels SCP zur
+Analyse abholen::
 
-  /system/logging/action
-  add name=remote remote=a.b.c.d
-  /system/logging
-  add action=remote topics=...
+  scp user@mikrotik:vpn.log .
 
 Paketmitschnitte
 ----------------
