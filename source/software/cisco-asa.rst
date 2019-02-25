@@ -242,10 +242,8 @@ bekannt.
 Die Unflexibilität bei der Filterung kompensiert die ASA mit einigen
 sehr nützlichen Einstellungen beim Mitschnitt.
 
-.. todo:: Wie lautet der Capture-Typ, wenn keiner angegeben ist?
-
 Da wäre zunächst der Typ des Mitschnitts.
-Gebe ich keinen an, ist der Typ automatisch ..., es werden normale
+Gebe ich keinen an, ist der Typ automatisch ``raw-data`` es werden normale
 Datagramme geschrieben.
 Beim Typ ``isakmp`` hingegen erzeugt die ASA zusätzlich
 Pseudo-Datagramme, die den Inhalt der entschlüsselten IKE-Nachrichten
