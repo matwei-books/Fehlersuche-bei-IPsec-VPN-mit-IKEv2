@@ -283,9 +283,7 @@ Bei den Optionen zum Paketmitschnitt sind die folgenden interessant:
   Dabei darf ich die Option nicht vergessen, weil sonst der gesamte
   Mitschnitt entfernt wird.
 
-.. todo:: Optionen kontrollieren!
-
-``buffer-size``, ``packet-size``:
+``buffer``, ``packet-length``:
   Mit diesen beiden Optionen kann ich im Rahmen der auf dem Gerät
   verfügbaren Resourcen und der gewünschten Details experimentieren,
   wenn ich sehr viele Datagramme mitschneiden muss.
@@ -371,8 +369,6 @@ Auch hier habe ich mehrere Möglichkeiten:
 
   Mit ``term pager $lines`` kann ich angeben, wieviel Zeilen ich auf
   einmal angezeigt haben will. Ein Wert von 0 schaltet den Pager ab.
-
-.. todo:: Cisco ASA Befehle kontrollieren
 
 Um aus der Konfiguration alle relevanten Informationen zu einem VPN
 zu bekommen, benötige ich die folgenden Befehle::
