@@ -12,7 +12,6 @@ Fehlersuche bei IKEv2 IPsec VPN
    :maxdepth: 3
    :caption: Inhalt:
 
-   vorwort
    einfuehrung
    grundlagen/index
    ikev2/index
