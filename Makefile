@@ -8,9 +8,11 @@ SPHINXPROJ    = FehlersuchebeiIKEv2IPsecVPN
 SOURCEDIR     = source
 BUILDDIR      = build
 
-SOURCE = source/grundlagen/theoretisch.rst \
+SOURCE = source/einfuehrung.rst \
+	 source/grundlagen/theoretisch.rst \
 #
-DRAFTS = build/draft/grundlagen/theoretisch-draft.pdf \
+DRAFTS = build/draft/einfuehrung-draft.pdf \
+	 build/draft/grundlagen/theoretisch-draft.pdf \
 #
 
 build/draft/%-draft.pdf: source/%.rst; pandoc -o $@ --variable subparagraph -H pandoc/draft.tex $<
