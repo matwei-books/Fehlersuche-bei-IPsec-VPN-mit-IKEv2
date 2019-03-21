@@ -633,7 +633,7 @@ Bearbeitung verworfen wurde.
 Treten diese Meldungen häufiger auf, ist es an der Zeit, ihnen
 nachzugehen.
 Im Internet findet sich eine anschauliche Erläuterung unter
-:cite:`cisco-document-116858`, auch wenn diese die Sicht von Cisco
+:cite:`Cisco-116858`, auch wenn diese die Sicht von Cisco
 und den Umgang mit dem Problem auf deren Geräten beschreibt.
 
 Anti-Replay-Checks sind ein wichtiges Sicherheitsmerkmal von IPsec.
