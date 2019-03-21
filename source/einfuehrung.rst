@@ -86,27 +86,26 @@ Das Diagramm soll die möglichen Problemfelder verdeutlichen:
   passenden Termins erschweren kann.
 
 Mit diesem Buch möchte ich helfen, Probleme mit IPsec-VPN strukturiert
-zu diagnostizieren und möglichst schnell zu einem Ergebnis zu kommen.
+zu diagnostizieren und schnell zu einem Ergebnis zu kommen.
 
 Das Buch ist für Praktiker, die bereits mindestens ein VPN mit IPsec
 eingerichtet haben und dabei auf Probleme gestoßen sind, die sie in
-Zukunft vielleicht schneller erkennen und lösen wollen.
+Zukunft schneller erkennen und lösen wollen.
 
 Ich beschränke mich hier auf die Fehlersuche bei IPsec-VPN mit IKEv2.
-Falls jemand vorhat, ein VPN mit IKEv1 einzurichten, so
-ist ihm mit diesem Buch nicht gedient.
+Für die Diagnose von VPN mit IKEv1 ist dieses Buch nur bedingt geeignet.
 
 Das Buch ist keine Einführung in IPsec und auch keine Anleitung zum
 Einrichten von VPN. Dementsprechend gehe ich auch nicht auf die Vor- und
-Nachteile der einzelnen kryptographischen Parameter ein, dazu habe ich
-nicht die nötigen Kenntnisse.
+Nachteile der einzelnen kryptographischen Parameter ein und verweise an
+dieser Stelle auf externe Quellen wie :cite:`BSI-TR-02102-3`.
 
-Das Buch beginnt mit einigen Grundlagen, die ich für das Verständnis und
+Das Buch beginnt mit Grundlagen, die ich für das Verständnis und
 die Diagnose von Netzwerkproblemen voraussetze. Diese können getrost
 übersprungen und bei Bedarf nachgelesen werden.
 
-Danach folgt eine kurze Einführung in IKEv2, soweit das für die Diagnose
-von Problemen nötig ist. Für detailliertere Erörterungen verweise ich
+Danach folgt eine Einführung in IKEv2, soweit für die Diagnose von
+Problemen nötig. Für detailliertere Erörterungen verweise ich
 auf die Literatur, insbesondere :cite:`RFC7296` und
 :cite:`Bartlett2016`, dass eine sehr gute Einführung in IKEv2 insbesondere
 mit Cisco Geräten bietet.
