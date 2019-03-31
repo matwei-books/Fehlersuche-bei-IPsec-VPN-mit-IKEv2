@@ -1,5 +1,6 @@
 #
-IMAGES = entscheidungsbaum-alternativ.png \
+IMAGES = bbaet.png \
+	 entscheidungsbaum-alternativ.png \
        	 entscheidungsbaum.png \
 	 create-child-sa.png \
 	 create-child-sa-rekey-child.png \
