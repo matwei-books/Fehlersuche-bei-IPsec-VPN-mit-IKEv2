@@ -3,12 +3,61 @@
 =========
 
 Die grundlegende Architektur für IPsec-konforme Systeme ist in RFC4301
-beschrieben (siehe :cite:`RFC4301`), :numref:`ipsec-overview` zeigt die
-wichtigsten Komponenten von IPsec.
+beschrieben (siehe :cite:`RFC4301`).
+Eine IPsec-Implementation kann in einem Host arbeiten, als Security
+Gateway oder als unabhängiges Gerät und bietet Schutz für IP Traffic.
 
-.. figure:: /images/ipsec-overview.png
-   :alt: Übersichtsbild für IPsec
-   :name: ipsec-overview
+.. index:: Security Policy Database
+   see: SPD; Security Policy Database
+
+.. index:: Security Association Database
+   see: SAD; Security Association Database
+
+Der Schutz, den IPsec bietet, hängt von den Anforderungen ab, die in der
+Security Policy Database (SPD) und der Security Association Database
+(SAD) festgelegt sind.
+Dabei bestimmt die SPD, welcher Traffic geschützt wird und die SAD, wie
+dieser Traffic geschützt werden soll.
+
+.. index:: Peer Authorization Database
+   see: PAD; Peer Authorization Database
+
+Eine dritte Datenbank, die Peer Authorization Database (PAD) stellt die
+Verbindung her zwischen der SPD und dem Internet Security Association
+Management Protokoll (ISAKMP), als dessen Ausprägung ich in diesem Buch
+IKEv2 näher betrachte.
+
+.. figure:: /images/ipsec-boundary.png
+   :alt: Toplevel-Prozessmodell für IPsec
+   :name: ipsec-boundary
+
+   Toplevel-Prozessmodell für IPsec
+
+IPsec schafft eine Grenze zwischen ungeschützten und geschützten
+Schnittstellen.
+
+Datagramme, der diese Grenze überqueren, sind den Regeln der SPD
+unterworfen.
+Allgemein werden die Datagramme bei IPsec entweder durch IPsec
+geschützt (PROTECT), verworfen (DISCARD) oder sie dürfen den
+IPsec-Schutz umgehen (BYPASS).
+
+IPsec kann einen oder mehrere Pfade zwischen einem Paar von Hosts (a),
+zwischen zwei Security-Gateways (b) oder zwischen einem Host und einem
+Security-Gateway (c) schützen. Ein konformer Host muss (a) und (b)
+unterstützen, ein konformes Security-Gateway muss alle drei Formen
+unterstützen.
+
+In :numref:`ipsec-boundary` verweist *Unprotected* auf eine
+Schnittstelle, die gemeinhin mit der Farbe schwarz und verschlüsselten
+Daten assoziiert wird. *Protected* verweist dementsprechend auf die
+Farbe rot oder Klartext.
+Eine IPsec-Implementation kann mehrere Schnittstellen auf jeder Seite
+der Grenze unterstützen.
+
+.. raw:: latex
+
+   \newpage
 
 IPsec setzt sich zusammen aus drei Protokollen:
 
@@ -31,6 +80,14 @@ IPsec setzt sich zusammen aus drei Protokollen:
 * *Encapsulationg Security Protocol* (ESP), beschrieben in RFC4303
   (siehe :cite:`RFC4303`) schützt sowohl die Vertraulichkeit als auch
   die Integrität der übertragenen Daten.
+
+:numref:`ipsec-overview` zeigt die wichtigsten Komponenten von IPsec.
+
+.. figure:: /images/ipsec-overview.png
+   :alt: Übersichtsbild für IPsec
+   :name: ipsec-overview
+
+   Komponenten von IPsec
 
 Alle drei Protokolle nutzen Security Associations (SA) um die
 verwendeten kryptographischen Verfahren, Parameter und Schlüssel in
