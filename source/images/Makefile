@@ -10,6 +10,7 @@ IMAGES = bbaet.png \
 	 ike-sa-init-cookie.png \
 	 ike-sa-init-inv-ke.png \
 	 informational.png \
+	 ipsec-boundary.png \
 	 ipsec-esp-datagram.png \
 	 ipsec-ike-datagram-delete-payload.png \
 	 ipsec-ike-datagram-notify-payload.png \

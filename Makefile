@@ -10,10 +10,12 @@ BUILDDIR      = build
 
 SOURCE = source/einfuehrung.rst \
 	 source/grundlagen/index.rst \
+	 source/grundlagen/paketmitschnitt.rst \
 	 source/grundlagen/theoretisch.rst \
 #
 DRAFTS = build/draft/einfuehrung-draft.pdf \
 	 build/draft/grundlagen/index-draft.pdf \
+	 build/draft/grundlagen/paketmitschnitt-draft.pdf \
 	 build/draft/grundlagen/theoretisch-draft.pdf \
 #
 
