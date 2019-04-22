@@ -623,6 +623,14 @@ Zwar können auf demselben VPN-Gateway beide Arten von VPN betrieben
 werden, aber beide Peers eines konkreten VPN müssen die selbe Art
 verwenden.
 
+Insbesondere muss man aufpassen, wenn man ein VPN von policy-basiert auf
+route-basiert umstellt. In einem konkreten Fall war die Policy für das
+alte policy-basierte VPN noch nicht deaktiviert. Auf der Gegenstelle war
+das VPN schon deaktiviert, so dass kein Traffic mehr darüber lief.
+Allerdings reklamierte die Policy den passenden Traffic des neuen
+route-basierten VPN für das alte VPN und verwarf die Datagramme, weil
+dieses nicht mehr aktiv war.
+
 Anti-Replay-Check-Probleme
 --------------------------
 
