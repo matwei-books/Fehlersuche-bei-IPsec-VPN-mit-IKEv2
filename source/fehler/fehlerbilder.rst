@@ -162,8 +162,23 @@ ich nicht selbst auch für das interne Netz zuständig bin.
 
 Sehe ich den Traffic auf der Inside ankommen, aber keinen adäquaten
 verschlüsselten Traffic auf der Outside abgehen, muss ich die
-Konfiguration meines VPN-Gateways noch einmal genau prüfen und mir
-gegebenenfalls Hilfe holen.
+Konfiguration meines VPN-Gateways noch einmal genau prüfen.
+Dabei muss ich auch eine eventuell vorhandene Adressumsetzung
+berücksichtigen. In einem konkreten Fall war das VPN-Gateway gleichzeitig
+auch Default-Gateway für ein kleines Netz und verbarg die internen
+Adressen durch Masquerading hinter einer externen Adresse.
+Das VPN sollte das interne Netz hingegen direkt, das heißt ohne NAT mit
+einem anderen Netz verbinden. Durch das Masquerading passte die
+Absenderadresse der Datagramme nicht mehr zur Policy und sie wurden
+direkt und unverschlüsselt nach außen gesendet, aber nicht durch das VPN.
+
+In einem anderen Fall war eine Policy für ein VPN, dass ersetzt werden
+sollte, nicht deaktiviert worden. Der Traffic sollte über ein geroutetes
+Interface gesendet werden und kam auch darüber an, passierte aber nicht
+das VPN-Gateway. In diesem Fall reklamierte die Policy den Traffic für
+das VPN. Da dieses aber nicht mehr aufgebaut war, verwarf das
+VPN-Gateway diesen Traffic. Nach dem Deaktivieren der Policy
+funktionierte die Verbindung sofort.
 
 Bei der Cisco ASA kann ich den Traffic, der auf Inside ankommen soll mit
 dem Befehl ``packet-tracer`` simulieren, und bekomme dann die einzelnen
@@ -177,6 +192,9 @@ mit dem Pager *less* sehr gut navigieren kann und interessante Stellen
 schnell finde.
 Auch eine Suche mit *grep* fördert oft interessante Erkenntnisse aus
 einer Konfiguration in Textform zutage.
+
+Finde ich trotz allem keinen Hinweis, warum der Traffic nicht durch das
+VPN-Gateway geht, muss ich mir Hilfe holen und das Problem eskalieren.
 
 Traffic nur in einer Richtung
 -----------------------------
