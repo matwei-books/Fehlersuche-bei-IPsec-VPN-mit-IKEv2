@@ -288,6 +288,36 @@ Bei den Optionen zum Paketmitschnitt sind die folgenden interessant:
   verfügbaren Resourcen und der gewünschten Details experimentieren,
   wenn ich sehr viele Datagramme mitschneiden muss.
 
+Auswertung der Paketmitschnitte
+...............................
+
+Generell bekomme ich mit::
+
+  show capture
+
+eine Übersicht über alle Paketmitschnitte und wieviel Daten bereits
+mitgeschnitten sind.::
+
+  show capture nameOfCapture [options]
+
+zeigt die Datagramme eines einzelnen Mitschnitts. Mit zusätzlichen
+Optionen kann ich die Ausgabe steuern:
+
+detail
+  zeigt zusätzliche Details zum Datagramm, die Ausgabe wird dann
+  zweizeilig, mich interessiert davon meist nur die TTL des Datagramms,
+decode
+  zeigt bei IKE-Datagrammen den Inhalt der IKE-Payloads bei
+  unverschlüsselten Datagrammen (IKE_SA_INIT) beziehungssweise bei
+  allen IKE-Datagrammen, wenn das Capture vom Typ ``isakmp`` ist,
+dump
+  zeigt zu jedem Datagramm den Hexdump aller Oktetts an,
+packet-number nummer
+  zeigt das Paket mit Nummer *nummer* an,
+count anzahl
+  zeigt *anzahl* Pakete an, in Kombination mit Option ``packet-number``
+  kann ich gezielt bestimmte Pakete betrachten,
+
 Zur Auswertung kann ich den Befehl ``show capture $name`` verwenden.
 Auch hier habe ich etliche Optionen, die mir die Analyse erleichtern.
 

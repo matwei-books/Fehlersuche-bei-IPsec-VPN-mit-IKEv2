@@ -2,13 +2,13 @@
 Paketmitschnitt
 ===============
 
-Für mich ist ein Paketmitschnitt (Packet Capture) insbesondere bei
-schwierigen Problemen oft die Ultima Ratio bei der Diagnose.
+Insbesondere bei schwierigen Problemen ist für mich ein Paketmitschnitt
+(Packet Capture) oft die Ultima Ratio bei der Diagnose.
 Zwar sind andere Hilfsmittel wie Logs, Debugausgaben oder
 Diagnosewerkzeuge des VPN-Gateways oft anschaulicher und schneller zu
 kontrollieren.
 Aber gerade, wenn ich Zweifel daran habe, ob das was mir angezeigt wird,
-auch das ist, was passiert, finde ich in einem Paketmitschnitt oft
+auch das ist, was passiert, finde ich in einem Paketmitschnitt meist
 Gewissheit in der einen oder anderen Richtung.
 
 Dazu muss ich wissen, wie und wo ich einen Paketmitschnitt anfertige,
@@ -20,10 +20,10 @@ entnehmen kann.
 
    Packet Capture (PC) am VPN-Gateway
 
-Als VPN-Administrator habe ich üblicherweise nur zwei Stellen, von denen
-ich relativ leicht Paketmitschnitte bekommen kann, der entschlüsselten
+Als VPN-Administrator habe ich manchmal nur zwei Stellen, von denen
+ich Paketmitschnitte bekommen kann, der entschlüsselten
 Seite und der verschlüsselten Seite meines VPN-Gateways.
-Wann ich auf welcher Seite den Datenverkehr mitschneide und auswerte
+Wann ich auf welcher der beiden Seiten den Datenverkehr mitschneide und auswerte
 hängt von der Art des Problems ab.
 
 In den meisten Fällen schneide ich den Datenverkehr auf der
@@ -31,9 +31,9 @@ entschlüsselten Seite (Inside, links in :numref:`vpn-packet-capture`) nur mit,
 wenn ein VPN-Tunnel bereits aufgebaut ist und ich kontrollieren möchte,
 ob Daten für alle vereinbarten IPsec-SA übertragen werden. Eine Ausnahme
 ist ein VPN, das von meiner Seite zum Peer aufgebaut wird und sich nicht
-automatisch aufbaut. In diesem Fall kontrolliere ich auf der
-entschlüsselten Seite, ob der Traffic, der den Aufbau des VPNs auslösen
-soll, überhaupt am VPN-Gateway ankommt.
+automatisch aufbaut. In diesem Fall kontrolliere ich zunächst auf der
+entschlüsselten Seite, ob der Traffic überhaupt ankommt, der den Aufbau
+des VPNs auslösen soll.
 
 An der verschlüsselten Seite (Outside, rechts in
 :numref:`vpn-packet-capture`) schneide ich den Datenverkehr mit, wenn es
@@ -44,8 +44,8 @@ IPsec-Datagrammen. Anhand der Payload, der Größe und der zeitlichen
 Abfolge der Datagramme kann ich jedoch zumindest für IKEv2 bereits
 einige Rückschlüsse ziehen.
 
-Bei Cisco ASA Geräten ist es sogar möglich Pseudo-Paketmitschnitte zu
-generieren, die den Inhalt der verschlüsselten IKE-Datagramme zeigen,
+Bei Cisco ASA Geräten ist es möglich Pseudo-Paketmitschnitte generieren
+zu lassen, die den Inhalt der verschlüsselten IKE-Datagramme zeigen,
 obwohl dieser normalerweise in einem Paketmitschnitt nicht zugänglich
 ist. In allen anderen Fällen muss ich die Informationen aus dem
 Mitschnitt mit Logs und Debuginformationen kombinieren.
@@ -53,7 +53,7 @@ Mitschnitt mit Logs und Debuginformationen kombinieren.
 Datenverkehr mitschneiden
 -------------------------
 
-Prinzipiell gibt es mehrere Möglichkeiten, den Datenverkehr
+Prinzipiell habe ich mehrere Möglichkeiten, den Datenverkehr
 mitzuschneiden:
 
 a) Ich schneide den interessanten Datenverkehr direkt auf dem
@@ -78,7 +78,7 @@ geschickt wird. Ist das mehr, als auf einem Anschluss gesendet werden
 kann, gehen mir dadurch Datagramme verloren. Ob das der Fall ist,
 bekomme ich durch Monitoring der Switch-Ports heraus.
 
-Fall c) ist am teuersten, kann mir dafür die Gewähr bieten, dass keine
+Fall c) ist am teuersten, bietet mir dafür die Gewähr, dass keine
 Datagramme verloren gehen.
 
 .. _Paketmitschnitt auf dem VPN-Gateway:
@@ -87,7 +87,7 @@ Paketmitschnitt auf dem VPN-Gateway
 ...................................
 
 Will ich Datagramme direkt auf dem VPN-Gateway mitschneiden, muss ich
-die nötigen Befehle kennen. Auf der Kommandozeile sind das 
+die nötigen Befehle kennen. Auf der Kommandozeile sind das zum Beispiel
 
 * bei Cisco ASA::
 
@@ -109,6 +109,12 @@ die nötigen Befehle kennen. Auf der Kommandozeile sind das
 
     tcpdump -w nameOfCaptureFile ...
 
+* bei MikroTik::
+
+    /tool sniffer set ...
+    /tool sniffer start
+    /tool sniffer stop
+
 Die genaue Syntax der Befehle findet sich in der entsprechenden
 Dokumentation.
 
@@ -116,22 +122,23 @@ Paketmitschnitt mit tcpdump
 ...........................
 
 Bei den Fällen b) und c) kann ich im einfachsten Fall einen Rechner mit
-ein oder zwei Netzwerkkarten und *tcpdump* verwenden. Aus diesem Grund
-gehe ich hier auf die relevanten Optionen und Filtermöglichkeiten ein.
+ein oder zwei Netzwerkkarten und *tcpdump* verwenden. Darum gehe ich
+hier kurz auf die relevanten Optionen und Filtermöglichkeiten ein.
 
-Ich verwende tcpdump am häufigsten mit diesen Optionen::
+Am häufigsten verwende ich tcpdump mit den folgenden Optionen::
 
   tcpdump -n -U -i interfaceName -w fileName -s snapLen filterExpression
 
-Diese haben die folgende Bedeutung:
-
--n                keine Adressen und Portnummern in Namen übersetzen
--U                Schreibpuffer nach jedem Datagramm leeren
--i interfaceName  Netzwerkschnittstelle, an der mitgeschnitten werden
-                  soll
--w fileName       Dateiname für den Paketmitschnitt
--s snapLen        Maximalgröße jedes einzelnen mitgeschnittenen
-                  Datagramms
+-n
+  keine Adressen und Portnummern in Namen übersetzen
+-U
+  Schreibpuffer nach jedem Datagramm leeren
+-i interfaceName
+  Netzwerkschnittstelle, an der mitgeschnitten werden soll
+-w fileName
+  Dateiname für den Paketmitschnitt
+-s snapLen
+  Maximalgröße jedes einzelnen mitgeschnittenen Datagramms
 
 Keine Adresssen und Portnummern zu übersetzen spart im einfachsten Fall
 Zeit, insbesondere bei den Adressen erspare ich mir damit zusätzlichen
@@ -149,8 +156,8 @@ Maße - die Zeit, die pro einzelnem Datagramm benötigt wird. Wieviel  vom
 Datagramm ich für die Auswertung benötige, hängt vom Problem und den
 mitgeschnittenen Protokollen ab.
 
-Zusätzlich zu den oben genannten sind noch folgende weitere Optionen von
-tcpdump für länger laufende Mitschnitte interessant:
+Neben den oben genannten verwende ich hin und wieder noch folgende
+Optionen von tcpdump bei länger laufende Mitschnitten:
 
 -c count      maximale Anzahl von Datagrammen, die mitgeschnitten werden
 -C fileSize   Maximalgröße der Datei für den Paketmitschnitt
@@ -161,17 +168,17 @@ eines Datenaustauschs interessiert bin und der Mitschnitt von selbst
 beendet werden soll.
 
 Mit Option ``-C`` begrenze ich die Größe der Ausgabedatei. Bei Erreichen
-dieser Größe schreib tcpdump in eine neue Datei. Alle Ausgabedateien
+dieser Größe schreibt tcpdump in eine neue Datei. Alle Ausgabedateien
 nach der ersten bekommen eine fortlaufende Nummer, beginnend mit 1,
 angehängt.
 
 Die Option ``-W`` zusammen mit ``-C`` sorgt dafür, dass tcpdump nach
 Erreichen dieser Anzahl von Ausgabedateien diese vom Anfang her wieder
 überschreibt, so dass ich eine Art rotierenden Puffer bekomme.
-Rotierende Puffer verwende ich, wenn die mich interessierenden
+Rotierende Puffer verwende ich, wenn die interessanten
 Datagramme sich eher am Ende des Mitschnitts als am Anfang befinden.
 
-Mit dem Ausdruck *filterExpression* begrenze ich die Datagramme, die im
+Mit dem Ausdruck *filterExpression* bestimme ich die Datagramme, die im
 Paketmitschnitt aufgezeichnet werden. Dabei kann ich diesen Ausdruck
 direkt auf der Kommandozeile angeben - und muss dann die Klammern mit
 Backslash vor der Auswertung durch die Shell schützen: ``\(``, ``\)``.
@@ -183,7 +190,7 @@ Der Filter ist abhängig von der Seite, auf der ich mitschneide.
 Paketmitschnitt auf der entschlüsselten Seite
 .............................................
 
-Auf der entschlüsselten Seite (Inside) interessieren mich bei einem
+Auf der Inside interessieren mich bei einem
 Mitschnitt vor allem die Adressen der beteiligten Rechner, so wie sie
 hier im Netz auftauchen. Dabei muss ich gegebenenfalls NAT beim
 VPN-Gateway berücksichtigen. Sinnvolle Filterausdrücke dafür sind::
@@ -199,14 +206,13 @@ VPN-Gateway berücksichtigen. Sinnvolle Filterausdrücke dafür sind::
 Bin ich nur an speziellen TCP- oder UDP-Ports interessiert, kann ich den
 Filterausdruck damit ergänzen, zum Beispiel so::
 
-  ... and udp and port 443
+  ... and tcp and port 443
 
 Vermute ich Netzwerkprobleme auf der Inside, muss ich zusätzlich noch
 den ICMP-Datenverkehr aufnehmen. Da die relevanten ICMP-Datagramme von
 jedem Router auf dem Weg zum Zielhost kommen können, kann ich den
-ICMP-Datenverkehr nicht auf bestimmte Adressen beschränken, außer auf
-die Adressen der Peer-Seite. Ein Filterausdruck dafür würde in etwa so
-aussehen::
+ICMP-Datenverkehr nicht einfach auf bestimmte Absenderadressen beschränken.
+Ein Filterausdruck dafür könnte in etwa so aussehen::
 
   host addressAtPeer and ( icmp or host insideAddress )
 
@@ -219,17 +225,13 @@ aussehen::
 Paketmitschnitt auf der verschlüsselten Seite
 .............................................
 
-Auf der verschlüsselten Seite bin ich im Allgemeinen nur an der IP-Adresse des
+Auf der Outside bin ich im Allgemeinen nur an der IP-Adresse des
 Peer-VPN-Gateways interessiert. Normalerweise sollten alle Datagramme
-hier entweder als Sender oder Empfänger die Adressse des eigenen
-VPN-Gateways haben. Darum filtere ich hier in erster Linie auf die
+hier entweder als Sender oder Empfänger die Adressse meines
+VPN-Gateways haben. Darum filtere ich in erster Linie auf die
 Adresse des Peer-Gateways. Lediglich, wenn ich Netzwerkprobleme zwischen
 den beiden VPN-Gateways vermute, filtere ich zusätzlich auf ICMP wie bei
 Inside-Traffic.
-
-Bei tcpdump kann ich die Option ``-p`` verwenden, so dass die
-Netzwerkschnittstelle nicht extra in den Promiscuous Mode umgeschaltet
-wird.
 
 Der einfachste Filterausdruck auf der verschlüsselten Seite ist::
 
@@ -238,7 +240,7 @@ Der einfachste Filterausdruck auf der verschlüsselten Seite ist::
 wobei *peerAddress* für die IP-Addresse des VPN-Gateways beim Peer
 steht. Mit diesem Filter bekomme ich sowohl IKE- als auch IPsec-Traffic.
 In den meisten Fällen bin ich nur am IKE-Traffic interessiert, bei
-Problemen mit dem Aufbau des VPN ist das jedoch egal, da dann sowieso
+Problemen mit dem Aufbau des VPN ist das jedoch egal, da dann
 noch kein ESP-Traffic vorkommt.
 
 Vermute ich Netzwerkprobleme zwischen den beiden VPN-Gateways, so muss
@@ -250,16 +252,7 @@ dann so aussehen::
 Dabei bekomme ich allerdings auch ICMP-Traffic, der sich auf andere VPNs
 bezieht. Das muss ich dann bei der Auswertung berücksichtigen.
 
-Bisher ging ich davon aus, dass das VPN-Gateway an dieser Schnittstelle
-nur VPN-Traffic hat. Wird das VPN-Gateway zusätzlich noch als Router
-oder Firewall verwendet, so dass ich hier auch regulären Traffic für
-andere Adressen finde, muss ich den Filter etwas enger fassen::
-
-  host myGwAddress and host peerAddress
-
-  host myGwAddress and ( ICMP or host peerAddress )
-
-Interessanter wird es, wenn ich nur IKE- oder nur ESP-Traffic
+Interessant wird es, wenn ich nur IKE- oder nur ESP-Traffic
 mitschneiden möchte. IKE-Traffic ist üblicherweise UDP mit Port 500.
 Dafür kann ich den Filter wie folgt ergänzen::
 
@@ -272,8 +265,8 @@ NAT-Traversal verwendet wird, wird es komplizierter::
 
 .. index:: Non-ESP-Marker
 
-Der Ausdruck ``udp[8:4] = 0`` bezeichnet den Non-ESP-Marker, mit bei
-NAT-T IKE-Traffic von ESP unterschieden werden kann. Will ich den
+Der Ausdruck ``udp[8:4] = 0`` bezeichnet den Non-ESP-Marker, mit dem ich bei
+NAT-T IKE-Traffic von ESP unterscheiden kann. Will ich den
 gesamten IKE-Traffic, so muss ich sowohl UDP-Port 500 als auch 4500
 mitschneiden, da bei NAT-T der Wechsel von Port 500 zu 4500 mit dem
 IKE_AUTH-Exchange erfolgt.
@@ -291,7 +284,7 @@ beziehungsweise bei NAT-T::
 
 Welchen der beiden Ausdrücke ich nehmen muss, kann ich erkennen, indem
 ich kurz sämtlichen UDP-Traffic zwischen beiden Peers mitschneide und
-nachschaue, ob UDP-Port 4500 verwendet wird.
+nachschaue, ob UDP-Port 4500 im Mitschnitt vorkommt.
 
 Paketmitschnitte auswerten
 --------------------------
@@ -310,6 +303,10 @@ Kommandozeile des Gerätes, wo er angefertigt wurde.
 
     tcpdump -n -r nameOfCaptureFile ...
 
+* Bei MikroTik::
+
+    /tool sniffer packet print ...
+
 Bequemer ist die Auswertung mit *Wireshark*, einem grafischen
 Netzwerk-Sniffer, der umfangreiche Möglichkeiten zur Analyse eines
 Mitschnitts bietet. Dafür muss ich die Datei mit dem Mitschnitt erstmal
@@ -324,42 +321,8 @@ auf meinen Rechner kopieren.
   grafischen Benutzeroberfläche gestartet habe (siehe
   :cite:`FortinetPacketCaptureGUI`).
 
-* Bei den Geräten, die tcpdump verwenden, kann ich die Datei
-  möglicherweise mit *scp* kopieren.
-
-Auswertung bei Cisco ASA im CLI
-...............................
-
-Die ASA stellt bei der Auswertung von Paketmitschnitten bei VPNs
-ausführliche Informationen bereit, so dass ich hier kurz auf die
-verschiedenen Möglichkeiten eingehen will.
-
-Generell bekomme ich mit::
-
-  show capture
-
-eine Übersicht über alle Paketmitschnitte und wieviel Daten bereits
-mitgeschnitten sind.::
-
-  show capture nameOfCapture [options]
-
-zeigt die Datagramme eines einzelnen Mitschnitts. Mit zusätzlichen
-Optionen kann ich die Ausgabe steuern:
-
-detail
-  zeigt zusätzliche Details zum Datagramm, die Ausgabe wird dann
-  zweizeilig, mich interessiert davon meist nur die TTL des Datagramms,
-decode
-  zeigt bei IKE-Datagrammen den Inhalt der IKE-Payloads bei
-  unverschlüsselten Datagrammen (IKE_SA_INIT) beziehungssweise bei
-  allen IKE-Datagrammen, wenn das Capture vom Typ ``isakmp`` ist,
-dump
-  zeigt zu jedem Datagramm den Hexdump aller Oktetts an,
-packet-number nummer
-  zeigt das Paket mit Nummer *nummer* an,
-count anzahl
-  zeigt *anzahl* Pakete an, in Kombination mit Option ``packet-number``
-  kann ich gezielt bestimmte Pakete betrachten,
+* Bei den Geräten, die tcpdump verwenden, und bei MikroTik kann ich die Datei
+  oft mit *scp* kopieren.
 
 Auswertung mit tcpdump
 ......................
@@ -405,12 +368,14 @@ Auswertung mit Wireshark
 
 Der Bildschirm ist bei Wireshark in drei Bereiche geteilt, von denen
 einer die Liste der mitgeschnittenen Datagramme enthält, einer die
-Informationen über das aktuell in obiger Liste ausgewählte Datagramm
+Informationen über das aktuell in der Liste markierte Datagramm
 und der unterste den Inhalt dieses Datagramms in Hex und ASCII.
 
 Über den drei Bereichen ist ein Eingabefeld für einen Anzeigefilter,
 mit dem ich die im obersten Bereich angezeigte Liste reduzieren kann.
 
-Bei der Analyse eines Mitschnitts helfen mir vor allem die Menüpunkte
-*Analyse* und *Statistics* in der oberen Menüleiste.
+Beim Einstieg in die Analyse eines Mitschnitts helfen mir zunächst die
+Menüpunkte *Analyse* und *Statistics* in der Menüleiste.
+Dahinter verbergen sich Auswertungen, die gerade bei umfangreichen
+Mitschnitten helfen können, die interessanten Pakete schnell zu finden.
 

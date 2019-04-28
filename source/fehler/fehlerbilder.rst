@@ -151,9 +151,6 @@ betreffenden IPsec-SA passen.
 In diesem Fall verwerfen etliche VPN-Gateways (z.B. Cisco ASA) die
 Datagramme und schreiben einen entsprechende Meldung in das Systemlog.
 
-Wenn alles nicht hilft, muss ich eskalieren und mir Hilfe zu diesem
-Problem suchen.
-
 Erwarte ich den interessanten Traffic auf der Inside, prüfe ich dort mit
 einem Packet Capture, ob er auch wirklich ankommt.
 Kommt er nicht, handelt es sich um ein - aus Sicht des
@@ -172,8 +169,8 @@ einem anderen Netz verbinden. Durch das Masquerading passte die
 Absenderadresse der Datagramme nicht mehr zur Policy und sie wurden
 direkt und unverschlüsselt nach außen gesendet, aber nicht durch das VPN.
 
-In einem anderen Fall war eine Policy für ein VPN, dass ersetzt werden
-sollte, nicht deaktiviert worden. Der Traffic sollte über ein geroutetes
+In einem anderen Fall hatte ich eine Policy für ein VPN, dass ersetzt werden
+sollte, noch nicht deaktiviert. Der Traffic sollte über ein geroutetes
 Interface gesendet werden und kam auch darüber an, passierte aber nicht
 das VPN-Gateway. In diesem Fall reklamierte die Policy den Traffic für
 das VPN. Da dieses aber nicht mehr aufgebaut war, verwarf das

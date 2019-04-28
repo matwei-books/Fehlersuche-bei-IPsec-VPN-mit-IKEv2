@@ -624,7 +624,7 @@ werden, aber beide Peers eines konkreten VPN müssen die selbe Art
 verwenden.
 
 Insbesondere muss man aufpassen, wenn man ein VPN von policy-basiert auf
-route-basiert umstellt. In einem konkreten Fall war die Policy für das
+route-basiert umstellt. In einem konkreten Fall hatte ich die Policy für das
 alte policy-basierte VPN noch nicht deaktiviert. Auf der Gegenstelle war
 das VPN schon deaktiviert, so dass kein Traffic mehr darüber lief.
 Allerdings reklamierte die Policy den passenden Traffic des neuen
