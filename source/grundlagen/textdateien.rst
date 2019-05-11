@@ -259,8 +259,42 @@ beim Aufruf von ``diff --help`` angezeigt.
 AWK
 ---
 
-Perl
-----
+AWK verwende ich für einfache Manipulationen von zeilenorientierten Daten.
+Dafür ist es ideal geeignet denn die Grundstruktur eines AWK-Skripts
+besteht aus einer Folge von Mustern, denen zugehörige Aktionen in einem
+Anweisnugsblock folgen::
+
+  /Muster/ { aktionen }
+
+Dabei können die Aktionen sehr komplex sein und auch
+Stringmanipulationen enthalten.
+Bei den Aktionen steht mir die ganze Zeile als ``$0`` für die Bearbeitung
+zur Verfügung und die einzelnen Felder daraus als ``$1`` bis ``$n``
+wobei die Felder durch Leerzeichen getrennt werden, wenn ich den
+Feldtrenner nicht mit der Option ``-F`` modifiziert habe.
+
+Mit den beiden Spezialformen ::
+
+  BEGIN { aktionen }
+  END   { aktionen }
+
+kann ich zum Beispiel am Anfang Zähl- oder Summenvariablen
+initialisieren, die beim Einlesen der Zeilen manipuliert werden und am
+Ende ausgegeben werden können.
+
+Oft verwende ich AWK mal eben schnell um in den Logs nach bestimmten
+Fehlermeldungen zu suchen und dann im Aktionsblock die IP-Adresse des
+Peer-VPN-Gateways zu extrahieren und  auszugeben.
+Dazu muss ich wissen, in welchem Feld die Adresse steht und komme dann
+mit folgendem Einzeiler aus::
+
+  awk '/fehlermeldung/ { print $n }' < /var/log/syslog
+
+Für aufwendigere Manipulationen schaue ich mit ``man awk`` in den
+Handbuchseiten nach, welche Funktionen mir weiterhelfen können.
+
+Perl, Python und andere Skriptsprachen
+--------------------------------------
 
 .. _regex:
 
