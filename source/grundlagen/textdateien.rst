@@ -68,6 +68,8 @@ Und natürlich arbeite ich bei allen diesen Werkzeugen mit regulären
 Ausdrücken um zu konkretisieren, an welchem Teil des Textes ich
 interessiert bin.
 
+.. index:: less
+
 Less
 ----
 
@@ -161,6 +163,8 @@ Noch schneller kommt man an Hilfe mit der Kommandozeilenoption ``--help``
 beziehungsweise ``-?`` oder, während das Programm schon läuft,
 mit dem Tastaturkommando ``h`` oder ``H``.
 
+.. index:: grep
+
 Grep
 ----
 
@@ -227,6 +231,8 @@ Ausdruck entsprechend anpassen.
 Was der Ausdruck nach Option ``-E`` konkret bedeutet, erläutere ich im
 Abschnitt :ref:`grundlagen/textdateien:Reguläre Ausdrücke`.
 
+.. index:: diff
+
 Diff
 ----
 
@@ -255,6 +261,8 @@ Optionen ``-b``, ``-B``, ``-E``, ``-w`` oder ``-Z`` diese Unterschiede
 ignorieren lassen.
 Die genaue Bedeutung der Optionen steht in der Handbuchseite oder wird
 beim Aufruf von ``diff --help`` angezeigt.
+
+.. index:: AWK
 
 AWK
 ---
@@ -293,8 +301,99 @@ mit folgendem Einzeiler aus::
 Für aufwendigere Manipulationen schaue ich mit ``man awk`` in den
 Handbuchseiten nach, welche Funktionen mir weiterhelfen können.
 
-Perl, Python und andere Skriptsprachen
---------------------------------------
+.. index:: Perl
+
+Skriptsprachen
+--------------
+
+Für komplexere Probleme, die ich mit den Unix-Textwerkzeugen nicht so
+einfach angehen kann, greife ich zu einer Skriptsprache.
+
+Für mich ist Perl die erste Wahl, auf das ich hier kurz eingehen will. 
+Aber auch Python und andere Sprachen, die zur effizienten Verarbeitung
+von Text geeignet sind und einen umfangreichen Bestand an
+Musterlösungen, Bibliotheken und Modulen mitbringen, bieten sich an.
+
+Ich setze auf Perl für tiefergehende Analysen von Logs und
+Konfigurationsdateien.
+Dabei kommt es meist nur darauf an, ein Skript zu schreiben, das genau
+mein Problem löst und das möglichst schnell.
+
+In einem Fall brauchten wir für ein VPN-Migrationsprojekt mit Cisco-ASA
+eine Liste der VPN mit den Peer-Adressen und den pro Peer konfigurierten
+Crypto-Parametern.
+Bei mehreren hundert VPNs war nicht daran zu denken, das von Hand zu
+ermitteln.
+Was half war ein rudimentärer Parser für die Konfiguration, der die
+benötigten Informationen aus den Policies, Tunnel-Groups und
+Crypto-Map-Einträgen einsammelte und am Ende die gewünschten Tabellen
+ausgab.
+Das Skript hatte am Ende ca 100 Zeilen und erlaubte mit wenig Aufwand in
+regelmäßigen Abständen den tatsächlichen Stand der Umstellung zu
+kontrollieren.
+
+.. index:: Artificial Ignorance
+
+Das zweite wichtige Anwendungsfall für Perl-Skripte ist die
+Log-Komprimierung mit *Artificial Ignorance* (AI), einem Begriff, den ich
+zum ersten Mal Ende der 1990er Jahre bei Marcus Ranum las [#]_.
+Dabei geht es darum, Schritt für Schritt uninteressante Logzeilen zu
+eliminieren, um sich auf die wichtigen zu konzentrieren.
+Ähnliche Zeilen werden soweit angeglichen, dass sie identisch werden und
+dann mit ``sort`` und ``uniq`` abgezählt werden können.
+
+.. [#] Das Usenet-Posting ist unter
+   http://www.ranum.com/security/computer_security/papers/ai/ zu finden.
+
+Während Marcus Ranum auf die Unix-Textwerkzeuge ``sed`` und ``grep``
+setzt, finde ich es einfacher die Textanpassungen mit Perl zu erledigen.
+
+Der Grundgedanke bei AI ist, die Logzeilen ihrer zufälligen Unterschiede
+zu entkleiden und bei dem, was übrig bleibt, zu entscheiden, ob es
+ignoriert werden kann.
+
+Der erste Schritt ist immer, alle Zeitinformationen von den Logzeilen zu
+entfernen.
+Dann mache ich mir einen Überblick über die Häufigkeit einzelner
+Meldungen mit folgendem Aufruf::
+
+  logai < /var/log/syslog | sort | uniq -c | sort -nr | less -S
+
+Prinzipiell ließe sich auch der nachfolgende Aufruf von ``sort`` und
+``uniq`` gleich im Perl-Skript ``logai`` mit erledigen.
+
+Von der sortieren Liste der Lognachrichten mit deren Häufigkeiten
+interessieren mich sowohl der Anfang mit den häufigsten Nachrichten als
+auch das Ende mit den einmaligen Logzeilen.
+
+Bei den am häufigsten vorkommenden Meldungen entscheide ich, ob sie
+wichtig sind, dann reagiere ich schnellstmöglich darauf, oder unwichtig,
+dann überlege ich bei Gelegenheit, ob ich sie los werden kann.
+
+Bei den nur einmalig vorkommenden Nachrichten schaue ich, ob ich
+Logzeilen mit leichten Modifikationen zusammenfassen und dann abzählen
+kann.
+
+In wenigen Iterationen habe ich damit ein Instrument, dass mich in
+meiner konkreten Umgebung schnell auf interessante Ereignisse in den
+Systemlogs hinweist, die meine Fehlersuche in die richtige Richtung
+lenken können.
+
+Der dritte Anwendungsfall für Skripte ist das Aufbereiten der
+Konfiguration für Vergleiche mit ``diff``.
+In den meisten Fällen ist es nicht nötig, allerdings hatte ich in einem
+Fall bei einer GeNUScreen-Firewall, dass nach einer kleinen Änderung im
+Web-Interface ``diff`` sehr viele Änderungen im Textfile der
+Konfiguration anzeigte.
+Genaueres Hinschauen zeigte, dass einige Listen in einer komplett
+anderen Reihenfolge ausgegeben wurden, wenn ein Element hinzugefügt oder
+entfernt wurde.
+In diesem Fall half ein Perl-Modul, die Konfiguration zu sortieren, so
+dass der Vergleich nur noch die kleine ursprüngliche Änderung anzeigte.
+
+Ich setze Artificial Ignorance vor allem ein, wenn ich mich mit einem
+neuen System vertraut machen will  und wenn ich regelmäßig über
+"interessante" Logzeilen informiert werden will.
 
 .. _regex:
 
