@@ -400,3 +400,153 @@ neuen System vertraut machen will  und wenn ich regelmäßig über
 Reguläre Ausdrücke
 ------------------
 
+Reguläre Ausdrücke sind mächtige Ausdrucksmittel, um Muster in einem
+Text zu beschreiben, anhand derer der Text automatisch verarbeitet
+werden kann.
+Es gibt sie in verschiedenen Spielarten von einfachen über erweiterten
+bis hin zu Perl-kompatiblen regulären Ausdrücken (PCRE).
+In gewissem Sinne ist auch das Globbing, mit dem in der Shell Dateinamen
+spezifiziert werden, eine Art von regulärem Ausdruck.
+
+Generell hat jedes einzelne Zeichen in einem regulären Ausdruck eine
+bestimmte Bedeutung, die sich manchmal erst aus dem Kontext erschließt.
+Dabei kann ein Zeichen als normales Zeichen agieren, das für sich selbst
+steht, wie die Buchstaben und Zahlen.
+Alternativ kann es sich um ein Sonderzeichen handeln, dass eine
+bestimmte Funktion hat oder um einen Modifizierer, der die Bedeutung des
+vorhergehenden oder nachfolgenden Zeichens abwandelt.
+
+Reguläre Ausdrücke können case-sensitive oder case-insensitive sein, das
+heißt Groß- und Kleinschreibung beachten oder ignorieren.
+
+Generell gilt, dass alle Zeichen, die kein Sonderzeichen und kein
+Bestandteil eines Modifizierers sind, für sich selbst stehen.
+
+Modifzierer
+...........
+
+Die meisten Modifizierer stehen hinter dem Zeichen, dass sie
+modifizieren, wie
+
+``?``
+  wenn das vorstehende Zeichen gar nicht oder genau einmal vorkommen
+  darf,
+
+``+``
+  wenn das vorstehende Zeichen einmal oder mehrfach vorkommen darf,
+
+``*``
+  wenn das vorstehende Zeichen gar nicht, einmal oder mehrfach vorkommen
+  darf,
+
+``{m,n}``
+  wenn das Zeichen mindestens *m* mal und höchstens *n* mal vorkommen
+  darf.
+
+Eine Ausnahme bildet der Modifizierer ``\``, der einem nachfolgenden
+Zeichen eine Sonderbedeutung zuweisen kann (``\w``, ``\d``, ...) oder
+eine Sonderbedeutung wieder aufheben kann (``\.``, ``\[``, ``\\``, ...).
+
+Sonderzeichen
+.............
+
+Die folgenden Sonderzeichen verwende ich am häufigsten:
+
+``.``
+  steht für ein beliebiges Zeichen außer dem Zeilenende.
+
+``^``
+  steht für kein Zeichen sondern den Beginn der Zeile und wird als
+  Anker verwendet, um den regulären Ausdruck an einer bestimmten Stelle
+  in der Zeile zu positionieren.
+
+``$``
+  steht für kein Zeichen sondern das Ende der Zeile und wird als
+  Anker verwendet, um den regulären Ausdruck an einer bestimmten Stelle
+  in der Zeile zu positionieren.
+
+``(``
+  leitet eine Gruppe von Zeichen ein, die als Gesamtheit betrachtet
+  wird. Nachfolgende Modifizierer betreffen die ganze Zeichenfolge der
+  Gruppe. Beendet wird die Gruppe mit dem zugehörigen ``)``.
+
+``[``
+  leitet eine Klassendefinition ein. Eine Klasse ist eine Menge von
+  Zeichen, von denen genau eines an der Stelle vorkommen darf. Die
+  Klassendefinition endet mit dem zugehörigen ``]``. In einer
+  Klassendefinition können Bereiche mit ``-`` angegeben werden, wie z.B.
+  ``[0-9]``, das für alle Ziffern steht.
+
+``|``
+  bildet eine Alternative in einer Gruppe, sowohl die Zeichenfolge vor
+  der Alternative als auch die Zeichenfolge danach stehen für ein
+  gültiges Muster in der Gruppe. Zum Beispiel steht ``(abc|def)``
+  entweder für die Folge *abc* oder *def*.
+
+Zeichenklassen 
+..............
+
+Einige Zeichenklassen sind bereits vordefiniert, was mir das Definieren
+an der jeweiligen Stelle erspart. Ich verwende am häufigsten die
+folgenden.
+
+``\s``
+  Whitespace, also Leerzeichen, Tabulatoren und Zeilenendezeichen.
+
+``\S``
+  kein Whitespace, also alle Zeichen, die nicht zu ``\s`` gehören.
+
+``\w``
+  alle Zeichen, die in einem Wort vorkommen können.
+
+``\W``
+  alle Zeichen, die nicht in einem Wort vorkommen.
+
+Reguläre Ausdrücke bieten noch viel mehr Möglichkeiten, für eine
+fundierte Einarbeitung stehen die Handbuchseiten der entsprechenden
+Programme zur Verfügung.
+
+Beispiele
+.........
+
+Als Beispiel will ich auf den oben bereits vorgestellten Ausdruck zum
+Entfernen von Kommentaren aus Konfigurationsdateien näher erläutern. ::
+
+  grep -v -E '^\s*(|#.*)$' /pfad/zur/datei
+
+Mit der Option ``-v`` mache ich klar, dass ich die auf den Ausdruck
+passenden Zeilen nicht sehen will.
+
+Der Ausdruck selbst beginnt mit dem Anker ``^`` und endet mit dem Anker
+``$``, umfasst also die ganze Zeile.
+
+Am Anfang der Zeile können kein, ein oder mehrere Whitespace-Zeichen stehen
+(``\s*``), wieviel genau, ist unerheblich.
+
+Darauf folgt eine Gruppe, die sich bis zum Zeilenende erstreckt (``$``).
+Diese Gruppe enthält eine Alternative (``|``).
+Eine Variante ist vollkommen leer, damit decke ich leere Zeilen ab und
+solche, die nur Whitespace enthalten.
+Die andere Variante beginnt mit ``#``, gefolgt von beliebig vielen
+beliebigen Zeichen. Damit erfasse ich alle Zeilen, die auskommentiert
+sind.
+
+Verwendet die Datei andere Zeichen für Zeilenkommentare, muss ich das
+``#`` entsprechend ersetzen.
+Bei manchen Konfigurationsdateien im INI-Format sind sowohl ``;`` als
+auch ``#`` als Kommentarzeichen zugelassen. Hier ändere ich den
+regulären Ausdruck zu ``^\s*(|[;#].*)$``.
+
+Einen anderen nützlichen Ausdruck verwende ich zum Erkennen und Ersetzen
+von IPv4-Adressen bei Artificial Ignorance::
+
+  s/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/X.X.X.X/g
+
+Der Ausdruck besteht aus vier Gruppen von je 1 bis 3 Ziffern, die durch
+drei Punkte getrennt sind.
+
+Einen ähnlichen Ausdruck verwende ich in Perl zum Maskieren von Teilen
+einer IP-Adresse, zum Beispiel um einen Adressbereich zu pseudonymisieren::
+
+  s/(\d{1,3}\.\d{1,3}\.\d{1,3}\).\d{1,3}/$1.X/g
+ 
