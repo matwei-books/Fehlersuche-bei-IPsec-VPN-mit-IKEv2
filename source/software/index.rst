@@ -82,4 +82,5 @@ konzentrieren, die ich als wesentlich für die Fehlersuche erachte:
 
    cisco-asa
    mikrotik-router
+   pfsense
 
