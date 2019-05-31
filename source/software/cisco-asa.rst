@@ -355,7 +355,9 @@ geeigneter TFTP-Server in Reichweite war, habe ich ein Skript
 geschrieben, dass die Ausgabe von ``show capture $name dump`` in eine
 PCAP-Datei für die weitere Analyse umwandeln kann.
 Das Skript ist im Perl-Modul File::PCAP enthalten und kann bei
-meta::cpan [#mc_File-PCAP]_ gefunden werden.
+meta::cpan [#]_ gefunden werden.
+
+.. [#] https://metacpan.org/release/File-PCAP
 
 Konfiguration analysieren
 -------------------------
@@ -437,6 +439,3 @@ Habe ich am Anfang nur die Peeradresse zur Identifizierung des VPN,
 beginne ich mit dem Befehl ``show run | i $peeraddress`` und finde damit
 die benötigte Crypto-Map.
 
-.. rubric:: Footnotes
-
-.. [#mc_File-PCAP] https://metacpan.org/release/File-PCAP
