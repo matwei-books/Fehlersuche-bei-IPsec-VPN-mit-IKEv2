@@ -67,4 +67,43 @@ Configuration-Cache, so dass die geänderten Einstellungen aktiv werden.
    weiß auch, wie er seine gewollten Änderungen in die Datei
    zurückschreibt.
 
+In der Online-Dokumentation [#]_ finden sich viele Tipps und Hinweise
+zur Fehlersuche bei IPsec.
+
+.. [#] https://docs.netgate.com/pfsense/en/latest/vpn/ipsec/ipsec-troubleshooting.html
+
+Starten, Stoppen und Kontrollieren von VPN-Tunneln
+--------------------------------------------------
+
+Systemlogs und Debug-Informationen
+----------------------------------
+
+An die Systemlogs komme ich im Webinterface über **Status > System Logs**.
+Dort finde ich ein Log, das ausschließlich auf IPsec bezogene
+Informationen sammelt, das Systemlog und weitere für verschiedene
+Topics.
+
+Auf der Konsole finde ich die Logs im Verzeichnis */var/log/*, die Datei
+mit den IPsec-Logs ist */var/log/ipsec.log*. Mit ``ls /var/log`` bekomme
+ich die Namen der anderen Dateien angezeigt.
+
+Ob Logs zu anderen Server geschickt werden und wenn ja, zu welchen,
+bekomme ich im Webinterface über **Status > System Logs > Settings**
+heraus. Dort schaue ich bei **Remote Logging Options** nach.
+
+.. todo:: Screenshot Remote Logging Options
+
+Ob und in welchem Maße Debug-Informationen protokolliert werden, stelle
+ich für IPsec unter **VPN > IPsec > Advanced Settings** ein.
+
+Meist sind IKE SA, IKE Child SA und Configuration Backend auf
+*Diag* eingestellt, und alle anderen auf *Control*.
+Bei allen Topics kann ich zwischen den Optionen *Silent*, *Audit*,
+*Control*, *Diag*, *Raw* und *Highest* auswählen.
+
+Paketmitschnitte
+----------------
+
+Konfiguration analysieren
+-------------------------
 
