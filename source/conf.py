@@ -120,7 +120,10 @@ latex_elements = {
 
     # Additional stuff for the LaTeX preamble.
     #
-    # 'preamble': '',
+    'preamble': r'''
+%% nur was im Inhaltsverzeichnis auftaucht, wird nummeriert
+\setcounter{secnumdepth}{1}
+''',
 
     # Latex figure (float) alignment
     #
