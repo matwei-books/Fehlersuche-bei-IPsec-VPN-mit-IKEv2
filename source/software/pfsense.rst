@@ -108,6 +108,47 @@ der Lognachrichten.
 Paketmitschnitte
 ----------------
 
+Ich habe zwei Möglichkeiten, einen Paketmitschnitt auf einer
+pfSense-Firewall anzufertigen: über das Webinterface oder über die
+Konsole.
+
+.. todo:: Screenshot Paketmitschnitt
+
+Im Webinterface gehe ich im Menü zu **Diagnostics > Packet Capture**.
+Dort spezifiziere ich in einem Webformular die Datagramme, an denen ich
+interessiert bin und die Schnittstelle.
+Unter dem Formular befindet sich ein Start/Stop-Button, mit dem ich die
+Aufzeichnung beginnen und enden lasse.
+Nach dem Ende der Aufzeichnung kann ich den Mitschnitt direkt im
+Webinterface betrachten, was mir bei einfachen Fragestellungen Zeit
+spart.
+Für detaillierte Untersuchungen kann ich den Mitschnitt auch im
+PCAP-Format heruterladen und dann mit Wireshark oder anderen Werkzeugen
+näher untersuchen.
+
+Auf der Konsole wähle ich zunächst über Menüpunkt 8) die Shell aus und
+schneide dann den Datenverkehr mit ``tcpdump`` mit, wie im Abschnitt
+:ref:`grundlagen/paketmitschnitt:Paketmitschnitt mit tcpdump` bei den
+Grundlagen beschrieben.
+
 Konfiguration analysieren
 -------------------------
+
+Die Konfiguration der pfSense kann ich als Textdatei *config.xml* im
+XML-Format bekommen.
+
+.. todo:: Screenshot Konfigurationsbackup pfSense
+
+Im Webinterface gehe ich zu **Diagnostics > Backup & Restore > Backup &
+Restore**. Dort kann ich die Konfiguration herunterladen oder mit den
+letzten Ständen vergleichen.
+
+Auf der Konsole finde ich Konfiguration im Verzeichnis */cf/conf/*, die
+alten Stände in */cf/conf/backup/*.
+Hier stehen mir die Textwerkzeuge, wie zum Beispiel ``diff``, ``grep``
+oder ``less`` für einfache Analysen zur Verfügung.
+
+Will ich die Konfigurationsdatei in der Shell bearbeiten, empfiehlt sich
+das Programm ``viconfig``, das sich um Details wie das Löschen des
+Config-Caches kümmert.
 
