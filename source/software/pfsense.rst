@@ -7,6 +7,7 @@ Betriebsystem mit einem angepassten Kernel basiert.
 
 Für die Konfiguration steht eein Web-Interface zur Verfügung, mit dem
 alle enthaltenen Komponenten konfiguriert werden können.
+Das Webinterface der pfSense benötigt JavaScript.
 Es ist nicht nötig, bei pfSense die Kommandozeile zu benutzen.
 Immerhin ist es möglich.
 
@@ -67,11 +68,44 @@ Configuration-Cache, so dass die geänderten Einstellungen aktiv werden.
    weiß auch, wie er seine gewollten Änderungen in die Datei
    zurückschreibt.
 
+Da die pfSense auf einem Unix-System aufsetzt, empfiehlt es sich, sie
+nicht einfach auszuschalten, sondern vorher geordnet hinunterzufahren.
+
+Im Webinterface geht man dafür nach **Diagnostics > Halt System**, in
+der Konsole wählt man ``6) Halt System``. Sofern ein Lautsprecher
+eingebaut ist, meldet sich die Hardware akustisch, danach dauert es noch
+etwas, bis die Platten ordentlich ausgehängt sind.
+
 Starten, Stoppen und Kontrollieren von VPN-Tunneln
 --------------------------------------------------
 
-VPN-Tunnel werden mit dem Programm ``racoon`` eingerichtet und
-verwaltet.
+Der einfachste Test, ob ein VPN funktioniert, ist ein PING von einem
+Client hinter der Firewall.
+Bei pfSense ist das der empfohlene Weg, einen Tunnel aufzubauen, wenn es
+nicht automatisch passiert.
+
+Läuft das VPN im Transportmodus oder die pfSense hat ein Interface im
+Adressbereich des lokalen Traffic-Selektors beim Tunnelmodus, kann man
+den PING auch direkt von der pfSense absetzen.
+
+Im Webinterface geht man dazu nach **Diagnostics > Ping** und trägt im
+Formular außer der Zieladresse auch die Absenderadresse ein.
+
+In der Shell gibt man die Absenderadresse mit der Option ``-S`` an::
+
+  ping -S lokale.adresse entfernte.adresse
+
+Will man die lokale Adresse nicht explizit angeben, muss man
+Vorkehrungen treffen [#]_, damit der auf der pfSense erzeugte
+Traffic auch über das VPN gesendet wird und nicht zum falschen Interface
+hinausgeht.
+Dazu legt man eine statische Route zum Netz auf der Peer-Seite des VPN
+auf die Adresse des eigenen LAN-Interface.
+
+.. [#] https://docs.netgate.com/pfsense/en/latest/book/ipsec/site-to-site.html#ipsec-pfsensetraffic
+
+Mit dem Programm ``racoon`` kann man auf der Konsole VPN-Verbindungen
+zurücksetzen.
 
 Systemlogs und Debug-Informationen
 ----------------------------------
