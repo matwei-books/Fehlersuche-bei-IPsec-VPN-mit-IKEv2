@@ -19,8 +19,7 @@ Fehlersuche bei IKEv2 IPsec VPN
    vorgehen/antworten
    fehler/index
    software/index
-   anhang/datagram-header
-   anhang/hilfsmittel
+   anhang/index
 
 .. bibliography:: troubleshoot-ipsec.bib
    :all:
