@@ -2,10 +2,11 @@
 Überblick
 =========
 
+IPsec bietet für IP-Traffic Schutz vor Ausspähung und Veränderung.
 Die grundlegende Architektur für IPsec-konforme Systeme ist in RFC4301
 beschrieben (siehe :cite:`RFC4301`).
 Eine IPsec-Implementation kann in einem Host arbeiten, als Security
-Gateway oder als unabhängiges Gerät und bietet Schutz für IP Traffic.
+Gateway oder als unabhängiges Gerät.
 
 .. index:: Security Policy Database
    see: SPD; Security Policy Database
@@ -13,8 +14,8 @@ Gateway oder als unabhängiges Gerät und bietet Schutz für IP Traffic.
 .. index:: Security Association Database
    see: SAD; Security Association Database
 
-Der Schutz, den IPsec bietet, hängt von den Anforderungen ab, die in der
-Security Policy Database (SPD) und der Security Association Database
+Der Schutz, den IPsec bietet, hängt von den Anforderungen ab, die in einer
+Security Policy Database (SPD) und einer Security Association Database
 (SAD) festgelegt sind.
 Dabei bestimmt die SPD, welcher Traffic geschützt wird und die SAD, wie
 dieser Traffic geschützt werden soll.
@@ -24,8 +25,8 @@ dieser Traffic geschützt werden soll.
 
 Eine dritte Datenbank, die Peer Authorization Database (PAD) stellt die
 Verbindung her zwischen der SPD und dem Internet Security Association
-Management Protokoll (ISAKMP), als dessen Ausprägung ich in diesem Buch
-IKEv2 näher betrachte.
+Management Protokol (ISAKMP).
+IKEv2 ist eine konkrete Ausprägung von ISAKMP.
 
 .. figure:: /images/ipsec-boundary.png
    :alt: Toplevel-Prozessmodell für IPsec
@@ -35,14 +36,13 @@ IKEv2 näher betrachte.
 
 IPsec schafft eine Grenze zwischen ungeschützten und geschützten
 Schnittstellen.
-
 Datagramme, der diese Grenze überqueren, sind den Regeln der SPD
 unterworfen.
 Allgemein werden die Datagramme bei IPsec entweder durch IPsec
 geschützt (PROTECT), verworfen (DISCARD) oder sie dürfen den
 IPsec-Schutz umgehen (BYPASS).
 
-IPsec kann einen oder mehrere Pfade zwischen einem Paar von Hosts (a),
+IPsec kann IP-Traffic zwischen einem Paar von Hosts (a),
 zwischen zwei Security-Gateways (b) oder zwischen einem Host und einem
 Security-Gateway (c) schützen. Ein konformer Host muss (a) und (b)
 unterstützen, ein konformes Security-Gateway muss alle drei Formen
@@ -51,7 +51,7 @@ unterstützen.
 In :numref:`ipsec-boundary` verweist *Unprotected* auf eine
 Schnittstelle, die gemeinhin mit der Farbe schwarz und verschlüsselten
 Daten assoziiert wird. *Protected* verweist dementsprechend auf die
-Farbe rot oder Klartext.
+Farbe rot und Klartext.
 Eine IPsec-Implementation kann mehrere Schnittstellen auf jeder Seite
 der Grenze unterstützen.
 
@@ -59,7 +59,7 @@ der Grenze unterstützen.
 
    \newpage
 
-IPsec setzt sich zusammen aus drei Protokollen:
+IPsec setzt sich aus drei Protokollen zusammen:
 
 * *Internet Security Association and Key Management Protocol* (ISAKMP),
   ursprünglich beschrieben in RFC2408, das durch RFC4306 obsolet wurde,
@@ -73,7 +73,6 @@ IPsec setzt sich zusammen aus drei Protokollen:
 * *Authentication Header* (AH), beschrieben in RFC4302 (siehe
   :cite:`RFC4302`) ist ein Protokoll, dass zwar die Integrität der
   übertragenen Daten schützt, aber nicht deren Vertraulichkeit.
-
   Ich persönlich habe das Protokoll noch nicht in der Praxis
   vorgefunden.
 
@@ -99,11 +98,11 @@ Die kryptografischen Algorithmen für IKE2 beschreibt :cite:`RFC4307`,
 während :cite:`RFC4305` die Anforderungen an die Implementation von
 kryptografischen Algorithmen für ESP und AH beschreibt.
 
-Eine SA besteht aus einer oder mehreren Proposals die jeweils ein
-Protokoll umfassen. Jedes dieser Protokolle enthält eine oder
+Eine SA besteht aus einem oder mehreren Proposals die jeweils ein
+Protokoll umfassen. Jedes dieser Protokolle enthält ein oder
 mehrere Transforms, die ihrerseits einen kryptographischen Algorithmus
-beschreiben. Ein Transform kann Attribute enthalten falls das notwendig
-ist, um den kryptographischen Algorithmus komplett zu beschreiben.
+beschreiben. Ein Transform kann Attribute enthalten, falls das notwendig
+ist, um den kryptographischen Algorithmus vollständig zu beschreiben.
 
 In einem Datagramm wird die SA, an die der Empfänger das Datagramm
 binden soll und in der er die nötigen Angaben zum Entschlüsseln findet,
