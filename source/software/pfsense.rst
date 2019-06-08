@@ -17,7 +17,11 @@ Auf die Kommandozeile kommt man entweder über die Konsole des Rechners,
 auf dem pfSense läuft, oder nach Anmeldung via SSH.
 Zunächst landet man in einem Menü wie dem folgenden:
 
-.. todo:: Screenshot pfSense-Konsolenmenü
+.. literalinclude:: pfsense-console.txt
+   :language: text
+   :lines: 5-16
+
+.. todo:: Position Konsolenmenü kontrollieren.
 
 Von dort kommt man über den Menüpunkt 8) auf die Unix-Shell oder über 12)
 auf die PHP-Shell.
@@ -65,8 +69,7 @@ Configuration-Cache, so dass die geänderten Einstellungen aktiv werden.
      schließt den Befehl im Kommandozeilenmodus ab.
 
    Wer mit dem Editor *vi* oder einem seiner Nachfolger vertraut ist,
-   weiß auch, wie er seine gewollten Änderungen in die Datei
-   zurückschreibt.
+   weiß, wie er seine gewollten Änderungen in die Datei zurückschreibt.
 
 Da die pfSense auf einem Unix-System aufsetzt, empfiehlt es sich, sie
 nicht einfach auszuschalten, sondern vorher geordnet hinunterzufahren.
