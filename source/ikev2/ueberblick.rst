@@ -42,6 +42,10 @@ Allgemein werden die Datagramme bei IPsec entweder durch IPsec
 geschützt (PROTECT), verworfen (DISCARD) oder sie dürfen den
 IPsec-Schutz umgehen (BYPASS).
 
+.. todo:: SPD näher erläutern (RFC4301 pp 19-34)
+   
+   Dabei auf Problem mit correlated SPD entries eingehen.
+
 IPsec kann IP-Traffic zwischen einem Paar von Hosts (a),
 zwischen zwei Security-Gateways (b) oder zwischen einem Host und einem
 Security-Gateway (c) schützen. Ein konformer Host muss (a) und (b)
@@ -54,6 +58,10 @@ Daten assoziiert wird. *Protected* verweist dementsprechend auf die
 Farbe rot und Klartext.
 Eine IPsec-Implementation kann mehrere Schnittstellen auf jeder Seite
 der Grenze unterstützen.
+
+.. todo:: ICMP-Processing erläutern (RFC4301 pp 63-71)
+
+   Dabei auf Probleme mit Path-MTU eingehen.
 
 .. raw:: latex
 
