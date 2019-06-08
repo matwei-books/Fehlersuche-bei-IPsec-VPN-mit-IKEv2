@@ -2,7 +2,7 @@
 Überblick
 =========
 
-IPsec bietet für IP-Traffic Schutz vor Ausspähung und Veränderung.
+IPsec bietet Schutz vor Ausspähung und Veränderung für IP-Traffic.
 Die grundlegende Architektur für IPsec-konforme Systeme ist in RFC4301
 beschrieben (siehe :cite:`RFC4301`).
 Eine IPsec-Implementation kann in einem Host arbeiten, als Security
@@ -36,7 +36,7 @@ IKEv2 ist eine konkrete Ausprägung von ISAKMP.
 
 IPsec schafft eine Grenze zwischen ungeschützten und geschützten
 Schnittstellen.
-Datagramme, der diese Grenze überqueren, sind den Regeln der SPD
+Datagramme, die diese Grenze überqueren, sind den Regeln der SPD
 unterworfen.
 Allgemein werden die Datagramme bei IPsec entweder durch IPsec
 geschützt (PROTECT), verworfen (DISCARD) oder sie dürfen den
@@ -67,7 +67,7 @@ IPsec setzt sich aus drei Protokollen zusammen:
   RFC7296. ISAKMP verwies bereits in RFC2408 auf IKE für den
   Schlüsselaustausch, RFC7296 beschreibt IKEv2 (siehe :cite:`RFC7296`).
   
-  Seine Aufgabe ist das Aushandeln der kryptographischen Verfahren und
+  Die Aufgabe von ISAKMP ist das Aushandeln der kryptographischen Verfahren und
   Schlüssel für die Security Associations (SA).
 
 * *Authentication Header* (AH), beschrieben in RFC4302 (siehe
@@ -91,7 +91,7 @@ IPsec setzt sich aus drei Protokollen zusammen:
 Alle drei Protokolle nutzen Security Associations (SA) um die
 verwendeten kryptographischen Verfahren, Parameter und Schlüssel in
 einer Security Association Database (SAD) abzulegen. Dabei gibt es sowohl
-SA für die IKE-Sitzung, in der die Parameter ausgehandelt werden als
+SA für die IKE-Sitzung, in der die Parameter ausgehandelt werden, als
 auch für die durch IPsec geschützten Daten.
 
 Die kryptografischen Algorithmen für IKE2 beschreibt :cite:`RFC4307`,
@@ -109,7 +109,7 @@ binden soll und in der er die nötigen Angaben zum Entschlüsseln findet,
 durch einen *Security Parameter Index* (SPI) identifiziert.
 
 Die Protokolle AH und ESP enthalten nur den für den Empfänger nötigen SPI
-in ihrem Header. Im Datagramm-Header von IKE gibt es zwei SPI bei denen
-der Empfänger den für ihn wichtigen anhand seiner Rolle im
+in ihrem Header. Im Datagramm-Header von IKE gibt es deren zwei, bei denen
+der Empfänger den für ihn wichtigen SPI anhand seiner Rolle im
 IKE-Datenaustausch (Initiator oder Responder) bestimmt.
 
