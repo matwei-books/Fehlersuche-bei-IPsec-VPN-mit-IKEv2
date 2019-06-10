@@ -13,12 +13,14 @@ SOURCE = source/einfuehrung.rst \
 	 source/grundlagen/paketmitschnitt.rst \
 	 source/grundlagen/theoretisch.rst \
 	 source/ikev2/ueberblick.rst \
+	 source/ikev2/betriebsarten.rst \
 #
 DRAFTS = build/draft/einfuehrung-draft.pdf \
 	 build/draft/grundlagen/index-draft.pdf \
 	 build/draft/grundlagen/paketmitschnitt-draft.pdf \
 	 build/draft/grundlagen/theoretisch-draft.pdf \
 	 build/draft/ikev2/ueberblick-draft.pdf \
+	 build/draft/ikev2/betriebsarten-draft.pdf \
 #
 
 build/draft/%-draft.pdf: source/%.rst; pandoc -o $@ --variable subparagraph -H pandoc/draft.tex $<
