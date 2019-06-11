@@ -2,6 +2,17 @@
 Betriebsarten
 =============
 
+Es gibt zwei Arten von SA, Transport Mode SA und Tunnel Mode SA.
+Zwischen zwei IPsec-Peers können beide Arten gleichzeitig vorkommen.
+Da eine SA ihre Sicherheitsdienste aber immer nur für eine
+Simplex-Verbindung, das heißt in einer Richtung, zur Verfügung stellt,
+sollten die beiden SA, die zusammen eine vollständige Duplex-Verbindung
+absichern, von der gleichen Art sein.
+
+Üblicherweise werden die SA sowieso paarweise konfiguriert.
+Es ist jedoch gut, im Hinterkopf zu behalten, dass immer zwei SA mit dem
+gleichen Peer, Betriebsmodus und Traffic-Selektor existieren sollten.
+
 Transportmodus
 --------------
 
@@ -9,8 +20,29 @@ Im Transportmodus wird einfach nur der AH- beziehungsweise ESP-Header
 zwischen den IP-Header und die IP-Nutzdaten geschoben sowie ein Trailer
 für die Prüfsumme angehängt.
 
-Diese Betriebsart ist vorzugsweise für die direkte durch IPsec gesicherte
-Kommunikation zwischen zwei Rechnern geeignet.
+Der Transportmodus ist vorzugsweise für die Absicherung des Traffics
+zwischen zwei Hosts geeignet, weil es nur die außen sichtbaren
+IP-Adressen gibt und diese zwingend zu den beiden IPsec-Peers gehören
+müssen, damit der Traffic auch bei diesen ankommt.
+
+Zwischen zwei Security-Gateways, die IPsec-Dienste für ganze Netze
+anbieten, können SA im Transportmodus verwendet werden, wenn
+
+* der direkte Traffic zwischen den Security-Gateways abgesichert werden
+  soll,
+* oder der abgesicherte Traffic selbst wiederum in IP getunnelten
+  Traffic enthält, wie zum Beispiel IP-in-IP :cite:`RFC2003`,
+  GRE :cite:`RFC2784` oder IPsec Transport Mode for dynamic Routing
+  :cite:`RFC3884`.
+
+Ein Nachteil von Transport Mode SA mit getunneltem Traffic ist, dass
+IPsec keine Zugriffskontrolle wie beim Tunnelmode über die
+Traffic-Selektoren ausüben kann.
+
+Demgegenüber erleichtert Transport Mode mit getunneltem Traffic das
+Monitoring der IPsec SA, weil der Monitoring Traffic zwingend über
+dieselben zwei SA geht, wie der sonstige Traffic aller darüber
+verbundenen Netze.
 
 Tunnelmodus
 -----------
@@ -22,3 +54,28 @@ als das äußere.
 Diese Betriebsart wird für LAN-zu-LAN-Kopplungen zwischen verschiedenen
 Netzen oder für die Verbindung eines einzelnen Rechners zu einem oder
 mehreren Netzwerken verwendet.
+
+Insbesondere beim Koppeln mehrerer Netze pro Seite eines IPsec-VPN
+brauche ich bei SA im Tunnelmodus mehrere Policies um die beteiligten
+Netze mit Traffic-Selektoren abzubilden, was zu mehreren Paaren von SA
+pro IPsec-Peer im Betrieb führt.
+
+Das hat den Vorteil, dass IPsec den erlaubten Traffic mit den Policies
+beschränken kann und dadurch möglicherweise nachfolgende Firewalls
+entlastet werden.
+
+Bei der Fehlersuche habe ich hingegen das Problem, die richtige SA zu
+identifizieren.
+Vor allem, wenn einige SA offensichtlich funktionieren, andere jedoch
+nicht.
+
+Beim Monitoring, kann es passieren, dass der Monitoring-Traffic andere
+SA verwendet, als der produktive Traffic.
+Das kann dazu führen, dass das Monitoring ein Verbindungsproblem nicht
+erkennt, dass den produktiven Traffic stört, oder andersrum das
+Monitoring einen Fehler meldet, der den Produktivbetrieb nicht stört.
+
+Welche der beiden Betriebsarten für eine konkrete Situation geeigneter
+ist, hängt von weiteren Faktoren ab, so dass ich keine allgemeingültige
+Empfehlung geben kann.
+
