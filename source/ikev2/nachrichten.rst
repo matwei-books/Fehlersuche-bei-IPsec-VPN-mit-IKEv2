@@ -8,28 +8,28 @@ IKEv2 Nachrichten
 .. index:: Request/Response
    see: Request/Response; Nachrichten
 
-Der gesamte Nachrichtenverkehr in IKEv2 erfolgt über den paarweisen
+Der Nachrichtenverkehr in IKEv2 erfolgt über den paarweisen
 Austausch von Nachrichten.
-Bei jedem Paar von Nachrichten spricht man von einem *Exchange*,
-manchmal auch von einem *Request/Response* Paar.
+Ein Paar von Nachrichten nennt man von einem *Exchange*,
+beziehungsweise ein *Request/Response* Paar.
 
 .. index:: Initiator, Responder
 
-Der Peer, der IKE_SA_INIT-Request sendet wird *Initiator* genannt,
-derjenige, welcher darauf antwort *Responder*.
-Nach dem Rekeying der IKE-SA ist derjenige der Initiator, der das
+Der Peer, der einen IKE_SA_INIT-Request sendet, wird *Initiator* genannt,
+derjenige, welcher darauf antwort, *Responder*.
+Nach dem Rekeying der IKE-SA ist derjenige Initiator, der das
 Rekeying veranlasst hat.
 
 .. index:: Nachrichten; initiale
 
 Die ersten beiden Exchanges sind IKE_SA_INIT und IKE_AUTH.
 Sie bilden den initialen Nachrichtenaustausch, der im einfachsten Fall
-ausreichend ist, um Daten mit IPsec zu sichern.
+ausreicht, um Daten mit IPsec zu sichern.
 
 Der IKE_SA_INIT-Exchange verhandelt die kryptografischen Parameter
 sowohl für IKE selbst als auch für die erste IPsec SA, er tauscht Nonces
 aus und führt den Diffie-Hellman-Austausch durch. Im Idealfall werden
-dabei nur zwei Datagramme - zwei in jeder Richtung - gesendet.
+dabei nur zwei Datagramme - eins in jeder Richtung - gesendet.
 
 Der IKE_AUTH-Exchange authentisiert die vorherigen Nachrichten, tauscht
 Identitäten und Zertifikate und etabliert die erste IPsec SA.
@@ -41,33 +41,33 @@ vom Typ CREATE_CHILD_SA oder INFORMATIONAL.
 
 Jede Nachricht enthält eine 32-Bit große Message-ID (MID) als Teil des
 festen IKE-Headers.
-Diese Message-ID wird verwendet um Requests und Responses einander
+Diese Message-ID verwenden die Peers, um Requests und Responses einander
 zuzuordnen und Nachrichtenwiederholungen zu erkennen. Wiederholungen
 einer IKE-Nachricht müssen die gleiche MID verwenden.
 
 Die MID beginnt mit 0 beim IKE_SA_INIT-Requests des Initiators und wird
 fortlaufend hochgezählt.
-Beim Rekeying einer IKE-SA wird die MID für die neue SA auf 0 gesetzt.
+Beim Rekeying einer IKE-SA setzt der Initiator die MID für die neue SA auf 0.
 
 Der erste IKE-Request des Responders beginnt ebenfalls mit MID 0, so
 dass zu einer IKE-SA gleichzeitig zwei MID-Nummernkreise existieren
 können, einer für den nächsten Request, den ein Peer sendet und einer
 für den nächsten Request den er erwartet.
 Die beiden Nummernkreise kann man an den Flags des IKE-Headers
-unterscheiden (siehe Abschnitt :ref:`anhang/datagram-header:IKE Header`
+unterscheiden (siehe dazu auch Abschnitt :ref:`anhang/datagram-header:IKE Header`
 bei den Datagramm-Headern im Anhang).
 
 Allgemeine Fehlerregeln
 -----------------------
 
 Es gibt viele Fehlermöglichkeiten beim IKE-Austausch.
-Die allgemeine Regel ist, dass bei einem Request, der schlecht
+Eine allgemeine Regel ist, dass bei einem Request, der schlecht
 formatiert ist oder aufgrund einer Policy nicht akzeptiert werden kann,
 mit einer Notify-Payload beantwortet wird, die auf den Fehler hinweist.
-Ob eine solche Benachrichtigung gesendet wird, hängt davon ab, ob eine
-authentisierte IKE-SA existiert.
+Ob ein Peer eine solche Benachrichtigung sendet, hängt davon ab, ob
+bereits eine authentisierte IKE-SA existiert.
 
-Wenn es einen Fehler beim Verarbeiten eines Response gibt, ist die
+Tritt ein Fehler beim Verarbeiten eines Response auf, ist die
 allgemeine Regel, keine Fehlermeldung zurückzusenden, weil man dafür
 einen Request verwenden müsste. Trotzdem sollte der Empfänger der
 problematischen Response-Nachricht den IKE-Status aufräumen, zum
@@ -104,13 +104,13 @@ Die Abkürzungen stehen für folgende Informationen
 *N(Cookie)*
   COOKIE
 
-Das ist der einzige Austausch, der unverschlüsselt über das Netz geht
+IKE_SA_INIT ist der einzige Austausch, der unverschlüsselt über das Netz geht
 und in jedem Paketmitschnitt analysiert werden kann. Der Initiator kann
 mehrere kryptographische Algorithmen für die IKE-SA vorschlagen, aus
 denen der Responder eine auswählt. Die Message-ID im IKE-Header ist auf
 beiden Seiten 0.
 
-Am Ende dieses Austauschs kann jede Seite ein Maß namens SKEYSEED
+Am Ende dieses Austauschs kann jede Seite einen Initialwert SKEYSEED
 berechnen, von dem alle Schlüssel für diese IKE-SA abgeleitet werden.
 Alle darauf folgenden Nachrichten sind verschlüsselt und in ihrer
 Integrität gesichert.
@@ -119,9 +119,8 @@ Alle Fehler beim IKE_SA_INIT-Austausch führen zum Scheitern des
 Austausches. Einige Fehlermeldungen, wie COOKIE, INVALID_KE_PAYLOAD
 oder INVALID_MAJOR_VERSION können jedoch zu einem nachfolgenden
 erfolgreichen IKE_SA_INIT-Austausch führen. Da diese Fehlermeldungen
-nicht authentisiert sind, sollte der Initiator es noch einige Zeit
-versuchen, bevor er aufgibt. Dabei soll er nicht unmittelbar auf die
-Fehlerbenachrichtigung reagieren, es sei denn sie enthält einen der
+nicht authentisiert sind, sollte der Initiator nicht unmittelbar auf die
+Fehlerbenachrichtigung reagieren, es sei denn, sie enthält einen der
 oben genannten korrigierenden Hinweise.
 
 Diese schauen wir uns nun an.
@@ -136,7 +135,7 @@ COOKIE
 
    IKE_SA_INIT-Exchange mit COOKIE
 
-Zwei erwartete Attacken gegen IKE sind Zustandserschöpfung und
+Zwei mögliche Attacken gegen IKE sind Zustandserschöpfung und
 CPU-Überlastung bei denen das Ziel mit IKE_SA_INIT-Requests von
 verschiedenen Adressen überflutet wird. Diese Attacken können weniger
 effektiv gemacht werden, indem der Responder nur minimale CPU-Zeit
@@ -147,8 +146,9 @@ empfangen kann.
 Wenn ein Responder eine große Anzahl halboffener IKE-SAs entdeckt,
 sollte er auf IKE_SA_INIT-Requests mit einer COOKIE-Benachrichtigung
 antworten. Wenn ein IKE_SA_INIT-Response eine COOKIE-Benachrichtigung
-enthält, muss der Initiator den Request wiederholen mit dem empfangenen
-COOKIE als erster Payload und allen anderen Payloads unverändert.
+enthält, muss der Initiator den Request mit dem empfangenen
+COOKIE als erster Payload wiederholen, wobei er allen anderen Payloads
+unverändert lässt.
 
 Im günstigsten Fall kann der Initiator nach vier Datagrammen mit dem
 IKE_AUTH-Exchange fortfahren wenn er einen COOKIE-Response erhalten hat.
@@ -159,9 +159,10 @@ ohne COOKIE und sendet einen neuen COOKIE-Response. Der Initiator sollte
 die Anzahl der COOKIE-Requests begrenzen bevor er aufgibt. In diesem
 Fall ist es möglich, dass die COOKIES bei der Übertragung modifiziert
 wurden. Das kann man validieren, indem man die Datagramme auf beiden
-Seiten mitschneidet und anschließden Bit für Bit vergleicht. Sind die
+Seiten mitschneidet und anschließend Bit für Bit vergleicht. Sind die
 Datagramme auf beiden Seiten gleich, würde ich ein Problem bei der
-Implementierung der Cookies auf Responderseite vermuten.
+Implementierung der Cookies auf Responderseite vermuten und den Support
+des Herstellers hinzuziehen.
 
 .. index:: INVALID_KE_PAYLOAD
 
@@ -203,8 +204,11 @@ INVALID_MAJOR_VERSION
 
 Diese Nachrichten sollten nur auftreten, wenn ein Request mit einer
 Major-Version größer als 2 ankommt, was zum gegenwärtigen Zeitpunkt
-darauf hindeutet, dass etwas ernsthaft schief gegangen ist weil es im
-Moment noch keine IKE-Version größer als 2 gibt.
+darauf hindeutet, dass etwas ernsthaft schief gegangen ist, da es zur
+Zeit noch keine IKE-Version größer als 2 gibt.
+
+Kommt ein Request mit Major-Version 1, ist beim Peer IKEv1 konfiguriert.
+Das kann man durch Nachfragen klären.
 
 .. index:: ! IKE_AUTH
    single: Nachrichten; IKE_AUTH
