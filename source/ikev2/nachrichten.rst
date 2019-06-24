@@ -252,7 +252,7 @@ ich in einem Paketmitschnitt nur aus äußeren Merkmalen schließen, ob
 er erfolgreich war. Insbesondere, wenn anschließend ESP- oder
 AH-Datagramme ausgetauscht werden, kann ich vermuten, dass der
 IKE_AUTH-Austausch funktioniert hat. Eine Ausnahme sind Paketmitschnitte
-vom Type ``isakmp`` bei Cisco ASA (siehe dazu
+vom Type ``isakmp`` bei Cisco ASA (siehe dazu den Abschnitt
 :ref:`Paketmitschnitt auf dem VPN-Gateway`).
 
 In den meisten Fällen reichen zwei Datagramme für den
@@ -266,8 +266,8 @@ Fehler beim IKE_AUTH-Exchange
 
 Jeder Fehler bei IKE_AUTH, der dazu führt, dass die Authentisierung
 fehlschlägt, sollte zu einer *AUTHENTICATION_FAILED* Nachricht führen.
-Tritt der Fehler beim Responder auf, so schickt er die Nachricht im
-Response-Datagramm. Tritt der Fehler beim Initiator auf, kann er die
+Tritt der Fehler beim Responder auf, so schickt dieser die Nachricht
+im Response-Datagramm. Tritt der Fehler beim Initiator auf, kann er
 *AUTHENTICATION_FAILED* in einem separaten INFORMATIONAL-Exchange
 senden.
 
@@ -286,14 +286,38 @@ Nur bei den folgenden drei Benachrichtigungen während eines
 IKE_AUTH-Austausches beziehungsweise im unmittelbar folgenden
 INFORMATIONAL-Austausch wird die IKE-SA nicht erzeugt:
 
-* UNSUPPORTED_CRITICAL_PAYLOAD,
-* INVALID_SYNTAX,
-* AUTHENTICATION_FAILED.
+.. index:: UNSUPPORTED_CRITICAL_PAYLOAD
+   single: Fehlermeldung; UNSUPPORTED_CRITICAL_PAYLOAD
+
+.. index:: INVALID_SYNTAX
+   single: Fehlermeldung; INVALID_SYNTAX
+
+.. index:: AUTHENTICATION_FAILED
+   single: Fehlermeldung; AUTHENTICATION_FAILED
+
+* UNSUPPORTED_CRITICAL_PAYLOAD
+* INVALID_SYNTAX
+* AUTHENTICATION_FAILED
 
 Falls nur das Erzeugen der ersten Child-SA während des IKE_AUTH-Austauschs
-fehlschlägt, wird die IKE-SA trotzdem wie üblich erzeugt. Die folgenden
+fehlschlägt, wird die IKE-SA trotzdem erzeugt. Die folgenden
 Fehlermeldungen deuten darauf hin, dass nur das Erzeugen der Child-SA
 fehlschlug und die IKE-SA trotzdem angelegt wurde:
+
+.. index:: NO_PROPOSAL_CHOSEN
+   single: Fehlermeldung; NO_PROPOSAL_CHOSEN
+
+.. index:: TS_UNACCEPTABLE
+   single: Fehlermeldung; TS_UNACCEPTABLE
+
+.. index:: SINGLE_PAIR_REQUIRED
+   single: Fehlermeldung; SINGLE_PAIR_REQUIRED
+
+.. index:: INTERNAL_ADDRESS_FAILURE
+   single: Fehlermeldung; INTERNAL_ADDRESS_FAILURE
+
+.. index:: FAILED_CP_REQUIRED
+   single: Fehlermeldung; FAILED_CP_REQUIRED
 
 * NO_PROPOSAL_CHOSEN
 * TS_UNACCEPTABLE
