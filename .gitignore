@@ -1,3 +1,6 @@
+*.bak
 build
+_MTN
 *.swp
+TODO.otl
 .venv
