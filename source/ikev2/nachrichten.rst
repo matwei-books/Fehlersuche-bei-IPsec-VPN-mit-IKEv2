@@ -302,7 +302,7 @@ INFORMATIONAL-Austausch wird die IKE-SA nicht erzeugt:
 Falls nur das Erzeugen der ersten Child-SA während des IKE_AUTH-Austauschs
 fehlschlägt, wird die IKE-SA trotzdem erzeugt. Die folgenden
 Fehlermeldungen deuten darauf hin, dass nur das Erzeugen der Child-SA
-fehlschlug und die IKE-SA trotzdem angelegt wurde:
+fehlschlug und die IKE-SA angelegt wurde:
 
 .. index:: NO_PROPOSAL_CHOSEN
    single: Fehlermeldung; NO_PROPOSAL_CHOSEN
@@ -331,16 +331,15 @@ fehlschlug und die IKE-SA trotzdem angelegt wurde:
 CREATE_CHILD_SA
 ---------------
 
-Der CREATE_CHILD_SA-Exchange wird zum Aushandeln neuer Child-SA
-zusätzlich zu der bei IKE_AUTH ausgehandelten sowie zum Rekeying sowohl
-der IKE-SA als auch aller Child-SA verwendet.
+Der CREATE_CHILD_SA-Exchange wird zum Aushandeln zusätzlicher Child-SA
+sowie zum Rekeying sowohl der IKE-SA als auch aller Child-SA verwendet.
 
 Jeder der beiden Peers kann einen CREATE_CHILD_SA-Austausch initiieren,
 so dass man unterscheiden muss zwischen dem Initiator der IKE-Sitzung,
 der an den Flags im IKE-Header identifiziert werden kann und dem
 Initiator des CREATE_CHILD_SA-Austausches, der den Request mit der
 CREATE_CHILD_SA-Nachricht sendet. In diesem Abschnitt beziehen sich die
-Begriffe Initiator und Responder auf den jeweiligen
+Begriffe Initiator und Responder auf den aktuellen
 CREATE_CHILD_SA-Austausch.
 
 .. index:: NO_ADDITIONAL_SAS
@@ -354,7 +353,7 @@ auch das Rekeying zurückgewiesen werden.
 .. index:: INVALID_KE_PAYLOAD
    single: Fehlermeldung; INVALID_KE_PAYLOAD
 
-Optional können mit den CREATE_CHILD_SA-Nachrichten frisches
+Optional kann mit den CREATE_CHILD_SA-Nachrichten frisches
 Schlüsselmaterial mit einer KE-Payload gesendet werden. In diesem Fall
 muss mindestens eines der Proposals die DH-Gruppe des Schlüsselmaterials
 enthalten. Wenn der Responder ein Proposal mit einer anderen DH-Gruppe
@@ -375,23 +374,23 @@ Ni-Payload, optional Schlüsselmaterial in der KEi-Payload und die
 Traffic-Selektoren für die vorgeschlagene Child-SA in der TSi- und
 TSr-Payload.
 
-Der Responder antwortet (mit der selben MID) mit dem akzeptierten
-Vorschlag in der SA-Payload einer Nonce in der Nr-Payload eine
-DH-Payload, DH-Schlüsselmaterial in der KEr-Payload falls der Initiator
-ebenfalls Schlüsselmaterial gesendet hatte und der gewählten
+Der Responder antwortet mit der selben MID und dem akzeptierten
+Vorschlag in der SA-Payload, einer Nonce in der Nr-Payload, einer
+DH-Payload und DH-Schlüsselmaterial in der KEr-Payload falls der Initiator
+ebenfalls Schlüsselmaterial gesendet hatte sowie der gewählten
 kryptographischen Suite, die diese DH-Gruppe enthält.
 
-Die Traffic-Selektoren in der TSi- und TSr-Payload können eine Teilmenge
-der vorgeschlagenen Traffic-Selektoren sein.
+Die vom Responder gesendeten Traffic-Selektoren in der TSi- und
+TSr-Payload können eine Teilmenge der vorgeschlagenen Selektoren sein.
 
-.. index:: USE_TRANSPORT_MODE, Transportmode
+.. index:: ! USE_TRANSPORT_MODE, Transportmode
 
 Um für den Child-SA Transportmode zu vereinbaren, kann der Initiator die
 Benachrichtigung USE_TRANSPORT_MODE in den Request einfügen. Falls der
 Request akzeptiert wird, muss der Responder ebenfalls die Benachrichtigung
-USE_TRANSPORT_MODE in die Antwort einfügen. Falls der Responder diese
-Aufforderung zurückweist, wird der Child-SA im Tunnelmode etabliert. Ist
-das für den Initiator unakzeptabel, muss er den SA löschen.
+USE_TRANSPORT_MODE in die Antwort einfügen. Weist der Responder diese
+Aufforderung zurück, wird der Child-SA im Tunnelmode etabliert. Ist
+das für den Initiator inakzeptabel, muss er den SA löschen.
 
 Ein fehlgeschlagener Versuch, eine Child-SA zu erzeugen sollte nicht zum
 Abbau der IKE-SA führen.
@@ -418,7 +417,7 @@ Diffie-Hellman-Wert in KEr, wenn die gewählte kryptographische Suite
 diese DH-Gruppe enthält. Außerdem sendet er eine neue Responder-SPI in
 der SA-Payload.
 
-Sektion 2.18 in RFC7296 (:cite:`RFC7296`) behandelt das Rekeying von
+Sektion 2.18 in RFC7296 :cite:`RFC7296` behandelt das Rekeying von
 IKE-SA im Detail.
 
 Rekeying von Child-SA mit CREATE_CHILD_SA
@@ -446,11 +445,12 @@ USE_TRANSPORT_MODE verwendet.
 
 Die REKEY_SA-Benachrichtigung muss in einem CREATE_CHILD_SA-Austausch
 enthalten sein, wenn dieser eine existierende ESP- oder AH-SA ersetzen
-soll. Die zu ersetzende SA wird durch das SPI-Feld dieser Notify-Payload
-identifiziert. Das ist die SPI, die der Exchange-Initiator in
-ankommenden ESP- oder AH-Datagrammen erwarten würde. Das Feld
-Protokoll-ID der REKEY_SA-Benachrichtigung ist passend zum Protokoll der
-SA, die ersetzt wird, zum Beispiel 3 für ESP oder 2 für AH.
+soll.
+Das SPI-Feld dieser Notify-Payload identifiziert die zu ersetzende SA.
+Das ist die SPI, die der Exchange-Initiator in ankommenden ESP- oder
+AH-Datagrammen erwarten würde.
+Das Feld Protokoll-ID der REKEY_SA-Benachrichtigung ist passend zum
+Protokoll der ersetzten SA, zum Beispiel 3 für ESP oder 2 für AH.
 
 Der Responder antwortet mit dem akzeptierten Vorschlag in der
 SA-Payload, einer Nonce in Nr und einem Diffie-Hellman-Wert in KEr,
@@ -522,7 +522,7 @@ von SAs zu schließen und sich die Requests kreuzen, ist es möglich, dass
 die Responses keine Delete-Payloads enthalten.
 
 Ahnlich den ESP- und AH-SA werden auch IKE-SA mit Delete-Payloads
-geschlossen, wobei noch verbliebene Child-SA ebenfalls mit geschlossen
+geschlossen, wobei noch verbliebene Child-SA ebenfalls geschlossen
 werden.
 Die Antwort auf einen Request, der eine IKE-SA löscht, ist eine leere
 INFORMATIONAL-Nachricht.
@@ -531,7 +531,7 @@ Halbgeschlossene ESP- oder AH-Verbindungen sind regelwidrig.
 Ein Peer kann ankommende Daten für eine halbgeschlossene SA ablehnen und
 darf nicht einseitig eine SA schließen und die andere Hälfte des Paares
 weiter verwenden.
-Wenn eine Verbindung genügend verhunzt ist, kann ein Peer die IKE-SA
+Wenn eine Verbindung genügend verstümmelt ist, kann ein Peer die IKE-SA
 schließen und anschließend eine neue IKE-SA mit den nötigen Child-SA
 erzeugen.
 
@@ -555,7 +555,7 @@ Im ersten Fall kann der Empfänger, wenn er eine aktive IKE-SA zum Sender
 unterhält, über diese eine INVALID_SPI-Benachrichtigung über das empfangene
 Datagramm in einem INFORMATIONAL-Austausch senden. Die
 Benachrichtigungsdaten enthalten dann die unbekannte SPI.
-Wenn keine aktive IKE-SA existiert kann der Knoten eine INFORMATIONAL-Nachricht ohne
+Wenn keine aktive IKE-SA existiert, kann der Knoten eine INFORMATIONAL-Nachricht ohne
 kryptografischen Schutz an den Absender schicken, wobei er die Adressen
 und Portnummer des angekommenen Datagramms nimmt und jeweils Absender
 und Empfänger vertauscht. Der Empfänger dieser INFORMATIONAL-Nachricht
