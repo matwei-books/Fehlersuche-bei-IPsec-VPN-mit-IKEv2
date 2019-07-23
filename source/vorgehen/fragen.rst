@@ -2,9 +2,10 @@
 Fragen
 ======
 
-Die besten Erfolgsaussichten bei einer Fehlersuche habe ich, wenn ich
-mit den richtigen Fragen anfange. Darum beginne ich immer mit den selben
-Fragen, die ich - je nach Problemfeld - anpasse.
+Bei einer Fehlersuche habe ich die besten Erfolgsaussichten,
+wenn ich mit den richtigen Fragen anfange.
+Ich beginne immer mit den selben Fragen,
+die ich - je nach Problemfeld - anpasse.
 
 1. Tritt das Problem "jetzt" auf?
 2. Funktioniert irgendetwas?
@@ -16,98 +17,122 @@ Fragen, die ich - je nach Problemfeld - anpasse.
 
    Entscheidungsbaum
 
-Dabei gehe ich üblicherweise erst zur nächsten Frage über, wenn ich die
-vorherige mit *Ja* beantworten kann. Das ist besonders wichtig für die
-erste Frage, die ich nie auslasse. Muss ich eine Frage mit *Nein*
-beantworten und arbeite zunächst das entsprechende Teilprogramm ab,
+Dabei gehe ich erst zur nächsten Frage über,
+wenn ich die vorherige mit *Ja* beantworten kann.
+Das ist besonders wichtig für die erste Frage.
+Muss ich eine Frage mit *Nein* beantworten
+und arbeite zunächst das entsprechende Teilprogramm ab,
 fange ich anschließend wieder oben an.
 
-Der Hauptzweck der zweiten Frage ist, einen Totalausfall von einem
-Teilausfall zu unterscheiden. Die dritte Frage erinnert mich,
-systematisch alle Aspekte des Problems zu bedenken und die vierte Frage
-schließlich geht auf nicht funktionale Anforderungen ein.
+Hauptzweck der zweiten Frage ist,
+einen Totalausfall von einem Teilausfall zu unterscheiden.
+Die dritte Frage erinnert mich,
+alle Aspekte des Problems zu bedenken,
+und die vierte Frage geht auf nicht funktionale Anforderungen ein.
 
-Der oben gezeigte Entscheidungsbaum ist dabei einfacher zu merken, als
-der folgende optimierte Entscheidungsbaum der zum gleichen Ergebnis
-führt.
+Der oben gezeigte Entscheidungsbaum ist dabei einfacher zu merken,
+als der folgende, optimierte Entscheidungsbaum
+der zum gleichen Ergebnis führt.
 
 .. figure:: ../images/entscheidungsbaum-alternativ.png
    :alt: Optimierter Entscheidungsbaum
 
    Optimierter Entscheidungsbaum
 
-Auch hier fange ich wieder oben an, nachdem ich ein Teilprogramm
-abgearbeitet habe. Ich unterscheide allerdings zwei Ausgänge, je nachdem
-ob das Problem nicht mehr auftritt, weil es behoben ist, oder ob das
-Problem zwar vorhanden ist, aber nicht in meiner Verantwortung liegt.
+Auch hier fange ich wieder oben an,
+nachdem ich ein Teilprogramm abgearbeitet habe.
+Ich unterscheide allerdings zwei Ausgänge,
+je nachdem ob das Problem nicht mehr auftritt,
+weil es behoben ist,
+oder ob das Problem zwar vorhanden ist,
+aber nicht in meiner Verantwortung liegt.
 
-Da ich nicht alle Probleme selbst lösen kann, steht immer eine fünfte
-Frage implizit im Hintergrund:
+Da ich nicht alle Probleme selbst lösen kann,
+steht immer eine fünfte Frage implizit im Hintergrund:
 
 -  Wann sollte ich eskalieren?
 
-Ich eskaliere ein Problem, indem ich Hilfe von anderen suche, weil ich
-selbst bei diesem Problem nicht mehr weiter weiß. Ehrlich gesagt, stelle
-ich mir diese Frage oft zu spät, weil ich zuerst versuche, meine
-Probleme selbst zu lösen. Manche hingegen beantworten diese Frage zu
-früh mit *Ja*, weil sie nicht alle Möglichkeiten ausschöpfen, die ihnen
-zur Verfügung stehen. Ziel der Artikelreihe ist, diese Möglichkeiten
-bewusst zu machen und den optimalen Zeitpunkt für eine Eskalation zu
-finden.
+Ich eskaliere ein Problem, indem ich Hilfe von anderen suche,
+weil ich selbst bei diesem Problem nicht mehr weiter weiß.
+Ehrlich gesagt, stelle ich mir diese Frage oft zu spät,
+weil ich meist versuche, meine Probleme selbst zu lösen.
 
-Die einfache Antwort lautet, wenn ich eine Frage selbst nicht
-beantworten kann. Oder, wenn die Antworten auf meine Fragen scheinbar
-keinen Sinn ergeben.
+Manche hingegen beantworten diese Frage zu früh mit *Ja*,
+weil sie nicht alle Möglichkeiten ausschöpfen,
+die ihnen zur Verfügung stehen.
+Ein Ziel dieses Buches ist, diese Möglichkeiten bewusst zu machen,
+um den optimalen Zeitpunkt für eine Eskalation finden zu können.
 
-Dabei sollte ich versuchen, das Ergebnis der Eskalation als Mittel zum
-Lernen anzusehen und meinem Erfahrungsschatz hinzuzufügen.
+Die einfache Antwort auf die fünfte Frage lautet:
+wenn ich eine Frage selbst nicht beantworten kann.
+Oder, wenn die Antworten auf meine Fragen scheinbar keinen Sinn ergeben.
+
+Dabei versuche ich,
+das Ergebnis der Eskalation als Mittel zum Lernen anzusehen
+und meinem Erfahrungsschatz hinzuzufügen.
 
 Tritt das Problem "jetzt" auf?
 ------------------------------
 
-Das Wort "jetzt" steht in Anführungsstrichen, weil ich es hier in
-verschiedene Bedeutungen verwende.
+Das Wort "jetzt" steht in Anführungsstrichen,
+weil ich es hier in verschiedene Bedeutungen verwende.
 
-Am Anfang der Untersuchung geht es darum, dass ich das Problem
-wahrnehme, wenn es auftritt. Dabei kann dieses "jetzt" auch ein
-Zeitpunkt in der Vergangenheit sein, wenn ich genügend Informationen für
-diesen Zeitpunkt habe, um das Problem zu erkennen. Meist geht es jedoch
-um die Gegenwart.
+Am Anfang der Untersuchung geht es darum,
+dass ich das Problem wahrnehme, wenn es auftritt.
+Dabei kann dieses "jetzt" auch ein Zeitpunkt in der Vergangenheit sein,
+wenn ich genügend Informationen für diesen Zeitpunkt habe,
+um das Problem zu erkennen.
+Meist geht es jedoch um die Gegenwart.
 
-Die zweite Bedeutung dieses "jetzt" geht nicht nach dem exakten
-Zeitpunkt sondern den Umständen, unter denen das Problem auftritt.
-Generell ist eine Fehlersuche einfacher, wenn ich das Problem
-willkürlich hervorrufen kann, indem ich die dafür nötigen Umstände
-herbeiführe. Dann bedeutet "jetzt": unter diesen Umständen. Das brauche
-ich, um am Ende zeigen zu können, dass das Problem behoben ist.
+Bei der zweiten Bedeutung von "jetzt" geht es nicht um den exakten Zeitpunkt
+sondern um die Umstände,
+unter denen das Problem auftritt.
+Generell ist eine Fehlersuche einfacher,
+wenn ich das Problem bewusst hervorrufen kann,
+indem ich die dafür nötigen Umstände herbeiführe.
+Dann bedeutet "jetzt": unter diesen Umständen.
+Das brauche ich,
+um am Ende zeigen zu können,
+dass das Problem behoben ist.
 
-Die Antworten auf diese Frage bekomme ich mitunter aus der
-entsprechenden Problemmeldung oder dem Ticket, manchmal auch aus den
-Logs oder einem Paketmitschnitt.
-Oft muss ich nachfragen, via E-Mail, Rückfrage im Ticket, Anruf oder
-persönlichem Gespräch.
+Die Antworten auf diese Frage bekomme ich
+aus der Problemmeldung oder dem Ticket,
+manchmal auch aus den Logs oder einem Paketmitschnitt.
+Oft muss ich nachfragen,
+via E-Mail, Rückfrage im Ticket, Anruf oder persönlichem Gespräch.
 Welcher Weg am besten passt ist von Fall zu Fall verschieden.
-Wichtig ist, dass ich das Problem erkenne und idealerweise zu
-Testzwecken selbst hervorrufen kann.
+Wichtig ist, dass ich das Problem erkenne
+und idealerweise zu Testzwecken selbst hervorrufen kann.
 
-Ich habe schon Problemmeldungen geschlossen, weil da kein Problem war,
-als ich nachschaute. Und ich bin `nicht der
-einzige <https://xkcd.com/583/>`__. Die beste `Fehlersuche geht ins
-Leere <https://dzone.com/articles/if-you-cant-reproduce-bug-you>`__,
+Ich habe schon Problemmeldungen geschlossen,
+weil ich das Problem nicht nachvollziehen konnte.
+Und ich bin nicht der einzige [#]_.
+Die beste Fehlersuche geht ins Leere [#]_.
 wenn das Problem aktuell gar nicht besteht.
 
-Bei Iterationen im Entscheidungsbaum, wenn ich zum wiederholten Mal oben
-anfange, kann es sein, dass ich mit meinen Aktionen das Problem
-beseitigt habe. Dann ist diese Frage Abbruchbedingung.
+.. rubric:: Fußnoten
 
-Wenn ich nicht am Anfang die Chance hatte, das Problem zu beobachten,
-während es auftrat, habe ich keinen Vergleich, zwischen dem Zustand mit
-Problem und dem ohne und kann daher selten sicher sein, es wirklich
-gelöst zu haben, selbst wenn ich es - zufällig - mit meinen Aktionen
-beseitige.
+.. [#] https://xkcd.com/583/
 
-Tritt das Problem nur hin und wieder auf, hilft mir die Frage nach dem
-zeitlichen Ablauf, Korrelationen mit den Systemprotokollen herzustellen
+.. [#] https://dzone.com/articles/if-you-cant-reproduce-bug-you>
+
+Bei Iterationen im Entscheidungsbaum,
+wenn ich zum wiederholten Mal oben anfange,
+kann es sein,
+dass ich mit meinen Aktionen das Problem beseitigt habe.
+Dann ist diese Frage Abbruchbedingung.
+
+Wenn ich nicht am Anfang die Chance hatte,
+das Problem, während es auftrat, zu beobachten,
+habe ich keinen Vergleich,
+zwischen dem Zustand mit Problem und dem ohne
+und kann daher selten sicher sein,
+es wirklich gelöst zu haben,
+selbst wenn ich es - zufällig - mit meinen Aktionen beseitige.
+
+Tritt das Problem nur hin und wieder auf,
+hilft mir die Frage nach dem zeitlichen Ablauf,
+Korrelationen mit den Systemprotokollen herzustellen
 und zwischen sporadischen und periodischen Problemen zu unterscheiden.
 
 Funktioniert irgendetwas?
