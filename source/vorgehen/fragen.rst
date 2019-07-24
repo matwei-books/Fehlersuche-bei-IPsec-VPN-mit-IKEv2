@@ -21,11 +21,11 @@ Dabei gehe ich erst zur nächsten Frage über,
 wenn ich die vorherige mit *Ja* beantworten kann.
 Das ist besonders wichtig für die erste Frage.
 Muss ich eine Frage mit *Nein* beantworten
-und arbeite zunächst das entsprechende Teilprogramm ab,
+und arbeite zunächst das entsprechende Unterprogramm ab,
 fange ich anschließend wieder oben an.
 
 Hauptzweck der zweiten Frage ist,
-einen Totalausfall von einem Teilausfall zu unterscheiden.
+einen Totalausfall von einem partiellen Ausfall zu unterscheiden.
 Die dritte Frage erinnert mich,
 alle Aspekte des Problems zu bedenken,
 und die vierte Frage geht auf nicht funktionale Anforderungen ein.
@@ -40,7 +40,7 @@ der zum gleichen Ergebnis führt.
    Optimierter Entscheidungsbaum
 
 Auch hier fange ich wieder oben an,
-nachdem ich ein Teilprogramm abgearbeitet habe.
+nachdem ich ein Unterprogramm abgearbeitet habe.
 Ich unterscheide allerdings zwei Ausgänge,
 je nachdem ob das Problem nicht mehr auftritt,
 weil es behoben ist,
@@ -104,10 +104,10 @@ Welcher Weg am besten passt ist von Fall zu Fall verschieden.
 Wichtig ist, dass ich das Problem erkenne
 und idealerweise zu Testzwecken selbst hervorrufen kann.
 
-Ich habe schon Problemmeldungen geschlossen,
+Ich habe schon Fehlermeldungen geschlossen,
 weil ich das Problem nicht nachvollziehen konnte.
 Und ich bin nicht der einzige [#]_.
-Die beste Fehlersuche geht ins Leere [#]_.
+Die beste Fehlersuche geht ins Leere [#]_
 wenn das Problem aktuell gar nicht besteht.
 
 .. rubric:: Fußnoten
@@ -138,150 +138,167 @@ und zwischen sporadischen und periodischen Problemen zu unterscheiden.
 Funktioniert irgendetwas?
 -------------------------
 
-Diese Frage gibt mir Hinweise, was ich bei der Fehlersuche zunächst
-ignorieren kann, und worauf ich mein Hauptaugenmerk richte. Dabei ist
-dieses irgendetwas nicht zufällig aus dem Lostopf gezogen, sondern
-zielgerichtet ausgewählt, um den Fehler möglichst schnell einzugrenzen.
+Diese Frage gibt mir Hinweise,
+was ich bei der Fehlersuche zunächst ignorieren kann,
+und worauf ich mein Hauptaugenmerk richten sollte.
+Dabei ist dieses irgendetwas nicht zufällig aus dem Lostopf gezogen,
+sondern zielgerichtet ausgewählt,
+um den Fehler schnell einzugrenzen.
 
-Ein VPN ist, wie der Name schon sagt, ein Netzwerk und dass dieses
-funktioniert kann ich implizit schließen, wenn mir eine Verbindung
-angezeigt wird. Konkret frage ich als darum erstes:
+Ein VPN ist, wie der Name schon sagt, ein Netzwerk
+und dass dieses funktioniert,
+kann ich implizit schließen,
+wenn mir eine Verbindung angezeigt wird.
+Konkret frage ich also darum erstes:
 
 -  Gibt es ISAKMP und IPsec Security Associations?
 
-Ganz sicher kann ich sein, wenn mir nicht nur die Security Associations
-(SA) angezeigt werden, sondern auch Traffic in beiden Richtungen.
+Ganz sicher kann ich sein,
+wenn mir nicht nur die Security Associations (SA) angezeigt werden,
+sondern auch Datenverkehr in beiden Richtungen.
 
-Die Antwort darauf kann ich bei den meisten VPN-Gateways sehr einfach
-bekommen und bei einer positiven Antwort erspare ich mir sehr viele
-Untersuchungen. Außerdem sehe ich oft, ob Daten gesendet werden und kann
-die Fehlersuche entsprechend ausrichten.
+Bei einer positiven Antwort erspare ich mir sehr viele Untersuchungen.
+Außerdem sehe ich oft, ob Daten gesendet werden
+und kann dann die Fehlersuche entsprechend ausrichten.
 
-Sehe ich hingegen keine ISAKMP bzw. IPsec SA, muss ich mir Gedanken
-machen, ob überhaupt Traffic ankommt, für den die SA konfiguriert
-wurden. Hierzu ist es hilfreich, zu wissen, ob der Datenverkehr von
-meiner Seite des Netzes ausgeht, oder von der Seite des Peers.
+Sehe ich hingegen keine ISAKMP bzw. IPsec SA,
+muss ich mir Gedanken machen,
+ob überhaupt Datenverkehr, für den SA konfiguriert wurden, ankommt.
+Hierzu ist es hilfreich zu wissen,
+ob der Datenverkehr von meiner Seite des Netzes ausgeht,
+oder von der Seite des Peers.
 
-Im ersten Fall schaue ich nach, ob unverschlüsselter Traffic am VPN
-Gateway ankommt, der an das Netz des Peers gerichtet ist, im zweiten
-Fall, ob IKE-Traffic auf der externen Seite meines VPN-Gateways ankommt.
-Das heißt, ich suche nach Datenverkehr, der den Aufbau eines VPN-Tunnels
-auslöst. Gibt es diesen Datenverkehr nicht, muss ich nicht nach einem
-Fehler in meinem VPN-Gateway zu suchen.
+Im ersten Fall schaue ich nach,
+ob unverschlüsselte Datagramme am VPN Gateway ankommt,
+der an das Netz des Peers gerichtet ist.
+Im zweiten Fall,
+ob IKE-Datagramme auf der externen Seite meines VPN-Gateways ankommt.
+Das heißt ich suche nach Datenverkehr,
+der den Aufbau eines VPN-Tunnels auslöst.
+Gibt es diesen Datenverkehr nicht,
+muss ich nicht nach einem Fehler in meinem VPN-Gateway zu suchen.
 
-Diese Überlegungen gelten jedoch nur für On-Demand-VPN, die nur
-aufgebaut werden, wenn Traffic dafür ankommt und nach einer gewissen
-Zeit ohne Datenverkehr abgebaut werden. Bei ständig aufgebauten - zum
-Beispiel route-based - VPN müssen die zugehörigen SA immer zu sehen
-sein, auch wenn kein Traffic für den Tunnel da ist.
+Diese Überlegungen gelten für On-Demand-VPN,
+die nur aufgebaut werden, wenn Datagramme dafür ankommen,
+und nach einer gewissen Zeit ohne Datenverkehr abgebaut werden.
+Bei permanenten VPN müssen die zugehörigen SA immer zu sehen sein,
+auch wenn kein Datenverkehr für den Tunnel aktiv ist.
 
-Sehe ich ankommenden unverschlüsselten Datenverkehr von innen oder
-IKE-Daten von außen, muss ich untersuchen, warum der Tunnel nicht
-aufgebaut wird.
+Sehe ich Datenverkehr von innen oder IKE-Datagramme vom Peer außen ankommen,
+muss ich untersuchen, warum der Tunnel nicht aufgebaut wird.
 
-Kommt der Traffic von meiner Seite, frage ich, ob mein VPN-Gateway
-zumindest versucht, einen Tunnel aufzubauen und welche Antworten es vom
-Peer bekommt.
+Kommen Datagramme von innen, frage ich,
+ob mein VPN-Gateway zumindest versucht,
+einen Tunnel aufzubauen
+und welche Antworten es vom Peer bekommt.
 
-Kommt der Traffic vom Peer, schaue ich mir die Parameter an, mit denen
-sein VPN-Gateway versucht, den Tunnel aufzubauen und vergleiche sie mit
-meiner Konfiguration.
+Kommt der Datenverkehr vom Peer,
+schaue ich mir die Parameter an,
+mit denen sein VPN-Gateway versucht,
+den Tunnel aufzubauen
+und vergleiche sie mit meiner Konfiguration.
 
-Ich frage dabei immer detaillierter nach, bis ich zum Kern des Problems
-komme. Dabei behebe ich entdeckte Fehler bis ich schließlich Daten mit
-mindestens einer IPsec SA verschlüsselt übertragen kann. Erst dann kann
-ich zur nächsten grundlegenden Frage übergehen.
+Ich frage immer detaillierter nach,
+bis ich zum Kern des Problems komme
+und behebe dabei entdeckte Fehler
+bis ich schließlich Daten verschlüsselt übertragen kann.
+Erst dann kann ich zur nächsten grundlegenden Frage übergehen.
 
 Funktioniert alles?
 -------------------
 
-Habe ich zumindest einen Tunnel mit IPsec SA, kann ich davon ausgehen,
-dass das VPN grundsätzlich funktioniert. Auch dann bleiben noch genügend
-Fragen.
+Habe ich zumindest einen Tunnel mit IPsec SA,
+kann ich davon ausgehen,
+dass das VPN grundsätzlich funktioniert.
+Auch dann bleiben noch genügend Fragen.
 
--  Gibt es eingehenden und ausgehenden Traffic?
+-  Gibt es eingehenden und ausgehenden Datenverkehr?
 
-Ein aufgebauter VPN-Tunnel nützt nur dann etwas, wenn er Traffic in
-beiden Richtungen überträgt. Fehlt eine Richtung, frage ich zunächst, ob
-der fragliche Traffic überhaupt bei meinem VPN-Gateway ankommt. Kommt
-dieser Traffic nicht an, brauche ich zunächst nichts weiter zu machen
-und kann die Suche wieder delegieren. Kommt er am VPN-Gateway an, muss
-ich untersuchen, warum der Traffic nicht auf der anderen Seite
-hinausgeht.
+Ein VPN-Tunnel nützt nur dann etwas,
+wenn er Daten in beiden Richtungen überträgt.
+Fehlt eine Richtung, frage ich zunächst,
+ob die fraglichen Datagramme überhaupt bei meinem VPN-Gateway ankommt.
+Kommen diese nicht an,
+brauche ich zunächst nichts weiter zu machen
+und kann die Suche wieder delegieren.
+Kommt er am VPN-Gateway an,
+muss ich untersuchen
+warum kein Datenverkehr auf der anderen Seite hinausgeht.
 
-Gehen keine weiteren IPsec SA nach dem ersten auf, vergleiche ich die
-ACL und IPsec Krypto Parameter.
+Gehen keine weiteren IPsec SA nach dem ersten auf,
+vergleiche ich die ACL und IPsec-Verschlüsselungsparameter.
 
-Finde ich keine Erklärung, ist das ein guter Zeitpunkt zu eskalieren und
-mir Hilfe zu holen.
+Finde ich keine Erklärung,
+ist das ein guter Zeitpunkt zu eskalieren und mir Hilfe zu holen.
 
--  Gibt es Traffic für alle konfigurierten IPsec SA in beiden
-   Richtungen?
+-  Gibt es Datenverkehr für alle konfigurierten IPsec SA in beiden Richtungen?
 
-Diese Frage ist etwas schwierig zu beantworten, weil der Traffic
-üblicherweise von anderen erzeugt wird und hier ein Koordinationsproblem
-entstehen kann. Nichtsdestotrotz sollte diese Frage spätestens bei der
-Abnahme des VPN mit *Ja* beantwortet sein.
+Diese Frage ist manchmal schwierig zu beantworten,
+weil die Daten üblicherweise von anderen gesendet werden
+und hier ein Problem mit der Koordination der Beteiligten entstehen kann.
+Trotzdem sollte diese Frage spätestens bei der Abnahme des VPN mit *Ja* beantwortet sein.
 
 -  Gibt es Fehlermeldungen oder Warnungen in den Logs?
 
-Auch wenn das VPN scheinbar vollständig funktioniert, kann ein Blick in
-die Logs auf bisher unentdeckte Probleme hinweisen. Natürlich setzt das
-einen zeitnahen Zugriff auf die Systemprotokolle voraus.
+Auch wenn das VPN scheinbar vollständig funktioniert,
+kann ein Blick in die Logs auf bisher unentdeckte Probleme hinweisen.
+Natürlich setzt das einen zeitnahen Zugriff auf die Systemprotokolle voraus.
 
 Ist es schnell genug?
 ---------------------
 
-Die Frage nach der Geschwindigkeit ist nicht leicht zu beantworten. Im
-Idealfall habe ich eine Baseline und damit ein einigermaßen objektives
-Kriterium für die Geschwindigkeit des VPN.
+Die Frage nach der Geschwindigkeit ist nicht leicht zu beantworten.
+Im Idealfall habe ich einen Referenzwert
+und damit ein objektives Kriterium für die Geschwindigkeit des VPN.
 
-Zwei Faktoren beeinflussen die Geschwindigkeit in einem Netz und damit
-auch im VPN wesentlich:
+Zwei Faktoren beeinflussen die Geschwindigkeit in einem Netz und damit auch im VPN wesentlich:
 
--  der Durchsatz beziehungsweise die maximale Datenmenge pro
-   Zeiteinheit, die durch das Netz gehen - diesen will ich möglichst
-   groß - und
+-  der Durchsatz beziehungsweise die maximale Datenmenge pro Zeiteinheit,
+   die durch das Netz gehen - diesen will ich möglichst groß - und
 -  die Latenz beziehungsweise die Zeit zum Übertragen eines einzelnen
    Datagramms - diese will ich möglichst klein haben.
 
-Beide Faktoren beeinflussen sich gegenseitig und sind im laufenden
-Betrieb nicht einfach zu messen. Manchmal ist es möglich, über die
-Laufzeit - ein Maß für die Latenz - auf den maximalen Durchsatz zu
-schließen.
+Beide Faktoren beeinflussen sich gegenseitig
+und sind im laufenden Betrieb nicht einfach zu messen.
 
-Da dabei aber fremdbestimmte Netzkomponenten beteiligt sind, muss ich
-diese Erkenntnisse immer mit Vorsicht verwenden. Das beste, was ich in
-den meisten Fällen tun kann, ist Durchsatz und Latenz an meinem Gateway
-optimal einzustellen und versuchen ungefähr zu ermitteln, an welcher
-Stelle im Netz die Verbindung verlangsamt wird. Finde ich als Ursache
-das VPN-Gateway, muss ich über leistungsfähigere Hardware nachdenken.
+Manchmal ist es möglich,
+über die Laufzeit als Maß für die Latenz auf den maximalen Durchsatz zu schließen.
+Da dabei aber fremdbestimmte Komponenten im Netz beteiligt sind,
+muss ich diese Erkenntnisse immer mit Vorsicht verwenden.
+
+Das beste, was ich in den meisten Fällen tun kann,
+ist Durchsatz und Latenz an meinem Gateway optimal einzustellen
+und versuchen, zu ermitteln,
+an welcher Stelle im Netz die Verbindung verlangsamt wird.
+Finde ich als Ursache das VPN-Gateway,
+muss ich über leistungsfähigere Hardware nachdenken.
 
 -  Wie sieht die Round-Trip-Zeit der entschlüsselten Daten aus?
 
-Das ist eine der Fragen zur Geschwindigkeit eines VPN, die sich relativ
-einfach beantworten lässt. Allerdings geht in die Round-Trip-Zeit neben
-der Zeit für die Ver- und Entschlüsselung noch die Zeit für die
-Übertragung im Netz und die Antwortzeit der Gegenstelle ein, so dass bei
-einer zu langen Round-Trip-Zeit die Ursache nicht auf Anhieb genau
-benannt werden kann. Durch Vergleichsmessungen der Paketlaufzeit
-zwischen den beiden VPN-Gateways lassen sich zumindest Teile der
-Störgrößen herausrechnen. Durch genaues Betrachten der Zeitstempel der
-Datagramme lässt sich vielleicht ermitteln, ob das Problem eher auf der
-verschlüsselten oder auf der entschlüsselten Seite liegt.
+Das ist eine der Fragen zur Geschwindigkeit eines VPN,
+die sich relativ einfach beantworten lässt.
+Allerdings gehen in die Round-Trip-Zeit
+neben der Zeit für die Ver- und Entschlüsselung
+noch die Zeit für die Übertragung im Netz
+und die Antwortzeit der Gegenstelle ein,
+so dass bei einer langen Round-Trip-Zeit
+die Ursache nicht auf Anhieb genau benannt werden kann.
+Durch Vergleichsmessungen der Paketlaufzeit zwischen den beiden VPN-Gateways
+lassen sich zumindest Teile der Störgrößen herausrechnen.
+Durch genaues Betrachten der Zeitstempel der Datagramme lässt sich ermitteln,
+ob das Problem eher auf der verschlüsselten oder auf der entschlüsselten Seite liegt.
 
 -  Wie groß ist die Verzögerung durch Ver- und Entschlüsselung?
 
-Leider lässt sich diese Frage nur beantworten, wenn das VPN selbst nur
-wenig benutzt wird, da ich hier die verschlüsselten Datagramme auf der
-Außenseite den unverschlüsselten auf der Innenseite zuordnen muss. Dann
-kann die Zeit, die für die Verschlüsselung benötigt wird, einen Hinweis
-geben, ob vielleicht ein leistungsfähigeres VPN-Gateway oder Maßnahmen
-zu dessen Entlastung angebracht sind.
+Leider lässt sich diese Frage nur beantworten,
+wenn das VPN selbst nur wenig benutzt wird,
+da ich hier die verschlüsselten Datagramme auf der Außenseite
+den unverschlüsselten auf der Innenseite zuordnen muss.
+Dann kann die Zeit, die für die Verschlüsselung benötigt wird, einen Hinweis geben,
+ob vielleicht ein leistungsfähigeres VPN-Gateway oder Maßnahmen zu dessen Entlastung angebracht sind.
 
 -  Wie groß ist der Durchsatz des VPN-Gateways?
 
-Hierzu kann ich den gesamten verschlüsselten Datenverkehr pro
-Zeiteinheit betrachten und vergleichen, ob ich mich einem - vorher
-ermittelten - Maximalwert nähere.
+Hierzu kann ich den gesamten Datenverkehr pro Zeiteinheit betrachten
+und vergleichen, ob ich mich einem - vorher ermittelten - Maximalwert nähere.
 
