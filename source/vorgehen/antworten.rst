@@ -6,8 +6,6 @@ Gute Fragen zu stellen trägt schon ein großes Stück bei zur Lösung eines
 Problems. Die Fragen nützen mir jedoch nichts, wenn ich nicht in der
 Lage bin, Antworten darauf zu finden.
 Darum geht es in diesem Kapitel.
-Zu jeder der grundlegenden, respektive der davon abgeleiteten konkreten Fragen zeige ich Wege auf,
-um passende Antworten finden.
 
 Dabei muss ich mich - insbesondere bei schwierigen Problemen -
 immer fragen "Ist das wahr? Ist das, was ich gesehen habe, alles"?
@@ -27,7 +25,7 @@ Aussagen von VPN-Benutzern
 --------------------------
 
 Aussagen von VPN-Benutzern in Form von Fehlermeldungen sind oft der
-Anlass für eine Fehlersuche bei einem VPN.
+Anlass für die Fehlersuche bei einem VPN.
 
 Gerade am Anfang der Untersuchung ist es daher wichtig, so viel wie
 möglich von den Benutzern über die genauen Umstände des Problems zu
@@ -66,7 +64,7 @@ plötzlich Traffic zwischen zwei VPN-Gateways in den Logs,
 obwohl zwischen beiden Geräten nicht einmal PING funktionierte
 und im Paketmitschnitt auf beiden Seiten nachweislich
 kein Traffic des jeweils anderen VPN-Gateways auftauchte.
-Die Cisco-ASA einen Logeintrag generiert für jeden Verbindungsversuch,
+Die Cisco-ASA generiert einen Logeintrag für jeden Verbindungsversuch,
 den sie unternimmt.
 Dieser Logeintrag enthält die Traffic-Selektoren
 für den auslösenden Traffic, der durch das VPN gehen soll,
@@ -78,7 +76,7 @@ für den in diesem Fall keine Antwort vom Peer-Gateway ankam.
 Unglücklicherweise hatte sich ein VPN-Administrator überreden lassen,
 die VPN-Konfiguration "testweise" zu ändern,
 so dass wir nach Beseitigung des eigentlichen Problems
-das VPN wirklich "reparieren" mussten.
+das VPN wirklich reparieren mussten.
 
 Wichtig ist darum, insbesondere bei Logeinträgen, die man nicht kennt,
 nach anderen Wegen zu suchen um ihre Aussage zu überprüfen.
@@ -112,8 +110,8 @@ Dabei passiert folgendes:
 
 ``sed -E 's/^.{16}//' < $logfile``
   Der Befehl *sed* bekommt den Inhalt der Datei *$logfile* in der
-  Standardeingabe, entfernt in jeder Zeile die ersten 16 Zeichen (den
-  Zeitstempel) und gibt den Rest aus.
+  Standardeingabe, entfernt in jeder Zeile die ersten 16 Zeichen - den
+  Zeitstempel - und gibt den Rest aus.
 
 ``sort``
   Der Befehl *sort* gibt die Zeilen (ohne Zeitstempel) alphabetisch
@@ -135,30 +133,32 @@ Damit bekomme ich bereits einen ersten Überblick.
 Bei komplexeren
 Logzeilen, die Elemente enthalten, welche ich ignorieren will, greife
 ich meist zu einem Perl-Skript, dass die irrelevanten Details maskiert.
-So ich mit der Zeit ein Gefühl dafür,
+Mit der Zeit bekomme ich so ein Gefühl dafür,
 welche Logzeilen wichtig sind und was sie bedeuten.
 
 Manchmal reicht aber schon ein Blick auf die Anzahl von Logzeilen,
 um zu erkennen, dass etwas nicht in Ordnung ist. In einem konkreten Fall
 war ein VPN in Abstimmung mit dem VPN-Administrator des Peers von IKEv1
-auf IKEv2 umgestellt worden.
-Die beteiligten Administratoren hatten zu der Zeit
+auf IKEv2 und zeitgemäße Crypto-Parameter umgestellt worden.
+Die beteiligten Administratoren hatten damals
 keinen zeitnahen Zugriff auf die eigenen Logs
 und nur den Aufbau der Tunnel getestet und ob Daten übertragen wurden.
 Nach etwa einer Woche kam eine Fehlermeldung vom
 Peer, dass das VPN seit der Umstellung nicht richtig funktionieren
 würde. Zu dem Zeitpunkt standen sowohl Logs vor der Umstellung als auch
-vom Zeitraum danach zur Verfügung. Während vor der Umstellung etwa 100
-Logzeilen pro Tag für das betreffende VPN generiert worden, waren es
-nach der Umstellung etwa 10000
+vom Zeitraum danach zur Verfügung.
+Während vor der Umstellung etwa 100 Logzeilen pro Tag
+für das betreffende VPN generiert wurden,
+waren es nach der Umstellung etwa 10000.
 Einige Zeit später bekamen wir zeitnahen Zugriff auf die VPN-Logs.
 
 Paketmitschnitte
 ----------------
 
-In diesem Abschnitt geht es nicht um die konkrete Durchführung von
-Paketmitschnitten, darauf gehe ich im Abschnitt
+Auf die konkrete Durchführung von Paketmitschnitten gehe ich im Abschnitt
 :ref:`grundlagen/paketmitschnitt:Paketmitschnitt` bei den Grundlagen ein.
+Hier reiße ich kurz an,
+wann und wofür ich Paketmitschnitte bei der Fehlersuche einsetze.
 
 Bei der Fehlersuche verwende ich Paketmitschnitte sehr häufig, und zwar
 
@@ -204,29 +204,30 @@ der Seite des Responders zu debuggen.
 
 .. index:: Beifang
 
-Dabei habe ich das Problem, das in den Debugmeldungen sehr viel Text zu
-finden ist, der es nicht einfacher macht, die relevanten Informationen
-zu finden.
-Die richtigen Einstellungen sind nicht leicht zu finden.
+Dabei habe ich das Problem,
+das in den Debugmeldungen sehr viel Text enthalten ist,
+der es nicht einfacher macht,
+die relevanten Informationen zu identifizieren.
+Die richtigen Einstellungen dafür sind nicht leicht zu finden.
 Ich kann sie in diesem Buch auch nicht geben,
-da sie von Software zu Software und auch von Version zu Version variieren.
+weil sie von Software zu Software und von Version zu Version variieren.
 Wenn ein Testlab zur Verfügung steht, kann man eine Situation nachstellen
 und in
 Ruhe ausprobieren, welche Debugeinstellungen genügend Informationen und
 möglichst wenig Beifang liefern.
 
-Da ich in den meisten Fällen trotzdem bei den Debugmeldungen mit sehr
-viel Text umgehen muss, muss ich mir überlegen, wie ich den Text in eine
-Datei bekomme, die ich mit einem guten Pager wie z.B. *less* oder
-aushilfsweise mit einem sehr guten Editor untersuchen kann. Wichtig ist,
-dass ich gut und schnell suchen kann und dabei den Text nicht aus
-Versehen ändere.
+Da ich in den meisten Fällen trotzdem mit sehr viel Text zu tun bekomme,
+muss ich mir überlegen, wie ich diesen in eine Datei bekomme,
+die ich mit einem guten Pager wie z.B. *less* untersuchen kann.
+Wichtig ist,
+dass ich gut und schnell suchen kann
+und dabei den Text nicht aus Versehen ändere.
 
 Meist habe ich eine von zwei Möglichkeiten, an Debugmeldungen zu kommen:
 
 * über die Standardausgabe beziehungsweise Standardfehlerausgabe in
   meiner SSH-Sitzung, oder
-* direkt in die Systemlogs.
+* direkt in den Systemlogs.
 
 Im ersten Fall protokolliere ich meine Sitzung in eine Datei, entweder
 mit dem Programm *script* oder, zum Beispiel bei Putty, durch die
