@@ -17,6 +17,7 @@ SOURCE = source/einfuehrung.rst \
 	 source/ikev2/nachrichten.rst \
 	 source/vorgehen/fragen.rst \
 	 source/vorgehen/antworten.rst \
+	 source/fehler/index.rst \
 #
 DRAFTS = build/draft/einfuehrung-draft.pdf \
 	 build/draft/grundlagen/index-draft.pdf \
@@ -27,6 +28,7 @@ DRAFTS = build/draft/einfuehrung-draft.pdf \
 	 build/draft/ikev2/nachrichten-draft.pdf \
 	 build/draft/vorgehen/fragen-draft.pdf \
 	 build/draft/vorgehen/antworten-draft.pdf \
+	 build/draft/fehler/index-draft.pdf \
 #
 
 build/draft/%-draft.pdf: source/%.rst; pandoc -o $@ --variable subparagraph -H pandoc/draft.tex $<
@@ -47,6 +49,7 @@ draftpaths:
 	[ -d build/draft/grundlagen ] || mkdir -p build/draft/grundlagen
 	[ -d build/draft/ikev2 ] || mkdir -p build/draft/ikev2
 	[ -d build/draft/vorgehen ] || mkdir -p build/draft/vorgehen
+	[ -d build/draft/fehler ] || mkdir -p build/draft/fehler
 
 draft: draftpaths $(DRAFTS)
 	
