@@ -18,6 +18,9 @@ SOURCE = source/einfuehrung.rst \
 	 source/vorgehen/fragen.rst \
 	 source/vorgehen/antworten.rst \
 	 source/fehler/index.rst \
+	 source/fehler/kategorisierung.rst \
+	 source/fehler/fehlerbilder.rst \
+	 source/fehler/ursachen.rst \
 #
 DRAFTS = build/draft/einfuehrung-draft.pdf \
 	 build/draft/grundlagen/index-draft.pdf \
@@ -29,6 +32,9 @@ DRAFTS = build/draft/einfuehrung-draft.pdf \
 	 build/draft/vorgehen/fragen-draft.pdf \
 	 build/draft/vorgehen/antworten-draft.pdf \
 	 build/draft/fehler/index-draft.pdf \
+	 build/draft/fehler/kategorisierung-draft.pdf \
+	 build/draft/fehler/fehlerbilder-draft.pdf \
+	 build/draft/fehler/ursachen-draft.pdf \
 #
 
 build/draft/%-draft.pdf: source/%.rst; pandoc -o $@ --variable subparagraph -H pandoc/draft.tex $<
