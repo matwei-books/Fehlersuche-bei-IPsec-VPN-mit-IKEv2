@@ -2,8 +2,9 @@
 Problemkategorien
 =================
 
-Das Problem identifiziert zu haben, ist nur ein Schritt auf dem Weg zur
-Lösung. Um es zu lösen sind weitere Schritte nötig. Möglicherweise
+Ein Problem identifiziert zu haben,
+ist nur ein Schritt auf dem Weg zur Lösung.
+Um es zu lösen sind weitere Schritte nötig. Möglicherweise
 delegiere ich die Lösung des Problems an jemand anders.
 Die folgende Kategorisierung hilft mir dabei.
 
@@ -20,7 +21,7 @@ Externe Probleme liegen per Definition nicht im Einflußbereich des
 VPN-Administrators. Diese Probleme müssen jedoch gelöst sein, bevor
 überhaupt die Chance besteht, ein VPN aufzubauen.
 
-Ich verstehe darunter zum Beispiel
+Ich verstehe unter externen Problemen zum Beispiel
 
 * Stromausfälle oder ähnliches, durch die das VPN-Gateway überhaupt
   nicht erreichbar ist.
@@ -29,14 +30,16 @@ Ich verstehe darunter zum Beispiel
 
 * Netzwerkprobleme, bei denen keine Daten zwischen den
   VPN-Gateways übertragen werden.
-  Hier liegt es an mir, vor allem anderen auf der Behebung der
-  Netzwerkprobleme zu bestehen, bevor ich signifikante Änderungen an der
-  VPN-Konfiguration vornehme.
+  Hier liegt es an mir,
+  vor allem anderen auf der Behebung der Netzwerkprobleme zu bestehen,
+  bevor ich Änderungen an der VPN-Konfiguration vornehme.
 
-Bei einem Problem gab es keinen direkten Kontakt über das Internet
-zwischen zwei VPN-Gateways, obwohl beide von dritten erreicht werden
-konnten. Die Systemlogs waren nicht eindeutig, so dass einer meiner
-Kollegen sich überreden ließ, die Konfiguration zu ändern.
+Bei einem Problem gab es
+über das Internet keinen Kontakt zwischen zwei VPN-Gateways,
+obwohl beide von dritten erreicht werden konnten.
+Die Systemlogs waren nicht eindeutig,
+so dass ein VPN-Administrator sich überreden ließ,
+die Konfiguration zu ändern.
 Am Ende, nachdem die Verbindungsprobleme behoben waren, mussten wir nun
 auch die Konfigurationsänderung zurückzunehmen um das VPN wieder
 lauffähig zu machen.
@@ -44,15 +47,15 @@ lauffähig zu machen.
 Fehlkonfigurationen
 -------------------
 
-Bei Fehlkonfigurationen sind eindeutig die VPN-Administratoren in der
-Pflicht. In manchen Fällen kann ich sie durch gewissenhaften Vergleich
-mit den vereinbarten Parametern erkennen.
+Hier sind eindeutig die VPN-Administratoren in der Pflicht.
+In manchen Fällen kann man Fehlkonfigurationen
+durch gewissenhaften Vergleich mit den vereinbarten Parametern erkennen.
 
 Oft erkenne ich die Fehlkonfiguration aber erst, wenn ich beim
 Verbindungsaufbau die Diskrepanz der vereinbarten Parameter mit den am
 Ende verwendeten sehe. Dazu müssen sich die VPN-Gateways erreichen
 können und ich Zugang zu den Logs und Debugausgaben haben.
-Das heißt externe Probleme sollten beseitigt sein.
+Das heißt, bestehende externe Probleme sollten bis dahin beseitigt sein.
 
 Üblicherweise werden die Parameter vor der Konfiguration vereinbart,
 dazu sollte es eine schriftliche Dokumentation geben. Die abweichende
@@ -73,15 +76,17 @@ Kontraktor, der Support für die Software leistet oder das Supportforum,
 wenn eine freie Software wie OpenSwan für das VPN-Gateway verwendet
 wird.
 
-In allen Fällen stelle sicher, dass keine externen Probleme und keine
-Fehlkonfiguration vorliegen. Dabei überprüfe ich alle meine Annahmen
+In allen Fällen sollte ich sicher stellen,
+dass keine externen Probleme und keine Fehlkonfiguration vorliegen.
+Dabei überprüfe ich alle meine Annahmen
 mindestens ein weiteres Mal, bevor ich das Problem eskaliere und um
 Hilfe bitte.
 
 Mitunter ist das Problem bereits bekannt und in Knowledgebase-Artikeln
-oder Fehlerreports beschrieben. Danach kann ich in den entsprechenden
-Foren, beim Hersteller oder einfach im Internet suchen. Gibt es einen
-Workaround, dann kann ich diesen vielleicht anwenden.
+oder Fehlerreports beschrieben.
+Danach kann ich in den Foren, beim Hersteller oder einfach im Internet suchen.
+Gibt es einen Workaround,
+dann kann ich diesen prüfen und vielleicht anwenden.
 
 Wenn das nicht hilft, nehme ich Kontakt zum Support des Herstellers
 beziehungsweise zu geeigneten Supportforen auf.
@@ -93,7 +98,7 @@ Wissensdatenbank auf. Habe ich ein öffentliches Forum bemüht, so
 hinterlasse ich dort eine Beschreibung der Lösung für mein Problem,
 möglichst in einer Form die leicht nachvollziehbar ist.
 
-Manchmal bleibt aus Ausweg nur der Wechsel auf andere
-Konfigurationsparameter, wenn das möglich ist, oder auf eine andere
-Software für das VPN-Gateway.
+Manchmal bleibt als Ausweg nur der Wechsel auf andere Konfigurationsparameter,
+wenn das möglich ist,
+oder auf eine andere Software für das VPN-Gateway.
 
