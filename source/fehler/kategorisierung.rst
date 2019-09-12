@@ -4,8 +4,8 @@ Problemkategorien
 
 Ein Problem identifiziert zu haben,
 ist nur ein Schritt auf dem Weg zur Lösung.
-Um es zu lösen sind weitere Schritte nötig. Möglicherweise
-delegiere ich die Lösung des Problems an jemand anders.
+Um es zu lösen sind weitere Schritte nötig.
+Möglicherweise delegiere ich dabei Teilschritte an jemand anders.
 Die folgende Kategorisierung hilft mir dabei.
 
 Ich unterscheide 
@@ -21,28 +21,28 @@ Externe Probleme liegen per Definition nicht im Einflußbereich des
 VPN-Administrators. Diese Probleme müssen jedoch gelöst sein, bevor
 überhaupt die Chance besteht, ein VPN aufzubauen.
 
-Ich verstehe unter externen Problemen zum Beispiel
+Unter externen Problemen verstehe ich zum Beispiel
 
-* Stromausfälle oder ähnliches, durch die das VPN-Gateway überhaupt
+* Stromausfälle oder ähnliches, durch die das VPN-Gateway gar
   nicht erreichbar ist.
   In diesem Fall kann ich ohnehin keine Fehlkonfigurationen erkennen,
   geschweige denn etwas ändern.
 
-* Netzwerkprobleme, bei denen keine Daten zwischen den
-  VPN-Gateways übertragen werden.
+* Netzwerkprobleme, bei denen keine oder nicht genügend Daten
+  zwischen den VPN-Gateways übertragen werden.
   Hier liegt es an mir,
   vor allem anderen auf der Behebung der Netzwerkprobleme zu bestehen,
   bevor ich Änderungen an der VPN-Konfiguration vornehme.
 
-Bei einem Problem gab es
+Bei einem konkreten Problem gab es
 über das Internet keinen Kontakt zwischen zwei VPN-Gateways,
-obwohl beide von dritten erreicht werden konnten.
+obwohl beide von dritter Stelle erreicht werden konnten.
 Die Systemlogs waren nicht eindeutig,
 so dass ein VPN-Administrator sich überreden ließ,
 die Konfiguration zu ändern.
-Am Ende, nachdem die Verbindungsprobleme behoben waren, mussten wir nun
-auch die Konfigurationsänderung zurückzunehmen um das VPN wieder
-lauffähig zu machen.
+Nachdem die Verbindungsprobleme behoben waren,
+mussten wir nun auch noch die Konfigurationsänderung zurückzunehmen
+um das VPN wieder lauffähig zu machen.
 
 Fehlkonfigurationen
 -------------------
@@ -76,7 +76,7 @@ Kontraktor, der Support für die Software leistet oder das Supportforum,
 wenn eine freie Software wie OpenSwan für das VPN-Gateway verwendet
 wird.
 
-In allen Fällen sollte ich sicher stellen,
+In allen Fällen sollte man sicher stellen,
 dass keine externen Probleme und keine Fehlkonfiguration vorliegen.
 Dabei überprüfe ich alle meine Annahmen
 mindestens ein weiteres Mal, bevor ich das Problem eskaliere und um
