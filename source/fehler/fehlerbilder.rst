@@ -6,8 +6,8 @@ Kein VPN-Tunnel
 ---------------
 
 Einer der ersten Tests,
-wenn ich Probleme mit einem VPN-Tunnel gemeldet bekomme,
-ist nachzuschauen, ob ein VPN-Tunnel aufgebaut ist.
+wenn ich Probleme mit einem VPN gemeldet bekomme,
+ist nachzuschauen, ob ein Tunnel aufgebaut ist.
 Damit will ich feststellen, ob überhaupt etwas funktioniert,
 also die zweite Frage aus dem Entscheidungsbaum beantworten.
 
@@ -29,13 +29,13 @@ ob ich den Tunnel von Hand aufbauen kann, wenn das möglich ist.
    Bei On-Demand-Tunneln an Cisco ASA zum Beispiel geht der Tunnel
    aber nur auf, wenn interessanter Traffic auf der Inside ankommt.
    Hier kann ich den interessanten Traffic mit dem Befehl
-   ``packet-tracer`` simulieren, so dass der Tunnel aufgeht.
+   ``packet-tracer`` simulieren.
    Bei anderer Software und policy-basierten VPN kann ich mitunter
    temporär eine Adresse aus dem lokalen Adressbereich des Tunnels
    auf das VPN-Gateway legen
    und den Traffic mit PING und eben dieser Quelladresse erzeugen.
    Diese Adresse konfiguriere ich dazu ohne Netzwerk,
-   das heißt mit von Netzmaske 32 beziehungsweise 128 Bit
+   das heißt mit Netzmaske 32 beziehungsweise 128 Bit
    um den restlichen Datenverkehr nicht zu stören.
 
    Habe ich jedoch dynamisches NAT für den Traffic im Tunnel, so dass
@@ -46,10 +46,11 @@ ob ich den Tunnel von Hand aufbauen kann, wenn das möglich ist.
    Um solche Situationen zu vermeiden, ist es besser, derartige
    Adressumsetzungen auf der Ursprungsseite vorzunehmen.
 
-Kann ich den Tunnel von Hand aufbauen und sehe anschließend IKE- und
-IPsec-SA, kann ich mich der nächsten Frage im Entscheidungsbaum zu
-wenden (Funktioniert alles?) und testen lassen, ob Traffic zwischen den
-Endpunkten der VPN-Verbindung ausgetauscht werden kann.
+Kann ich den Tunnel von Hand aufbauen
+und sehe anschließend IKE- und IPsec-SA,
+kann ich mich der nächsten Frage im Entscheidungsbaum zuwenden
+(Funktioniert alles?) und testen lassen,
+ob Traffic zwischen den Endpunkten ausgetauscht werden kann.
 
 Interessant wird es, wenn sich der Tunnel nicht öffnen lässt.
 Dann schaue ich als nächstes mit einem Packet-Sniffer auf der Outside,
@@ -65,8 +66,8 @@ Insbesondere darf ich mich nicht dazu verleiten lassen, einen Fehler in
 der VPN-Konfiguration zu suchen, wenn die IP-Verbindung zwischen den
 Peers nicht funktioniert.
 
-Ein objektives Kriterium ist für mich
-ein Paketmitschnitt der Datagramme vom Peer-VPN-Gateway zeigt.
+Ein objektives Kriterium ist für mich ein Paketmitschnitt,
+der Datagramme vom Peer-VPN-Gateway zeigt.
 Die Systemprotokolle können unerfahrene Administratoren
 hier durchaus in die Irre führen.
 
@@ -109,7 +110,7 @@ hier durchaus in die Irre führen.
    gebracht.
 
 Kann ich das VPN öffnen,
-suche ich nach dem für das VPN interessanten Traffic auf der Inside.
+suche ich nach dem interessanten Traffic auf der Inside.
 Sehe ich diesen Traffic nicht, dann muss ich mich um die Verbindung vom
 VPN-Gateway zum Endpunkt im internen Netz kümmern beziehungsweise die
 betreffenden Administratoren in's Boot holen.
@@ -130,7 +131,7 @@ Tunnel aufbaut, das heißt bei TCP, welche Seite das erste Datagramm mit
 SYN-Flag sendet.
 Auf dieser Seite schaue ich zuerst nach.
 
-Kommt dieser interessante Traffic vom Peer, schaue ich mit einem
+Kommt der interessante Traffic vom Peer, schaue ich mit einem
 Packet-Capture auf der Outside, ob außer den IKE-Datagrammen für den
 Aufbau und die Pflege des Tunnels auch ESP- oder AH-Datagramme
 auftauchen.
@@ -179,16 +180,16 @@ Das VPN sollte das interne Netz hingegen direkt, das heißt ohne NAT mit
 einem anderen Netz verbinden.
 Durch das Masquerading passte die Absenderadresse der Datagramme
 nicht mehr zur Policy
-und diese wurden direkt und unverschlüsselt nach außen gesendet,
-aber nicht durch das VPN.
+und diese wurden direkt und unverschlüsselt nach außen gesendet
+anstatt durch das VPN.
 
 In einem anderen Fall hatte ich eine Policy für ein VPN, dass ersetzt werden
 sollte, noch nicht deaktiviert. Der Traffic sollte über ein geroutetes
 Interface gesendet werden und kam auch darüber an, passierte aber nicht
 das VPN-Gateway. In diesem Fall reklamierte die Policy den Traffic für
 das VPN. Da dieses aber nicht mehr aufgebaut war, verwarf das
-VPN-Gateway diesen Traffic. Nach dem Deaktivieren der Policy
-funktionierte die Verbindung sofort.
+VPN-Gateway den Traffic.
+Nach dem Deaktivieren der Policy funktionierte die Verbindung sofort.
 
 Bei der Cisco ASA kann ich den Traffic, der auf Inside ankommen soll,
 mit dem Befehl ``packet-tracer`` simulieren, und bekomme dann die einzelnen
@@ -213,12 +214,12 @@ Sehe ich IKE- und Child-SA mit Traffic, wobei der Traffic-Counter nur in
 einer Richtung hochzählt, kann ich in den meisten Fällen davon ausgehen,
 dass die VPN-Konfiguration in Ordnung ist.
 
-Trotzdem muss ich mich vergewisseren,
+Trotzdem muss ich mich vergewissern,
 dass gezählter ankommender Traffic auch wirklich mein VPN-Gateway verlässt.
 Das heißt,
 ich schaue mit einem Packet-Capture auf der Inside oder Outside nach,
 ob ich dort Klartext- oder verschlüsselte Datagramme
-in der passenden Anzahl abgehen sehe, die der Zähler angibt.
+in der passenden Anzahl abgehen sehe.
 Bei dieser Gelegenheit sehe ich auch, ob auf der gleichen Seite
 passende Datagramme in der Gegenrichtung ankommen.
 
@@ -237,7 +238,7 @@ auswerten kann.
 Kommen die Datagramme verschlüsselt vom VPN-Peer, kann ich zum Beispiel
 nachschauen, ob ich eine zum Datagramm passende SA in der SA-Datenbank
 finde.
-Der SA, den ich suche, steht vorn im ESP- oder AH-Header.
+Die SA, die ich suche, steht als SPI vorn im ESP- oder AH-Header.
 
 Kommen die Datagramme auf der Inside, kann ich die Konfiguration nach
 ACL, NAT- und Firewall-Regeln absuchen, die die Adressen des Datagramms
@@ -248,7 +249,7 @@ Regeln wirksam werden.
 VPN funktioniert, aber Dateitransfer nicht
 ------------------------------------------
 
-Ein Problem, dass nur hin und wieder auftritt, aber beim ersten mal
+Ein Problem, dass eher selten auftritt, aber beim ersten mal
 etwas Mühe macht, die Ursache zu erkennen, ist das folgende.
 
 Beim Test des VPNs "funktioniert" scheinbar alles, alle Child-SA gehen
@@ -280,10 +281,9 @@ die Datagrammgröße automatisch begrenzen.
 An einer Stelle im Netz zwischen den beiden VPN-Gateways ist die MTU
 kleiner als die MTU unmittelbar an den Geräten (meist 1500 Bytes).
 
-Das ist die Ursache, aber normalerweise würde Path-MTU-Discovery das
-Problem entschärfen.
+Normalerweise würde Path-MTU-Discovery das Problem entschärfen.
 Wenn diese nicht funktioniert,
-kommen folgende Möglichkeiten in Betracht:
+kommen folgende Ursachen in Betracht:
 
 1. Die ICMP-Fehlermeldungen gelangen nicht zum VPN-Gateway, das die
    großen Datagramme sendet.
@@ -292,8 +292,9 @@ kommen folgende Möglichkeiten in Betracht:
    indem ich nach ICMP-Datagrammen vom Typ 3, Code 4
    (Fragmentierung nötig, Don’t Fragment aber gesetzt) filtere.
 
-2. Die ICMP-Fehlermeldungen kommen an der Outside an, aber das VPN
-   übersetzt sie nicht für den Datenstrom auf der Inside.
+2. Die ICMP-Fehlermeldungen kommen an der Outside an,
+   aber das VPN-Gateway übersetzt sie nicht
+   für den Datenstrom auf der Inside.
 
    Das kann ich mit einem Packet-Capture an der Inside auf die gleiche
    Art wie in Punkt 1. überprüfen.
@@ -312,7 +313,7 @@ Am passiven Ende des VPNs, also auf der Seite, wo die großen Datagramme
 nicht ankommen, kann ich nicht viel machen.
 Da aber jede der beiden Seiten prinzipiell große Datagramme senden kann,
 kann ich obige Prüfungen auch hier vornehmen, wenn ich große Datagramme
-(zum Beispiel mit PING) in das VPN senden kann.
+(zum Beispiel mit PING) in das VPN sende.
 
 Auf der aktiven Seite prüfe ich die vier genannten Punkte, um wenn
 möglich Path-MTU-Discovery wieder gangbar zu machen.
@@ -340,9 +341,9 @@ Allerdings unterstützt das nicht jede IPsec-Software in jeder Version
 und manchmal ist das Feature auch deaktiviert, weil es zusätzliche
 Ressourcen am VPN-Gateway benötigt.
 
-Punkt 3 behandele ich ähnlich wie Punkt 1, hier habe ich vielleicht
-eher eine Chance Einfluss auf die Konfiguration des betreffenden
-Paketfilters zu nehmen.
+Punkt 3 behandele ich ähnlich wie Punkt 1,
+hier habe ich vielleicht eher eine Chance,
+Einfluss auf die Konfiguration des betreffenden Paketfilters zu nehmen.
 
 Bei Punkt 4 gehört eine geeignete Ausnahmeregel auf die Host-Firewall.
 
