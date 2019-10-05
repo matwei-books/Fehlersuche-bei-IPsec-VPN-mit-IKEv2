@@ -22,6 +22,7 @@ SOURCE = source/einfuehrung.rst \
 	 source/fehler/fehlerbilder.rst \
 	 source/fehler/ursachen.rst \
 	 source/software/index.rst \
+	 source/software/cisco-asa.rst \
 #
 DRAFTS = build/draft/einfuehrung-draft.pdf \
 	 build/draft/grundlagen/index-draft.pdf \
@@ -37,6 +38,7 @@ DRAFTS = build/draft/einfuehrung-draft.pdf \
 	 build/draft/fehler/fehlerbilder-draft.pdf \
 	 build/draft/fehler/ursachen-draft.pdf \
 	 build/draft/software/index-draft.pdf \
+	 build/draft/software/cisco-asa-draft.pdf \
 #
 
 build/draft/%-draft.pdf: source/%.rst; pandoc -o $@ --variable subparagraph -H pandoc/draft.tex $<
