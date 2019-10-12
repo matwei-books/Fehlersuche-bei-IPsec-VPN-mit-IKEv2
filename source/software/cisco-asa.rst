@@ -9,25 +9,29 @@ zur Konfiguration:
   ähnelt,
 
 * den ASDM (Adaptive Security Device Manager), einer Java-Anwendung die
-  direkt auf dem Gerät abgelegt ist,
+  direkt auf dem Gerät abgelegt ist und via Webbrowser gestartet werden
+  kann,
 
 * den CSM (Cisco Security Manager), mit dem mehrere ASA verwaltet werden
   können.
 
 Jede dieser Schnittstellen hat ihre Vor- und Nachteile.
-Ich bevorzuge für die Extraktion der relevanten Konfiguration und für
-schnelle Zustandsabfragen die Kommandozeile.
-Für den Echtzeitzugriff auf die Systemlogs bietet der ASDM gute
-Filtermöglichkeiten.
-Wenn es gilt, ähnliche Konfigurationen auf verschiedenen Geräten
-konsistent zu halten, kann der CSM seine Vorteile ausspielen.
+Ich bevorzuge
+für die Extraktion der Konfiguration und für Zustandsabfragen
+die Kommandozeile.
+Für den Zugriff auf die aktuellen Systemlogs
+bietet der ASDM gute Filtermöglichkeiten.
+Wenn es gilt,
+Konfigurationen auf verschiedenen Geräten konsistent zu halten,
+kann der CSM seine Vorteile ausspielen.
 
 Bei den nachfolgenden Betrachtungen gehe ich auf die
 Kommandozeilenbefehle ein, für die ich meist höhere Rechte benötige.
 Das heißt, nach dem Anmelden gebe ich ``enable`` ein, falls mein Zugang
 nicht von sich aus höhere Rechte besitzt.
-Generell können alle Kommandozeilenbefehle und deren Optionen so weit
-gekürzt werden, wie sie eindeutig sind. Mit dem Fragezeichen oder dem
+Generell kann ich alle Kommandozeilenbefehle und Optionen so weit kürzen,
+wie sie eindeutig sind.
+Mit dem Fragezeichen oder dem
 Tabulator kann ich jederzeit eine kurze Hilfe bekommen, welche Eingaben
 als nächstes möglich sind.
 
@@ -40,8 +44,8 @@ Muss ich die Konfiguration ändern, kann ich das mit einem der folgenden
 Ich beende die Konfiguration mit ``end`` und sichere sie mit dem Befehl
 ``write memory`` (kurz ``wr``).
 
-Starten und Stoppen und Kontrolieren von VPN-Tunneln
-----------------------------------------------------
+Starten, Stoppen und Kontrollieren von VPN-Tunneln
+--------------------------------------------------
 
 Policy-based VPN werden bei der ASA meist On-Demand gestartet, das
 heißt, wenn interessanter Traffic dafür da ist.
@@ -58,22 +62,23 @@ sehr genau sein::
   tcp $saddr $sport $daddr $dport
   udp $saddr $sport $daddr $dport
 
-Die Ausgabe von ``packet-tracer`` kann bei Problemen schon erste
-Hinweise geben, insbesondere, wenn ich ``detail`` hinzugefügt habe.
+Die Ausgabe von ``packet-tracer`` kann mir bei Problemen
+schon erste Hinweise zu einem Problem geben,
+insbesondere, wenn ich die Option ``detail`` hinzugefügt habe.
 
 Um einen VPN-Tunnel zu schließen, hat sich für mich der folgende Befehl
 als am zuverlässigsten erwiesen::
 
   vpn-db log-off index $i
 
-Den Index bekomme aus der zweiten Zeile der Ausgabe des folgenden
-Befehls::
+Den Index ``$i`` dafür bekomme ich
+aus der zweiten Zeile der Ausgabe des folgenden Befehls::
 
   show vpn-db detail l2l filter name $peeraddress
 
 Um erste Informationen über ein VPN zu bekommen, wie zum Beispiel offene
 Child-SA und ob Traffic durch geht, verwende ich ebenfalls diesen
-Befehl, hier in der Kurzform oder einen zweiten::
+Befehl - hier in der Kurzform - oder einen zweiten::
 
   sh vpn- d l f n $peeraddress
   show crypto ipsec sa peer $peeraddress
@@ -90,14 +95,13 @@ leicht zu finden.
 Die ultimative Referenz findet man auf den Webseiten von Cisco selbst,
 zum Beispiel :cite:`Cisco-asa-log-config`.
 
-Möchte ich die Systemlogs in der Konsole oder SSH-Sitzung sehen, gebe
-ich einen der folgenden Befehle ein::
+Möchte ich die Systemlogs in der Konsole oder SSH-Sitzung sehen,
+gebe ich den folgenden Befehl ein::
 
    terminal monitor
-   term mon
 
 Um die Systemlogs und Debug-Informationen zu einem Logserver zu
-schicken, muss ich in die Konfiguration ändern::
+schicken, muss ich die Konfiguration ändern::
 
    conf t
    logging enable
@@ -122,17 +126,16 @@ Level Schlüsselwort
 Mit $interface gebe ich die Schnittstelle an, zu der die Logs rausgehen,
 mit $address die Adresse des Syslogservers.
 Wenn nötig kann ich weitere Informationen zum Logserver bereitstellen,
-siehe dazu die entsprechende Dokumentation.
+näheres findet sich in der Dokumentation zum Logging.
 
-Um überhaupt auf ASDM oder (SSH-)Konsole zu loggen, konfiguriere ich
-zusätzlich die folgenden Befehle::
+Um auf ASDM oder (SSH-)Konsole zu loggen,
+konfiguriere ich zusätzlich die folgenden Befehle::
 
   logging asdm $level
   logging console $level
 
 Dann kann ich in der jeweiligen Sitzung auf die Logs zugreifen.
-Auf der Konsole kann ich die Ausgabe mit den folgenden Befehlen
-steuern::
+Auf der Konsole steuere ich die Ausgabe mit den folgenden Befehlen::
 
   term monitor
   no term monitor
@@ -141,7 +144,7 @@ Der Befehl ``show logging`` zeigt die aktuellen Einstellungen.
 
 Für das Debugging sieht es ähnlich aus.
 Um Debug-Ausgaben zum Syslog-Server zu senden, konfiguriere ich
-zusätzlich zur Konfiguration für die Logs::
+zusätzlich zur Konfiguration für die normalen Logs::
 
   logging debug-trace
   logging trap debugging
@@ -150,8 +153,9 @@ Interaktiv steuere ich das Debugging von IPsec mit den folgenden
 Befehlen::
 
   debug crypto condition peer $address
-  debug crypto ikev2 protokol $dlevel
+  debug crypto ikev2 protocol $dlevel
   debug crypto ikev2 platform $dlevel
+
   undebug all
 
 Der erste Befehl schränkt das Debugging auf einen Peer ein und ist
@@ -176,13 +180,14 @@ Dabei achte ich auf die Message-ID (MID).
 *IKE_SA_INIT* hat immer die MID 0, *IKE_AUTH* beginnt bei 1.
 
 Bei der Interpretation der Debugausgaben ziehe ich meine Kenntnisse über
-das IKE-Protokoll zu Rate, in diesem Buch im Kapitel
-ref:`grundlagen/ikev2:IPsec und IKEv2` zu finden.
+das IKE-Protokoll zu Rate, die in diesem Buch im Kapitel
+ref:`grundlagen/ikev2:IPsec und IKEv2` zu finden sind.
 Da sich die Debugmeldungen von Version zu Version unterscheiden, will
 ich hier nicht detaillierter darauf eingehen.
-Am schnellsten wird man damit vertraut, wenn man ein paar
-funktionierende VPNs "debuggt", um zu sehen, wie die Meldungen aussehen,
-wenn alles in Ordnung ist.
+Am schnellsten wird man damit vertraut,
+wenn man ein paar funktionierende VPNs beobachtet,
+um zu sehen,
+wie die Meldungen aussehen wenn alles in Ordnung ist.
 
 Paketmitschnitte
 ----------------
@@ -201,18 +206,18 @@ Mit *$name* lege ich den Namen der Datei fest.
 Ich kann mehrere ``capture`` Befehle mit demselben Namen absetzen und so
 komplexe Mitschnitte zusammensetzen oder Optionen ändern.
 
-Eine gute Idee ist es, mit dem Namen auf den Zweck des Mitschnitts zu
-verweisen, zum Beispiel auf eine Ticketnummer, so dass man den
-Paketmitschnitt später leicht identifizieren kann und einfacher
-entscheiden kann, ob er noch nötig ist oder entfernt werden kann.
+Ich verweise mit dem Namen meist auf den Zweck des Mitschnitts,
+zum Beispiel auf eine Ticketnummer,
+so dass ich später bei einem Paketmitschnitt einfacher entscheiden kann,
+ob er noch nötig ist oder entfernt werden sollte.
 
 Das Interface $if gibt an, auf welcher Seite ich die Pakete mitschneiden
 will.
 Um zu sehen, ob Datagramme tatsächlich das VPN-Gateway passieren, kann
 ich sowohl auf der Inside als auch auf der Outside mitschneiden.
-Verwende ich dazu zwei ``capture`` Befehle mit dem gleichen Namen, kann
-ich bei der Auswertung die Datagramme einmal unverschlüsselt und einmal
-unverschlüsselt sehen.
+Verwende ich dazu zwei ``capture`` Befehle mit dem gleichen Namen,
+kann ich bei der Auswertung die Datagramme im selben Mitschnitt
+verschlüsselt und unverschlüsselt sehen.
 
 Die Filtermöglichkeiten sind nicht so detailliert wie bei tcpdump oder
 Wireshark, aber für die meisten Zwecke ausreichend.
@@ -228,19 +233,20 @@ Ich habe grundsätzlich die beiden Möglichkeiten:
 * ``$network $mask``
 * ``host $address``
 
-Zusätzlich kann ich bei TCP und UDP noch angorben zum Quell- oder
-Zielport machen mit der Ergänzung ``lt``, ``eq`` oder ``gt`` und der
-Portnummer.
+Zusätzlich kann ich bei TCP und UDP
+mit der Ergänzung ``lt``, ``eq`` oder ``gt`` und der Portnummer
+noch Angaben zum Quell- oder Zielport machen.
 
-Durch mehrmaligen Aufruf des ``capture`` Befehls mit verschiedenen sehr
-eng gefassten Filtern kann ich komplexerere Kommunikationsbeziehungen
-erfassen.
+Komplexerere Kommunikationsbeziehungen erfasse ich
+durch mehrmaligen Aufruf des ``capture`` Befehls
+mit verschiedenen eng gefassten Filtern.
+Dabei verwende ich immer den gleichen Namen für den Mitschnitt.
 
-Ein Weg, IKE- von ESP-Traffic bei NAT-T zu unterscheiden ist mir nicht
-bekannt.
-
-Die Unflexibilität bei der Filterung kompensiert die ASA mit einigen
-sehr nützlichen Einstellungen beim Mitschnitt.
+Ein Weg, IKE- von ESP-Traffic bei NAT-T zu unterscheiden
+ist mir zurzeit nicht bekannt.
+Diese Unflexibilität bei der Filterung gegenüber tcpdump oder Wireshark
+kompensiert die ASA zumindest teilweise
+mit einigen nützlichen Features beim Mitschnitt.
 
 Da wäre zunächst der Typ des Mitschnitts.
 Gebe ich keinen an, ist der Typ automatisch ``raw-data`` es werden normale
@@ -250,14 +256,15 @@ Pseudo-Datagramme, die den Inhalt der entschlüsselten IKE-Nachrichten
 enthalten.
 Damit ist es möglich, auch andere Nachrichten als IKE_SA_INIT zu
 untersuchen.
-So kann ich zum Beispiel Probleme beim erzeugen der ersten oder weiterer
-Child-SA sowie beim Rekeying genauer unter die Lupe nehmen und muss
-dafür nicht unbedingt auf Debug-Informationen zurückgreifen.
+So kann ich zum Beispiel Probleme beim Erzeugen der Child-SA
+oder beim Rekeying genauer unter die Lupe nehmen
+ohne auf Debug-Informationen zurückgreifen zu müssen.
 Mit dem Typ ``asp-drop`` gibt die ASA an, welche Datagramme sie mit
 welcher Begründung verworfen hat.
-Diesen Type brauche ich eher selten, aber wenn ich Datagramme auf einer
-Seite ankommen sehe und nicht auf der anderen Seite abgehen, kann ich
-hier einen Hinweis bekommen.
+Diesen Typ brauche ich eher selten,
+aber wenn ich Datagramme auf einer Seite ankommen sehe
+und nicht auf der anderen Seite abgehen,
+kann ich hier vielleicht einen Hinweis bekommen.
 
 Bei den Optionen zum Paketmitschnitt sind die folgenden interessant:
 
@@ -280,8 +287,9 @@ Bei den Optionen zum Paketmitschnitt sind die folgenden interessant:
 
   Zur Auswertung muss ich die Option mit dem Befehl ``no capture $name
   circular-buffer`` ausschalten.
-  Dabei darf ich die Option nicht vergessen, weil sonst der gesamte
-  Mitschnitt entfernt wird.
+  Dabei darf ich die Option nicht vergessen,
+  weil sonst der gesamte Mitschnitt gelöscht wird
+  und damit der ganze Aufwand umsonst war.
 
 ``buffer``, ``packet-length``:
   Mit diesen beiden Optionen kann ich im Rahmen der auf dem Gerät
@@ -296,27 +304,7 @@ Generell bekomme ich mit::
   show capture
 
 eine Übersicht über alle Paketmitschnitte und wieviel Daten bereits
-mitgeschnitten sind.::
-
-  show capture nameOfCapture [options]
-
-zeigt die Datagramme eines einzelnen Mitschnitts. Mit zusätzlichen
-Optionen kann ich die Ausgabe steuern:
-
-detail
-  zeigt zusätzliche Details zum Datagramm, die Ausgabe wird dann
-  zweizeilig, mich interessiert davon meist nur die TTL des Datagramms,
-decode
-  zeigt bei IKE-Datagrammen den Inhalt der IKE-Payloads bei
-  unverschlüsselten Datagrammen (IKE_SA_INIT) beziehungssweise bei
-  allen IKE-Datagrammen, wenn das Capture vom Typ ``isakmp`` ist,
-dump
-  zeigt zu jedem Datagramm den Hexdump aller Oktetts an,
-packet-number nummer
-  zeigt das Paket mit Nummer *nummer* an,
-count anzahl
-  zeigt *anzahl* Pakete an, in Kombination mit Option ``packet-number``
-  kann ich gezielt bestimmte Pakete betrachten,
+mitgeschnitten sind.
 
 Zur Auswertung kann ich den Befehl ``show capture $name`` verwenden.
 Auch hier habe ich etliche Optionen, die mir die Analyse erleichtern.
@@ -371,23 +359,24 @@ ausgeben lassen::
 Meist reicht der erste Befehl, in hartnäckigen Fällen füge ich das
 ``all`` an, um auch die Defaultwerte zu bekommen.
 
-Adressumsetzungen sind zwar in der Konfiguration enthalten, aber
-insbesondere bei der Verwendung von Objekten mit Namen, die die Adressen
-nicht enthalten, untersuche ich NAT lieber mit den folgenden Befehlen::
+Adressumsetzungen sind zwar in der Konfiguration enthalten,
+aber bei der Verwendung von Objekten mit Namen,
+die die Adressen nicht enthalten,
+untersuche ich NAT lieber mit den folgenden Befehlen::
 
   show nat $addr
   show nat $addr detail
   show nat translated $addr
   show nat translated $addr detail
 
-Mit der zusätzlichen Option ``detail`` bekomme ich die Adressen hier
-auch, wenn die bei der Konfiguration die Objektnamen ungeschickt gewählt
-wurden.
+Mit der Option ``detail`` bekomme ich die Adressen hier auch,
+wenn bei der Konfiguration die Objektnamen ungeschickt gewählt wurden.
 
 Um die Analyse der Konfiguration in der Konsole zu beschleunigen, kann
 ich die Ausgaben der ``show`` Befehle mit Filtern begrenzen.
-Dazu füge ich an das Ende der Zeile ein Leerzeichen, ein Pipe-Symbol
-(``|``) , ein weiteres Leerzeichen und den Filter an.
+Dazu füge ich an das Ende der Zeile ein Leerzeichen,
+ein Pipe-Symbol (``|``),
+ein weiteres Leerzeichen und den Filter an.
 Auch hier habe ich mehrere Möglichkeiten:
 
 ``| include $muster``:
@@ -410,10 +399,10 @@ zu bekommen, benötige ich die folgenden Befehle::
   sh run | i $acl
   sh run [all] | b ikev2 ipsec-proposal $proposal
   sh run [all] | b ikev2 policy
-  sh nat $adress detail
+  sh nat $address detail
 
-Der erste Befehl zeigt einige Informationen die direkt die Child-SA
-betreffen an und verweist auf weitere Informationen.
+Der erste Befehl zeigt Informationen, die direkt die Child-SA betreffen, an
+und verweist auf weitere Informationen.
 
 Der zweite Befehl zeigt Informationen zum KeepAlive an.
 Die Peer-Adresse erhalte ich aus dem ersten Befehl.
