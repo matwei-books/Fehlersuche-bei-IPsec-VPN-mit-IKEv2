@@ -2,15 +2,21 @@
 Cisco ASA
 =========
 
+.. index:: !Cisco ASA, Adaptive Security Appliance
+
 Die Cisco ASA (Adaptive Security Appliance) bietet verschiedene Interfaces
 zur Konfiguration:
 
 * die Kommandozeile, die derjenigen in Cisco-Routern und Switches
   ähnelt,
 
+.. index:: ! ASDM
+
 * den ASDM (Adaptive Security Device Manager), einer Java-Anwendung die
   direkt auf dem Gerät abgelegt ist und via Webbrowser gestartet werden
   kann,
+
+.. index:: ! CSM
 
 * den CSM (Cisco Security Manager), mit dem mehrere ASA verwaltet werden
   können.
@@ -50,7 +56,7 @@ Starten, Stoppen und Kontrollieren von VPN-Tunneln
 Policy-based VPN werden bei der ASA meist On-Demand gestartet, das
 heißt, wenn interessanter Traffic dafür da ist.
 
-Um einen solchen VPN-Tunnel zu öffnen kann ich den interessanten Traffic
+Um einen solchen VPN-Tunnel zu öffnen, kann ich den interessanten Traffic
 direkt in der Konsole mit dem Befehl ``packet-tracer`` simulieren::
 
   packet-tracer input $if $proto $src $dst [detail]
@@ -62,8 +68,8 @@ sehr genau sein::
   tcp $saddr $sport $daddr $dport
   udp $saddr $sport $daddr $dport
 
-Die Ausgabe von ``packet-tracer`` kann mir bei Problemen
-schon erste Hinweise zu einem Problem geben,
+Die Ausgabe von ``packet-tracer`` kann
+mir bei manchen Problemen schon erste Hinweise geben,
 insbesondere, wenn ich die Option ``detail`` hinzugefügt habe.
 
 Um einen VPN-Tunnel zu schließen, hat sich für mich der folgende Befehl
@@ -76,9 +82,10 @@ aus der zweiten Zeile der Ausgabe des folgenden Befehls::
 
   show vpn-db detail l2l filter name $peeraddress
 
-Um erste Informationen über ein VPN zu bekommen, wie zum Beispiel offene
-Child-SA und ob Traffic durch geht, verwende ich ebenfalls diesen
-Befehl - hier in der Kurzform - oder einen zweiten::
+Um erste Informationen über ein VPN zu bekommen,
+wie zum Beispiel offene Child-SA oder ob Traffic hindurch geht,
+verwende ich ebenfalls diesen Befehl - hier in der Kurzform -
+oder einen zweiten::
 
   sh vpn- d l f n $peeraddress
   show crypto ipsec sa peer $peeraddress
@@ -208,7 +215,7 @@ komplexe Mitschnitte zusammensetzen oder Optionen ändern.
 
 Ich verweise mit dem Namen meist auf den Zweck des Mitschnitts,
 zum Beispiel auf eine Ticketnummer,
-so dass ich später bei einem Paketmitschnitt einfacher entscheiden kann,
+so dass ich bei einem älteren Paketmitschnitt leichter entscheiden kann,
 ob er noch nötig ist oder entfernt werden sollte.
 
 Das Interface $if gibt an, auf welcher Seite ich die Pakete mitschneiden
@@ -289,7 +296,7 @@ Bei den Optionen zum Paketmitschnitt sind die folgenden interessant:
   circular-buffer`` ausschalten.
   Dabei darf ich die Option nicht vergessen,
   weil sonst der gesamte Mitschnitt gelöscht wird
-  und damit der ganze Aufwand umsonst war.
+  und damit der ganze Aufwand umsonst gewesen wäre.
 
 ``buffer``, ``packet-length``:
   Mit diesen beiden Optionen kann ich im Rahmen der auf dem Gerät
@@ -333,8 +340,8 @@ Auch hier habe ich etliche Optionen, die mir die Analyse erleichtern.
 
 Prinzipiell kann ich den Paketmitschnitt auch mit Wireshark analysieren.
 Beim ASDM kann ich die PCAP-Datei direkt herunterladen.
-Auf der Console kann ich die Datei mit dem Befehl zu einem TFTP-Server
-schicken::
+Auf der Console kann ich die Datei mit folgendem Befehl
+zu einem TFTP-Server schicken::
 
   copy /pcap capture:$name tftp
 
