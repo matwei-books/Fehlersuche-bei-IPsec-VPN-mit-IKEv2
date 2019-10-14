@@ -14,25 +14,28 @@ Es gibt drei Möglichkeiten, sie zu konfigurieren:
 * via WinBox, einem MS-Windows-Programm, das mit Wine auch unter Linux
   läuft.
 
-Mit WinBox ist es auch möglich, einen MikroTik-Router über die
-MAC-Adresse zu kontaktieren, wenn er mit dem selben Netzsegment
-verbunden ist. Mit Wine funktioniert das leider nicht.
+Mit WinBox ist es möglich,
+einen MikroTik-Router über die MAC-Adresse zu kontaktieren,
+wenn er mit dem selben Netzsegment verbunden ist.
+Mit Wine funktioniert das leider nicht,
+ansonsten kann ich WinBox mit Wine auf einem Linux-Rechner verwenden.
 
-Die Konfiguration läuft auf allen drei Wegen ähnlich ab, hier
-konzentriere ich mich auf das CLI, dass ich über die Konsole oder SSH
-erreichen kann.
+Die Konfiguration läuft auf allen drei Wegen ähnlich ab.
+Hier konzentriere ich mich auf das CLI,
+dass ich über die Konsole oder SSH erreichen kann.
 
-Grundsätzlich gibt man bei der Konfiguration im CLI eine Kategorie, eine
-Aktion und gegebenenfalls zusätzliche Parameter an. Wird die Kategorie
-weggelassen, so kommt automatisch die aktuelle zum Zuge. Wird nur die
-Kategorie angegeben und keine Aktion, dann wird diese Kategorie zur
-aktuellen. Nach dem Anmelden ist die aktuelle Kategorie '/'.
+Grundsätzlich gebe ich bei der Konfiguration im CLI
+eine Kategorie, eine Aktion und gegebenenfalls zusätzliche Parameter an.
+Lasse ich die Kategorie weg, so kommt automatisch die aktuelle zum Zuge.
+Gebe ich nur die Kategorie an und keine Aktion,
+dann wird diese Kategorie zur aktuellen.
+Nach dem Anmelden ist die aktuelle Kategorie '/'.
 
 Durch Eingabe von einem oder zwei <TAB> werden mögliche Fortsetzungen
 der aktuellen Kommandozeile angezeigt beziehungsweise teilweise
 eingegebene Kategorien, Aktionen oder Parameter soweit ergänzt, wie sie
 eindeutig sind.
-Das funktioniert ähnlich der Kommandozeilenvervollständigung bei Bash oder Cisco IOS.
+Das funktioniert ähnlich der Kommandozeilenvervollständigung bei Cisco IOS.
 
 Starten, Stoppen und Kontrollieren von VPN-Tunneln
 --------------------------------------------------
@@ -95,11 +98,8 @@ und die SSH-Sitzung zum Beispiel mit ``script`` protokolliere::
   ssh user@mikrotik /log print
   exit
 
-Die ersten und letzten Zeilen schneide ich ab von der Datei
-*mikrotik.log* und kann diese in aller Ruhe untersuchen.
-
-Sind die interessanten Lognachrichten schlecht im Hauptspeicher zu
-finden, weil dieser vielleicht nicht so viele Nachrichten fassen kann,
+Sind die interessanten Lognachrichten nicht im Hauptspeicher zu finden,
+weil dieser nicht genügend Nachrichten fassen kann,
 muss ich auf andere Art auf die Logs zugreifen.
 
 Eine andere Möglichkeit ist, die Logs zu einem Syslog-Server zu senden
@@ -120,7 +120,7 @@ Darum kombiniere ich ``ipsec`` meist mit den gewünschten Levels.
 
 ``topics=ipsec,!packet``
   lässt den Packet-Dump der Datagramme aus.
-  Diesen will ich auf dem Syslog-Server sowieso nicht haben.
+  Diesen will ich auf dem Syslog-Server nicht haben.
 
 ``topics=ipsec,debug,!packet``
   schalte ich ein, wenn ich Probleme mit einem VPN untersuche.
@@ -128,8 +128,8 @@ Darum kombiniere ich ``ipsec`` meist mit den gewünschten Levels.
 ``topics=ipsec,!debug,!packet``
   habe ich im Normalbetrieb eingestellt.
 
-Schließlich kann ich die Logs in eine Datei schreiben lassen und diese
-Datei zum Beispiel via SCP für die Untersuchung abzuholen.
+Schließlich kann ich die Logs in eine Datei schreiben lassen
+und diese Datei via SCP für die Untersuchung abzuholen.
 Die Befehle dazu sind::
 
   /system/logging/action
@@ -141,15 +141,14 @@ Sehen kann ich die Dateien auf dem Gerät in der Kategorie ``/file``::
 
   /file print
 
-Von meinem Rechner aus kann ich sie zum Beispiel mittels SCP zur
-Analyse abholen::
+Von meinem Rechner aus hole ich sie mittels SCP wie folgt zur Analyse ab::
 
   scp user@mikrotik:vpn.log .
 
 Paketmitschnitte
 ----------------
 
-Auch Paketmitschnitte sind möglich.
+Auch Paketmitschnitte sind mit RouterOS möglich.
 Diese konfiguriere, starte und beende ich unter ``/tool sniffer``.
 
 Die aktuellen Einstellungen bekomme ich mit ``/tool sniffer print``.
@@ -163,16 +162,15 @@ Rechner kopieren.
 Es gibt etliche Filterattribute, für die ich jeweils bis zu 16 Werte
 vorgeben kann.
 
-Mit dem Befehl ``/tool sniffer packet`` kann ich mir den Paketmitschnitt
-auch direkt auf dem Gerät anschauen. Das ist bei einfachen Fragen oft
-ausreichend.
+Mit dem Befehl ``/tool sniffer packet`` kann ich
+den Paketmitschnitt auch direkt auf dem Gerät anschauen.
+Das ist bei einfachen Fragen oft ausreichend.
 
 Mit dem Attribut ``memory-scroll`` kann ich einen dauerhaften Mitschnitt
 bei beschränktem Speicherplatz einstellen.
 
-Bevor ich Limits verstelle, schaue ich mit ``/system resource print``
-nach, wie viel Ressourcen (Hauptspeicher, Plattenplatz) ich überhaupt
-zur Verfügung habe.
+Bevor ich Limits verstelle, schaue ich mit ``/system resource print`` nach,
+wie viel Ressourcen (Hauptspeicher, Plattenplatz) ich zur Verfügung habe.
 
 Konfiguration analysieren
 -------------------------
@@ -184,7 +182,7 @@ Beispiel auf die IPsec-Konfiguration::
 
   /ip ipsec export
 
-Zwei Attribute für den Export der Konfiguration sind wichtig:
+Für den Export der Konfiguration sind zwei Attribute wichtig:
 
 ``export terse``:
   zeigt die Kategorien in jeder Zeile. Damit ist diese Ausgabe besser
@@ -192,7 +190,7 @@ Zwei Attribute für den Export der Konfiguration sind wichtig:
   einfacher in die Konfiguration einer anderen Maschine übernehmen.
 
 ``export detail``:
-  zeigt auch die Defaultwerte. Damit können eventuelle
-  Missverständnisse, die durch falsche Annahmen über die Defaults
-  enstanden sind, ausgeräumt werden.
+  zeigt auch die Defaultwerte.
+  Damit kann ich Missverständnisse ausräumen,
+  die durch falsche Annahmen über die Defaults enstanden sind.
 
