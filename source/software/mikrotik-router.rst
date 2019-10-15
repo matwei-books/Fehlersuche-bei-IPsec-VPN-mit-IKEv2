@@ -11,8 +11,7 @@ Es gibt drei Möglichkeiten, sie zu konfigurieren:
 
 * via CLI,
 * via Web-Interface,
-* via WinBox, einem MS-Windows-Programm, das mit Wine auch unter Linux
-  läuft.
+* via WinBox, einem MS-Windows-Programm.
 
 Mit WinBox ist es möglich,
 einen MikroTik-Router über die MAC-Adresse zu kontaktieren,
@@ -99,10 +98,9 @@ und die SSH-Sitzung zum Beispiel mit ``script`` protokolliere::
   exit
 
 Sind die interessanten Lognachrichten nicht im Hauptspeicher zu finden,
-weil dieser nicht genügend Nachrichten fassen kann,
-muss ich auf andere Art auf die Logs zugreifen.
+muss ich auf andere Art und Weise auf die Logs zugreifen.
 
-Eine andere Möglichkeit ist, die Logs zu einem Syslog-Server zu senden
+Eine Möglichkeit ist, die Logs zu einem Syslog-Server zu senden
 und dann bei diesem abzuholen.
 Um zum Syslog-Server mit Adresse a.b.c.d zu protokollieren, verwende
 ich die folgenden Befehle::
@@ -128,7 +126,7 @@ Darum kombiniere ich ``ipsec`` meist mit den gewünschten Levels.
 ``topics=ipsec,!debug,!packet``
   habe ich im Normalbetrieb eingestellt.
 
-Schließlich kann ich die Logs in eine Datei schreiben lassen
+Weiterhin kann ich die Logs in eine Datei schreiben lassen
 und diese Datei via SCP für die Untersuchung abzuholen.
 Die Befehle dazu sind::
 
@@ -137,7 +135,7 @@ Die Befehle dazu sind::
   /system logging topic
   add action=file topics=ipsec,debug
 
-Sehen kann ich die Dateien auf dem Gerät in der Kategorie ``/file``::
+Sehen kann ich die Dateien mit dem Befehl::
 
   /file print
 
@@ -169,7 +167,7 @@ Das ist bei einfachen Fragen oft ausreichend.
 Mit dem Attribut ``memory-scroll`` kann ich einen dauerhaften Mitschnitt
 bei beschränktem Speicherplatz einstellen.
 
-Bevor ich Limits verstelle, schaue ich mit ``/system resource print`` nach,
+Bevor ich Limits ändere, schaue ich mit ``/system resource print`` nach,
 wie viel Ressourcen (Hauptspeicher, Plattenplatz) ich zur Verfügung habe.
 
 Konfiguration analysieren
@@ -190,7 +188,7 @@ Für den Export der Konfiguration sind zwei Attribute wichtig:
   einfacher in die Konfiguration einer anderen Maschine übernehmen.
 
 ``export detail``:
-  zeigt auch die Defaultwerte.
+  zeigt auch Defaultwerte.
   Damit kann ich Missverständnisse ausräumen,
   die durch falsche Annahmen über die Defaults enstanden sind.
 
