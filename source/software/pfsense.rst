@@ -5,32 +5,30 @@ pfSense
 *pfSense* ist eine Netzwerk-Firewall-Distribution, die auf FreeBSD als
 Betriebsystem mit einem angepassten Kernel basiert.
 
-Für die Konfiguration steht eein Web-Interface zur Verfügung, mit dem
-alle enthaltenen Komponenten konfiguriert werden können.
+Für die Konfiguration steht ein Web-Interface zur Verfügung,
+mit dem ich die enthaltenen Komponenten konfigurieren kann.
 Das Webinterface der pfSense benötigt JavaScript.
 Es ist nicht nötig, bei pfSense die Kommandozeile zu benutzen.
 Immerhin ist es möglich.
 
 .. index:: pfSense; Kommandozeile
 
-Auf die Kommandozeile kommt man entweder über die Konsole des Rechners,
+Auf die Kommandozeile komme ich entweder über die Konsole des Rechners,
 auf dem pfSense läuft, oder nach Anmeldung via SSH.
-Zunächst landet man in einem Menü wie dem folgenden:
+Zunächst lande ich in einem Menü wie dem folgenden:
 
 .. literalinclude:: pfsense-console.txt
    :language: text
    :lines: 5-16
 
-.. todo:: Position Konsolenmenü kontrollieren.
-
-Von dort kommt man über den Menüpunkt 8) auf die Unix-Shell oder über 12)
+Von dort komme ich über den Menüpunkt 8) auf die Unix-Shell oder über 12)
 auf die PHP-Shell.
 
 .. index:: pfSense; viconfig
 
-Will man die Konfiguration über die Kommandozeile bearbeiten, empfiehlt
-sich die Benutzung des Programs ``viconfig``, mit dem man die
-Konfiguration mit dem Editor ``vi`` in einer XML-Datei bearbeitet.
+Will ich die Konfiguration über die Kommandozeile bearbeiten,
+verwende ich das Programm ``viconfig``,
+in dem ich mit dem Editor ``vi`` eine XML-Konfigurationsdatei bearbeite.
 ``viconfig`` kümmert sich anschließend um das Entfernen des
 Configuration-Cache, so dass die geänderten Einstellungen aktiv werden.
 
@@ -54,9 +52,10 @@ Configuration-Cache, so dass die geänderten Einstellungen aktiv werden.
    anzurichten.
 
    *ESC*
-     wechselt vom Einfügemodus in den Befehlsmodus und ist in den
-     meisten Fällen nicht nötig, nur wenn man aus Versehen bereits in
-     den Einfügemodus gewechselt ist.
+     wechselt vom Einfügemodus in den Befehlsmodus
+     und ist in den meisten Fällen nicht nötig,
+     sondern nur,
+     wenn man aus Versehen bereits in den Einfügemodus gewechselt ist.
 
    ``:``
      wechselt vom Befehlsmodus in den Kommandozeilenmodus.
@@ -75,9 +74,11 @@ Da die pfSense auf einem Unix-System aufsetzt, empfiehlt es sich, sie
 nicht einfach auszuschalten, sondern vorher geordnet hinunterzufahren.
 
 Im Webinterface geht man dafür nach **Diagnostics > Halt System**, in
-der Konsole wählt man ``6) Halt System``. Sofern ein Lautsprecher
-eingebaut ist, meldet sich die Hardware akustisch, danach dauert es noch
-etwas, bis die Platten ordentlich ausgehängt sind.
+der Konsole wählt man ``6) Halt System``.
+Sofern ein Lautsprecher eingebaut ist,
+meldet sich die Hardware akustisch,
+danach dauert es noch ein paar Sekunden,
+bis die Platten vollständig ausgehängt sind.
 
 Starten, Stoppen und Kontrollieren von VPN-Tunneln
 --------------------------------------------------
@@ -109,6 +110,8 @@ auf die Adresse des eigenen LAN-Interface.
 
 Mit dem Programm ``racoon`` kann man auf der Konsole VPN-Verbindungen
 zurücksetzen.
+
+.. todo:: VPN-Verbindungen zurücksetzen
 
 Systemlogs und Debug-Informationen
 ----------------------------------
@@ -182,8 +185,9 @@ letzten Ständen vergleichen.
 
 Auf der Konsole finde ich Konfiguration im Verzeichnis */cf/conf/*, die
 alten Stände in */cf/conf/backup/*.
-Hier stehen mir die Textwerkzeuge, wie zum Beispiel ``diff``, ``grep``
-oder ``less`` für einfache Analysen zur Verfügung.
+Hier stehen mir Textwerkzeuge,
+wie ``diff``, ``grep`` oder ``less``,
+für einfache Analysen zur Verfügung.
 
 Will ich die Konfigurationsdatei in der Shell bearbeiten, empfiehlt sich
 das Programm ``viconfig``, das sich um Details wie das Löschen des
