@@ -125,11 +125,15 @@ Auf der Konsole finde ich die Logs im Verzeichnis */var/log/*, die Datei
 mit den IPsec-Logs ist */var/log/ipsec.log*. Mit ``ls /var/log`` bekomme
 ich die Namen der anderen Dateien angezeigt.
 
+.. figure:: /images/pfsense-logging.png
+   :alt: Einstellungen für Logging
+
 Ob Logs zu anderen Server geschickt werden und wenn ja, zu welchen,
 bekomme ich im Webinterface über **Status > System Logs > Settings**
 heraus. Dort schaue ich bei **Remote Logging Options** nach.
 
-.. todo:: Screenshot Remote Logging Options
+.. figure:: /images/pfsense-logging-remote.png
+   :alt: Einstellungen für Remote Logging
 
 Ob und in welchem Maße Debug-Informationen protokolliert werden, stelle
 ich für IPsec unter **VPN > IPsec > Advanced Settings** ein.
@@ -152,7 +156,8 @@ Ich habe zwei Möglichkeiten, einen Paketmitschnitt auf einer
 pfSense-Firewall anzufertigen: über das Webinterface oder über die
 Konsole.
 
-.. todo:: Screenshot Paketmitschnitt
+.. figure:: /images/pfsense-packet-capture.png
+   :alt: Paketmitschnitt im Webinterface
 
 Im Webinterface gehe ich im Menü zu **Diagnostics > Packet Capture**.
 Dort spezifiziere ich in einem Webformular die Datagramme, an denen ich
@@ -177,7 +182,8 @@ Konfiguration analysieren
 Die Konfiguration der pfSense kann ich als Textdatei *config.xml* im
 XML-Format bekommen.
 
-.. todo:: Screenshot Konfigurationsbackup pfSense
+.. figure:: /images/pfsense-backup-config.png
+   :alt: Download der Konfiguration
 
 Im Webinterface gehe ich zu **Diagnostics > Backup & Restore > Backup &
 Restore**. Dort kann ich die Konfiguration herunterladen oder mit den
