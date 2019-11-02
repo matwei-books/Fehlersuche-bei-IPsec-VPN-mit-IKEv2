@@ -8,7 +8,11 @@ Betriebsystem mit einem angepassten Kernel basiert.
 Für die Konfiguration steht ein Web-Interface zur Verfügung,
 mit dem ich die enthaltenen Komponenten konfigurieren kann.
 Das Webinterface der pfSense benötigt JavaScript.
-Es ist nicht nötig, bei pfSense die Kommandozeile zu benutzen.
+Es hat den Vorteil,
+dass ich jeweils mit einem Klick
+zwischen der Konfiguration, dem Status und den Logs wechseln kann.
+Das erleichtert die Fehlersuche.
+Es ist also nicht nötig, bei pfSense die Kommandozeile zu benutzen.
 Immerhin ist es möglich.
 
 .. index:: pfSense; Kommandozeile
@@ -108,10 +112,30 @@ auf die Adresse des eigenen LAN-Interface.
 
 .. [#] https://docs.netgate.com/pfsense/en/latest/book/ipsec/site-to-site.html#ipsec-pfsensetraffic
 
-Mit dem Programm ``racoon`` kann man auf der Konsole VPN-Verbindungen
-zurücksetzen.
+Mit dem Programm ``ipsec`` kann man auf der Konsole
+VPN-Verbindungen initiieren oder zurücksetzen.
+Um sich einen Überblick zu verschaffen verwendet man den Befehl::
 
-.. todo:: VPN-Verbindungen zurücksetzen
+  ipsec statusall
+
+Im Webinterface geht man nach **Status > IPsec**
+und kann im Tab **Overview** VPNs zu Peers verbinden oder trennen.
+Im Tab **SADs** kann man einzelne Child-SA zurücksetzen.
+
+Das Äquivalent auf der Kommandozeile wären die Befehle::
+
+  ipsec statusall
+  ipsec up name
+  ipsec down name
+  ipsec down name{n}
+
+Dabei zeigt der erste Befehl die verfügbaren VPNs
+und bei bestehenden Verbindungen die Child-SA.
+
+Mit ``ipsec up name`` starte ich eine IKE-Verbindung.
+
+Der Befehl ``ipsec down name`` beendet die IKE-Verbindung
+und ``ipsec down name{n}`` beendet die spezifizierte Child-SA.
 
 Systemlogs und Debug-Informationen
 ----------------------------------
