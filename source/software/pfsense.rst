@@ -1,9 +1,16 @@
 
+.. index:: ! pfSense
+
 pfSense
 =======
 
+.. index:: StrongSwan
+
 *pfSense* ist eine Netzwerk-Firewall-Distribution, die auf FreeBSD als
 Betriebsystem mit einem angepassten Kernel basiert.
+Für IPsec verwendet pfSense StrongSwan [#]_.
+
+.. [#] https://www.strongswan.org/
 
 Für die Konfiguration steht ein Web-Interface zur Verfügung,
 mit dem ich die enthaltenen Komponenten konfigurieren kann.
@@ -18,15 +25,14 @@ Immerhin ist es möglich.
 .. index:: pfSense; Kommandozeile
 
 Auf die Kommandozeile komme ich entweder über die Konsole des Rechners,
-auf dem pfSense läuft, oder nach Anmeldung via SSH.
+auf dem pfSense läuft oder nach Anmeldung via SSH.
 Zunächst lande ich in einem Menü wie dem folgenden:
 
 .. literalinclude:: pfsense-console.txt
    :language: text
    :lines: 5-16
 
-Von dort komme ich über den Menüpunkt 8) auf die Unix-Shell oder über 12)
-auf die PHP-Shell.
+Von dort komme ich über den Menüpunkt 8) auf die Unix-Shell.
 
 .. index:: pfSense; viconfig
 
@@ -41,7 +47,7 @@ Configuration-Cache, so dass die geänderten Einstellungen aktiv werden.
 .. topic:: vi
 
    Der Editor *vi* geht auf den visuellen Modus des Unix-Editors *ex*
-   aus dem Jahr 1976 zurück und ist seit dem auf den meisten
+   aus dem Jahr 1976 zurück und ist seitdem auf den meisten
    Unix-artigen Betriebssystemen zu finden.
    Dieser Editor arbeitet in drei Modi, dem Befehlsmodus (*command mode*),
    dem Einfügemodus (*insert mode*) und dem Kommandozeilenmodus (*colon
@@ -50,7 +56,7 @@ Configuration-Cache, so dass die geänderten Einstellungen aktiv werden.
 
    Es empfiehlt sich die grundlegenden Tastenbefehle zu lernen, um mit
    diesem Editor zu arbeiten.
-   Startet man unerwarteterweise diesen Editor - wie zum Beispiel über
+   Startet man vi unerwarteterweise - wie zum Beispiel über
    das Programm ``viconfig`` - kommt man mit der Tastenfolge *ESC*,
    ``:``, ``q!`` *ENTER* wieder heraus, ohne allzuviel Schaden
    anzurichten.
@@ -79,6 +85,8 @@ nicht einfach auszuschalten, sondern vorher geordnet hinunterzufahren.
 
 Im Webinterface geht man dafür nach **Diagnostics > Halt System**, in
 der Konsole wählt man ``6) Halt System``.
+Befindet man sich bereits in der Unix-Shell,
+geht auch der Befehl ``shutdown -h now``.
 Sofern ein Lautsprecher eingebaut ist,
 meldet sich die Hardware akustisch,
 danach dauert es noch ein paar Sekunden,
@@ -96,8 +104,9 @@ Läuft das VPN im Transportmodus oder die pfSense hat ein Interface im
 Adressbereich des lokalen Traffic-Selektors beim Tunnelmodus, kann man
 den PING auch direkt von der pfSense absetzen.
 
-Im Webinterface geht man dazu nach **Diagnostics > Ping** und trägt im
-Formular außer der Zieladresse auch die Absenderadresse ein.
+Im Webinterface geht man dazu nach **Diagnostics > Ping**
+und trägt im Formular außer der Zieladresse
+auch die Absenderadresse aus dem lokalen Traffic-Selektor ein.
 
 In der Shell gibt man die Absenderadresse mit der Option ``-S`` an::
 
@@ -165,7 +174,7 @@ ich für IPsec unter **VPN > IPsec > Advanced Settings** ein.
 Meist sind IKE SA, IKE Child SA und Configuration Backend auf
 *Diag* eingestellt, und alle anderen auf *Control*.
 Bei allen Topics kann ich zwischen den Optionen *Silent*, *Audit*,
-*Control*, *Diag*, *Raw* und *Highest* auswählen.
+*Control*, *Diag*, *Raw* und *Highest* wählen.
 
 In der Online-Dokumentation [#]_ finden sich viele Tipps und Hinweise
 zur Fehlersuche bei IPsec, dort gibt es auch Hilfe zur Interpretation
@@ -190,7 +199,7 @@ Unter dem Formular befindet sich ein Start/Stop-Button, mit dem ich die
 Aufzeichnung beginnen und enden lasse.
 Nach dem Ende der Aufzeichnung kann ich den Mitschnitt direkt im
 Webinterface betrachten, was mir bei einfachen Fragestellungen Zeit
-spart.
+erspart.
 Für detaillierte Untersuchungen kann ich den Mitschnitt auch im
 PCAP-Format heruterladen und dann mit Wireshark oder anderen Werkzeugen
 näher untersuchen.
@@ -213,7 +222,7 @@ Im Webinterface gehe ich zu **Diagnostics > Backup & Restore > Backup &
 Restore**. Dort kann ich die Konfiguration herunterladen oder mit den
 letzten Ständen vergleichen.
 
-Auf der Konsole finde ich Konfiguration im Verzeichnis */cf/conf/*, die
+Auf der Konsole finde ich die Konfiguration im Verzeichnis */cf/conf/*, die
 alten Stände in */cf/conf/backup/*.
 Hier stehen mir Textwerkzeuge,
 wie ``diff``, ``grep`` oder ``less``,
@@ -222,4 +231,12 @@ für einfache Analysen zur Verfügung.
 Will ich die Konfigurationsdatei in der Shell bearbeiten, empfiehlt sich
 das Programm ``viconfig``, das sich um Details wie das Löschen des
 Config-Caches kümmert.
+
+.. index:: StrongSwan
+
+Bin ich mir nicht im Klaren,
+was eine bestimmte Konfiguration im Webinterface
+beziehungsweise in der XML-Datei bedeutet,
+kann ich die draus erzeugte Konfiguration für StrongSwan
+unter */var/etc/* anschauen.
 
