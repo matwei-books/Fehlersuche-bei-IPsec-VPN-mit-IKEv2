@@ -121,6 +121,12 @@ latex_elements = {
     # Additional stuff for the LaTeX preamble.
     #
     'preamble': r'''
+\geometry{%
+papersize={7.5in,9.25in},%
+height={36\baselineskip},%
+hdivide={1.0in,*,1.0in},%
+vdivide={1.2in,*,*}
+}
 %% nur was im Inhaltsverzeichnis auftaucht, wird nummeriert
 \setcounter{secnumdepth}{1}
 ''',
