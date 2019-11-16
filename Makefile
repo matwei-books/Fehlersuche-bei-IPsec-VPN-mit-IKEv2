@@ -15,6 +15,7 @@ SOURCE = source/einfuehrung.rst \
 	 source/ikev2/ueberblick.rst \
 	 source/ikev2/betriebsarten.rst \
 	 source/ikev2/nachrichten.rst \
+	 source/ikev2/icmp-handling.rst \
 	 source/vorgehen/fragen.rst \
 	 source/vorgehen/antworten.rst \
 	 source/fehler/index.rst \
@@ -33,6 +34,7 @@ DRAFTS = build/draft/einfuehrung-draft.pdf \
 	 build/draft/ikev2/ueberblick-draft.pdf \
 	 build/draft/ikev2/betriebsarten-draft.pdf \
 	 build/draft/ikev2/nachrichten-draft.pdf \
+	 build/draft/ikev2/icmp-handling-draft.pdf \
 	 build/draft/vorgehen/fragen-draft.pdf \
 	 build/draft/vorgehen/antworten-draft.pdf \
 	 build/draft/fehler/index-draft.pdf \
