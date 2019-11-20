@@ -7,7 +7,7 @@ Behandlung von ICMP-Nachrichten
 Ein wichtiger Punkt bei IPsec-VPN
 ist die Verarbeitung von ICMP-Nachrichten.
 Diese sind einerseits essentiell für bestimmte Netzwerkfunktionen,
-wie zum Beispiel PMTU-Discovery,
+wie zum Beispiel Path-MTU-Discovery,
 und können andererseits für Angriffe auf die Infrastruktur dienen.
 Bereits in :cite:`Weidner201703`
 hatte ich mich detailliert
@@ -40,8 +40,8 @@ ICMP-Nachrichten für das IPsec-Gateway
 --------------------------------------
 
 ICMP-Nachrichten, die an das IPsec-Gateway gerichtet sind,
-können an der ungeschützten (schwarzen) Seite
-oder an der geschützten (roten) Seite des Gateways ankommen.
+können an der ungeschützten schwarzen Seite
+oder an der geschützten roten Seite des Gateways ankommen.
 
 Nachrichten, die an der ungeschützten Seite ankommen,
 gelten als nicht vertrauenswürdig.
@@ -51,7 +51,7 @@ oder es sich um einen ausgeklügelten Angriff handelt.
 Oft hat man auch keine Möglichkeit,
 das auf andere Art für Datagramme von der schwarzen Seite zu überprüfen.
 RFC4301 verlangt daher von einer konformen Implementierung
-für den Administrator bei der Konfiguration die Alternative,
+für den Administrator bei der Konfiguration die Möglichkeit,
 diese Meldungen zu ignorieren oder zu akzeptieren.
 Außerdem muss es Mechanismen geben,
 um mit diesen Nachrichten umzugehen.
@@ -74,7 +74,7 @@ ICMP-Nachrichten zwischen den geschützten Netzen
 Neben den ICMP-Nachrichten, die an die VPN-Gateways gerichtet sind,
 sind die Transit-Nachrichten zu betrachten,
 die geschützt durch das VPN
-zwischen den Netzen auf der roten Seite übertragen werden.
+zwischen den Netzen auf den roten Seiten übertragen werden.
 
 Die IPsec-Gateways müssen bei diesen
 sowohl die ICMP- und IP-Header als auch die Payload berücksichtigen
@@ -121,7 +121,7 @@ das das ICMP-Datagramm dann über diese SA erhält,
 prüft seinerseits auf die gleiche Weise,
 ob das ICMP-Datagramm entweder auf Grund der Headerdaten
 oder der Payload berechtigt ist,
-die SA zu nutzen.
+diese SA zu nutzen.
 Damit sichert sich das empfangende VPN-Gateway
 gegen ein nicht konformes Peer-Gateway ab
 und schreibt seinerseits bei einer nicht bestandenen Prüfung
@@ -140,7 +140,7 @@ Path-MTU Discovery
 
 Mit ICMP-Nachrichten Typ 3, Code 4
 beziehungsweise ICMPv6 Typ 2, Code 0
-signalisiert ein Gateway/Router
+signalisiert ein Gateway oder Router
 auf dem Weg eines Datagrammes vom Sender zum Empfänger,
 dass das Datagramm zu groß für das nächste Netzsegment ist.
 Das Verfahren ist in RFC1191 (:cite:`RFC1191`) beschrieben
@@ -162,12 +162,12 @@ an drei Stellen generiert werden:
 
 Interessant für den VPN-Administrator sind diese Nachrichten,
 wenn sie zwischen den VPN-Gateways erzeugt
-und folglich an das lokale VPN-Gateways gesendet werden.
+und folglich an das lokale VPN-Gateway gesendet werden.
 Der eigentliche Adressat dieser Nachricht
 ist der Rechner im geschützten Netz,
 der das zu große Datagramm geschickt hat.
-Diesen kann das Gateway unterwegs, das das Problem hat, nicht kennen
-weil bei diesem nur verschlüsselte Datagramme vorbeikommen.
+Diesen kann das Gateway unterwegs, welches das Problem hat, nicht kennen
+weil dort nur verschlüsselte Datagramme ankommen.
 
 Also sendet das Gateway unterwegs die ICMP-Nachricht an das VPN-Gateway,
 welches das zu große verschlüsselte Datagramm sendete.
