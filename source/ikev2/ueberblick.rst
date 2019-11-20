@@ -59,10 +59,6 @@ Farbe rot und Klartext.
 Eine IPsec-Implementation kann mehrere Schnittstellen auf jeder Seite
 der Grenze unterstützen.
 
-.. todo:: ICMP-Processing erläutern (RFC4301 pp 63-71)
-
-   Dabei auf Probleme mit Path-MTU eingehen.
-
 .. raw:: latex
 
    \newpage
