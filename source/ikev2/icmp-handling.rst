@@ -127,11 +127,29 @@ gegen ein nicht konformes Peer-Gateway ab
 und schreibt seinerseits bei einer nicht bestandenen Prüfung
 einen Logeintrag.
 
-.. todo:: Beispiel mit Erläuterung
-   
-   * ICMP-Datagramm
-   * SPD-Eintrag
-   * Zuordnung der Adressen
+.. figure:: /images/icmp.png
+   :alt: ICMP-Datagramm mit IP-Header, ICMP-Header, Payload
+   :name: icmp
+
+   ICMP-Datagramm mit Payload
+
+:numref:`icmp` zeigt ein ICMP-Datagramm mit Payload.
+Bei der Prüfung eines solchen Datagramms
+vergleicht das IPsec-Gateway zunächst
+Source Address, Destination Address und Protocol des IP Headers
+und falls dafür kein Eintrag in der SPD existiert
+anschließend Original Source, Original Address und weitere Daten
+aus der Payload.
+Da die Payload jedoch aus einem Datagramm stammt,
+dass von der anderen Seite stammt,
+müssen bei der Prüfung der Payload die Adressen
+und bei TCP/UDP die Ports
+vertauscht werden.
+Die Original Source Address aus der Payload
+sollte immer identisch sein
+mit der Destination Address aus dem IP-Header.
+Die Original Destination Address aus der Payload ist
+nicht immer identisch mit der Source Address aus dem IP-Header.
 
 .. index:: ! PMTU-Discovery, ! Path-MTU Discovery
 
@@ -158,7 +176,11 @@ an drei Stellen generiert werden:
 - hinter dem VPN-Gateway des Peers, dann wird es behandelt wie oben für
   alle ICMP-Nachrichten beschrieben.
 
-.. todo:: Bild
+.. figure:: /images/icmp-esp.png
+   :alt: ICMP-Datagramm mit IP-Header, ICMP-Header, ESP-Payload
+   :name: icmp-esp
+
+   ICMP-Datagramm mit ESP-Payload
 
 Interessant für den VPN-Administrator sind diese Nachrichten,
 wenn sie zwischen den VPN-Gateways erzeugt
@@ -170,7 +192,8 @@ Diesen kann das Gateway unterwegs, welches das Problem hat, nicht kennen
 weil dort nur verschlüsselte Datagramme ankommen.
 
 Also sendet das Gateway unterwegs die ICMP-Nachricht an das VPN-Gateway,
-welches das zu große verschlüsselte Datagramm sendete.
+welches das zu große verschlüsselte Datagramm sendete
+(:numref:`icmp-esp`).
 Dieses kann anhand des SPI in der ICMP-Payload die SA identifizieren
 und die damit verknüpfte MTU korrigieren.
 

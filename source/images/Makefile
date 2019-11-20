@@ -5,6 +5,8 @@ IMAGES = bbaet.png \
 	 create-child-sa.png \
 	 create-child-sa-rekey-child.png \
 	 create-child-sa-rekey-ike.png \
+	 icmp.png \
+	 icmp-esp.png \
 	 ike-auth.png \
 	 ike-sa-init.png \
 	 ike-sa-init-cookie.png \
