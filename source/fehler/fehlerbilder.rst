@@ -362,6 +362,8 @@ Bei Punkt 4 gehört eine geeignete Ausnahmeregel auf die Host-Firewall.
    Overhead an Protokolldaten, wodurch die Effizienz der
    Datenübertragung leidet.
 
+.. index:: ! MSS-Clamping
+
 Kann ich Path-MTU-Discovery nicht reparieren, bleiben mir noch zwei
 Möglichkeiten:
 
@@ -381,3 +383,20 @@ b) An den Endgeräten kann ich die MTU des entsprechenden
 Beide Möglichkeiten führen auch für andere Verbindungen zu einem
 ungünstigeren Verhältnis von Nutzdaten zu Protokoll-Overhead.
 
+.. admonition:: TCP MSS-Clamping
+
+   Die Maximum Segment Size ist ein Parameter
+   bei den optionalen Feldern im TCP-Header,
+   der die maximale Anzahl von Bytes angibt,
+   die ein Computer in einem einzelnen TCP-Segment empfangen kann.
+   Diese Option wird beim Aufbau der TCP-Verbindung gesendet
+   und ist für die gesamte Verbindung gültig.
+
+   Beim MSS-Clamping wird genau diese Option
+   von einem Gateway auf dem Weg des Datagramms modifiziert.
+
+   Router an einer PPPoE-Verbindung und IPsec-Gateways
+   setzen MSS-Clamping standardmäßig ein,
+   damit die durch den Protokoll-Overhead geringere Path-MTU
+   von vornherein in TCP-Verbindungen berücksichtigt wird
+   und nicht erst die Path-MTU-Mechanismen eingreifen müssen.

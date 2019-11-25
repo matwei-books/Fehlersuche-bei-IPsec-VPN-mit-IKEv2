@@ -478,6 +478,8 @@ Gehen die zur PMTU-Discovery benötigten Datagramme verloren, oder werden
 gar nicht erst gesendet, ist das kein Problem für den VPN-Administrator
 sondern für die Administratoren der Firewalls beziehungsweise Netze.
 
+.. index:: MSS-Clamping
+
 Durch den Overhead der IPsec-Protokolle
 sinkt die PMTU gegenüber der MTU in den Netzen,
 über die das VPN läuft, erheblich.
@@ -537,6 +539,8 @@ reduzieren, so dass dieses automatisch mit niedrigeren Werten arbeitet.
 Das beeinflusst dann allerdings alle VPN dieses Gateways und die
 Effizienz der Datenübertragung leidet für alle Flows, die dieses VPN
 passieren.
+
+.. index:: MSS-Clamping
 
 Bei TCP kann ich, wenn die VPN-Software es zulässt,
 mit MSS-Clamping die Größe der Datagramme von vornherein beschränken.
