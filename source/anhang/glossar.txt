@@ -2,51 +2,6 @@
 Glossar
 =======
 
-AH:
-  siehe :ref:`Authentication Header <AH>`
-
-.. index:: ! Authenticated Encryption
-   see: Combinded Mode Chiffre; Authenticated Encryption
-.. _AuthenticatedEncryption:
-
-Authenticated Encryption:
-  Einige kryptographische Operationsmodi bei Blockchiffren gewährleisten
-  nur die Vertraulichkeit der verschlüsselten Daten, aber nicht deren
-  Authentizität. Das heißt, sie schützen nicht vor einer Veränderung der
-  übertragenen Daten. Darum müssen die übertragenen Daten zusätzlich
-  noch durch MAC (Message Authentication Codes) gegen Veränderung
-  geschützt werden.
-
-  Demgegenüber schützen Authenticated Encryption Modi sowohl die
-  Vertraulichkeit als auch die Authentizität. Diese werden auch als
-  Combined Mode Chiffre bezeichnet.
-
-.. index:: ! Authentication Header
-   see: AH; Authentication Header
-.. _AH:
-
-Authentication Header (AH):
-  Der IP Authentication Header, beschrieben in RFC4302 (siehe
-  :cite:`RFC4302`) bietet verbindungslos Integrität und Authentisierung
-  des Absenders von Datagrammen sowie optional Anti-Replay-Schutz wenn
-  eine IPsec-SA zwischen Sender und Empfänger besteht.
-
-.. index:: ! Beifang
-
-Beifang:
-  *Als Beifang werden in der Fischerei diejenigen Fische und andere
-  Meerestiere bezeichnet, die zwar mit dem Netz oder anderen
-  Massenfanggeräten gefangen werden, nicht aber das eigentliche
-  Fangziel des Fischens sind. [Wikipedia]*
-
-  Im Rahmen der Fehlersuche bezeichne ich als Beifang die Informationen,
-  die ich - mehr oder weniger - unvermeidlich mit sammle, die aber nicht
-  zur Lösung des Problems beitragen. Das können unvermeidbare Datagramme
-  im Paketmitschnitt sein, die sich nicht beim Mitschneiden ausfiltern
-  lassen, oder Logzeilen beziehungsweise Debugzeilen, die zwar das
-  untersuchte VPN betreffen, aber keinen nennenswerten Aussagewert für
-  die Fehlersuche haben.
-
 .. index:: ! Child-SA
    see: IPsec SA; Child-SA
 .. _Child-SA:
@@ -64,23 +19,6 @@ CLI:
   Diese Schnittstelle hat den Vorteil - wenn Kopieren und Einfügen
   funktioniert - dass Änderungen sehr einfach vorbereitet und
   dokumentiert werden können.
-
-Combined Mode Chiffre:
-  siehe :ref:`Authenticated Encryption <AuthenticatedEncryption>`
-
-.. index:: ! Encapsulating Security Payload
-   see: ESP; Encapsulating Security Payload
-.. _ESP:
-
-Encapsulating Security Payload (ESP):
-  ESP bietet die gleichen Dienste wie :ref:`AH <AH>` und zusätzlich
-  Vertraulichkeit. Diese Dienste können zwischen zwei Hosts, zwei
-  Security-Gateways (VPN-Gateways) oder zwischen einem Host und einem
-  Security-Gateway eingesetzt werden.
-
-ESP:
-  siehe
-  :ref:`Encapsulating Security Payload <ESP>`
 
 .. index:: ! Flow
 
@@ -140,25 +78,8 @@ Internet Key Exchange Protocol:
   Version 2 von IKE (IKEv2) ist in RFC7296 beschrieben (siehe
   :cite:`RFC7296`).
 
-.. index:: Internet Security Assiociation and Key Management Protocol
-   see: ISAKMP; Internet Security Assiociation and Key Management Protocol
-.. _ISAKMP:
-
-Internet Security Assiociation and Key Management Protocol (ISAKMP):
-  ISAKMP wurde ursprünglich in RFC2408 beschrieben, welches durch RFC4306
-  obsolet wurde, das wiederum durch RFC5996 abgelöst wurde und dieses
-  durch RFC7296.
-  
-  ISAKMP verwies bereits in RFC2408 auf :ref:`IKE <IKE>` für den
-  Schlüsselaustausch. RFC7296 beschreibt die momentan aktuelle Version
-  IKEv2 (siehe :cite:`RFC7296`).
-
 IPsec SA:
   siehe :ref:`Child-SA <Child-SA>`
-
-ISAKMP:
-  siehe
-  :ref:`Internet Security Assiociation and Key Management Protocol <ISAKMP>`
 
 .. index:: Maximum Segment Size
    see: MSS; Maximum Segment Size

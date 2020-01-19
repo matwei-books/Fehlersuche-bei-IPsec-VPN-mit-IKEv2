@@ -202,8 +202,6 @@ durchaus unterschiedlich aus, je nachdem, welche Seite Initiator
 beziehungsweise Responder ist. Meist ist eine IKE-Sitzung einfacher auf
 der Seite des Responders zu debuggen.
 
-.. index:: Beifang
-
 Dabei habe ich das Problem,
 das in den Debugmeldungen sehr viel Text enthalten ist,
 der es nicht einfacher macht,
@@ -215,6 +213,23 @@ Wenn ein Testlab zur Verfügung steht, kann man eine Situation nachstellen
 und in
 Ruhe ausprobieren, welche Debugeinstellungen genügend Informationen und
 möglichst wenig Beifang liefern.
+
+.. topic:: Beifang
+
+   .. index:: ! Beifang
+
+   *Als Beifang werden in der Fischerei diejenigen Fische und andere
+   Meerestiere bezeichnet, die zwar mit dem Netz oder anderen
+   Massenfanggeräten gefangen werden, nicht aber das eigentliche
+   Fangziel des Fischens sind. [Wikipedia]*
+
+   Im Rahmen der Fehlersuche bezeichne ich als Beifang Informationen,
+   die ich - mehr oder weniger - unvermeidlich mit sammle, die aber nicht
+   zur Lösung des Problems beitragen. Das können unvermeidbare Datagramme
+   im Paketmitschnitt sein, die sich nicht beim Mitschneiden ausfiltern
+   lassen, oder Logzeilen beziehungsweise Debugzeilen, die zwar das
+   untersuchte VPN betreffen, aber keinen nennenswerten Aussagewert für
+   die Fehlersuche haben.
 
 Da ich in den meisten Fällen trotzdem mit sehr viel Text zu tun bekomme,
 muss ich mir überlegen, wie ich diesen in eine Datei bekomme,
