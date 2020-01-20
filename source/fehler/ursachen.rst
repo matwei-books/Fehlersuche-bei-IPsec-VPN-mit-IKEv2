@@ -448,6 +448,22 @@ Die PMTU kann hingegen für verschiedene Datenströme eines Endgerätes
 unterschiedlich sein, sie ist daher eine Merkmal jedes einzelnen Flows
 und muss für diesen ermittelt werden.
 
+.. topic:: Flow
+
+   .. index:: ! Flow
+
+   Jede paketbasierte Datenübertragung,
+   zum Beispiel mit dem Internet Protokoll,
+   basiert auf Datagrammen,
+   einzelnen Dateneinheiten,
+   die Nacheinander versendet werden.
+   Wenn ich hier von einem Flow spreche,
+   meine ich alle Datagramme,
+   die zu einer einzelnen Kommunikationsbeziehung gehören.
+   Das umfasst neben den Datagrammen,
+   die von einer Seite zur anderen gesendet werden,
+   auch die zugehörigen Antwortpakete in der Gegenrichtung.
+
 Wie, ist in RFC1191 (:cite:`RFC1191`) beschrieben.
 IPv4 verwendet hierfür das DF-Bit des IP-Headers und ICMP-Datagramme vom
 Typ 3 (Destination Unreachable), Subtyp 4 (Fragmentierung nötig, Don’t

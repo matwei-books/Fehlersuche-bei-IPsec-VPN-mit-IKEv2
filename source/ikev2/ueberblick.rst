@@ -101,13 +101,19 @@ IPsec setzt sich aus drei Protokollen zusammen:
 
    Komponenten von IPsec
 
+.. index:: ! Child-SA
+   see: IPsec SA; Child-SA
+
 Alle drei Protokolle nutzen Security Associations (SA) um die
 verwendeten kryptographischen Verfahren, Parameter und Schlüssel in
 einer Security Association Database (SAD) abzulegen. Dabei gibt es sowohl
 SA für die IKE-Sitzung, in der die Parameter ausgehandelt werden, als
 auch für die durch IPsec geschützten Daten.
+Die letzteren nennt man Child-SA oder auch IPsec-SA.
 
-Die kryptografischen Algorithmen für IKE2 beschreibt :cite:`RFC4307`,
+Die konkreten kryptographischen Algorithmen mit den eventuell nötigen
+Parametern werden in einer SA durch Transforms festgehalten.
+Für IKE2 beschreibt :cite:`RFC4307` die kryptographischen Algorithmen,
 während :cite:`RFC4305` die Anforderungen an die Implementation von
 kryptografischen Algorithmen für ESP und AH beschreibt.
 

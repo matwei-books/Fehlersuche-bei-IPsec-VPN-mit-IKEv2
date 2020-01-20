@@ -7,7 +7,7 @@ Abkürzungen
 AH:
   Authentication Header
 
-.. index:: CLI
+.. index:: ! CLI
 
 CLI:
   Command Line Interface

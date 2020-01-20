@@ -2,35 +2,6 @@
 Glossar
 =======
 
-.. index:: ! Child-SA
-   see: IPsec SA; Child-SA
-.. _Child-SA:
-
-Child-SA:
-  Als Child-SA werden die Security Associations für AH oder ESP
-  bezeichnet, die im Rahmen einer IKE-Sitzung ausgehandelt werden.
-  Hin und wieder wird dafür auch die Bezeichnung IPsec-SA verwendet.
-
-.. index:: CLI
-
-CLI:
-  Die Kommandozeile (englisch: command-line interface) ist eine
-  Benutzerschnittstelle, die typischerweise im Textmodus arbeitet.
-  Diese Schnittstelle hat den Vorteil - wenn Kopieren und Einfügen
-  funktioniert - dass Änderungen sehr einfach vorbereitet und
-  dokumentiert werden können.
-
-.. index:: ! Flow
-
-Flow:
-  Jede paketbasierte Datenübertragung, zum Beispiel mit dem Internet
-  Protokoll, basiert auf Datagrammen, einzelnen Dateneinheiten, die
-  Nacheinander versendet werden.
-  Wenn ich von einem Flow spreche, meine ich alle Datagramme, die zu
-  eine einzelnen Kommunikationsbeziehung gehören. Das umfasst neben den
-  Datagrammen, die von einer Seite zur anderen gesendet werden, als auch
-  die zugehörigen Antwortpakete in der Gegenrichtung.
-
 .. index:: GUI
 
 GUI:
@@ -234,21 +205,6 @@ SAD:
   Im Gegensatz zur SPD ändert sich die SAD sehr häufig, mit jeder
   neuen SA, die ausgehandelt und jeder alten SA, die gelöscht wird.
 
-.. index:: ! Security Association
-   see: SA; Security Association
-.. _SA:
-
-Security Association (SA):
-  Eine einseitige logische Verbindung, die für Sicherheitszwecke erzeugt
-  wurde. Sämtlicher Datenverkehr, der durch eine SA geht, erfährt die
-  gleiche Sicherheitsbehandlung. In IPsec werden SA durch die
-  Protokolle AH, ESP beziehungsweise ESP implementiert. Zustandsdaten
-  der einzelnen SA werden in der SA Database gespeichert.
-
-  Die konkreten kryptographischen Algorithmen mit den eventuell nötigen
-  Parametern werden in einer SA durch :ref:`Transforms <Transform>`
-  beschrieben.
-
 .. index:: ! Security Parameters Index
    see: SPI; Security Parameters Index
 .. _SPI:
@@ -279,9 +235,3 @@ SPI:
   siehe
   :ref:`Security Parameters Index <SPI>`.
 
-.. index:: Transform
-.. _Transform:
-
-Transform:
-  Ein Transform beschreibt genau einen kryptographischen Algorithmus in
-  einer :ref:`Security Association <SA>`.
