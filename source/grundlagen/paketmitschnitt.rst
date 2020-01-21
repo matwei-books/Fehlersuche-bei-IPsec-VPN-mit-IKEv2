@@ -26,6 +26,8 @@ Seite und der verschlüsselten Seite meines VPN-Gateways.
 Wann ich auf welcher der beiden Seiten den Datenverkehr mitschneide und auswerte
 hängt von der Art des Problems ab.
 
+.. index:: Inside
+
 In den meisten Fällen schneide ich den Datenverkehr auf der
 entschlüsselten Seite (Inside, links in :numref:`vpn-packet-capture`) nur mit,
 wenn ein VPN-Tunnel bereits aufgebaut ist und ich kontrollieren möchte,
@@ -34,6 +36,8 @@ ist ein VPN, das von meiner Seite zum Peer aufgebaut wird und sich nicht
 automatisch aufbaut. In diesem Fall kontrolliere ich zunächst auf der
 entschlüsselten Seite, ob der Traffic überhaupt ankommt, der den Aufbau
 des VPNs auslösen soll.
+
+.. index:: Outside
 
 An der verschlüsselten Seite (Outside, rechts in
 :numref:`vpn-packet-capture`) schneide ich den Datenverkehr mit, wenn es

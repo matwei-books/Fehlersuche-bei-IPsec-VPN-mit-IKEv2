@@ -13,12 +13,14 @@ Austausch von Nachrichten.
 Ein Paar von Nachrichten nennt man von einem *Exchange*,
 beziehungsweise ein *Request/Response* Paar.
 
-.. index:: Initiator, Responder
+.. index:: ! Initiator, ! Responder
 
 Der Peer, der einen IKE_SA_INIT-Request sendet, wird *Initiator* genannt,
 derjenige, welcher darauf antwort, *Responder*.
-Nach dem Rekeying der IKE-SA ist derjenige Initiator, der das
+Beim Rekeying der IKE-SA ist derjenige Initiator, der das
 Rekeying veranlasst hat.
+In den ausgetauschten IKE-Datagrammen ist der Initiator an dem gesetzten
+Flag zu erkennen.
 
 .. index:: Nachrichten; initiale
 

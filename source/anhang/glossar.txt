@@ -2,56 +2,6 @@
 Glossar
 =======
 
-.. index:: GUI
-
-GUI:
-  Eine graphische Benutzeroberfläche (Graphical User Interface) macht
-  eine Software mit grafischen Symbolen und Steuerelementen nutzbar.
-  Gut gemacht ist sie manchmal intuitiv benutzbar und insbesondere für
-  weniger häufig ausgeführte Operationen vorteilhaft.
-
-  Ein Nachteil für die Problemanalyse ist, dass die Konfiguration oft
-  über mehrere Bildschirmelemente verteilt ist, die durch eine manchmal
-  umständliche Navigation nur nacheinander betrachtbar sind.
-
-.. index:: ! Initiator
-
-.. _Initiator:
-
-Initiator:
-  Derjenige der beiden Peers, der die aktive IKE-SA initiiert hat. Der
-  Initiator setzt das entsprechende Bit in den Flags des
-  IKE-Datagrammheaders.
-
-  Am Anfang ist der Initiator derjenige, der den IKE_SA_INIT-Request
-  gesendet hat. Nach dem Rekeying derjenige, der das letzte Rekeying
-  initiiert hat.
-
-.. index:: ! Inside
-
-Inside:
-  In diesem Buch meint Inside die Seite eines VPN-Gateways, wo die
-  Datagramme unverschlüsselt übertragen werden, das heißt in den meisten
-  Fällen die dem lokalen Netzwerk zugewandte Seite.
-
-IKE:
-  siehe :ref:`Internet Key Exchange Protocol <IKE>`
-
-.. index:: Internet Key Exchange Protocol
-   see: IKE; Internet Key Exchange Protocol
-.. _IKE:
-
-Internet Key Exchange Protocol:
-  IKE ist eine Komponente von IPsec und zuständig für die gegenseitige
-  Authentifizierung sowie das Aufbauen und Aufrechterhalten von
-  :ref:`Security Associations <SA>`.
-
-  Version 2 von IKE (IKEv2) ist in RFC7296 beschrieben (siehe
-  :cite:`RFC7296`).
-
-IPsec SA:
-  siehe :ref:`Child-SA <Child-SA>`
-
 .. index:: Maximum Segment Size
    see: MSS; Maximum Segment Size
 
@@ -121,13 +71,6 @@ OSI:
   Für die Fehlersuche bei VPN sind vor allem die Schichten
   2 (Sicherung, Data Link), 3 (Vermittlung, Network) und 4 (Transport)
   relevant.
-
-.. index:: ! Outside
-
-Outside:
-  In diesem Buch meint Outside die Seite eines VPN-Gateways, wo die
-  Datagramme verschlüsselt übertragen werden, das heißt in den meisten
-  Fällen die dem Internet zugewandte Seite.
 
 .. index:: Path-MTU
    see: PMTU; Path-MTU

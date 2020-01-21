@@ -20,7 +20,7 @@ ESP:
 .. index:: GUI
 
 GUI:
-  Graphical User Interface
+  Graphical User Interface, graphische Benutzeroberfläche
 
 .. index:: IKE
 

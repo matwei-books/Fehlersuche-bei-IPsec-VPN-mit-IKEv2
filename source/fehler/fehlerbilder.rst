@@ -52,6 +52,8 @@ kann ich mich der nächsten Frage im Entscheidungsbaum zuwenden
 (Funktioniert alles?) und testen lassen,
 ob Traffic zwischen den Endpunkten ausgetauscht werden kann.
 
+.. index:: Outside
+
 Interessant wird es, wenn sich der Tunnel nicht öffnen lässt.
 Dann schaue ich als nächstes mit einem Packet-Sniffer auf der Outside,
 ob ich überhaupt Traffic vom und zum Peer-VPN-Gateway sehe,
@@ -109,6 +111,8 @@ hier durchaus in die Irre führen.
    schicken und irgendwann hatte dieser auch sein Netz wieder in Ordnung
    gebracht.
 
+.. index:: Inside
+
 Kann ich das VPN öffnen,
 suche ich nach dem interessanten Traffic auf der Inside.
 Sehe ich diesen Traffic nicht, dann muss ich mich um die Verbindung vom
@@ -130,6 +134,8 @@ Dazu ist es nützlich, zu wissen, welche Seite die Verbindungen durch den
 Tunnel aufbaut, das heißt bei TCP, welche Seite das erste Datagramm mit
 SYN-Flag sendet.
 Auf dieser Seite schaue ich zuerst nach.
+
+.. index:: Outside
 
 Kommt der interessante Traffic vom Peer, schaue ich mit einem
 Packet-Capture auf der Outside, ob außer den IKE-Datagrammen für den
@@ -162,6 +168,8 @@ In diesem Fall verwerfen etliche VPN-Gateways (z.B. Cisco ASA) die
 Datagramme und schreiben einen entsprechende Meldung in das Systemlog,
 die mich auf dieses Problem hinweist.
 
+.. index:: Inside
+
 Erwarte ich den interessanten Traffic auf der Inside, prüfe ich dort mit
 einem Packet Capture, ob er auch wirklich ankommt.
 Kommt er nicht, handelt es sich um ein - aus Sicht des
@@ -190,6 +198,8 @@ das VPN-Gateway. In diesem Fall reklamierte die Policy den Traffic für
 das VPN. Da dieses aber nicht mehr aufgebaut war, verwarf das
 VPN-Gateway den Traffic.
 Nach dem Deaktivieren der Policy funktionierte die Verbindung sofort.
+
+.. index:: Inside
 
 Bei der Cisco ASA kann ich den Traffic, der auf Inside ankommen soll,
 mit dem Befehl ``packet-tracer`` simulieren, und bekomme dann die einzelnen

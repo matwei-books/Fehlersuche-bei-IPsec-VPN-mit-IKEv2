@@ -52,12 +52,15 @@ Security-Gateway (c) schützen. Ein konformer Host muss (a) und (b)
 unterstützen, ein konformes Security-Gateway muss alle drei Formen
 unterstützen.
 
+.. index:: ! Inside, ! Outside
+
 In :numref:`ipsec-boundary` verweist *Unprotected* auf eine
 Schnittstelle, die gemeinhin mit der Farbe schwarz und verschlüsselten
-Daten assoziiert wird. *Protected* verweist dementsprechend auf die
-Farbe rot und Klartext.
+Daten assoziiert wird.
+*Protected* verweist dementsprechend auf die Farbe rot und Klartext.
 Eine IPsec-Implementation kann mehrere Schnittstellen auf jeder Seite
 der Grenze unterstützen.
+In diesem Buch meint *Inside* die rote Seite und *Outside* die schwarze.
 
 .. raw:: latex
 
@@ -68,11 +71,17 @@ IPsec setzt sich aus drei Protokollen zusammen:
 .. index:: ! Internet Security Association and Key Management Protocol
    see: ISAKMP; Internet Security Association and Key Management Protocol
 
+.. index:: ! Internet Key Exchange Protocol
+   see: IKE; Internet Key Exchange Protocol
+
 * *Internet Security Association and Key Management Protocol* (ISAKMP),
   ursprünglich beschrieben in RFC2408, das durch RFC4306 obsolet wurde,
   welches wiederum durch RFC5996 abgelöst wurde und dieses durch
-  RFC7296. ISAKMP verwies bereits in RFC2408 auf IKE für den
-  Schlüsselaustausch, RFC7296 beschreibt IKEv2 (siehe :cite:`RFC7296`).
+  RFC7296.
+  ISAKMP verwies bereits in RFC2408
+  auf IKE (Internet Key Exchange Protocol)
+  für den Schlüsselaustausch,
+  RFC7296 beschreibt IKEv2 (siehe :cite:`RFC7296`).
   
   Die Aufgabe von ISAKMP ist das Aushandeln der kryptographischen Verfahren und
   Schlüssel für die Security Associations (SA).
