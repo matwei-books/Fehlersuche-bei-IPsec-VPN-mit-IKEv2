@@ -2,26 +2,6 @@
 Glossar
 =======
 
-.. index:: Maximum Segment Size
-   see: MSS; Maximum Segment Size
-
-Maximum Segment Size (MSS):
-  Die Maximum Segment Size kennzeichnet bei TCP die maximale Anzahl von
-  Bytes, die als Nutzdaten in einem Datagramm versendet werden können.
-  Sie wird zu Beginn jeder TCP-Sitzung mit den ersten beiden Datagrammen
-  in zusätzlichen TCP-Optionen ausgehandelt und gilt für jeweils eine
-  TCP-Verbindung.
-
-.. index:: Maximum Transmission Unit
-   see: MTU; Maximum Transmission Unit
-
-Maximum Transmission Unit (MTU):
-  Die Maximum Transmission Unit gibt die maximale Paketgröße eines
-  Datagramms der Vermittlungsschicht (OSI-Ebene 3, z.B. IPv4, IPv6) an,
-  die in einem Netz der Sicherungsschicht (OSI-Ebene 2, z.B. Ethernet)
-  übertragen werden kann ohne es zu fragmentieren.
-  Sie gilt immer nur für ein Netzsegment.
-
 .. index:: Message ID
    see: MID; Message ID
 .. _MID:

@@ -393,7 +393,14 @@ b) An den Endgeräten kann ich die MTU des entsprechenden
 Beide Möglichkeiten führen auch für andere Verbindungen zu einem
 ungünstigeren Verhältnis von Nutzdaten zu Protokoll-Overhead.
 
-.. admonition:: TCP MSS-Clamping
+.. raw:: latex
+   
+   \newpage
+
+.. topic:: TCP MSS-Clamping
+
+   .. index:: ! Maximum Segment Size
+      see: MSS; Maximum Segment Size
 
    Die Maximum Segment Size ist ein Parameter
    bei den optionalen Feldern im TCP-Header,
