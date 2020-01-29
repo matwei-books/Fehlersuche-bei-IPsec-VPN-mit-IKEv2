@@ -85,11 +85,13 @@ unterscheiden.
     erzeugt wurden. Dieses Bit ändert sich beim Rekeying um
     anzuzeigen, wer das letzte Rekeying initiert hat.
 
+.. index:: Message ID
+
 * Message ID (4 Oktetts, unsigned Integer) - wird verwendet, um das
   erneute Übertragen von verlorenen Datagrammen zu steuern und die
   Anfragen und Antworten zuzuordnen. Die Message ID (MID) ist
-  wesentlich für die Sicherheit des Protokolls, weil sie
-  Replay-Attacken verhindert.
+  wesentlich für die Sicherheit des Protokolls, weil sie hilft
+  Replay-Attacken zu verhindern.
 * Length (4 Oktetts, unsigned Integer) - Gesamtlänge der Nachricht
   (Header + Nutzlast) in Oktetts.
 

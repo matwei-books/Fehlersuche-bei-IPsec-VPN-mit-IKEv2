@@ -33,6 +33,18 @@ sowohl für IKE selbst als auch für die erste IPsec SA, er tauscht Nonces
 aus und führt den Diffie-Hellman-Austausch durch. Im Idealfall werden
 dabei nur zwei Datagramme - eins in jeder Richtung - gesendet.
 
+.. topic:: Nonce
+
+   .. index:: ! Nonce
+
+   In der Kryptographie wird als "nonce" eine Zahl verstanden, die nur
+   einmal verwendet wird.
+   Mitunter ist die Sicherheit des kryptographischen Protokolls gefährdet,
+   wenn die Nonce mehrfach verwendet wird.
+   Nonces können durch Hochzählen einer Variablen gebildet werden
+   oder aus Zufallszahlen,
+   wenn die Wahrscheinlichkeit für doppelte Verwendung gering ist.
+
 Der IKE_AUTH-Exchange authentisiert die vorherigen Nachrichten, tauscht
 Identitäten und Zertifikate und etabliert die erste IPsec SA.
 

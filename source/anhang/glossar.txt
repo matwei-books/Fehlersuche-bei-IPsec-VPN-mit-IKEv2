@@ -2,47 +2,6 @@
 Glossar
 =======
 
-.. index:: Message ID
-   see: MID; Message ID
-.. _MID:
-
-Message ID:
-  Jede IKE-Nachricht enthält eine Message-ID (MID) als Teil des festen
-  IKE-Headers.
-  Diese Message-ID wird verwendet um Requests und Responses einander
-  zuzuordnen und Nachrichtenwiederholungen zu erkennen.
-
-MID:
-  siehe :ref:`Message ID <MID>`.
-  
-.. index:: MSS-Clamping
-
-MSS-Clamping:
-  Mittels MSS-Clamping kann ein Router oder Gateway künstlich die
-  maximale Datagrammgröße einer TCP-Sitzung beschränken um zum Beispiel
-  Path-MTU-Discovery unnötig zu machen, wenn die maximale MTU im Voraus
-  bekannt ist.
-  Dabei wird der Wert in der TCP-Option MSS in den ersten beiden
-  Datagrammen der TCP-Sitzung vom Router oder Gateway reduziert.
-
-.. index:: Netzsegment
-
-Netzsegment:
-  Ein Netzsegment ist ein Teilnetz mit zwei oder mehreren Geräten, die
-  über das selbe Element der Sicherungsschicht (OSI-Ebene 2, z.B.
-  Ethernet) verbunden sind.
-  Bei der Übertragung eines Datagramms vom Sender zum Empfänger ist ein
-  Netzsegment die Verbindung zwischen zwei Gateways, die das Datagramm
-  weiter transportieren.
-
-.. index:: Nonce
-
-Nonce:
-  In der Kryptographie wird als "nonce" eine Zahl verstanden, die nur
-  einmal verwendet wird. Mitunter ist die Sicherheit des
-  kryptographischen Protokolls gefährdet, wenn die Nonce mehrfach
-  verwendet wird.
-
 .. index:: OSI
 
 OSI:
