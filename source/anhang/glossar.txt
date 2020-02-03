@@ -2,40 +2,6 @@
 Glossar
 =======
 
-.. index:: OSI
-
-OSI:
-  Das OSI-Modell ist ein Referenz-Modell für Netzwerkprotokolle als
-  Schichtenarchitektur mit 7 Schichten.
-  Für die Fehlersuche bei VPN sind vor allem die Schichten
-  2 (Sicherung, Data Link), 3 (Vermittlung, Network) und 4 (Transport)
-  relevant.
-
-.. index:: Path-MTU
-   see: PMTU; Path-MTU
-
-Path-MTU:
-  Die Path-MTU ist die kleinste MTU aller Netzsegmente auf dem Weg
-  zwischen dem Sender eines Datagramms und dem Empfänger.
-
-.. index:: Path-MTU-Discovery
-   see: PMTU-Discovery; Path-MTU-Discovery
-
-Path-MTU-Discovery:
-  Path-MTU-Discovery ist ein Verfahren, um die Path-MTU einer Verbindung
-  zu bestimmen.
-  Es funktioniert im wesentlichen so, dass der Sender verbietet, ein
-  Datagramm zu fragmentieren und das erste Gateway, dass das Datagramm
-  nicht ohne es zu fragmentieren weitersenden kann, in einer
-  Fehlermeldung die MTU des nächsten Netzsegments mitteilt.
-
-  Muss die maximale Datagrammgröße durch die Path-MTU-Discovery
-  reduziert werden, geht das immer mit Paketverlusten einher, so dass
-  die verloren gegangenen Daten vom Sender mit kleineren Datagrammen
-  wiederholt werden müssen.
-  Aus diesem Grund reduzieren VPN-Gateways mit MSS-Clamping automatisch
-  die Datagrammgröße für TCP-Verbindungen.
-
 .. index:: Payload
 
 Payload:

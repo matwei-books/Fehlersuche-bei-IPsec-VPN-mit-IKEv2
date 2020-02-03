@@ -416,12 +416,12 @@ Bei einem VPN wächst die Anzahl der potentiellen Fehlerquellen.
 
 Worum geht es?
 
-.. index:: ! Maximum Transfer Unit
-   see: MTU; Maximum Transfer Unit
+.. index:: Maximum Transmission Unit
+   see: MTU; Maximum Transmission Unit
 
 In jedem Netzsegment ist die maximale Größe eines Datagramms, dass in
 einem Stück übertragen werden kann, begrenzt.
-Als Maß für diese Obergrenze wird die Maximum Transfer Unit (MTU)
+Als Maß für diese Obergrenze wird die Maximum Transmission Unit (MTU)
 verwendet, die angibt, wieviel Oktetts ein Endgerät oder ein Gateway für
 ein Datagramm der OSI-Ebene 3 (IPv4 oder IPv6) zur Verfügung stehen.
 Das sind bei Ethernet 1500 Bytes, mit Jumbo-Frames auch mehr.

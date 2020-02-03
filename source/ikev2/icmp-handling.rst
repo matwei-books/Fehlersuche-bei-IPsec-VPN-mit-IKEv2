@@ -153,6 +153,32 @@ nicht immer identisch mit der Source Address aus dem IP-Header.
 
 .. index:: ! PMTU-Discovery, ! Path-MTU Discovery
 
+.. topic:: MTU / PMTU
+
+   .. index:: ! Maximum Transmission Unit
+   .. index:: ! Path-MTU
+
+   Die Maximum Transmission Unit (MTU) beschreibt
+   die maximale Paketgröße eines Protokolls
+   der Vermittlungsschicht des OSI-Modells,
+   die ohne Fragmentierung in einem Netz Sicherungsschicht
+   übertragen werden kann.
+   Jedes Gerät in einem Computernetzwerk kann nur
+   die MTU der direkt angeschlossenen Netze kennen.
+
+   Bei der Kommunikation zwischen zwei Geräten
+   in verschiedenen Subnetzen durchqueren die Datagramme
+   Netzsegmente, die eine andere MTU haben können.
+   Die Path-MTU (PMTU) ist die kleinste MTU aller Netze,
+   die ein Datagramm vom Sender zum Empfänger durchquert.
+
+   Der Overhead für die Datenübertragung wird um so geringer,
+   je größer die Datagramme werden,
+   solange sie nicht fragmentiert sind.
+   Da die PMTU nicht von vornherein für jede Verbindung bekannt ist,
+   versuchen einige Protokolle, wie zum Beispiel TCP,
+   die PMTU durch Path-MTU-Discovery zu ermitteln.
+
 Path-MTU Discovery
 ------------------
 
