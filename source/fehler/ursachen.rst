@@ -725,7 +725,7 @@ denen der Anti-Replay-Check fehlschlagen kann:
 * Datagramme können während der Übertragung umsortiert werden und somit
   in falscher Reihenfolge eintreffen.
 
-* Durch QoS beim sendenden VPN-Gateway können die Datagramme
+* Durch QoS-Funktionen beim sendenden VPN-Gateway können die Datagramme
   bereits hier so umsortiert werden,
   dass Datagramme aus dem gleitenden Fenster herausfallen.
 

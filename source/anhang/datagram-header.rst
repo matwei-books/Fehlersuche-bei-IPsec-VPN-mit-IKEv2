@@ -106,6 +106,18 @@ unterscheiden.
 Generic Payload Header
 ----------------------
 
+.. index:: ! Payload
+
+Bei der Beschreibung von Protokoll-Headern
+bezeichnet eine Payload Attribute,
+die in einem Protokoll-Element zusammengefasst sind
+und denen ein Protokoll-Header vorangestellt ist.
+Bei der Datenübertragung hingegen
+sind mit Payload die Nutzdaten gemeint,
+die zwischen zwei Partnern mit einem Protokoll übertragen werden.
+Daher ist es wichtig den Kontext zu beachten,
+in dem dieser Begriff verwendet wird.
+
 Jede IKE-Nutzlast beginnt mit einem generischen Header wie in
 :numref:`ipsec-ike-datagram-gph` dessen Felder ich nachfolgend
 erläutere. Die konkreten IKE-Parameter sind als Nutzlast in den

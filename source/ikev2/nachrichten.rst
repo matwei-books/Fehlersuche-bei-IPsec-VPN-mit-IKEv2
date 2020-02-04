@@ -19,8 +19,8 @@ Der Peer, der einen IKE_SA_INIT-Request sendet, wird *Initiator* genannt,
 derjenige, welcher darauf antwort, *Responder*.
 Beim Rekeying der IKE-SA ist derjenige Initiator, der das
 Rekeying veranlasst hat.
-In den ausgetauschten IKE-Datagrammen ist der Initiator an dem gesetzten
-Flag zu erkennen.
+In den ausgetauschten IKE-Datagrammen
+ist der Initiator am gesetzten Flag zu erkennen.
 
 .. index:: Nachrichten; initiale
 

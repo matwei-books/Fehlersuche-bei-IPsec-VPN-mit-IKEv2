@@ -19,6 +19,15 @@ Security Policy Database (SPD) und einer Security Association Database
 (SAD) festgelegt sind.
 Dabei bestimmt die SPD, welcher Traffic geschützt wird und die SAD, wie
 dieser Traffic geschützt werden soll.
+In der SAD werden die durch IKE ausgehandelten SA verwaltet,
+die bestimmen,
+wie der im VPN übetragene Traffic verschlüsselt werden soll.
+Im Gegensatz zur SPD ändert sich die SAD sehr häufig:
+mit jeder neuen SA, die ausgehandelt wurde,
+und jeder alten SA, die gelöscht wurde.
+Die SPD enthält die Policies,
+die die erlaubten Parameter für die SA begrenzen
+und nur selten durch den Administrator geändert werden.
 
 .. index:: Peer Authorization Database
    see: PAD; Peer Authorization Database
@@ -126,11 +135,22 @@ Für IKE2 beschreibt :cite:`RFC4307` die kryptographischen Algorithmen,
 während :cite:`RFC4305` die Anforderungen an die Implementation von
 kryptografischen Algorithmen für ESP und AH beschreibt.
 
-Eine SA besteht aus einem oder mehreren Proposals die jeweils ein
-Protokoll umfassen. Jedes dieser Protokolle enthält ein oder
-mehrere Transforms, die ihrerseits einen kryptographischen Algorithmus
-beschreiben. Ein Transform kann Attribute enthalten, falls das notwendig
-ist, um den kryptographischen Algorithmus vollständig zu beschreiben.
+.. index:: Proposal
+
+Bei der Aushandlung einer SA sendet der Initiator
+ein oder mehrere Proposals, die jeweils ein Protokoll umfassen.
+Jedes dieser Protokolle enthält ein oder mehrere Transforms,
+die ihrerseits einen kryptographischen Algorithmus beschreiben.
+Ein Transform kann Attribute enthalten,
+falls das notwendig ist,
+um den kryptographischen Algorithmus vollständig zu beschreiben.
+der Responder wählt eines der gesendeten Proposals aus
+und sendet es in der Antwort.
+Wählt der Responder kein Proposal aus,
+ist die Aushandlung dieser SA gescheitert.
+
+.. index:: ! Security Parameter Index
+   see: SPI; Security Parameter Index
 
 In einem Datagramm wird die SA, an die der Empfänger das Datagramm
 binden soll und in der er die nötigen Angaben zum Entschlüsseln findet,
