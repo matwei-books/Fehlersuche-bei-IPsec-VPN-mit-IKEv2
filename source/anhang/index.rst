@@ -6,5 +6,5 @@
 .. toctree::
 
    abkuerzungen
-   datagram-header
-   hilfsmittel
+   datagram-header-empty
+   hilfsmittel-empty
