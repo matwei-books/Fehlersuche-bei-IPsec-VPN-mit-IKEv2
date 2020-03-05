@@ -1,6 +1,4 @@
 
-:orphan:
-
 Einführung
 ==========
 
@@ -16,7 +14,7 @@ anderem für einen großen IT-Dienstleister IPsec-Tunnel zu sehr vielen
 verschiedenen Gegenstellen - den Peers betreute. Ich hatte pro Woche
 drei, vier und mehr IPsec-VPN einzurichten und natürlich gehörte die
 Fehlersuche dazu, wenn es nicht sofort funktionierte.
-Am Anfang profiterte ich sehr von der Hilfe meiner Kollegen,
+Von Anfang an profitierte ich sehr von der Hilfe meiner Kollegen,
 die mir Templates zum Einrichten von neuen und zum
 Ändern von bestehenden VPN gaben. Sie zeigten mir auch, woran ich
 erkennen konnte, ob ein VPN funktionierte oder nicht.
@@ -40,10 +38,10 @@ wenn man beide Endpunkte selbst betreibt.
 Dann hat man allerdings die meisten Komponenten unter eigener Kontrolle
 und kann in Ruhe alles testen.
 
-Noch schwieriger wird es, wenn man ein half-managed VPN betreibt
+Schwieriger wird es, wenn man ein half-managed VPN betreibt
 bei dem jeder Administrator nur sein VPN-Gateway kontrollieren kann.
 Kommen dazu noch Geräte oder Software unterschiedlicher Hersteller auf
-beiden Seiten in's Spiel, kann es schon vertrackt werden, einem
+beiden Seiten ins Spiel, kann es schon vertrackt werden, einem
 Problem auf die Schliche zu kommen.
 
 .. figure:: /images/vpn.png
@@ -55,17 +53,17 @@ Das Diagramm soll die möglichen Problemfelder verdeutlichen:
 
 * An zentraler Stelle ist IPsec als Protokoll selbst.
   Im Gegensatz zu OpenVPN, bei dem beide Seiten Software aus der gleichen
-  Quelle verwenden, was Interoperabilitätsprobleme sehr stark reduziert,
+  Quelle verwenden
   handelt es sich bei IPsec um ein durch RFCs definiertes und standardisiertes
   Protokoll, das von verschiedenen Herstellern auf je eigene Weise
   interpretiert wird.
 
-* Die verschiedenen Hersteller implementieren verschiedene Features des
-  Protokolls, über die ich eine Schnittmenge bilden muss, zwischen den
+* Verschiedene Hersteller implementieren verschiedene Features des
+  Protokolls, so dass ich ich eine Schnittmenge bilden muss, zwischen den
   Fähigkeiten der beteiligten Geräte und den Anforderungen an die Verbindung.
 
 * Manchmal verwenden die Hersteller gleiche Begriffe für unterschiedliche
-  Dinge und unterschiedliche Begriffe für die gleichen Dinge.
+  Dinge oder unterschiedliche Begriffe für die gleichen Dinge.
   Beides trägt keineswegs dazu bei, die Verständigung zwischen den
   Administratoren der beiden Seiten zu erleichtern.
   Dabei ist gerade eine gute Kommunikation notwendig, denn im schlimmsten Fall
@@ -73,7 +71,7 @@ Das Diagramm soll die möglichen Problemfelder verdeutlichen:
   Strichlinien angedeutet ist.
 
 * Das nächste Problem ist NAT, die Manipulation von IP-Adressen.
-  NAT führt dazu, dass sich die Adressen ein und desselben Datagrams im Netz A
+  NAT führt dazu, dass sich die Adressen ein und desselben Datagramms im Netz A
   von den im Tunnel verwendeten und diese von den im Netz B unterscheiden
   können.
   Solange alles funktioniert, mag das angehen, im Fehlerfall kann es die
@@ -113,7 +111,7 @@ auf die Literatur, insbesondere :cite:`RFC7296` und
 mit Cisco Geräten bietet.
 
 Die nächsten drei Kapitel widmen sich der Problemstellung, den Fragen,
-die ich mir allgemein bei Fehlersuchen und konkret bei IPsec mit IKEv2
+die ich mir allgemein bei der Fehlersuche und konkret bei IPsec mit IKEv2
 stelle, sowie den Antworten darauf, beziehungsweise woher ich diese
 bekomme.
 
@@ -125,3 +123,9 @@ mit Paketmitschnitten und generell das Verständnis der ausgetauschten
 Nachrichten erleichtern. Außerdem beschreibe ich einige Hilfsmittel, die
 allgemein die Arbeit bei der Fehlersuche erleichtern können. 
 
+Schließlich gehe ich auf ausgewählte Software ein,
+die als IPsec-VPN-Gateway verwendet werden kann,
+und erläutere,
+wie ich mit diesen die Erkenntnisse aus dem Buch anwende.
+Da sich diese Software im Laufe der Zeit weiterentwickelt
+sind diese Ausführungen mit einer Extraprise Salz zu genießen.
