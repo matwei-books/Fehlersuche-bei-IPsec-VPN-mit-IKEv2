@@ -32,6 +32,11 @@ IKE:
 ISAKMP:
   Internet Security Assiociation and Key Management Protocol
 
+.. index:: L2L
+
+L2L:
+  Lan to Lan
+
 .. index:: MSS
 
 MSS:
