@@ -26,7 +26,7 @@ author = 'Mathias Weidner'
 # The short X.Y version
 version = '0.1'
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+release = ''
 
 
 # -- General configuration ---------------------------------------------------
@@ -150,6 +150,7 @@ vdivide={1.2in,*,*}
 %\dedication{This sample is dedicated to all unsuccessful trials so far}
 \maketitle
 ''',
+   'releasename': '',
 }
 
 latex_docclass = {
