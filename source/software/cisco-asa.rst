@@ -101,8 +101,7 @@ Systemlogs und Debug-Informationen
 
 Im Internet sind Informationen zur Konfiguration von Cisco-Geräten sehr
 leicht zu finden.
-Die ultimative Referenz findet man auf den Webseiten von Cisco selbst,
-zum Beispiel :cite:`Cisco-asa-log-config`.
+Die ultimative Referenz findet man auf den Webseiten von Cisco selbst.
 
 Möchte ich die Systemlogs in der Konsole oder SSH-Sitzung sehen,
 gebe ich den folgenden Befehl ein::

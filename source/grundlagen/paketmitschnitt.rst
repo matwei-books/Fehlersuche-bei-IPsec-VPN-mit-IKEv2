@@ -324,8 +324,7 @@ auf meinen Rechner kopieren.
     copy /pcap capture:nameOfCapture tftp://adress/nameOfCapture.pcap
 
 * Bei Fortinet kann ich den Mitschnitt kopieren, wenn ich ihn in der
-  grafischen Benutzeroberfläche gestartet habe (siehe
-  :cite:`FortinetPacketCaptureGUI`).
+  grafischen Benutzeroberfläche gestartet habe.
 
 * Bei den Geräten, die tcpdump verwenden, und bei MikroTik kann ich die Datei
   oft mit *scp* kopieren.
