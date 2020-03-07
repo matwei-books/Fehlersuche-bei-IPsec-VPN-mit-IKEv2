@@ -55,11 +55,11 @@ Das Diagramm soll die möglichen Problemfelder verdeutlichen:
   Im Gegensatz zu OpenVPN, bei dem beide Seiten Software aus der gleichen
   Quelle verwenden
   handelt es sich bei IPsec um ein durch RFCs definiertes und standardisiertes
-  Protokoll, das von verschiedenen Herstellern auf je eigene Weise
+  Protokoll, das von beiden Seiten auf je eigene Weise
   interpretiert wird.
 
 * Verschiedene Hersteller implementieren verschiedene Features des
-  Protokolls, so dass ich ich eine Schnittmenge bilden muss, zwischen den
+  Protokolls, so dass man eine Schnittmenge bilden muss, zwischen den
   Fähigkeiten der beteiligten Geräte und den Anforderungen an die Verbindung.
 
 * Manchmal verwenden die Hersteller gleiche Begriffe für unterschiedliche
@@ -85,14 +85,17 @@ Das Diagramm soll die möglichen Problemfelder verdeutlichen:
   Dazu muss ich mich mit allen Beteiligten absprechen, was das Finden eines
   passenden Termins erschweren kann.
 
-Mit diesem Buch möchte ich helfen, Probleme mit IPsec-VPN strukturiert
+Damit ist lediglich der Rahmen abgesteckt,
+in dem sich die VPN-Administratoren bewegen
+und innerhalb dessen sie mit den unterschiedlichsten Problemen
+konfrontiert werden können.
+Mit diesem Buch möchte ich helfen, diese Probleme strukturiert
 zu diagnostizieren und schnell zu einem Ergebnis zu kommen.
 
 Das Buch ist für Praktiker, die bereits mindestens ein VPN mit IPsec
 eingerichtet haben und dabei auf Probleme gestoßen sind, die sie in
 Zukunft schneller erkennen und lösen wollen.
-
-Ich beschränke mich hier auf die Fehlersuche bei IPsec-VPN mit IKEv2.
+Ich beschränke mich dabei auf die Fehlersuche bei IPsec-VPN mit IKEv2.
 Für die Diagnose von VPN mit IKEv1 ist dieses Buch nur bedingt geeignet.
 
 Das Buch ist keine Einführung in IPsec und auch keine Anleitung zum
@@ -100,9 +103,9 @@ Einrichten von VPN. Dementsprechend gehe ich auch nicht auf die Vor- und
 Nachteile der einzelnen kryptographischen Parameter ein und verweise an
 dieser Stelle auf externe Quellen wie :cite:`BSI-TR-02102-3`.
 
-Das Buch beginnt mit Grundlagen, die ich für das Verständnis und
-die Diagnose von Netzwerkproblemen voraussetze. Diese können getrost
-übersprungen und bei Bedarf nachgelesen werden.
+Ich beginne im nächsten Kapitel mit den Grundlagen,
+die ich für das Verständnis und die Diagnose von Netzwerkproblemen voraussetze.
+Diese können getrost übersprungen und bei Bedarf nachgelesen werden.
 
 Danach folgt eine Einführung in IKEv2, soweit für die Diagnose von
 Problemen nötig. Für detailliertere Erörterungen verweise ich
