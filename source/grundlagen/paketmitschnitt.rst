@@ -343,26 +343,30 @@ Außer den Optionen ``-n`` um Namensauflösungen von Adressen zu vermeiden
 und ``-r`` um die Datei mit dem Mitschnitt anzugeben,
 verwende ich je nach Bedarf noch die folgenden Optionen:
 
-``-e``   zeigt den link-level Header an,
+``-e``
+  zeigt den link-level Header an,
 
-     Diese Option verwende ich nur, wenn ich Zweifel habe, zu welchem
-     Next-Hop das Datagramm gesendet wird, beziehungsweise von welchem es
-     kam.
+  Diese Option verwende ich nur, wenn ich Zweifel habe, zu welchem
+  Next-Hop das Datagramm gesendet wird, beziehungsweise von welchem es
+  kam.
 
-``-#``   zeigt eine fortlaufende Nummer vor den Datagrammen an,
+``-#``
+  zeigt eine fortlaufende Nummer vor den Datagrammen an,
 
-     Diese Option hilft mir, ein bestimmtes Datagramm bei späteren
-     Untersuchungen wiederzufinden.
+  Diese Option hilft mir, ein bestimmtes Datagramm bei späteren
+  Untersuchungen wiederzufinden.
 
-``-v``   zeigt mehr dekodierte Informationen zu dem Datagramm an,
+``-v``
+  zeigt mehr dekodierte Informationen zu dem Datagramm an,
 
-     Die Option ``-v`` kann ich mehrfach, bis zu dreimal, angeben um noch
-     mehr Informationen aus dem Datagramm zu erhalten.
+  Die Option ``-v`` kann ich mehrfach, bis zu dreimal, angeben um noch
+  mehr Informationen aus dem Datagramm zu erhalten.
 
-``-X`` oder ``-XX``  zeigt den Inhalt des Datagramms in Hex und ASCII an,
+``-X`` /``-XX``
+  zeigt den Inhalt des Datagramms in Hex und ASCII an,
 
-     Mit zwei ``X`` wird der Link-Level-Header zusätzlich ausgegeben,
-     mit einem ``X`` beginnt die Ausgabe beim IP-Header.
+  Mit zwei ``X`` wird der Link-Level-Header zusätzlich ausgegeben,
+  mit einem ``X`` beginnt die Ausgabe beim IP-Header.
 
 Auswertung mit Wireshark
 ........................
