@@ -129,6 +129,9 @@ vdivide={1.2in,*,*}
 }
 %% nur was im Inhaltsverzeichnis auftaucht, wird nummeriert
 \setcounter{secnumdepth}{1}
+\hyphenation{
+	da-rauf
+}
 ''',
 
     # Latex figure (float) alignment
