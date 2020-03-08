@@ -1,6 +1,4 @@
 
-:orphan:
-
 OSI Modell
 ==========
 
@@ -20,7 +18,7 @@ IT-Dienstleister, rund um die Uhr. An einem Freitagmorgen gegen 03:00 Uhr
 fielen alle Verbindungen über dieses VPN aus. Natürlich waren auch wir
 in die Fehlersuche involviert und ab 06:00 Uhr war der erste unserer
 Kollegen über die gesamte Schicht mit diesem VPN beschäftigt. Da keine IKE-SA
-zustandekamen und er auch keinen Traffic vom Peer sah, tippte dieser
+zustande kamen und er auch keinen Traffic vom Peer sah, tippte dieser
 Kollege schon zeitig auf Verbindungsprobleme. Dennoch passierte nichts
 bezüglich dieser Verbindungsprobleme während seiner Schicht. Der Kollege
 der nächsten Schicht ließ sich gar überreden, die Konfiguration von IKEv2
@@ -50,14 +48,14 @@ zugrundeliegenden Problems, weil beide VPN-Gateways Traffic für jeweils
 den anderen Peer aus ihren Netzwerken bekamen und darum versuchten, die
 VPN-Verbindung aufzubauen. Dadurch tauchte die Peer-IP-Adresse in den
 Logs auf, was einige der weniger erfahrenen Administratoren dazu
-brachte, plötzlich doch "Traffic vom Peer" zu sehen. Im Packet-Capture
+brachte, plötzlich doch "Traffic vom Peer" zu sehen. Im Paketmitschnitt
 war kein Traffic vom Peer zu sehen, sondern nur ausgehender Traffic.
 
 .. index:: ! Open Systems Interconnections Modell
    see: OSI-Modell; Open Systems Interconnections Modell
 .. _OSI-Modell:
 
-An dieser Stelle unterbreche ich die Geschichte dieser Fehlersuche nud
+An dieser Stelle unterbreche ich die Geschichte dieser Fehlersuche und
 steige ein in das OSI-Modell, das *Open Systems Interconnections* Modell,
 das nicht mehr ist, als ein Modell. Es gibt kein real existierendes
 Protokoll und keine Software welche dieses Modell abbilden. Von daher
@@ -112,7 +110,7 @@ nutzen.
 
 Und IPsec, das Buch ist doch über IPsec, oder?
 Das stimmt, IPsec habe ich hier noch nicht erwähnt, weil es eine
-Sonderrolle einnimmt, wie alle Tunnelprotokolle.
+besondere Rolle einnimmt, wie alle Tunnelprotokolle.
 
 IPsec bietet nach oben Dienste der Schicht 3 an, wie IPv4 und IPv6.
 Es nutzt dazu jedoch Dienste der Schichten 3 (IPv4 oder IPv6 für AH und ESP)

@@ -1,5 +1,7 @@
 
-:orphan:
+.. raw:: latex
+
+   \clearpage
 
 Arbeit mit Textdateien
 ======================
@@ -13,7 +15,8 @@ Kann ich souverän mit Text umgehen, so hilft mir das bei der Auswertung
 der Logs und der Debugausgaben sowie bei der Analyse von
 Konfigurationsdateien, wenn diese als Text vorliegen.
 
-.. note::
+.. admonition:: Am Rande
+
    Zwar höre ich immer wieder von Log-Software, die den Umgang mit den
    Logs doch so gut unterstützen kann und so viele Filtermöglichkeiten
    bietet oder gar Nachrichten korrellieren kann.
@@ -36,7 +39,7 @@ Konfigurationsdateien, wenn diese als Text vorliegen.
 
    Ein Kollege, der bei einer Fehlersuche stundenlang mit einem
    derartigen Tool Logs untersuchte und dabei nicht davon abließ, sein
-   Tool zu preisen, brachte das Problem damit unbewusst auf den Punkt.
+   Tool zu preisen, brachte das Problem unbewusst so auf den Punkt:
    Man kann mit diesen Tools relativ schnell die Ursache eines Problems
    finden, *wenn man weiß, wonach man suchen muss*.
    
@@ -45,8 +48,12 @@ Konfigurationsdateien, wenn diese als Text vorliegen.
    Dann kommt es während der Untersuchung darauf an, dass ich schnell
    in großen Texten navigieren kann sowie schnell Text selektieren,
    reduzieren und extrahieren kann. Und in manchen Fällen brauche ich
-   einen rudimentären Parser für semistrukturierten Text wie
-   Konfigurationsdateien.
+   einen rudimentären Parser für semistrukturierten Text wie zum
+   Beispiel Konfigurationsdateien.
+
+.. raw:: latex
+
+   \clearpage
 
 Darum arbeite ich am liebsten mit
 
@@ -62,7 +69,7 @@ diff und wdiff
     um ähnliche Texte zu vergleichen und kleine Unterschiede zu finden,
 
 awk oder perl
-    um Text zu extrahieren oder um halbstrukturierten Text zu parsen,
+    um Text zu extrahieren oder um schwach strukturierten Text zu parsen,
     zum Beispiel um alle VPN zu identifizieren, die auf eine bestimmte
     Art konfiguriert sind.
 
@@ -77,10 +84,7 @@ Less
 
 Das wichtigste, was man bei einem interaktiven Programm wissen muss, ist
 wie man es beendet.
-Das geht mit den Tastaturkommandos ``Q``, ``q``, ``:Q``, ``:q`` oder ``ZZ``.
-Kenner des Editors *vi* beziehungsweise seiner Nachfahren sehen in den
-letzten beiden Möglichkeiten eine Verwandschaft der Bedienung zu diesem
-Editor.
+Das geht mit den Tastaturbefehlen ``Q``, ``q``, ``:Q``, ``:q`` oder ``ZZ``.
 
 Den Text, den ich mit less betrachten will, kann ich auf der
 Kommandozeile als Dateinamen angeben oder über eine Pipe zur
@@ -128,7 +132,7 @@ Mit den Befehlen ``/Muster`` suche ich vorwärts im Text nach dem nächsten
 Vorkommen von *Muster*.
 Um rückwärts zu suchen verwende ich stattdessen ``?Muster``.
 Mit ``n`` wiederhole ich die letzte Suche und mit ``N`` kehre ich die
-Suchrichtung um.
+Richtung der Suche um.
 
 Mit ``&Muster`` kann ich die Anzeige auf die Zeilen beschränken, die
 *Muster* enthalten.
@@ -159,11 +163,11 @@ und ausgeschaltet (toggle).
 
 Das sind die Kommandos und Optionen, die ich am häufigsten verwende.
 Less hat noch sehr viel mehr zu bieten, die meisten davon sind nicht wichtig,
-bei Bedarf gibt es Hilfe aus der Handbuchseite ``man less``, die übrigens bei den meisten
+bei Bedarf gibt es Hilfe mit ``man less``, die übrigens bei den meisten
 Systemen mit less paginiert wird.
 Noch schneller kommt man an Hilfe mit der Kommandozeilenoption ``--help``
 beziehungsweise ``-?`` oder, während das Programm schon läuft,
-mit dem Tastaturkommando ``h`` oder ``H``.
+mit dem Tastaturbefehl ``h`` oder ``H``.
 
 .. index:: grep
 
@@ -179,7 +183,7 @@ Normalerweise unterscheidet grep die Groß- und Kleinschreibung der
 angegebenen Muster, mit der Option ``-i`` kann ich das abschalten.
 
 Text in einer Pipe filtere ich meist beim analysieren von Logdateien.
-Wenn ich zum Beispiel während einer Debugging-Sitzung die relevanten
+Wenn ich zum Beispiel während einer Debug-Sitzung die relevanten
 aktuellen Logzeilen im Auge behalten will, filtere ich in einer Console
 mit dem Befehl::
 
@@ -222,7 +226,7 @@ interessiert, die ich mit der Option ``-l`` bekomme::
   less $(grep -r Muster /etc)
 
 Manchmal finde ich auf einem System als Konfigurationsdatei eine
-modifizierte Default-Datei mit großen Mengen an Kommentaren und nur
+modifizierte Template-Datei mit großen Mengen an Kommentaren und nur
 wenigen Konfigurationsanweisungen.
 Dann reduziere ich die Datei mit folgendem Befehl auf das Wesentliche::
 
@@ -272,12 +276,12 @@ AWK
 AWK verwende ich für einfache Manipulationen von zeilenorientierten Daten.
 Dafür ist es ideal geeignet denn die Grundstruktur eines AWK-Skripts
 besteht aus einer Folge von Mustern, denen zugehörige Aktionen in einem
-Anweisnugsblock folgen::
+Anweisungsblock folgen::
 
   /Muster/ { aktionen }
 
 Dabei können die Aktionen sehr komplex sein und auch
-Stringmanipulationen enthalten.
+den Text ändern.
 Bei den Aktionen steht mir die ganze Zeile als ``$0`` für die Bearbeitung
 zur Verfügung und die einzelnen Felder daraus als ``$1`` bis ``$n``
 wobei die Felder durch Leerzeichen getrennt werden, wenn ich den
@@ -316,7 +320,7 @@ Aber auch Python und andere Sprachen, die zur effizienten Verarbeitung
 von Text geeignet sind und einen umfangreichen Bestand an
 Musterlösungen, Bibliotheken und Modulen mitbringen, bieten sich an.
 
-Ich setze auf Perl für tiefergehende Analysen von Logs und
+Ich setze auf Perl für tiefer gehende Analysen von Logs und
 Konfigurationsdateien.
 Dabei kommt es meist nur darauf an, ein Skript zu schreiben, das genau
 mein Problem löst und das möglichst schnell.
@@ -336,7 +340,7 @@ kontrollieren.
 
 .. index:: Artificial Ignorance
 
-Das zweite wichtige Anwendungsfall für Perl-Skripte ist die
+Das zweite wichtige Anwendungsfall für Perl-Skripts ist die
 Log-Komprimierung mit *Artificial Ignorance* (AI), einem Begriff, den ich
 zum ersten Mal Ende der 1990er Jahre bei Marcus Ranum las [#]_.
 Dabei geht es darum, Schritt für Schritt uninteressante Logzeilen zu
@@ -348,7 +352,7 @@ dann mit ``sort`` und ``uniq`` abgezählt werden können.
    http://www.ranum.com/security/computer_security/papers/ai/ zu finden.
 
 Während Marcus Ranum auf die Unix-Textwerkzeuge ``sed`` und ``grep``
-setzt, finde ich es einfacher die Textanpassungen mit Perl zu erledigen.
+setzt, finde ich es einfacher die Anpassungen mit Perl zu erledigen.
 
 Der Grundgedanke bei AI ist, die Logzeilen ihrer zufälligen Unterschiede
 zu entkleiden und bei dem, was übrig bleibt, zu entscheiden, ob es
@@ -364,7 +368,7 @@ Meldungen mit folgendem Aufruf::
 Prinzipiell ließe sich auch der nachfolgende Aufruf von ``sort`` und
 ``uniq`` gleich im Perl-Skript ``logai`` mit erledigen.
 
-Von der sortieren Liste der Lognachrichten mit deren Häufigkeiten
+Von der sortierten Liste der Lognachrichten mit deren Häufigkeiten
 interessieren mich sowohl der Anfang mit den häufigsten Nachrichten als
 auch das Ende mit den einmaligen Logzeilen.
 
@@ -381,7 +385,7 @@ meiner konkreten Umgebung schnell auf interessante Ereignisse in den
 Systemlogs hinweist, die meine Fehlersuche in die richtige Richtung
 lenken können.
 
-Der dritte Anwendungsfall für Skripte ist das Aufbereiten der
+Der dritte Anwendungsfall für Skripts ist das Aufbereiten der
 Konfiguration für Vergleiche mit ``diff``.
 In den meisten Fällen ist es nicht nötig, allerdings hatte ich in einem
 Fall bei einer GeNUScreen-Firewall, dass nach einer kleinen Änderung im
@@ -415,19 +419,19 @@ bestimmte Bedeutung, die sich manchmal erst aus dem Kontext erschließt.
 Dabei kann ein Zeichen als normales Zeichen agieren, das für sich selbst
 steht, wie die Buchstaben und Zahlen.
 Alternativ kann es sich um ein Sonderzeichen handeln, dass eine
-bestimmte Funktion hat oder um einen Modifizierer, der die Bedeutung des
+bestimmte Funktion hat oder um einen Modifikator, der die Bedeutung des
 vorhergehenden oder nachfolgenden Zeichens abwandelt.
 
 Reguläre Ausdrücke können case-sensitive oder case-insensitive sein, das
 heißt Groß- und Kleinschreibung beachten oder ignorieren.
 
 Generell gilt, dass alle Zeichen, die kein Sonderzeichen und kein
-Bestandteil eines Modifizierers sind, für sich selbst stehen.
+Bestandteil eines Modifikators sind, für sich selbst stehen.
 
 Modifzierer
 ...........
 
-Die meisten Modifizierer stehen hinter dem Zeichen, dass sie
+Die meisten Modifikatoren stehen hinter dem Zeichen, dass sie
 modifizieren, wie
 
 ``?``
@@ -445,9 +449,9 @@ modifizieren, wie
   wenn das Zeichen mindestens *m* mal und höchstens *n* mal vorkommen
   darf.
 
-Eine Ausnahme bildet der Modifizierer ``\``, der einem nachfolgenden
-Zeichen eine Sonderbedeutung zuweisen kann (``\w``, ``\d``, ...) oder
-eine Sonderbedeutung wieder aufheben kann (``\.``, ``\[``, ``\\``, ...).
+Eine Ausnahme bildet der Modifikator ``\``, der einem nachfolgenden
+Zeichen eine besondere Bedeutung zuweisen kann (``\w``, ``\d``, ...) oder
+eine solche wieder aufheben kann (``\.``, ``\[``, ``\\``, ...).
 
 Sonderzeichen
 .............
@@ -469,7 +473,7 @@ Die folgenden Sonderzeichen verwende ich am häufigsten:
 
 ``(``
   leitet eine Gruppe von Zeichen ein, die als Gesamtheit betrachtet
-  wird. Nachfolgende Modifizierer betreffen die ganze Zeichenfolge der
+  wird. Nachfolgende Modifikator betreffen die ganze Zeichenfolge der
   Gruppe. Beendet wird die Gruppe mit dem zugehörigen ``)``.
 
 ``[``
@@ -548,7 +552,7 @@ Der Ausdruck besteht aus vier Gruppen von je 1 bis 3 Ziffern, die durch
 drei Punkte getrennt sind.
 
 Einen ähnlichen Ausdruck verwende ich in Perl zum Maskieren von Teilen
-einer IP-Adresse, zum Beispiel um einen Adressbereich zu pseudonymisieren::
+einer IP-Adresse, zum Beispiel für die Pseudonomisierung von Adressbereichen::
 
   s/(\d{1,3}\.\d{1,3}\.\d{1,3}\).\d{1,3}/$1.X/g
  

@@ -1,5 +1,7 @@
 
-:orphan:
+.. raw:: latex
+
+   \clearpage
 
 Paketmitschnitt
 ===============
@@ -54,7 +56,7 @@ Bei Cisco ASA Geräten ist es möglich Pseudo-Paketmitschnitte generieren
 zu lassen, die den Inhalt der verschlüsselten IKE-Datagramme zeigen,
 obwohl dieser normalerweise in einem Paketmitschnitt nicht zugänglich
 ist. In allen anderen Fällen muss ich die Informationen aus dem
-Mitschnitt mit Logs und Debuginformationen kombinieren.
+Mitschnitt mit Logs und Debug-Informationen kombinieren.
 
 Datenverkehr mitschneiden
 -------------------------
@@ -97,8 +99,8 @@ die nötigen Befehle kennen. Auf der Kommandozeile sind das zum Beispiel
 
 * bei Cisco ASA::
 
-    capture nameOfCapture ...
-    capture nameOfCapture type isakmp ...
+    capture name ...
+    capture name type isakmp ...
 
   Der Typ ``isakmp`` bei der Cisco ASA ist
   insbesondere bei Mitschnitten der verschlüsselten Seite interessant,
@@ -107,13 +109,13 @@ die nötigen Befehle kennen. Auf der Kommandozeile sind das zum Beispiel
   Das erleichtert das Finden von Fehlkonfigurationen bei den
   IKE-Parametern.
 
-* bei Fortinet (siehe :cite:`FortinetPacketCaptureCLI`)::
+* bei Fortinet::
 
     diag sniff packet ...
 
 * bei Checkpoint, GeNUScreen, Linux- oder BSD-Firewalls mit VPN::
 
-    tcpdump -w nameOfCaptureFile ...
+    tcpdump -w filename ...
 
 * bei MikroTik::
 
@@ -133,20 +135,20 @@ hier kurz auf die relevanten Optionen und Filtermöglichkeiten ein.
 
 Am häufigsten verwende ich tcpdump mit den folgenden Optionen::
 
-  tcpdump -n -U -i interfaceName -w fileName -s snapLen filterExpression
+  tcpdump -n -U -i ifName -w fName -s len filterExpression
 
 -n
   keine Adressen und Portnummern in Namen übersetzen
 -U
   Schreibpuffer nach jedem Datagramm leeren
--i interfaceName
+-i ifName
   Netzwerkschnittstelle, an der mitgeschnitten werden soll
--w fileName
+-w fName
   Dateiname für den Paketmitschnitt
--s snapLen
+-s len
   Maximalgröße jedes einzelnen mitgeschnittenen Datagramms
 
-Keine Adresssen und Portnummern zu übersetzen spart im einfachsten Fall
+Keine Adressen und Portnummern zu übersetzen spart im einfachsten Fall
 Zeit, insbesondere bei den Adressen erspare ich mir damit zusätzlichen
 DNS-Datenverkehr.
 
@@ -233,7 +235,7 @@ Paketmitschnitt auf der verschlüsselten Seite
 
 Auf der Outside bin ich im Allgemeinen nur an der IP-Adresse des
 Peer-VPN-Gateways interessiert. Normalerweise sollten alle Datagramme
-hier entweder als Sender oder Empfänger die Adressse meines
+hier entweder als Sender oder Empfänger die Adresse meines
 VPN-Gateways haben. Darum filtere ich in erster Linie auf die
 Adresse des Peer-Gateways. Lediglich, wenn ich Netzwerkprobleme zwischen
 den beiden VPN-Gateways vermute, filtere ich zusätzlich auf ICMP wie bei
@@ -243,7 +245,7 @@ Der einfachste Filterausdruck auf der verschlüsselten Seite ist::
 
   host peerAddress
 
-wobei *peerAddress* für die IP-Addresse des VPN-Gateways beim Peer
+wobei *peerAddress* für die IP-Adresse des VPN-Gateways beim Peer
 steht. Mit diesem Filter bekomme ich sowohl IKE- als auch IPsec-Traffic.
 In den meisten Fällen bin ich nur am IKE-Traffic interessiert, bei
 Problemen mit dem Aufbau des VPN ist das jedoch egal, da dann
@@ -300,14 +302,14 @@ Kommandozeile des Gerätes, wo er angefertigt wurde.
 
 * Bei Cisco ASA::
 
-    show capture nameOfCapture ...
+    show capture name ...
 
 * Bei Fortinet habe ich die Ausgabe direkt in der SSH-Sitzung, in der ich
   den Paketmitschnitt gestartet habe.
 
 * Bei allen Geräten mit tcpdump::
 
-    tcpdump -n -r nameOfCaptureFile ...
+    tcpdump -n -r filename ...
 
 * Bei MikroTik::
 
@@ -321,7 +323,7 @@ auf meinen Rechner kopieren.
 * Bei Cisco ASA benötige ich einen TFTP-Server um die PCAP-Datei zu
   kopieren::
 
-    copy /pcap capture:nameOfCapture tftp://adress/nameOfCapture.pcap
+    copy /pcap capture:name tftp://adress/name.pcap
 
 * Bei Fortinet kann ich den Mitschnitt kopieren, wenn ich ihn in der
   grafischen Benutzeroberfläche gestartet habe.
@@ -335,41 +337,35 @@ Auswertung mit tcpdump
 Bei der Auswertung eines Paketmitschnitts mit tcpdump verwende ich meist
 den Pager *less* um in der Ausgabe bequem zu navigieren::
 
-  tcpdump -n -r fileName [optionen] | less
+  tcpdump -n -r fName [optionen] | less
 
-Außer den Optionen ``-n`` um Adressauflösungen zu vermeiden und ``-r``
-um die Datei mit dem Mitschnitt anzugeben, verwende ich je nach Bedarf
-noch die folgenden Optionen:
+Außer den Optionen ``-n`` um Namensauflösungen von Adressen zu vermeiden
+und ``-r`` um die Datei mit dem Mitschnitt anzugeben,
+verwende ich je nach Bedarf noch die folgenden Optionen:
 
--e   zeigt den link-level Header an,
+``-e``   zeigt den link-level Header an,
 
      Diese Option verwende ich nur, wenn ich Zweifel habe, zu welchem
      Next-Hop das Datagramm gesendet wird, beziehungsweise von welchem es
      kam.
 
--#   zeigt eine fortlaufende Nummer vor den Datagrammen an,
+``-#``   zeigt eine fortlaufende Nummer vor den Datagrammen an,
 
      Diese Option hilft mir, ein bestimmtes Datagramm bei späteren
      Untersuchungen wiederzufinden.
 
--v   zeigt mehr dekodierte Informationen zu dem Datagramm an,
+``-v``   zeigt mehr dekodierte Informationen zu dem Datagramm an,
 
      Die Option ``-v`` kann ich mehrfach, bis zu dreimal, angeben um noch
      mehr Informationen aus dem Datagramm zu erhalten.
 
--X
--XX  zeigt den Inhalt des Datagramms in Hex und ASCII an,
+``-X`` oder ``-XX``  zeigt den Inhalt des Datagramms in Hex und ASCII an,
 
      Mit zwei ``X`` wird der Link-Level-Header zusätzlich ausgegeben,
      mit einem ``X`` beginnt die Ausgabe beim IP-Header.
 
 Auswertung mit Wireshark
 ........................
-
-.. figure:: /images/wireshark-datagram-http.png
-   :alt: Paketmitschnitt mit Wireshark
-
-   Paketmitschnitt mit Wireshark
 
 Der Bildschirm ist bei Wireshark in drei Bereiche geteilt, von denen
 einer die Liste der mitgeschnittenen Datagramme enthält, einer die
@@ -383,4 +379,9 @@ Beim Einstieg in die Analyse eines Mitschnitts helfen mir zunächst die
 Menüpunkte *Analyse* und *Statistics* in der Menüleiste.
 Dahinter verbergen sich Auswertungen, die gerade bei umfangreichen
 Mitschnitten helfen können, die interessanten Pakete schnell zu finden.
+
+.. figure:: /images/wireshark-datagram-http.png
+   :alt: Paketmitschnitt mit Wireshark
+
+   Paketmitschnitt mit Wireshark
 

@@ -13,7 +13,7 @@ Fehlersuche bei IKEv2 IPsec VPN
    :caption: Inhalt:
 
    einfuehrung
-   grundlagen/index-empty
+   grundlagen/index
    ikev2/index
    vorgehen/fragen-empty
    vorgehen/antworten-empty
