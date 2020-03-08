@@ -118,9 +118,27 @@ latex_elements = {
     #
     'pointsize': '11pt',
 
+    'fncychap': '',
     # Additional stuff for the LaTeX preamble.
     #
     'preamble': r'''
+\makeatletter
+\fancypagestyle{normal}{%
+\fancyhf{}%
+\fancyhead[LE]{{\em\nouppercase{\leftmark}}}%
+\fancyhead[RO]{{\em\nouppercase{\rightmark}}}%
+\fancyfoot[LE,RO]{{\em\thepage}}%
+\renewcommand{\headrulewidth}{0pt}%
+\renewcommand{\footrulewidth}{0pt}%
+}
+\fancypagestyle{plain}{%
+\fancyhf{}%
+\fancyhead[LE,RO]{}
+\fancyfoot[LE,RO]{{\em\thepage}}%
+\renewcommand{\headrulewidth}{0pt}%
+\renewcommand{\footrulewidth}{0pt}%
+\makeatother
+}
 \geometry{%
 papersize={7.5in,9.25in},%
 height={36\baselineskip},%
