@@ -2,7 +2,7 @@
 IPsec und IKEv2
 ===============
 
-Da die meisten Probleme bei IPsec-VPN beim IKE-Protokoll auftreten,
+Da die meisten Probleme mit IPsec-VPN beim IKE-Protokoll auftreten,
 nehme ich mir etwas Zeit, um auf die Grundlagen dieses Protokolls,
 speziell von IKEv2 einzugehen.
 
@@ -10,7 +10,7 @@ speziell von IKEv2 einzugehen.
    :maxdepth: 2
    :caption: Inhalt:
 
-   ueberblick-empty
+   ueberblick
    betriebsarten-empty
    nachrichten-empty
    icmp-handling-empty
