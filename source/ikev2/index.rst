@@ -11,6 +11,6 @@ speziell von IKEv2 einzugehen.
    :caption: Inhalt:
 
    ueberblick
-   betriebsarten-empty
+   betriebsarten
    nachrichten-empty
    icmp-handling-empty

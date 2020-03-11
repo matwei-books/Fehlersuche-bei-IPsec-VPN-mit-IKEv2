@@ -1,13 +1,11 @@
 
-:orphan:
-
 Betriebsarten
 =============
 
-Es gibt zwei Arten von SA: Transport Mode SA und Tunnel Mode SA.
+Es gibt zwei Arten von Child-SA: Transport Mode SA und Tunnel Mode SA.
 Zwischen zwei IPsec-Peers können beide Arten gleichzeitig vorkommen.
-Da eine SA ihre Sicherheitsdienste aber immer nur für eine
-Simplex-Verbindung, das heißt in einer Richtung, zur Verfügung stellt,
+Da eine SA ihre Dienste aber immer nur für eine Simplex-Verbindung,
+das heißt in einer Richtung, zur Verfügung stellt,
 sollten die beiden SA, die zusammen eine vollständige Duplex-Verbindung
 absichern, von der gleichen Art sein.
 
@@ -39,14 +37,30 @@ anbieten, kann ich SA im Transportmodus verwenden, wenn
   GRE :cite:`RFC2784` oder IPsec Transport Mode for dynamic Routing
   :cite:`RFC3884`.
 
+Der Transportmodus mit getunneltem Traffic vereinfacht
+das Monitoring der IPsec SA,
+weil der Monitoring Traffic zwingend über dieselben zwei SA geht,
+ebenso wie der sonstige Traffic aller darüber verbundenen Netze.
+Damit ist das Monitoring von einem Ausfall dieser SA
+genauso betroffen wie der produktive Traffic.
+
 Ein Nachteil von SA im Transportmodus mit getunneltem Traffic ist,
 dass IPsec keine Zugriffskontrolle wie beim Tunnelmodus über die
 Traffic-Selektoren ausüben kann.
 
-Demgegenüber vereinfacht der Transportmodus mit getunneltem Traffic das
-Monitoring der IPsec SA, weil der Monitoring Traffic zwingend über
-dieselben zwei SA geht, wie der sonstige Traffic aller darüber
-verbundenen Netze.
+Weiterhin kann ich den Transportmodus nicht verwenden,
+wenn der ungeschützte Traffic über eine NAT-Box läuft
+und seine Adressen manipuliert werden.
+
+Schließlich gibt es noch ein Problem beim Transport-Modus,
+dass eigentlich durch die Firewall abgefangen werden sollte.
+Solange noch keine IPsec-SA für den Traffic ausgehandelt ist,
+kann dieser ungeschützt im schwarzen Netz gesendet werden,
+wenn der Paketfilter ungeschützten Traffic
+an diesem Interface nicht explizit sperrt.
+Leider ist das nicht nur eine theoretische Möglichkeit.
+Ich habe derartigen Traffic bei bestimmten Geräten bereits gesehen
+als die IPsec-SA deaktiviert war.
 
 Tunnelmodus
 -----------
@@ -55,7 +69,7 @@ Im Tunnelmodus wird das komplette Datagramm in einem IPsec-Datagramm
 gekapselt, das innere Datagramm hat meist andere Adressen im IP-Header
 als das äußere.
 
-Diese Betriebsart eignet sich für LAN-zu-LAN-Kopplungen zwischen verschiedenen
+Diese Betriebsart eignet sich für L2L-Kopplungen zwischen verschiedenen
 Netzen oder für die Verbindung eines einzelnen Rechners zu einem oder
 mehreren Netzwerken.
 
@@ -67,18 +81,24 @@ pro IPsec-Peer im Betrieb führt.
 Das hat den Vorteil, dass IPsec den erlaubten Traffic mit den Policies
 beschränken und dadurch nachfolgende Firewalls entlasten kann.
 
-Bei der Fehlersuche habe ich hingegen bei einigen Implementationen
-das Problem, die richtigen SA zu identifizieren.
-Vor allem, wenn einige SA offensichtlich funktionieren, andere jedoch
-nicht.
+Soll der Traffic von mehreren nicht überlappenden Netzwerken
+auf einer oder beiden Seiten durch IPsec geschützt werden,
+werden meist mehrere Child-SA, jeweils eine für eines der Netze,
+ausgehandelt.
 
-Der Monitoring-Traffic verwendet hier manchmal andere SA,
+Das bringt bei einigen Implementationen das Problem,
+die richtigen Child-SA bei der Fehlersuche zu identifizieren.
+Vor allem, wenn einige von diesen offensichtlich funktionieren,
+andere jedoch nicht.
+
+Der Monitoring-Traffic verwendet in diesem Fall mitunter andere SA,
 als der produktive Traffic.
 Das kann dazu führen, dass das Monitoring ein Verbindungsproblem nicht
-erkennt, das den produktiven Traffic stört, oder andersrum
+erkennt, das den produktiven Traffic stört, oder andersherum
 einen Fehler meldet, der den Produktivbetrieb nicht stört.
 
-Welche der beiden Betriebsarten für eine konkrete Situation geeigneter
-ist, hängt von weiteren Faktoren ab, so dass ich keine allgemeingültige
-Empfehlung geben kann.
+Prinzipiell erlaubt IPsec verschiedene Netze in den Traffic-Selektoren
+der SPD und somit für die Child-SA.
+Ob und wie das umgesetzt ist,
+hängt von der jeweiligen Implementation ab.
 
