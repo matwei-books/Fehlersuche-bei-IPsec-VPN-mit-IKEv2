@@ -1,5 +1,7 @@
 
-:orphan:
+.. raw:: latex
+
+   \clearpage
 
 IKEv2 Nachrichten
 =================
@@ -10,15 +12,15 @@ IKEv2 Nachrichten
 .. index:: Request/Response
    see: Request/Response; Nachrichten
 
-Der Nachrichtenverkehr in IKEv2 erfolgt über den paarweisen
+Bei IKEv2 erfolgen die Verhandlungen über den paarweisen
 Austausch von Nachrichten.
-Ein Paar von Nachrichten nennt man von einem *Exchange*,
+Ein Paar von Nachrichten nennt man einen *Exchange*,
 beziehungsweise ein *Request/Response* Paar.
 
 .. index:: ! Initiator, ! Responder
 
 Der Peer, der einen IKE_SA_INIT-Request sendet, wird *Initiator* genannt,
-derjenige, welcher darauf antwort, *Responder*.
+derjenige, welcher darauf antwortet, *Responder*.
 Beim Rekeying der IKE-SA ist derjenige Initiator, der das
 Rekeying veranlasst hat.
 In den ausgetauschten IKE-Datagrammen
@@ -58,8 +60,8 @@ vom Typ CREATE_CHILD_SA oder INFORMATIONAL.
 Jede Nachricht enthält eine 32-Bit große Message-ID (MID) als Teil des
 festen IKE-Headers.
 Diese Message-ID verwenden die Peers, um Requests und Responses einander
-zuzuordnen und Nachrichtenwiederholungen zu erkennen. Wiederholungen
-einer IKE-Nachricht müssen die gleiche MID verwenden.
+zuzuordnen und Wiederholungen von Nachrichten zu erkennen.
+Eine wiederholt gesendete IKE-Nachricht muss die gleiche MID verwenden.
 
 Die MID beginnt mit 0 beim IKE_SA_INIT-Requests des Initiators und wird
 fortlaufend hochgezählt.
@@ -131,8 +133,8 @@ berechnen, von dem alle Schlüssel für diese IKE-SA abgeleitet werden.
 Alle darauf folgenden Nachrichten sind verschlüsselt und in ihrer
 Integrität gesichert.
 
-Alle Fehler beim IKE_SA_INIT-Austausch führen zum Scheitern des
-Austausches. Einige Fehlermeldungen, wie COOKIE, INVALID_KE_PAYLOAD
+Alle Fehler bei IKE_SA_INIT führen zum Scheitern dieses Austausches.
+Einige Fehlermeldungen, wie COOKIE, INVALID_KE_PAYLOAD
 oder INVALID_MAJOR_VERSION können jedoch zu einem nachfolgenden
 erfolgreichen IKE_SA_INIT-Austausch führen. Da diese Fehlermeldungen
 nicht authentisiert sind, sollte der Initiator nicht unmittelbar auf die
@@ -151,7 +153,7 @@ COOKIE
 
    IKE_SA_INIT-Exchange mit COOKIE
 
-Zwei mögliche Attacken gegen IKE sind Zustandserschöpfung und
+Zwei mögliche Attacken gegen IKE sind Erschöpfung der Ressourcen und
 CPU-Überlastung bei denen das Ziel mit IKE_SA_INIT-Requests von
 verschiedenen Adressen überflutet wird. Diese Attacken können weniger
 effektiv gemacht werden, indem der Responder nur minimale CPU-Zeit
@@ -159,7 +161,7 @@ aufwendet und sich nur dann auf einen neuen SA festlegt, wenn er weiß,
 dass der Initiator Datagramme an die angegebene Absenderadresse
 empfangen kann.
 
-Wenn ein Responder eine große Anzahl halboffener IKE-SAs entdeckt,
+Wenn ein Responder eine große Anzahl halboffener IKE-SA entdeckt,
 sollte er auf IKE_SA_INIT-Requests mit einer COOKIE-Benachrichtigung
 antworten. Wenn ein IKE_SA_INIT-Response eine COOKIE-Benachrichtigung
 enthält, muss der Initiator den Request mit dem empfangenen
@@ -177,8 +179,8 @@ Fall ist es möglich, dass die COOKIES bei der Übertragung modifiziert
 wurden. Das kann man validieren, indem man die Datagramme auf beiden
 Seiten mitschneidet und anschließend Bit für Bit vergleicht. Sind die
 Datagramme auf beiden Seiten gleich, würde ich ein Problem bei der
-Implementierung der Cookies auf Responderseite vermuten und den Support
-des Herstellers hinzuziehen.
+Implementierung der Cookies auf der Seite des Responders vermuten
+und den Support des Herstellers hinzuziehen.
 
 .. index:: INVALID_KE_PAYLOAD
 
@@ -191,8 +193,9 @@ INVALID_KE_PAYLOAD
    IKE_SA_INIT-Exchange mit INVALID_KE_PAYLOAD
 
 Die Key-Exchange-Payload im IKE_SA_INIT-Request enthält den öffentlichen
-Diffie-Hellman-Wert und die Diffie-Hellman-Gruppennummer. Die
-Gruppennummer muss in einem der gesendeten Proposals verwendet werden,
+Diffie-Hellman-Wert und die Diffie-Hellman-Gruppennummer.
+Die Nummer der DH-Gruppe
+muss in einem der gesendeten Proposals verwendet werden,
 sie sollte der ersten Gruppe im ersten Proposol entsprechen.
 
 Sollte der Responder eine andere Diffie-Hellman-Gruppe als die des im
@@ -401,12 +404,12 @@ TSr-Payload können eine Teilmenge der vorgeschlagenen Selektoren sein.
 
 .. index:: ! USE_TRANSPORT_MODE, Transportmode
 
-Um für den Child-SA Transportmode zu vereinbaren, kann der Initiator die
+Um für den Child-SA den Transportmodus zu vereinbaren, kann der Initiator die
 Benachrichtigung USE_TRANSPORT_MODE in den Request einfügen. Falls der
 Request akzeptiert wird, muss der Responder ebenfalls die Benachrichtigung
 USE_TRANSPORT_MODE in die Antwort einfügen. Weist der Responder diese
-Aufforderung zurück, wird der Child-SA im Tunnelmode etabliert. Ist
-das für den Initiator inakzeptabel, muss er den SA löschen.
+Aufforderung zurück, wird der Child-SA im Tunnelmodus etabliert. Ist
+das für den Initiator inakzeptabel, muss er die SA löschen.
 
 Ein fehlgeschlagener Versuch, eine Child-SA zu erzeugen sollte nicht zum
 Abbau der IKE-SA führen.
@@ -421,8 +424,8 @@ Rekeying von IKE-SA mit CREATE_CHILD_SA
    CREATE_CHILD_SA-Exchange zum Rekeying von IKE
 
 Der Initiator sendet SA-Vorschläge in der SA-Payload, eine Nonce in Ni
-und den Diffie-Hellman-Wert in der KEi-Payload. Eine neue Initiator-SPI
-stellt er im SPI-Feld der SA-Payload bereit.
+und den Diffie-Hellman-Wert in der KEi-Payload.
+Einen neuen Initiator-SPI stellt er im SPI-Feld der SA-Payload bereit.
 
 Wenn ein Peer eine Aufforderung zum Rekeying erhält, sollte er keine
 neuen CREATE_CHILD_SA-Exchanges für diesen IKE-SA mehr starten.
@@ -446,7 +449,7 @@ Rekeying von Child-SA mit CREATE_CHILD_SA
    CREATE_CHILD_SA-Exchange zum Rekeying von Child-SA
 
 Der Initiator sendet SA-Vorschläge in der SA-Payload, eine Nonce in Ni,
-optional einen Diffie-Hellmann-Wert in KEi und die vorgeschlagenen
+optional einen Diffie-Hellman-Wert in KEi und die vorgeschlagenen
 Traffic-Selektoren für die neue Child-SA in TSi und TSr.
 
 .. index:: USE_TRANSPORT_MODE
@@ -454,7 +457,7 @@ Traffic-Selektoren für die neue Child-SA in TSi und TSr.
 Die Benachrichtigungen, die beim Erzeugen von Child-SA versendet wurden,
 können ebenfalls beim Rekeying versendet werden. Üblicherweise sind das
 die gleichen Benachrichtigungen wie beim originalen Austausch, zum
-Beispiel wird beim Rekeying einer Transportmode-SA die Benachrichtigung
+Beispiel wird beim Rekeying einer SA im Transportmodus die Benachrichtigung
 USE_TRANSPORT_MODE verwendet.
 
 .. index:: REKEY_SA
@@ -529,22 +532,22 @@ Der Empfänger muss die angegebenen SA schließen.
 Es werden niemals Delete-Payloads für beide Seiten einer SA in einer
 INFORMATIONAL-Nachricht gesendet.
 Wenn mehrere SA zur selben Zeit gelöscht werden sollen, sendet man
-Delete-Payloads für die ankommende Hälfte der SAs.
+Delete-Payloads für die ankommende Hälfte der SA.
 
 Normalerweise werden INFORMATIONAL-Nachrichten mit Delete-Payloads
 beantwortet mit Delete-Payloads für die andere Richtung.
 Wenn zufälligerweise beide Peers zur gleichen Zeit entscheiden ein Paar
-von SAs zu schließen und sich die Requests kreuzen, ist es möglich, dass
+von SA zu schließen und sich die Requests kreuzen, ist es möglich, dass
 die Responses keine Delete-Payloads enthalten.
 
-Ahnlich den ESP- und AH-SA werden auch IKE-SA mit Delete-Payloads
+Ähnlich den ESP- und AH-SA werden auch IKE-SA mit Delete-Payloads
 geschlossen, wobei noch verbliebene Child-SA ebenfalls geschlossen
 werden.
 Die Antwort auf einen Request, der eine IKE-SA löscht, ist eine leere
 INFORMATIONAL-Nachricht.
 
-Halbgeschlossene ESP- oder AH-Verbindungen sind regelwidrig.
-Ein Peer kann ankommende Daten für eine halbgeschlossene SA ablehnen und
+Halb geschlossene ESP- oder AH-Verbindungen sind regelwidrig.
+Ein Peer kann ankommende Daten für eine halb geschlossene SA ablehnen und
 darf nicht einseitig eine SA schließen und die andere Hälfte des Paares
 weiter verwenden.
 Wenn eine Verbindung genügend verstümmelt ist, kann ein Peer die IKE-SA

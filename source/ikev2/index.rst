@@ -12,5 +12,5 @@ speziell von IKEv2 einzugehen.
 
    ueberblick
    betriebsarten
-   nachrichten-empty
+   nachrichten
    icmp-handling-empty
