@@ -1,6 +1,4 @@
 
-:orphan:
-
 .. index:: ! ICMP
 
 Behandlung von ICMP-Nachrichten
@@ -35,7 +33,7 @@ die an das VPN-Gateway gerichtet sind,
 von Transit-Nachrichten,
 die durch IPsec geschützt übertragen werden.
 
-Bei Host-Implentierungen von IPsec fallen einige dieser Kategorien weg,
+Bei Host-Implementierungen von IPsec fallen einige dieser Kategorien weg,
 für die verbleibenden gilt das geschriebene sinngemäß.
 
 ICMP-Nachrichten für das IPsec-Gateway
@@ -49,7 +47,7 @@ Nachrichten, die an der ungeschützten Seite ankommen,
 gelten als nicht vertrauenswürdig.
 Man kann nicht anhand des Datagramms allein entscheiden,
 ob tatsächlich das angezeigte Problem im Netzwerk existiert
-oder es sich um einen ausgeklügelten Angriff handelt.
+oder ob es sich um einen ausgeklügelten Angriff handelt.
 Oft hat man auch keine Möglichkeit,
 das auf andere Art für Datagramme von der schwarzen Seite zu überprüfen.
 RFC4301 verlangt daher von einer konformen Implementierung
@@ -62,7 +60,7 @@ beziehungsweise ICMPv6 Typ 2, Code 0,
 die essentiell für Path-MTU-Discovery sind
 und auf die ich weiter unten näher eingehe.
 
-ICMP-Nachrichten, die auf der geschützen Seite ankommen,
+ICMP-Nachrichten, die auf der geschützten Seite ankommen,
 sind im Normalfall vertrauenswürdiger,
 weil man ihre Herkunft und Beschaffenheit überprüfen kann,
 wenn man die Kontrolle über das Netz hat.
@@ -88,7 +86,7 @@ Hier gibt es folgende Konvention:
 will ein Administrator, dass die ICMP-Payload nicht beachtet wird,
 dann konfiguriert er einen SPD-Eintrag,
 der den ICMP-Traffic explizit erlaubt.
-Soll die ICMP-Payload für
+Soll hingegen die ICMP-Payload für
 die Entscheidung über die Weiterleitung eines Datagramms
 herangezogen werden,
 darf kein SPD-Eintrag existieren,
@@ -143,7 +141,7 @@ und falls dafür kein Eintrag in der SPD existiert
 anschließend Original Source, Original Address und weitere Daten
 aus der Payload.
 Da die Payload jedoch aus einem Datagramm stammt,
-dass von der anderen Seite stammt,
+dass aus der anderen Richtung kam,
 müssen bei der Prüfung der Payload die Adressen
 und bei TCP/UDP die Ports
 vertauscht werden.
@@ -153,7 +151,7 @@ mit der Destination Address aus dem IP-Header.
 Die Original Destination Address aus der Payload ist
 nicht immer identisch mit der Source Address aus dem IP-Header.
 
-.. index:: ! PMTU-Discovery, ! Path-MTU Discovery
+.. index:: ! PMTU-Discovery, ! Path-MTU-Discovery
 
 .. topic:: MTU / PMTU
 
@@ -163,7 +161,7 @@ nicht immer identisch mit der Source Address aus dem IP-Header.
    Die Maximum Transmission Unit (MTU) beschreibt
    die maximale Paketgröße eines Protokolls
    der Vermittlungsschicht des OSI-Modells,
-   die ohne Fragmentierung in einem Netz Sicherungsschicht
+   die ohne Fragmentierung in einem Netz der Sicherungsschicht
    übertragen werden kann.
    Jedes Gerät in einem Computernetzwerk kann nur
    die MTU der direkt angeschlossenen Netze kennen.
@@ -181,19 +179,19 @@ nicht immer identisch mit der Source Address aus dem IP-Header.
    versuchen einige Protokolle, wie zum Beispiel TCP,
    die PMTU durch Path-MTU-Discovery zu ermitteln.
 
-Path-MTU Discovery
+Path-MTU-Discovery
 ------------------
 
 Mit ICMP-Nachrichten Typ 3, Code 4
 beziehungsweise ICMPv6 Typ 2, Code 0
 signalisiert ein Gateway oder Router
-auf dem Weg eines Datagrammes vom Sender zum Empfänger,
+auf dem Weg eines Datagramms vom Sender zum Empfänger,
 dass das Datagramm zu groß für das nächste Netzsegment ist.
 Das Verfahren ist in RFC1191 (:cite:`RFC1191`) beschrieben
 und wird zum Beispiel von TCP verwendet,
-um die optimale Datagrammgröße für eine Verbindung zu finden.
+um die optimale Größe der Datagramme für eine Verbindung zu finden.
 
-Bezogen auf IPsec-VPNs können diese ICMP-Nachrichten
+Bezogen auf IPsec-VPN können diese ICMP-Nachrichten
 an drei Stellen generiert werden:
 
 - vor dem lokalen VPN-Gateway, dann ist das kein Thema für den
@@ -242,7 +240,7 @@ bis die Path-MTU-Discovery wirksam wird.
 RFC4301 schreibt vor,
 dass die zu einer SA gehörende Path-MTU altern soll,
 damit sie - durch erneute PMTU-Discovery - 
-an geänderte Netzbedingungen angepasst werden kann.
+an geänderte Bedingungen im Netz angepasst werden kann.
 Das bedeutet, 
 dass bei einer länger bestehenden SA
 periodisch das eben beschriebene Spiel wiederholt wird.
