@@ -1,13 +1,11 @@
 
-:orphan:
-
 Fragen
 ======
 
-Bei einer Fehlersuche habe ich die besten Erfolgsaussichten,
+Bei jeder Fehlersuche habe ich die besten Erfolgsaussichten,
 wenn ich mit den richtigen Fragen anfange.
 Ich beginne immer mit den selben Fragen,
-die ich - je nach Problemfeld - anpasse.
+die ich je nach Problemfeld anpasse.
 
 1. Tritt das Problem "jetzt" auf?
 2. Funktioniert irgendetwas?
@@ -23,14 +21,14 @@ Dabei gehe ich erst zur nächsten Frage über,
 wenn ich die vorherige mit *Ja* beantworten kann.
 Das ist besonders wichtig für die erste Frage.
 Muss ich eine Frage mit *Nein* beantworten
-und arbeite zunächst das entsprechende Unterprogramm ab,
+und arbeite zunächst das zugehörige Unterprogramm ab,
 fange ich anschließend wieder oben an.
 
 Hauptzweck der zweiten Frage ist,
 einen Totalausfall von einem partiellen Ausfall zu unterscheiden.
 Die dritte Frage erinnert mich,
 alle Aspekte des Problems zu bedenken,
-und die vierte Frage geht auf nicht funktionale Anforderungen ein.
+und die vierte Frage geht auf nichtfunktionale Anforderungen ein.
 
 Der oben gezeigte Entscheidungsbaum ist dabei einfacher zu merken,
 als der folgende, optimierte Entscheidungsbaum
@@ -50,12 +48,12 @@ oder ob das Problem zwar vorhanden ist,
 aber nicht in meiner Verantwortung liegt.
 
 Da ich nicht alle Probleme selbst lösen kann,
-steht immer eine fünfte Frage implizit im Hintergrund:
+steht immer eine fünfte Frage im Hintergrund:
 
 -  Wann sollte ich eskalieren?
 
-Ich eskaliere ein Problem, indem ich Hilfe von anderen suche,
-weil ich selbst bei diesem Problem nicht mehr weiter weiß.
+Ich eskaliere, indem ich Hilfe von anderen suche,
+weil ich selbst bei einem Problem nicht mehr weiter weiß.
 Ehrlich gesagt, stelle ich mir diese Frage oft zu spät,
 weil ich meist versuche, meine Probleme selbst zu lösen.
 
@@ -65,44 +63,45 @@ die ihnen zur Verfügung stehen.
 Ein Ziel dieses Buches ist, diese Möglichkeiten bewusst zu machen,
 um den optimalen Zeitpunkt für eine Eskalation finden zu können.
 
-Die einfache Antwort auf die fünfte Frage lautet:
+Eine einfache Antwort auf die fünfte Frage lautet:
 wenn ich eine Frage selbst nicht beantworten kann.
-Oder, wenn die Antworten auf meine Fragen scheinbar keinen Sinn ergeben.
+Eine andere: wenn die Antworten auf meine Fragen scheinbar keinen Sinn ergeben.
 
-Dabei versuche ich,
-das Ergebnis der Eskalation als Mittel zum Lernen anzusehen
+Im Fall einer Eskalation versuche ich,
+deren Ergebnis als Mittel zum Lernen anzusehen
 und meinem Erfahrungsschatz hinzuzufügen.
 
 Tritt das Problem "jetzt" auf?
 ------------------------------
 
 Das Wort "jetzt" steht in Anführungsstrichen,
-weil ich es hier in verschiedene Bedeutungen verwende.
+weil ich es hier in verschiedenen Bedeutungen verwende.
 
 Am Anfang der Untersuchung geht es darum,
 dass ich das Problem wahrnehme, wenn es auftritt.
 Dabei kann dieses "jetzt" auch ein Zeitpunkt in der Vergangenheit sein,
-wenn ich genügend Informationen für diesen Zeitpunkt habe,
+wenn ich genügend Informationen für diesen Zeitpunkt zur Verfügung habe,
 um das Problem zu erkennen.
 Meist geht es jedoch um die Gegenwart.
 
-Bei der zweiten Bedeutung von "jetzt" geht es nicht um den exakten Zeitpunkt
+Bei der zweiten Bedeutung von "jetzt" geht es nicht um den Zeitpunkt
 sondern um die Umstände,
 unter denen das Problem auftritt.
 Generell ist eine Fehlersuche einfacher,
-wenn ich das Problem bewusst hervorrufen kann,
+wenn ich das Problem willkürlich hervorrufen kann,
 indem ich die dafür nötigen Umstände herbeiführe.
-Dann bedeutet "jetzt": unter diesen Umständen.
-Das brauche ich,
+Dann bedeutet "jetzt": unter genau diesen Umständen.
+Diese Information brauche ich,
 um am Ende zeigen zu können,
-dass das Problem behoben ist.
+dass das Problem behoben ist
+und nicht einfach nur gerade nicht auftritt.
 
-Die Antworten auf diese Frage bekomme ich
+Die Antworten auf die erste Frage bekomme ich
 aus der Problemmeldung oder dem Ticket,
 manchmal auch aus den Logs oder einem Paketmitschnitt.
 Oft muss ich nachfragen,
 via E-Mail, Rückfrage im Ticket, Anruf oder persönlichem Gespräch.
-Welcher Weg am besten passt ist von Fall zu Fall verschieden.
+Welcher Weg am besten passt, ist von Fall zu Fall verschieden.
 Wichtig ist, dass ich das Problem erkenne
 und idealerweise zu Testzwecken selbst hervorrufen kann.
 
@@ -165,16 +164,16 @@ und kann dann die Fehlersuche entsprechend ausrichten.
 
 Sehe ich hingegen keine ISAKMP bzw. IPsec SA,
 muss ich mir Gedanken machen,
-ob überhaupt Datenverkehr, für den SA konfiguriert wurden, ankommt.
+ob überhaupt Datenverkehr ankommt, für den SA konfiguriert wurden.
 Hierzu ist es hilfreich zu wissen,
 ob der Datenverkehr von meiner Seite des Netzes ausgeht,
 oder von der Seite des Peers.
 
 Im ersten Fall schaue ich nach,
-ob unverschlüsselte Datagramme am VPN Gateway ankommt,
-der an das Netz des Peers gerichtet ist.
+ob unverschlüsselte Datagramme am VPN Gateway ankommen,
+die an das Netz des Peers gerichtet sind.
 Im zweiten Fall,
-ob IKE-Datagramme auf der externen Seite meines VPN-Gateways ankommt.
+ob IKE-Datagramme auf der externen Seite meines VPN-Gateways ankommen.
 Das heißt ich suche nach Datenverkehr,
 der den Aufbau eines VPN-Tunnels auslöst.
 Gibt es diesen Datenverkehr nicht,
@@ -203,7 +202,7 @@ und vergleiche sie mit meiner Konfiguration.
 Ich frage immer detaillierter nach,
 bis ich zum Kern des Problems komme
 und behebe dabei entdeckte Fehler
-bis ich schließlich Daten verschlüsselt übertragen kann.
+bis schließlich Daten im Tunnel übertragen werden.
 Erst dann kann ich zur nächsten grundlegenden Frage übergehen.
 
 Funktioniert alles?
@@ -219,13 +218,13 @@ Auch dann bleiben noch genügend Fragen.
 Ein VPN-Tunnel nützt nur dann etwas,
 wenn er Daten in beiden Richtungen überträgt.
 Fehlt eine Richtung, frage ich zunächst,
-ob die fraglichen Datagramme überhaupt bei meinem VPN-Gateway ankommt.
+ob die fraglichen Datagramme überhaupt bei meinem VPN-Gateway ankommen.
 Kommen diese nicht an,
 brauche ich zunächst nichts weiter zu machen
-und kann die Suche wieder delegieren.
-Kommt er am VPN-Gateway an,
+und kann die Suche delegieren.
+Kommen sie am VPN-Gateway an,
 muss ich untersuchen
-warum kein Datenverkehr auf der anderen Seite hinausgeht.
+warum nichts auf der anderen Seite hinausgeht.
 
 Gehen keine weiteren IPsec SA nach dem ersten auf,
 vergleiche ich die ACL und IPsec-Verschlüsselungsparameter.
@@ -235,9 +234,9 @@ ist das ein guter Zeitpunkt zu eskalieren und mir Hilfe zu holen.
 
 -  Gibt es Datenverkehr für alle konfigurierten IPsec SA in beiden Richtungen?
 
-Diese Frage ist manchmal schwierig zu beantworten,
+Diese Frage ist oft schwierig zu beantworten,
 weil die Daten üblicherweise von anderen gesendet werden
-und hier ein Problem mit der Koordination der Beteiligten entstehen kann.
+und hier ein Problem mit der Koordination der Beteiligten auftreten kann.
 Trotzdem sollte diese Frage spätestens bei der Abnahme des VPN mit *Ja* beantwortet sein.
 
 -  Gibt es Fehlermeldungen oder Warnungen in den Logs?
@@ -256,7 +255,7 @@ und damit ein objektives Kriterium für die Geschwindigkeit des VPN.
 Zwei Faktoren beeinflussen die Geschwindigkeit in einem Netz und damit auch im VPN wesentlich:
 
 -  der Durchsatz beziehungsweise die maximale Datenmenge pro Zeiteinheit,
-   die durch das Netz gehen - diesen will ich möglichst groß - und
+   die durch das Netz geht - diesen will ich möglichst groß - und
 -  die Latenz beziehungsweise die Zeit zum Übertragen eines einzelnen
    Datagramms - diese will ich möglichst klein haben.
 
@@ -284,7 +283,7 @@ neben der Zeit für die Ver- und Entschlüsselung
 noch die Zeit für die Übertragung im Netz
 und die Antwortzeit der Gegenstelle ein,
 so dass bei einer langen Round-Trip-Zeit
-die Ursache nicht auf Anhieb genau benannt werden kann.
+die Ursache nicht auf Anhieb benannt werden kann.
 Durch Vergleichsmessungen der Paketlaufzeit zwischen den beiden VPN-Gateways
 lassen sich zumindest Teile der Störgrößen herausrechnen.
 Durch genaues Betrachten der Zeitstempel der Datagramme lässt sich ermitteln,
@@ -293,7 +292,7 @@ ob das Problem eher auf der verschlüsselten oder auf der entschlüsselten Seite
 -  Wie groß ist die Verzögerung durch Ver- und Entschlüsselung?
 
 Leider lässt sich diese Frage nur beantworten,
-wenn das VPN selbst nur wenig benutzt wird,
+wenn das VPN selbst nur wenig genutzt wird,
 da ich hier die verschlüsselten Datagramme auf der Außenseite
 den unverschlüsselten auf der Innenseite zuordnen muss.
 Dann kann die Zeit, die für die Verschlüsselung benötigt wird, einen Hinweis geben,
