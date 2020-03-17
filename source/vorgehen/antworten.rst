@@ -1,6 +1,4 @@
 
-:orphan:
-
 Antworten
 =========
 
@@ -66,8 +64,8 @@ plötzlich Traffic zwischen zwei VPN-Gateways in den Logs,
 obwohl zwischen beiden Geräten nicht einmal PING funktionierte
 und im Paketmitschnitt auf beiden Seiten nachweislich
 kein Traffic des jeweils anderen VPN-Gateways auftauchte.
-Die Cisco-ASA generiert einen Logeintrag für jeden Verbindungsversuch,
-den sie unternimmt.
+Das VPN-Gateway generierte einen Logeintrag für jeden Verbindungsversuch,
+den es unternahm.
 Dieser Logeintrag enthält die Traffic-Selektoren
 für den auslösenden Traffic, der durch das VPN gehen soll,
 und die IP-Adresse des Peer-Gateways,
@@ -75,10 +73,7 @@ zu dem die Verbindung aufgebaut werden soll.
 Es dauerte einige Zeit, diesen Netzwerkadministrator zu überzeugen,
 dass es sich bei diesen Logeinträgen um ausgehenden Traffic handelte,
 für den in diesem Fall keine Antwort vom Peer-Gateway ankam.
-Unglücklicherweise hatte sich ein VPN-Administrator überreden lassen,
-die VPN-Konfiguration "testweise" zu ändern,
-so dass wir nach Beseitigung des eigentlichen Problems
-das VPN wirklich reparieren mussten.
+Zeit, die für die Lösung des eigentlichen Problems verloren ging.
 
 Wichtig ist darum, insbesondere bei Logeinträgen, die man nicht kennt,
 nach anderen Wegen zu suchen um ihre Aussage zu überprüfen.
@@ -133,8 +128,9 @@ Dabei passiert folgendes:
 
 Damit bekomme ich bereits einen ersten Überblick.
 Bei komplexeren
-Logzeilen, die Elemente enthalten, welche ich ignorieren will, greife
-ich meist zu einem Perl-Skript, dass die irrelevanten Details maskiert.
+Logzeilen, die Elemente enthalten, welche ich ignorieren will,
+greife ich zu einem Perl-Skript,
+das die irrelevanten Details maskiert.
 Mit der Zeit bekomme ich so ein Gefühl dafür,
 welche Logzeilen wichtig sind und was sie bedeuten.
 
@@ -143,7 +139,7 @@ um zu erkennen, dass etwas nicht in Ordnung ist. In einem konkreten Fall
 war ein VPN in Abstimmung mit dem VPN-Administrator des Peers von IKEv1
 auf IKEv2 und zeitgemäße Crypto-Parameter umgestellt worden.
 Die beteiligten Administratoren hatten damals
-keinen zeitnahen Zugriff auf die eigenen Logs
+keinen zeitnahen Zugriff [#]_ auf die eigenen Logs
 und nur den Aufbau der Tunnel getestet und ob Daten übertragen wurden.
 Nach etwa einer Woche kam eine Fehlermeldung vom
 Peer, dass das VPN seit der Umstellung nicht richtig funktionieren
@@ -153,6 +149,10 @@ Während vor der Umstellung etwa 100 Logzeilen pro Tag
 für das betreffende VPN generiert wurden,
 waren es nach der Umstellung etwa 10000.
 Einige Zeit später bekamen wir zeitnahen Zugriff auf die VPN-Logs.
+
+.. [#] Die Logs standen erst nach mehreren Stunden,
+   zeitweilig mehr als einen Tag nach dem Schreiben,
+   zur Verfügung.
 
 Paketmitschnitte
 ----------------
@@ -183,7 +183,7 @@ verschlüsselten IKE-Nachrichten. Vermute ich hierbei Probleme, muss ich
 auf Debugmeldungen zurückgreifen. Allerdings gibt es auch hier eine
 Ausnahme: die Cisco ASA kann einen Paketmitschnitt vom Typ ``isakmp``
 schreiben, bei dem sie zusätzlich zu den verschlüsselten Datagrammen
-Pseudo-Datagramme mit den entschlüsselten Informationen in den
+Pseudo-Datagramme mit den entschlüsselten IKE-Informationen in den
 Mitschnitt einfügt. Diese Information kann mir unter Umständen das
 Einschalten der Debugmeldungen ersparen.
 
@@ -233,7 +233,7 @@ möglichst wenig Beifang liefern.
    untersuchte VPN betreffen, aber keinen nennenswerten Aussagewert für
    die Fehlersuche haben.
 
-Da ich in den meisten Fällen trotzdem mit sehr viel Text zu tun bekomme,
+Da ich in den meisten Fällen mit sehr viel Text zu tun bekomme,
 muss ich mir überlegen, wie ich diesen in eine Datei bekomme,
 die ich mit einem guten Pager wie z.B. *less* untersuchen kann.
 Wichtig ist,
@@ -254,8 +254,9 @@ Im zweiten Fall filtere ich die Debugnachrichten aus den Systemlogs aus.
 Dabei muss ich aufpassen, dass ich alles relevante und möglichst wenig
 irrelevantes bekomme. Bei der Cisco ASA haben zum Beispiel alle
 Debugnachrichten im Systemlog die gleiche ASA-Nummer, so dass ich sie
-recht einfach separieren kann. Habe ich nur ein oder sehr wenige aktive
-VPN auf dem Gateway kann ich mir das Ausfiltern eventuell auch sparen.
+recht einfach separieren kann.
+Habe ich nur ein oder sehr wenige aktive VPN auf dem Gateway,
+kann ich mir das Ausfiltern eventuell sparen.
 
 Bei den Debugmeldungen in der Standardausgabe fehlen oft die
 Zeitstempel. Diese kann ich aushilfsweise erzeugen, wenn die Konsole
@@ -272,7 +273,7 @@ wenn ich mir diese zusätzlich bei der Analyse anzeigen lasse.
 Debugausgaben ein- und ausschalten
 ..................................
 
-Bei der Cisco ASA verwende ich die folgenden drei Befehle um
+Bei der **Cisco ASA** verwende ich die folgenden drei Befehle um
 Debugnachrichten einzuschalten::
 
   debug crypto condition peer $address
@@ -287,7 +288,27 @@ ab::
 
   undebug all
 
-Bei strongSwan kann ich die Menge der Debugausgaben mit folgendem Befehl
+Bei einem **MikroTik Router** kann ich
+Debugausgaben für IPsec mit folgendem Befehl einschalten::
+
+  /system logging topic=ipsec,debug,!packet
+
+Damit landen die Meldungen im lokalen Logpuffer
+und sind schnell wieder weg.
+Will ich sie zu einem - vorher konfigurierten - Logserver senden,
+ergänze ich den Befehl zu folgendem::
+
+  /system logging topic=ipsec,debug,!packet action=remote
+
+Um die Debugausgaben zu deaktivieren,
+ermittle ich die Nummer dieser Log-Einstellung
+und deaktiviere oder entferne sie::
+
+  /system logging print
+  /system logging disable $nr
+  /system logging remove $nr
+
+Bei **strongSwan** kann ich die Menge der Debugausgaben mit folgendem Befehl
 steuern::
 
   ipsec stroke loglevel ike $loglevel

@@ -16,7 +16,7 @@ Fehlersuche bei IKEv2 IPsec VPN
    grundlagen/index
    ikev2/index
    vorgehen/fragen
-   vorgehen/antworten-empty
+   vorgehen/antworten
    fehler/index-empty
    anhang/index
    software/index-empty
