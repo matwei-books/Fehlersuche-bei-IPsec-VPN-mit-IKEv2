@@ -2,7 +2,7 @@
 Antworten
 =========
 
-Gute Fragen zu stellen trägt schon ein großes Stück bei zur Lösung eines
+Gute Fragen stellen trägt schon ein großes Stück bei zur Lösung eines
 Problems. Die Fragen nützen mir jedoch nichts, wenn ich nicht in der
 Lage bin, Antworten darauf zu finden.
 Darum geht es in diesem Kapitel.
@@ -24,17 +24,17 @@ Antworten auf meine Fragen zu bekommen:
 Aussagen von VPN-Benutzern
 --------------------------
 
-Aussagen von VPN-Benutzern in Form von Fehlermeldungen sind oft der
-Anlass für die Fehlersuche bei einem VPN.
-
-Gerade am Anfang der Untersuchung ist es daher wichtig, so viel wie
-möglich von den Benutzern über die genauen Umstände des Problems zu
-erfahren: seit wann tritt das Problem auf, welche Geräte sind daran
-beteiligt, bei welchen Aktionen tritt das Problem auf.
+Beschwerden von VPN-Benutzern sind oft der Anlass für die Fehlersuche.
+Dann ist es gerade am Anfang der Untersuchung daher wichtig,
+so viel wie möglich von den Benutzern
+über die genauen Umstände des Problems zu erfahren:
+seit wann tritt das Problem auf,
+welche Geräte sind daran beteiligt,
+bei welchen Aktionen tritt das Problem auf.
 
 Am Ende der Fehlersuche gehört es einfach dazu,
 dass ich denjenigen, der ein Problem gemeldet hat,
-befrage, ob es wirklich beseitigt ist.
+frage, ob es wirklich beseitigt ist.
 Dieser Moment wird gern benutzt, um das nächste Problem zu melden.
 In so einem Fall kann ich ein neues Ticket aufmachen,
 sobald klar wird, dass es nicht mehr um das ursprüngliche Problem geht.
@@ -53,8 +53,9 @@ Systemlogs vom VPN-Gateway
 
 Systemlogs sind ein zweischneidiges Schwert. Zum einen liefern sie
 zeitnah Hinweise auf außergewöhnliche Ereignisse und bieten sich an für
-eine automatische Überwachung. Bei der Fehlermeldung können sie
-wertvolle Tipps geben, die die Suche nach der Ursache verkürzen.
+die automatische Überwachung.
+Bei der Fehlermeldung können sie wertvolle Tipps geben,
+die die Suche nach der Ursache verkürzen.
 
 Zum anderen können Sie, insbesondere wenn sie nicht eindeutig sind, in
 die Irre führen und eine Fehlersuche unnötig verlängern.
@@ -66,12 +67,12 @@ und im Paketmitschnitt auf beiden Seiten nachweislich
 kein Traffic des jeweils anderen VPN-Gateways auftauchte.
 Das VPN-Gateway generierte einen Logeintrag für jeden Verbindungsversuch,
 den es unternahm.
-Dieser Logeintrag enthält die Traffic-Selektoren
-für den auslösenden Traffic, der durch das VPN gehen soll,
+Dieser Logeintrag enthielt die Traffic-Selektoren
+für den auslösenden Traffic, der durch das VPN gehen sollte,
 und die IP-Adresse des Peer-Gateways,
-zu dem die Verbindung aufgebaut werden soll.
+zu dem die Verbindung aufgebaut werden sollte.
 Es dauerte einige Zeit, diesen Netzwerkadministrator zu überzeugen,
-dass es sich bei diesen Logeinträgen um ausgehenden Traffic handelte,
+dass es sich bei den Logeinträgen um ausgehenden Traffic handelte,
 für den in diesem Fall keine Antwort vom Peer-Gateway ankam.
 Zeit, die für die Lösung des eigentlichen Problems verloren ging.
 
@@ -81,12 +82,11 @@ In obigem Fall konnte ein Paketmitschnitt zeigen,
 dass kein Traffic vom Peer ankam.
 
 Wenn ich es mit neuer Software zu tun bekomme,
-die Logeinträge schreibt,
-mit denen ich nicht viel anfangen kann
+mit deren Logeinträgen ich nicht viel anfangen kann
 und zu denen ich keine gute Dokumentation bekomme,
 fange ich meist damit an,
 die Logeinträge statistisch zu untersuchen.
-Dabei abstrahiere ich von - in meinen Augen irrelevanten - Details
+Dabei abstrahiere ich von - in meinen Augen - irrelevanten Details
 und schaue zunächst,
 welche Zeilen am häufigsten und welche am seltensten vorkommen.
 Bei den Logeinträgen, die am häufigsten vorkommen,
@@ -134,7 +134,7 @@ das die irrelevanten Details maskiert.
 Mit der Zeit bekomme ich so ein Gefühl dafür,
 welche Logzeilen wichtig sind und was sie bedeuten.
 
-Manchmal reicht aber schon ein Blick auf die Anzahl von Logzeilen,
+Manchmal reicht aber schon ein Blick auf die Anzahl der Logzeilen,
 um zu erkennen, dass etwas nicht in Ordnung ist. In einem konkreten Fall
 war ein VPN in Abstimmung mit dem VPN-Administrator des Peers von IKEv1
 auf IKEv2 und zeitgemäße Crypto-Parameter umgestellt worden.
@@ -159,8 +159,8 @@ Paketmitschnitte
 
 Auf die konkrete Durchführung von Paketmitschnitten gehe ich im Abschnitt
 :ref:`grundlagen/paketmitschnitt:Paketmitschnitt` bei den Grundlagen ein.
-Hier reiße ich kurz an,
-wann und wofür ich Paketmitschnitte bei der Fehlersuche einsetze.
+Hier reiße ich nur kurz an,
+wann und wofür ich Paketmitschnitte einsetze.
 
 Bei der Fehlersuche verwende ich Paketmitschnitte sehr häufig, und zwar
 
@@ -191,7 +191,7 @@ Debugausgaben
 -------------
 
 Debugausgaben verwende ich, wenn die Logmeldungen zu ungenau für die
-Eingrenzung des Problems sind und im Paketmitschnitt nicht die nötigen
+Eingrenzung des Problems und im Paketmitschnitt nicht die nötigen
 Informationen zu finden sind.
 
 Konkret suche ich in den Debugausgaben nach den vier Nachrichtentypen,
@@ -233,12 +233,12 @@ möglichst wenig Beifang liefern.
    untersuchte VPN betreffen, aber keinen nennenswerten Aussagewert für
    die Fehlersuche haben.
 
-Da ich in den meisten Fällen mit sehr viel Text zu tun bekomme,
+Da ich in den meisten Fällen mit sehr viel Text zu tun habe,
 muss ich mir überlegen, wie ich diesen in eine Datei bekomme,
 die ich mit einem guten Pager wie z.B. *less* untersuchen kann.
 Wichtig ist,
-dass ich gut und schnell suchen kann
-und dabei den Text nicht aus Versehen ändere.
+dass ich gut und schnell im Text navigieren kann
+und diesen dabei nicht aus Versehen ändere.
 
 Meist habe ich eine von zwei Möglichkeiten, an Debugmeldungen zu kommen:
 
@@ -280,8 +280,10 @@ Debugnachrichten einzuschalten::
   debug crypto ikev2 protocol 127
   debug crypto ikev2 platform 127
 
-Der erste Befehl ist nur wichtig, wenn es mehr als ein VPN auf dem
-Gateway gibt.
+Der erste Befehl ist nur wichtig,
+wenn es mehr als ein VPN auf dem Gateway gibt.
+Er sorgt dafür,
+dass ich nur Debugausgaben für die angegebene Peer-Adresse bekomme.
 
 Habe ich meine Informationen, schalte ich die Debugnachrichten wie folgt
 ab::
@@ -313,6 +315,6 @@ steuern::
 
   ipsec stroke loglevel ike $loglevel
 
-Mehr Informationen zu den Loglevel und Nachrichtenquellen finde ich bei
+Mehr Informationen zu Loglevel und Nachrichtenquellen finde ich bei
 :cite:`StrongSwanLoggerConfiguration`.
 
