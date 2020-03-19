@@ -97,6 +97,8 @@ Paketmitschnitt auf dem VPN-Gateway
 Will ich Datagramme direkt auf dem VPN-Gateway mitschneiden, muss ich
 die nötigen Befehle kennen. Auf der Kommandozeile sind das zum Beispiel
 
+.. index:: Cisco ASA
+
 * bei Cisco ASA::
 
     capture name ...
@@ -109,6 +111,8 @@ die nötigen Befehle kennen. Auf der Kommandozeile sind das zum Beispiel
   Das erleichtert das Finden von Fehlkonfigurationen bei den
   IKE-Parametern.
 
+.. index:: Fortinet
+
 * bei Fortinet::
 
     diag sniff packet ...
@@ -116,6 +120,8 @@ die nötigen Befehle kennen. Auf der Kommandozeile sind das zum Beispiel
 * bei Checkpoint, GeNUScreen, Linux- oder BSD-Firewalls mit VPN::
 
     tcpdump -w filename ...
+
+.. index:: MikroTik
 
 * bei MikroTik::
 

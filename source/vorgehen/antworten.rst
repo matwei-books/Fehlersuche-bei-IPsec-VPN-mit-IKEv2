@@ -99,7 +99,7 @@ so dass ich mit der Zeit ein Gefühl
 für die Bedeutung der einzelnen Einträge bekomme.
 
 Die folgende Befehlskette in einer Unix-Shell liefert mir die Häufigkeit
-von bestimmten Logzeilen in absteigender Reihenfolge::
+von bestimmten Logeinträgen in absteigender Reihenfolge::
 
   sed -E 's/^.{16}//' < $logfile | sort | uniq -c | sort -rn | less
 
@@ -127,8 +127,8 @@ Dabei passiert folgendes:
   ausgegeben und kann bequem darin navigieren.
 
 Damit bekomme ich bereits einen ersten Überblick.
-Bei komplexeren
-Logzeilen, die Elemente enthalten, welche ich ignorieren will,
+Bei komplexeren Logzeilen,
+die Elemente enthalten, welche ich ignorieren will,
 greife ich zu einem Perl-Skript,
 das die irrelevanten Details maskiert.
 Mit der Zeit bekomme ich so ein Gefühl dafür,
@@ -211,10 +211,11 @@ die relevanten Informationen zu identifizieren.
 Die richtigen Einstellungen dafür sind nicht leicht zu finden.
 Ich kann sie in diesem Buch auch nicht geben,
 weil sie von Software zu Software und von Version zu Version variieren.
-Wenn ein Testlab zur Verfügung steht, kann man eine Situation nachstellen
-und in
-Ruhe ausprobieren, welche Debugeinstellungen genügend Informationen und
-möglichst wenig Beifang liefern.
+Wenn ein Testlabor zur Verfügung steht,
+kann man eine Situation nachstellen
+und in Ruhe ausprobieren,
+welche Einstellungen genügend Informationen
+und möglichst wenig Beifang liefern.
 
 .. topic:: Beifang
 
@@ -273,6 +274,8 @@ wenn ich mir diese zusätzlich bei der Analyse anzeigen lasse.
 Debugausgaben ein- und ausschalten
 ..................................
 
+.. index:: Cisco ASA
+
 Bei der **Cisco ASA** verwende ich die folgenden drei Befehle um
 Debugnachrichten einzuschalten::
 
@@ -289,6 +292,8 @@ Habe ich meine Informationen, schalte ich die Debugnachrichten wie folgt
 ab::
 
   undebug all
+
+.. index:: MikroTik
 
 Bei einem **MikroTik Router** kann ich
 Debugausgaben für IPsec mit folgendem Befehl einschalten::
@@ -310,11 +315,14 @@ und deaktiviere oder entferne sie::
   /system logging disable $nr
   /system logging remove $nr
 
-Bei **strongSwan** kann ich die Menge der Debugausgaben mit folgendem Befehl
+.. index:: StrongSwan
+
+Bei **StrongSwan** kann ich die Menge der Debugausgaben mit folgendem Befehl
 steuern::
 
   ipsec stroke loglevel ike $loglevel
 
-Mehr Informationen zu Loglevel und Nachrichtenquellen finde ich bei
+Mehr Informationen zu Loglevel und Nachrichtenquellen
+finde ich im StrongSwan Wiki
 :cite:`StrongSwanLoggerConfiguration`.
 
