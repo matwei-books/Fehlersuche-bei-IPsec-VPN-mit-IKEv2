@@ -53,6 +53,6 @@ wie diese Probleme identifiziert und schließlich beseitigt werden können.
    :maxdepth: 2
    :caption: Inhalt:
 
-   kategorisierung-empty
+   kategorisierung
    fehlerbilder-empty
    ursachen-empty
