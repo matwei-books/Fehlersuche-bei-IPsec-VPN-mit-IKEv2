@@ -20,13 +20,12 @@ Dabei unterscheide ich,
 ob es sich um ein permanentes VPN oder ein On-Demand-VPN handelt.
 Letzteres öffnet einen Tunnel nur,
 wenn interessanter Traffic dafür da ist.
-
 Bei beiden Arten von Tunneln teste ich,
 ob ich den Tunnel von Hand aufbauen kann, wenn das möglich ist.
 
 .. note::
 
-   Normalerweise sollte es immer möglich sein, einen VPN-Tunnel von
+   In den meisten Fällen sollte es möglich sein, einen VPN-Tunnel von
    jedem Peer aus aufzubauen.
    Bei On-Demand-Tunneln an Cisco ASA zum Beispiel geht der Tunnel
    aber nur auf, wenn interessanter Traffic auf der Inside ankommt.
@@ -36,8 +35,7 @@ ob ich den Tunnel von Hand aufbauen kann, wenn das möglich ist.
    temporär eine Adresse aus dem lokalen Adressbereich des Tunnels
    auf das VPN-Gateway legen
    und den Traffic mit PING und eben dieser Quelladresse erzeugen.
-   Diese Adresse konfiguriere ich dazu ohne Netzwerk,
-   das heißt mit Netzmaske 32 beziehungsweise 128 Bit
+   Diese Adresse konfiguriere ich mit 32 beziehungsweise 128 Bit Netzmaske
    um den restlichen Datenverkehr nicht zu stören.
 
    Habe ich jedoch dynamisches NAT für den Traffic im Tunnel, so dass
@@ -57,7 +55,7 @@ ob Traffic zwischen den Endpunkten ausgetauscht werden kann.
 .. index:: Outside
 
 Interessant wird es, wenn sich der Tunnel nicht öffnen lässt.
-Dann schaue ich als nächstes mit einem Packet-Sniffer auf der Outside,
+Dann schaue ich als nächstes mit einem Paketmitschnitt auf der Outside,
 ob ich überhaupt Traffic vom und zum Peer-VPN-Gateway sehe,
 insbesondere IKE-Traffic - das heißt, UDP Port 500 oder 4500.
 Sehe ich IKE-Traffic von beiden Peers und der Tunnel geht nicht auf,
@@ -69,7 +67,6 @@ Problem, dass ich delegieren kann.
 Insbesondere darf ich mich nicht dazu verleiten lassen, einen Fehler in
 der VPN-Konfiguration zu suchen, wenn die IP-Verbindung zwischen den
 Peers nicht funktioniert.
-
 Ein objektives Kriterium ist für mich ein Paketmitschnitt,
 der Datagramme vom Peer-VPN-Gateway zeigt.
 Die Systemprotokolle können unerfahrene Administratoren
@@ -115,11 +112,11 @@ hier durchaus in die Irre führen.
 
 .. index:: Inside
 
-Kann ich das VPN öffnen,
+Kann ich das VPN aufbauen,
 suche ich nach dem interessanten Traffic auf der Inside.
 Sehe ich diesen Traffic nicht, dann muss ich mich um die Verbindung vom
 VPN-Gateway zum Endpunkt im internen Netz kümmern beziehungsweise die
-betreffenden Administratoren in's Boot holen.
+betreffenden Administratoren ins Boot holen.
 
 VPN-Tunnel aber kein Traffic
 ----------------------------
@@ -147,7 +144,7 @@ Sehe ich diese Datagramme nicht, kann ich das Problem delegieren und den
 Peer bitten, den entsprechenden Traffic zu schicken.
 
 Sehe ich hingegen ESP- oder AH-Datagramme, kann ich auf der Inside
-nachschauen, ob entsprechender unverschlüsselter Traffic herauskommt.
+nachschauen, ob entsprechender Traffic herauskommt.
 Das würde allerdings nicht dem aktuellen Fehlerbild entsprechen, weil
 dann auch der Traffic-Counter mit Sicherheit hochzählen würde.
 
@@ -159,30 +156,32 @@ Eine mögliche Ursache ist, dass der SPI der ankommenden Datagramme auf
 eine IPsec-SA verweist, die auf meinem VPN-Gateway nicht vorhanden ist,
 so dass die Datagramme nicht entschlüsselt werden können.
 In diesem Fall würde ich vermutlich
-eine dazu passende Meldung in den Logs finden
+eine passende Meldung in den Logs finden
 und im Packet-Capture eventuell INFORMATIONAL-Nachrichten,
 die nicht als Paar (Request und Response) auftreten.
 
 Ein andere mögliche Ursache ist, dass die IP-Adressen der Datagramme,
 die verschlüsselt ankommen, nicht zu den Traffic-Selektoren der
 betreffenden IPsec-SA passen.
-In diesem Fall verwerfen etliche VPN-Gateways (z.B. Cisco ASA) die
-Datagramme und schreiben einen entsprechende Meldung in das Systemlog,
+In diesem Fall verwerfen etliche VPN-Gateways die Datagramme
+und schreiben eine entsprechende Meldung in das Systemlog,
 die mich auf dieses Problem hinweist.
 
 .. index:: Inside
 
-Erwarte ich den interessanten Traffic auf der Inside, prüfe ich dort mit
-einem Packet Capture, ob er auch wirklich ankommt.
-Kommt er nicht, handelt es sich um ein - aus Sicht des
-VPN-Administrators - externes Problem, dass ich delegieren kann, wenn
-ich nicht selbst auch für das interne Netz zuständig bin.
+Erwarte ich hingegen den interessanten Traffic auf der Inside,
+prüfe ich dort mit einem Paketmitschnitt,
+ob er auch wirklich ankommt.
+Kommt er nicht, handelt es sich um
+ein - aus meiner Sicht - externes Problem,
+dass ich delegieren kann,
+wenn ich nicht selbst auch für das interne Netz zuständig bin.
 
 Sehe ich den Traffic auf der Inside ankommen, aber keinen adäquaten
 verschlüsselten Traffic auf der Outside abgehen, muss ich die
 Konfiguration meines VPN-Gateways noch einmal genau prüfen.
-Dabei muss ich auch eventuell vorhandene Adressumsetzungen berücksichtigen.
 
+Dabei muss ich auch eventuell vorhandene Adressumsetzungen berücksichtigen.
 In einem konkreten Fall war das VPN-Gateway gleichzeitig
 auch Default-Gateway für ein kleines Netz und verbarg die internen
 Adressen durch Masquerading hinter einer externen Adresse.
@@ -193,17 +192,21 @@ nicht mehr zur Policy
 und diese wurden direkt und unverschlüsselt nach außen gesendet
 anstatt durch das VPN.
 
-In einem anderen Fall hatte ich eine Policy für ein VPN, dass ersetzt werden
-sollte, noch nicht deaktiviert. Der Traffic sollte über ein geroutetes
-Interface gesendet werden und kam auch darüber an, passierte aber nicht
-das VPN-Gateway. In diesem Fall reklamierte die Policy den Traffic für
-das VPN. Da dieses aber nicht mehr aufgebaut war, verwarf das
-VPN-Gateway den Traffic.
+Auch alte, nicht mehr verwendete Policies können ein VPN stören.
+Einmal hatte ich eine Policy für ein VPN,
+dass ersetzt werden sollte,
+noch nicht deaktiviert.
+Der Traffic sollte über ein geroutetes Interface in einem anderen VPN gehen
+und kam auch darüber an,
+passierte aber nicht das VPN-Gateway.
+In diesem Fall reklamierte die alte Policy den Traffic für sich.
+Da das zur alten Policy gehörende VPN aber nicht aufgebaut war,
+verwarf das VPN-Gateway den Traffic.
 Nach dem Deaktivieren der Policy funktionierte die Verbindung sofort.
 
 .. index:: Inside
 
-Bei der Cisco ASA kann ich den Traffic, der auf Inside ankommen soll,
+Bei der Cisco ASA kann ich den Traffic, der auf der Inside ankommen soll,
 mit dem Befehl ``packet-tracer`` simulieren, und bekomme dann die einzelnen
 Phasen angezeigt, die ein Datagramm von Inside nach Outside durchläuft.
 Auch diese können einen Hinweis auf die Stelle geben,
@@ -235,9 +238,10 @@ in der passenden Anzahl abgehen sehe.
 Bei dieser Gelegenheit sehe ich auch, ob auf der gleichen Seite
 passende Datagramme in der Gegenrichtung ankommen.
 
-Kommen keine Datagramme in der Gegenrichtung an, kann ich das Problem
-delegieren, es liegt in der Richtung, aus der die Datagramme kommen
-müssen.
+Kommen keine Datagramme in der Gegenrichtung an,
+kann ich das Problem delegieren,
+es liegt in der Richtung,
+aus der die Datagramme kommen müssten.
 
 Sehe ich allerdings Datagramme in der Gegenrichtung, muss ich mein
 VPN-Gateway untersuchen.
@@ -247,9 +251,9 @@ Das erzeugt im Allgemeinen sehr viel Text, den ich mit einem guten
 Editor, mit *less* oder mit im Laufe der Zeit entstandenen Skripten
 auswerten kann.
 
-Kommen die Datagramme verschlüsselt vom VPN-Peer, kann ich zum Beispiel
-nachschauen, ob ich eine zum Datagramm passende SA in der SA-Datenbank
-finde.
+Kommen die Datagramme verschlüsselt vom VPN-Peer,
+kann ich nachschauen,
+ob ich eine zum Datagramm passende SA in der SAD finde.
 Die SA, die ich suche, steht als SPI vorn im ESP- oder AH-Header.
 
 Kommen die Datagramme auf der Inside, kann ich die Konfiguration nach
@@ -261,9 +265,9 @@ Regeln wirksam werden.
 VPN funktioniert, aber Dateitransfer nicht
 ------------------------------------------
 
-Ein Problem, dass eher selten auftritt, aber beim ersten mal
-etwas Mühe macht, die Ursache zu erkennen, ist das folgende.
-
+Ein Problem, dass eher selten auftritt,
+bei dem es beim ersten mal vielleicht etwas Mühe macht,
+die Ursache zu erkennen, ist das folgende:
 Beim Test des VPNs "funktioniert" scheinbar alles, alle Child-SA gehen
 auf, die Testverbindungen zu den Endsystemen funktionieren.
 Trotzem melden die Anwender, dass manchmal oder immer bei bestimmten
@@ -345,13 +349,14 @@ Dieses Gateway lässt sich eventuell mit Traceroute und Ping ermitteln.
 Bei Punkt 2 muss ich vielleicht die Konfiguration meines VPN-Gateways
 ändern oder eine neuere Software-Version einspielen.
 Gegebenenfalls muss ich mich beim Hersteller erkundigen.
-Prinzipiell ist es möglich, aus dem mit der ICMP-Fehlermeldung
-gesendeten Anfang des Datagramms das zugehörige Klartext-Datagramm zu
-ermitteln und damit eine geeignete ICMP-Fehlermeldung für den Sender auf
-der Inside zu generieren.
+Prinzipiell ist es möglich,
+aus dem mit der ICMP-Fehlermeldung gesendeten Anfang des Datagramms
+die zugehörige SA zu ermitteln,
+die Parameter dieser SA anzupassen
+und beim nächsten großen Datagramm
+eine ICMP-Fehlermeldung für den Sender auf der Inside zu generieren.
 Allerdings unterstützt das nicht jede IPsec-Software in jeder Version
-und manchmal ist das Feature auch deaktiviert, weil es zusätzliche
-Ressourcen am VPN-Gateway benötigt.
+und manchmal ist das Feature auch deaktiviert.
 
 Punkt 3 behandele ich ähnlich wie Punkt 1,
 hier habe ich vielleicht eher eine Chance,
@@ -361,8 +366,8 @@ Bei Punkt 4 gehört eine geeignete Ausnahmeregel auf die Host-Firewall.
 
 .. note::
 
-   Bei manchen modernen Betriebssystemen kann der TCP-Stack automatisch
-   die Datagrammgröße herunterregeln,
+   Bei manchen modernen Betriebssystemen regelt der TCP-Stack
+   automatisch die Datagrammgröße herunter,
    wenn keine Bestätigungen für große Datagramme kommen.
    Oft wird dann automatisch eine obere Grenze von etwa 700 Byte
    eingestellt.

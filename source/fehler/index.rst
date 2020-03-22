@@ -54,5 +54,5 @@ wie diese Probleme identifiziert und schließlich beseitigt werden können.
    :caption: Inhalt:
 
    kategorisierung
-   fehlerbilder-empty
+   fehlerbilder
    ursachen-empty
