@@ -1,15 +1,14 @@
 
-:orphan:
-
 Fehlerbilder
 ============
 
 Kein VPN-Tunnel
 ---------------
 
-Einer der ersten Tests,
-wenn ich Probleme mit einem VPN gemeldet bekomme,
-ist nachzuschauen, ob ein Tunnel aufgebaut ist.
+Wenn ich Probleme mit einem VPN gemeldet bekomme,
+ist einer der ersten Tests,
+nachzuschauen,
+ob ein Tunnel aufgebaut ist.
 Damit will ich feststellen, ob überhaupt etwas funktioniert,
 also die zweite Frage aus dem Entscheidungsbaum beantworten.
 
@@ -21,7 +20,7 @@ ob es sich um ein permanentes VPN oder ein On-Demand-VPN handelt.
 Letzteres öffnet einen Tunnel nur,
 wenn interessanter Traffic dafür da ist.
 Bei beiden Arten von Tunneln teste ich,
-ob ich den Tunnel von Hand aufbauen kann, wenn das möglich ist.
+ob ich sie von Hand aufbauen kann, wenn das möglich ist.
 
 .. note::
 
@@ -94,7 +93,7 @@ hier durchaus in die Irre führen.
    meldete zwischendurch,
    dass er Traffic in den Logs sah.
 
-   Er hatte routinemäßig die Logs nach den beteiligten IP-Adressan abgesucht
+   Er hatte routinemäßig die Logs nach den beteiligten IP-Adressen abgesucht
    und wurde fündig,
    weil unser VPN-Gateway jeden Verbindungsversuch protokollierte
    und dabei eben die Peer-Adresse in das Log schrieb.
@@ -137,7 +136,7 @@ Auf dieser Seite schaue ich zuerst nach.
 .. index:: Outside
 
 Kommt der interessante Traffic vom Peer, schaue ich mit einem
-Packet-Capture auf der Outside, ob außer den IKE-Datagrammen für den
+Paketmitschnitt auf der Outside, ob außer den IKE-Datagrammen für den
 Aufbau und die Pflege des Tunnels auch ESP- oder AH-Datagramme
 auftauchen.
 Sehe ich diese Datagramme nicht, kann ich das Problem delegieren und den
@@ -157,7 +156,7 @@ eine IPsec-SA verweist, die auf meinem VPN-Gateway nicht vorhanden ist,
 so dass die Datagramme nicht entschlüsselt werden können.
 In diesem Fall würde ich vermutlich
 eine passende Meldung in den Logs finden
-und im Packet-Capture eventuell INFORMATIONAL-Nachrichten,
+und im Paketmitschnitt eventuell INFORMATIONAL-Nachrichten,
 die nicht als Paar (Request und Response) auftreten.
 
 Ein andere mögliche Ursache ist, dass die IP-Adressen der Datagramme,
@@ -189,7 +188,7 @@ Das VPN sollte das interne Netz hingegen direkt, das heißt ohne NAT mit
 einem anderen Netz verbinden.
 Durch das Masquerading passte die Absenderadresse der Datagramme
 nicht mehr zur Policy
-und diese wurden direkt und unverschlüsselt nach außen gesendet
+und die Datagramme wurden direkt und unverschlüsselt nach außen gesendet
 anstatt durch das VPN.
 
 Auch alte, nicht mehr verwendete Policies können ein VPN stören.
@@ -202,7 +201,7 @@ passierte aber nicht das VPN-Gateway.
 In diesem Fall reklamierte die alte Policy den Traffic für sich.
 Da das zur alten Policy gehörende VPN aber nicht aufgebaut war,
 verwarf das VPN-Gateway den Traffic.
-Nach dem Deaktivieren der Policy funktionierte die Verbindung sofort.
+Nach dem Deaktivieren dieser Policy funktionierte die Verbindung sofort.
 
 .. index:: Inside
 
@@ -232,7 +231,7 @@ dass die VPN-Konfiguration in Ordnung ist.
 Trotzdem muss ich mich vergewissern,
 dass gezählter ankommender Traffic auch wirklich mein VPN-Gateway verlässt.
 Das heißt,
-ich schaue mit einem Packet-Capture auf der Inside oder Outside nach,
+ich schaue mit einem Paketmitschnitt auf der Inside oder Outside nach,
 ob ich dort Klartext- oder verschlüsselte Datagramme
 in der passenden Anzahl abgehen sehe.
 Bei dieser Gelegenheit sehe ich auch, ob auf der gleichen Seite
@@ -241,7 +240,7 @@ passende Datagramme in der Gegenrichtung ankommen.
 Kommen keine Datagramme in der Gegenrichtung an,
 kann ich das Problem delegieren,
 es liegt in der Richtung,
-aus der die Datagramme kommen müssten.
+aus der diese Datagramme kommen müssten.
 
 Sehe ich allerdings Datagramme in der Gegenrichtung, muss ich mein
 VPN-Gateway untersuchen.
@@ -270,32 +269,31 @@ bei dem es beim ersten mal vielleicht etwas Mühe macht,
 die Ursache zu erkennen, ist das folgende:
 Beim Test des VPNs "funktioniert" scheinbar alles, alle Child-SA gehen
 auf, die Testverbindungen zu den Endsystemen funktionieren.
-Trotzem melden die Anwender, dass manchmal oder immer bei bestimmten
+Trotzdem melden die Anwender, dass manchmal oder immer bei bestimmten
 Aktionen die Verbindung hängt oder gar abbricht.
 
-Schaut man sich die Verbindungen im Packet Capture an, sieht
+Schaut man sich die Verbindungen im Paketmitschnitt an, sieht
 oberflächlich alles in Ordnung aus.
 
 Tatsächlich unterscheiden sich die Captures in einem wesentlichen Punkt,
-abhängig davon, bei welchem Peer man die Datagramme mitschneidet.
-Bei einem Peer gehen große Datagramme in das VPN hinein, werden aber vom
-Peer nicht beantwortet.
-Beim anderen Peer kommen eben diese großen Datagramme nicht an.
+abhängig davon,
+auf welcher Seite man die Datagramme mitschneidet.
+Auf einer Seite gehen große Datagramme in das VPN hinein,
+werden aber vom Peer nicht beantwortet.
+Beim Peer kommen eben diese großen Datagramme nicht an,
+nicht einmal verschlüsselt auf der Outside.
 
 Der eine oder andere wird sich jetzt vielleicht denken, worum es geht.
 Vergleicht aber bitte die Situation bei beiden Peers und denkt daran,
 dass dem VPN-Administrator in vielen Fällen nur eines dieser beiden
 Captures zur Verfügung steht.
 
-Was passiert, ist, dass die Path-MTU zwischen beiden Gateways zu klein
-ist für die großen Datagramme, so dass diese nicht beim anderen Peer
-ankommen.
-Normalerweise fängt Path-MTU-Discovery dieses Problem ab, in diesem Fall
-funktioniert das aber nicht, sonst würden die IP-Stacks der Endgeräte
-die Datagrammgröße automatisch begrenzen.
-
-An einer Stelle im Netz zwischen den beiden VPN-Gateways ist die MTU
-kleiner als die MTU unmittelbar an den Geräten (meist 1500 Bytes).
+Was passiert, ist,
+dass die Path-MTU zwischen beiden Gateways zu klein ist
+für die großen Datagramme,
+so dass diese nicht beim anderen Peer ankommen.
+An einer Stelle im Netz zwischen den beiden VPN-Gateways
+ist die MTU kleiner als unmittelbar an den Geräten selbst.
 
 Normalerweise würde Path-MTU-Discovery das Problem entschärfen.
 Wenn diese nicht funktioniert,
@@ -304,7 +302,7 @@ kommen folgende Ursachen in Betracht:
 1. Die ICMP-Fehlermeldungen gelangen nicht zum VPN-Gateway, das die
    großen Datagramme sendet.
 
-   Das kann ich mit einem Packet-Capture an der Outside überprüfen,
+   Das kann ich mit einem Paketmitschnitt an der Outside überprüfen,
    indem ich nach ICMP-Datagrammen vom Typ 3, Code 4
    (Fragmentierung nötig, Don’t Fragment aber gesetzt) filtere.
 
@@ -312,13 +310,13 @@ kommen folgende Ursachen in Betracht:
    aber das VPN-Gateway übersetzt sie nicht
    für den Datenstrom auf der Inside.
 
-   Das kann ich mit einem Packet-Capture an der Inside auf die gleiche
+   Das kann ich mit einem Paketmitschnitt an der Inside auf die gleiche
    Art wie in Punkt 1. überprüfen.
 
 3. Das VPN-Gateway setzt die ICMP-Nachrichten um, aber diese kommen
    nicht beim Endgerät an.
 
-   Das kann ich mit einem Packet-Capture am Endgerät verifizieren.
+   Das kann ich mit einem Paketmitschnitt am Endgerät verifizieren.
 
 4. Die Host-Firewall des Endgerätes verwirft die ICMP-Nachrichten.
 
@@ -331,8 +329,9 @@ Da aber jede der beiden Seiten prinzipiell große Datagramme senden kann,
 kann ich obige Prüfungen auch hier vornehmen, wenn ich große Datagramme
 (zum Beispiel mit PING) in das VPN sende.
 
-Auf der aktiven Seite prüfe ich die vier genannten Punkte, um wenn
-möglich Path-MTU-Discovery wieder gangbar zu machen.
+Auf der aktiven Seite prüfe ich die vier genannten Punkte,
+um Path-MTU-Discovery wieder gangbar zu machen,
+wenn das möglich ist.
 
 Bei Punkt 1 kann ich nur etwas machen, wenn ich Einfluß auf die Stelle
 nehmen kann, an der die ICMP-Datagramme verworfen oder gar nicht erst
@@ -357,6 +356,12 @@ und beim nächsten großen Datagramm
 eine ICMP-Fehlermeldung für den Sender auf der Inside zu generieren.
 Allerdings unterstützt das nicht jede IPsec-Software in jeder Version
 und manchmal ist das Feature auch deaktiviert.
+
+Ich muss beim Überprüfen immer im Hinterkopf behalten,
+dass die ICMP-Fehlermeldung auf der Inside
+erst nach dem zweiten großen Datagramm kommt,
+weil das erste bereits weg ist,
+bevor die Parameter der SA angepasst werden.
 
 Punkt 3 behandele ich ähnlich wie Punkt 1,
 hier habe ich vielleicht eher eine Chance,
@@ -385,7 +390,7 @@ Kann ich Path-MTU-Discovery nicht reparieren, bleiben mir noch zwei
 Möglichkeiten:
 
 a) Für TCP-Verbindungen kann ich mit MSS-Clamping die maximale
-   Datagrammgröße beschränken.
+   Größe der Datagramme beschränken.
 
    Das VPN-Gateway macht sowieso automatisch MSS-Clamping um den
    Protokoll-Overhead für IPsec zu berücksichtigen.
@@ -394,7 +399,7 @@ a) Für TCP-Verbindungen kann ich mit MSS-Clamping die maximale
 
 b) An den Endgeräten kann ich die MTU des entsprechenden
    Netzwerk-Interfaces reduzieren.
-   Das wirkt sich allerdings auf alle Datenübetragungen des Endgerätes
+   Das wirkt sich allerdings auf alle Datenübertragungen des Endgerätes
    aus und sollte nur als allerletztes Mittel verwendet werden.
 
 Beide Möglichkeiten führen auch für andere Verbindungen zu einem
@@ -412,7 +417,9 @@ ungünstigeren Verhältnis von Nutzdaten zu Protokoll-Overhead.
    Die Maximum Segment Size ist ein Parameter
    bei den optionalen Feldern im TCP-Header,
    der die maximale Anzahl von Bytes angibt,
-   die ein Computer in einem einzelnen TCP-Segment empfangen kann.
+   die ein Computer in einem einzelnen TCP-Segment,
+   das heißt in einem Datagramm,
+   empfangen kann.
    Diese Option wird beim Aufbau der TCP-Verbindung gesendet
    und ist für die gesamte Verbindung gültig.
 
@@ -424,3 +431,4 @@ ungünstigeren Verhältnis von Nutzdaten zu Protokoll-Overhead.
    damit die durch den Protokoll-Overhead geringere Path-MTU
    von vornherein in TCP-Verbindungen berücksichtigt wird
    und nicht erst die Path-MTU-Mechanismen eingreifen müssen.
+
