@@ -62,6 +62,11 @@ OSI-Model:
 PAD:
   Peer Authorization Database
 
+.. index:: PFS
+
+PFS:
+  Perfect Forward Secrecy
+
 .. index:: QoS
 
 QoS:
