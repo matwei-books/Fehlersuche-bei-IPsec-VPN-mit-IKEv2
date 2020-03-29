@@ -67,6 +67,11 @@ PAD:
 PFS:
   Perfect Forward Secrecy
 
+.. index:: PSK
+
+PSK:
+  Pre-Shared Key
+
 .. index:: QoS
 
 QoS:

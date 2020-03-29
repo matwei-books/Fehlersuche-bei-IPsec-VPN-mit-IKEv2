@@ -16,34 +16,32 @@ Sehe ich keinen Tunnel - das heißt keine IKE-SA für das betreffende VPN
 - weiß ich, dass ich tiefer graben muss.
 
 Dabei unterscheide ich,
-ob es sich um ein permanentes VPN oder ein On-Demand-VPN handelt.
-Letzteres öffnet einen Tunnel nur,
+zwischen permanenten VPN und On-Demand-VPN.
+Letztere öffnen einen Tunnel nur,
 wenn interessanter Traffic dafür da ist.
 Bei beiden Arten von Tunneln teste ich,
 ob ich sie von Hand aufbauen kann, wenn das möglich ist.
 
-.. note::
+In den meisten Fällen sollte es möglich sein, einen VPN-Tunnel von
+jedem Peer aus aufzubauen.
+Bei On-Demand-Tunneln an Cisco ASA zum Beispiel geht der Tunnel
+aber nur auf, wenn interessanter Traffic auf der Inside ankommt.
+Hier kann ich den interessanten Traffic mit dem Befehl
+``packet-tracer`` simulieren.
+Bei anderer Software und policy-basierten VPN kann ich mitunter
+temporär eine Adresse aus dem lokalen Adressbereich des Tunnels
+auf das VPN-Gateway legen
+und den Traffic mit PING und eben dieser Quelladresse erzeugen.
+Diese Adresse konfiguriere ich mit 32 beziehungsweise 128 Bit Netzmaske
+um den restlichen Datenverkehr nicht zu stören.
 
-   In den meisten Fällen sollte es möglich sein, einen VPN-Tunnel von
-   jedem Peer aus aufzubauen.
-   Bei On-Demand-Tunneln an Cisco ASA zum Beispiel geht der Tunnel
-   aber nur auf, wenn interessanter Traffic auf der Inside ankommt.
-   Hier kann ich den interessanten Traffic mit dem Befehl
-   ``packet-tracer`` simulieren.
-   Bei anderer Software und policy-basierten VPN kann ich mitunter
-   temporär eine Adresse aus dem lokalen Adressbereich des Tunnels
-   auf das VPN-Gateway legen
-   und den Traffic mit PING und eben dieser Quelladresse erzeugen.
-   Diese Adresse konfiguriere ich mit 32 beziehungsweise 128 Bit Netzmaske
-   um den restlichen Datenverkehr nicht zu stören.
-
-   Habe ich jedoch dynamisches NAT für den Traffic im Tunnel, so dass
-   mehrere Absenderadressen auf Peer-Seite auf eine Adresse bei mir
-   abgebildet werden, kann ich den Tunnel nicht von meiner Seite mit
-   dieser Methode öffnen, weil es keine eindeutige Zuordnung des von mir
-   erzeugten oder simulierten Traffics auf eine Adresse beim Peer gibt.
-   Um solche Situationen zu vermeiden, ist es besser, derartige
-   Adressumsetzungen auf der Ursprungsseite vorzunehmen.
+Habe ich jedoch dynamisches NAT für den Traffic im Tunnel, so dass
+mehrere Absenderadressen auf Peer-Seite auf eine Adresse bei mir
+abgebildet werden, kann ich den Tunnel nicht von meiner Seite mit
+dieser Methode öffnen, weil es keine eindeutige Zuordnung des von mir
+erzeugten oder simulierten Traffics auf eine Adresse beim Peer gibt.
+Um solche Situationen zu vermeiden, ist es besser,
+solche Adressumsetzungen auf der Ursprungsseite vorzunehmen.
 
 Kann ich den Tunnel von Hand aufbauen
 und sehe anschließend IKE- und IPsec-SA,
@@ -71,43 +69,36 @@ der Datagramme vom Peer-VPN-Gateway zeigt.
 Die Systemprotokolle können unerfahrene Administratoren
 hier durchaus in die Irre führen.
 
-.. note::
+Ich war persönlich in einen Fall involviert, der bereits vor meiner
+Schicht begann und erst nach meiner Schicht gelöst war.
+Die beteiligten Peers hatten mehrere VPN zu unterschiedlichen
+Adressen, so dass die Administratoren erfahren genug sein sollten,
+um das zugrundeliegende Problem zu erkennen.
+Allerdings funktionierten auf beiden Seiten etliche andere VPNs
+und nur dieses eine nicht,
+so dass zunächst jeder der beiden Administratoren
+von einem Problem auf der anderen Seite ausging.
 
-   Ich war persönlich in einen Fall involviert, der bereits vor meiner
-   Schicht begann und erst nach meiner Schicht gelöst war.
-   Die beteiligten Peers hatten mehrere VPN zu unterschiedlichen
-   Adressen, so dass die Administratoren erfahren genug sein sollten,
-   um das zugrundeliegende Problem zu erkennen.
+Im Paketmitschnitt war jeweils nur der abgehende Traffic zum Peer zu
+sehen, aber kein ankommender. Ein Ping oder Traceroute von dritter
+Stelle aus funktionierte hingegen für beide Peer-VPN-Gateways.
 
-   Allerdings funktionierten auf beiden Seiten etliche andere VPNs
-   und nur dieses eine nicht,
-   so dass zunächst jeder der beiden Administratoren
-   von einem Problem auf der anderen Seite ausging.
+Schließlich konnten wir einen Netzwerkadministrator überzeugen,
+sich der Sache anzunehmen.
+Dieser fand nach einiger Zeit die Ursache des Problems.
+Beide Unternehmen hatten mehrere ISP für ihre Internetanschlüsse,
+und es gab einen ISP der eine Verbindung zu beiden Peers hatte.
+Diesen ISP nutzten die Peers für dieses VPN
+und genau im Netz dieses ISP liefen die Datagramme
+für den jeweils anderen Peer ins Leere.
 
-   Im Paketmitschnitt war jeweils nur der abgehende Traffic zum Peer zu
-   sehen, aber kein ankommender. Ein Ping oder Traceroute von dritter
-   Stelle aus funktionierte hingegen für beide Peer-VPN-Gateways.
+Die schnelle Lösung war, den VPN-Traffic nicht über diesen ISP zu
+schicken und irgendwann hatte dieser auch sein Netz wieder in Ordnung
+gebracht.
 
-   Schließlich konnten wir einen Netzwerkadministrator überzeugen, sich
-   der Sache anzunehmen. Dieser hatte Zugriff auf die VPN-Logs und
-   meldete zwischendurch,
-   dass er Traffic in den Logs sah.
+.. raw:: latex
 
-   Er hatte routinemäßig die Logs nach den beteiligten IP-Adressen abgesucht
-   und wurde fündig,
-   weil unser VPN-Gateway jeden Verbindungsversuch protokollierte
-   und dabei eben die Peer-Adresse in das Log schrieb.
-
-   Nachdem wir ihm das erklärt hatten, fand er die tatsächliche Ursache.
-   Beide Unternehmen hatten mehrere ISP für ihre Internetanschlüsse,
-   und es gab einen ISP der eine Verbindung zu beiden Peers hatte.
-   Diesen ISP nutzten die Peers für dieses VPN und genau im Netz
-   dieses ISP liefen die Datagramme für den jeweils anderen Peer ins
-   Leere.
-
-   Die schnelle Lösung war, den VPN-Traffic nicht über diesen ISP zu
-   schicken und irgendwann hatte dieser auch sein Netz wieder in Ordnung
-   gebracht.
+   \clearpage
 
 .. index:: Inside
 
@@ -288,7 +279,7 @@ Vergleicht aber bitte die Situation bei beiden Peers und denkt daran,
 dass dem VPN-Administrator in vielen Fällen nur eines dieser beiden
 Captures zur Verfügung steht.
 
-Was passiert, ist,
+Das Problem ist,
 dass die Path-MTU zwischen beiden Gateways zu klein ist
 für die großen Datagramme,
 so dass diese nicht beim anderen Peer ankommen.
@@ -369,20 +360,20 @@ Einfluss auf die Konfiguration des betreffenden Paketfilters zu nehmen.
 
 Bei Punkt 4 gehört eine geeignete Ausnahmeregel auf die Host-Firewall.
 
-.. note::
+.. topic:: Smart MTU Black Hole Detection
 
-   Bei manchen modernen Betriebssystemen regelt der TCP-Stack
-   automatisch die Datagrammgröße herunter,
-   wenn keine Bestätigungen für große Datagramme kommen.
-   Oft wird dann automatisch eine obere Grenze von etwa 700 Byte
-   eingestellt.
+   RFC4821 schlägt einen Mechanismus vor,
+   mit dem ICMP Black Holes,
+   also das Problem der fehlenden ICMP-Benachrichtigungen,
+   entdeckt und die MTU intelligent herabgesetzt werden kann.
 
-   In diesem Fall wird das Problem manchmal gar nicht bemerkt, weil die
-   Verbindung nur kurz stockt und dann weiter funktioniert.
+   Dieser RFC ist von 2007
+   und moderne Betriebssysteme sollten das können.
+   Manchmal muss das Verfahren jedoch erst am Endgerät aktiviert werden.
 
-   Hier habe ich aber für die großen Datagramme einen bis zu doppelten
-   Overhead an Protokolldaten, wodurch die Effizienz der
-   Datenübertragung leidet.
+.. raw:: latex
+   
+   \newpage
 
 .. index:: ! MSS-Clamping
 
@@ -404,10 +395,6 @@ b) An den Endgeräten kann ich die MTU des entsprechenden
 
 Beide Möglichkeiten führen auch für andere Verbindungen zu einem
 ungünstigeren Verhältnis von Nutzdaten zu Protokoll-Overhead.
-
-.. raw:: latex
-   
-   \newpage
 
 .. topic:: TCP MSS-Clamping
 

@@ -60,7 +60,7 @@ Hier bin eindeutig ich als VPN-Administrator in der Pflicht.
 In manchen Fällen kann man Fehlkonfigurationen
 durch gewissenhaften Vergleich mit den vereinbarten Parametern erkennen.
 
-Ich hingegen erkenne eine Fehlkonfiguration oft erst,
+Ich erkenne eine Fehlkonfiguration jedoch oft erst,
 wenn ich beim Verbindungsaufbau die Diskrepanz
 der vereinbarten Parameter mit den am Ende verwendeten sehe.
 Dazu müssen sich die VPN-Gateways gegenseitig erreichen können

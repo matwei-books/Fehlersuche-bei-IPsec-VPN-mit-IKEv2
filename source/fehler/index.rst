@@ -6,7 +6,7 @@ Dieses Kapitel ist mir nicht leicht gefallen.
 Alle Probleme, die ich beschreibe,
 sind mir während der Arbeit begegnet,
 so dass ich sagen kann: ich weiß, worüber ich schreibe.
-Allerdings gibt es jede Menge Probleme,
+Es gibt allerdings jede Menge Probleme,
 denen ich bisher noch nicht begegnet bin
 und über die ich daher nicht in gleichem Maße schreiben kann.
 
@@ -34,11 +34,12 @@ vom Problem zur Lösung führen.
 Leider funktioniert das nur dann wirklich,
 wenn alle möglichen Probleme erfasst sind.
 
-Die Strukturierung nach der Art und Weise, wie das Problem zu beheben
-ist, hilft erst, wenn das Problem diagnostiziert ist und es darum geht,
+Die Strukturierung nach der Art und Weise,
+wie das Problem zu beheben ist,
+hilft wenn das Problem diagnostiziert ist und es darum geht,
 die nächsten Schritte zu bestimmen.
 
-Ich habe mich entschlossen,
+Schließlich habe ich mich entschlossen,
 alle drei Ordnungsprinzipien zu verwenden
 und zunächst Problemkategorien einzuführen,
 die auf die nächsten Schritte hinweisen.
@@ -47,7 +48,7 @@ um aus diesen auf mögliche Ursachen zu schließen.
 Am Ende gehe ich in Beschreibungen einzelner Fehlerursachen auf Probleme ein,
 die mir in meiner Arbeit als VPN-Administrator begegnet sind,
 darauf,
-wie diese Probleme identifiziert und schließlich beseitigt werden können.
+wie ich diese Probleme identifizieren und beseitigen kann.
 
 .. toctree::
    :maxdepth: 2
@@ -55,4 +56,4 @@ wie diese Probleme identifiziert und schließlich beseitigt werden können.
 
    kategorisierung
    fehlerbilder
-   ursachen-empty
+   ursachen

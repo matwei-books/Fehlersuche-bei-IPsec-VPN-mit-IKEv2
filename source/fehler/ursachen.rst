@@ -1,5 +1,7 @@
 
-:orphan:
+.. raw:: latex
+   
+   \newpage
 
 Fehlerursachen
 ==============
@@ -8,7 +10,7 @@ Keine Verbindung
 ----------------
 
 Eine recht häufiger Fehler ist,
-dass überhaupt keine Netzverbindung zwischen den VPN-Gateways besteht.
+dass überhaupt keine Netzwerkverbindung zwischen den VPN-Gateways besteht.
 Das kann mehrere Ursachen haben.
 Vielleicht ist die Leitung an einer Stelle unterbrochen,
 weil jemand das Kabel getrennt hat,
@@ -30,8 +32,11 @@ Fehlerhaftes Routing lässt sich manchmal ebenfalls mit Traceroute eingrenzen.
 Alle diese Ursachen haben gemeinsam, dass sie aus Sicht des
 VPN-Administrators in die Kategorie externe Probleme fallen,
 ich kann deren Lösung delegieren.
-Bei der Beauftragung muss ich lediglich angeben, welche
-Datenverbindungen ich haben möchte.
+Bei der Beauftragung gebe ich an,
+welche Datenverbindungen ich haben möchte
+und natürlich alles,
+was ich über das Problem herausgefunden habe,
+um die Behebung zu beschleunigen.
 
 Bei einer Unterbrechung zwischen den beiden VPN-Gateways ist das
 einfach: ich will UDP Port 500 und Port 4500, ESP und vielleicht AH,
@@ -65,7 +70,7 @@ müssen sie eskalieren und sich Hilfe holen
 oder andere Parameter aushandeln wenn bestimmte Parameter
 nicht an ihrem Gateway einstellbar sind.
 
-Falsche Crypto-Paramter können verschiedene Ausprägungen haben, zum
+Falsche Crypto-Parameter können verschiedene Ausprägungen haben, zum
 Beispiel:
 
 * falsche IKE-Version
@@ -139,7 +144,7 @@ ich davon ausgehen, dass beide Peers die selben Crypto-Algorithmen für
 IKE verwenden.
 
 Scheitert IKE_AUTH, könnten Probleme mit dem PSK die Ursache sein
-oder generell Authentisierungsprobleme.
+oder generell Probleme mit der gewählten Authentisierungsmethode.
 Da mit dem IKE_AUTH-Exchange auch die erste Child-SA verhandelt wird,
 kann das Problem auch an den Parametern für diese liegen.
 
@@ -167,16 +172,15 @@ IKE-Datagramme enthält.
 Fehlendes PFS auf einer Seite
 .............................
 
-Ein Problem mit PFS,
-das auf einer Seite konfiguriert ist und auf der anderen nicht,
-ist, dass das VPN mitunter zunächst funktioniert
-und das Problem erst beim Rekeying offenbar wird.
+Wenn PFS nur auf einer Seite konfiguriert ist und auf der anderen nicht,
+funktioniert das VPN mitunter zunächst
+und das Problem wird erst beim Rekeying offenbar.
 
 Bei der im Rahmen von IKE_AUTH ausgehandelten Child-SA wird das
 Schlüsselmaterial von IKE_SA_INIT verwendet, so dass hier eine
 funktionsfähige Child-SA erzeugt werden kann.
-Das Rekeying scheitert dann weil eine Seite den Schlüssel
-aus dem letzten verwendeten Schlüssel ableiten,
+Das Rekeying scheitert dann,
+weil eine Seite den neuen Schlüssel aus dem verwendeten ableiten,
 die andere Seite jedoch einen neuen Schlüssel aushandeln will.
 
 NAT
@@ -190,7 +194,7 @@ Verständigungsproblem, weil für dieselben Datenströme an verschiedenen
 Stellen des Netzes unterschiedliche Adressen verwendet werden.
 Schon allein diese Tatsache erschwert die Fehlersuche.
 
-Generell unterscheide ich am VPN zwei Formen von NAT:
+Generell unterscheide ich zwei Formen von NAT am VPN:
 
 * *Externes NAT* meint in diesem Zusammenhang, dass die Adressen der
   Datagramme zwischen den VPN-Gateways verändert werden.
@@ -224,11 +228,16 @@ brauche ich einen speziellen Filter beim Paketmitschnitt.
 .. index:: PCAP-Filter
 
 Zum Beispiel bekomme ich mit dem folgenden PCAP-Filter bei tcpdump und
-Wireshark die IKE-Datagramme.
+Wireshark nur die IKE-Datagramme.
 
 .. code::
 
-   proto udp and ( port 500 or ( port 4500 and udp[8:4] = 0 ) )
+   udp and ( port 500 or ( port 4500 and udp[8:4] = 0 ) )
+
+Bin ich hingegen am ESP-Traffic interessiert,
+verwende ich folgenden Filter::
+
+   esp or ( udp and port 4500 and udp[8:4] != 0 )
 
 Bei einem VPN-Gateway mit mehreren Peers ergänze ich den Filter noch mit
 der IP-Adresse des Peers.
@@ -244,22 +253,23 @@ Diese Probleme sind fast immer auf eine Fehlkonfiguration am VPN-Gateway
 zurückzuführen, das heißt, wenn ich sie diagnostiziert habe, liegt es
 meist auch an mir, sie zu beheben.
 
-Leider bin ich bei IPv4 auf Grund der Adressenknappheit oft genug
+Leider bin ich bei IPv4 auf Grund der Knappheit der Adressen oft genug
 gezwungen, in meinen organisationseigenen Netzen Adressen zu verwenden,
 die über das Internet nicht zu mir geroutet werden.
 Manche Organisationen verwenden dann beliebige öffentliche Adressen, die
 anderen zugeteilt wurden, was ganz eigene Probleme mit sich bringt.
-Aber auch wenn ich mit Adressen, die nach RFC1918 :cite:`RFC1918`
-reserviert sind, arbeite, muss ich oft genug auf NAT zurückgreifen.
-Ich muss NAT immer dann verwenden, wenn auf beiden Seiten des VPNs
-überlappende Adressbereiche verwendet werden.
+Aber auch wenn ich mit Adressen arbeite, die nach RFC1918 :cite:`RFC1918`
+reserviert sind, muss ich oft genug auf NAT zurückgreifen.
+Ich muss es immer dann verwenden,
+wenn ich auf beiden Seiten des VPN überlappende Adressbereiche habe.
 
 Ein anderer möglicher Grund für NAT ist, wenn das VPN-Gateway an
 zentraler Stelle im Netz positioniert ist und ich allen Datenverkehr für
 das VPN durch einfaches Routing dorthin schicken will.
-Dann lege ich in meinem organisationsinternen Netz allen Traffic für
-VPNs auf einen bestimmten Adressbereich und muss die daraus verwendeten
-Adressen beim VPN-Gateway auf die Adressen bei den Peers abbilden.
+Dann lege ich in meinem organisationsinternen Netz
+allen Traffic für VPN auf einen bestimmten Adressbereich
+und muss die daraus verwendeten Adressen
+beim VPN-Gateway auf die Adressen bei den Peers abbilden.
 Das betrifft die Zieladressen in allen Datagrammen, die von meiner
 Organisation zum Peer gehen und die Absenderadressen aller Datagramme,
 die vom Peer an meine Organisation gesendet werden.
@@ -283,21 +293,20 @@ geroutet werden.
 
    NAT bei VPN-Datenverkehr
 
-Das war das Vorgeplänkel zu internem NAT, kommen wir nun zu konkreten
-Problemen damit, die ich identifizieren und beheben kann.
+Kommen wir nun zu konkreten Problemen mit internem NAT,
+die ich identifizieren und beheben kann.
 Dabei hilft uns das Diagramm :numref:`vpn-nat`, das aufzeigt, an welchen Stellen
 die Datagramme welche Adressen haben können.
 Dieses Diagramm kann auch bei Verständigungsproblemen mit dem Peer
 während der Fehlersuche helfen.
 
-Betrachte ich die Datagramme zwischen zwei Endpunkten in den Netzwerken
-A und B, dann können die Absender- und Zieladressen ein und desselben
-Datagramms sich an den drei hervorgehobenen Bereichen voneinander
-unterscheiden.
+Betrachte ich Datagramme zwischen den Endpunkten in den Netzwerken A und B,
+dann können die Absender- und Zieladressen ein und desselben Datagramms
+sich in den drei hervorgehobenen Bereichen voneinander unterscheiden.
 Sind beide Seiten des VPN lediglich verschiedene Standorte ein und
 derselben Organisation, dann werden die Adressen Aa, Av, Ab
-beziehungsweise Ba, Bv und Bb vermutlich überall dieselben sein, weil bei
-geschickter Netzplanung kein NAT notwendig ist.
+beziehungsweise Ba, Bv und Bb vermutlich überall dieselben sein,
+weil bei geschickter Planung der Netze kein NAT notwendig ist.
 
 Komplizierter wird es, wenn das VPN die Netze zweier Organisationen
 verbindet.
@@ -308,16 +317,17 @@ Insbesondere, wenn Adressen aus den in RFC1918 :cite:`RFC1918` genannten
 Adressbereichen verwendet werden.
 In diesem Fall müssen beide Seiten Adressbereiche finden, die zu ihrem
 eigenen Netz und zum Netz des Peers passen.
-Unterhält ein VPN-Gateway mehrere VPN zu unterschiedlichen Peers, so
-müssen für dieses Gateway die Adressen des Peers sich von denen aller
-anderen Peers unterscheiden, damit sie korrekt zugeordnet werden können.
+Unterhält ein VPN-Gateway mehrere VPN zu unterschiedlichen Peers,
+dann sollten für dieses Gateway die lokalen Adressen des Peers
+sich von denen aller anderen Peers unterscheiden,
+damit sie korrekt zugeordnet werden können.
 
 Bei einem neu einzurichtenden VPN zu einem fremden Peer bestimme ich
 zunächst die Anzahl der benötigten Adressen auf beiden Seiten und dann
 die verfügbaren Adressen für die Traffic-Selektoren.
 Dabei muss jede Seite die bereits bei anderen VPN auf dem gleichen
 Gateway verwendeten Adressen vermeiden.
-Habe ich mich mit dem Peer auf die im VPN verwendeten Traffik-Selektoren
+Habe ich mich mit dem Peer auf die im VPN verwendeten Traffic-Selektoren
 geeinigt, muss ich die Adressen aus meinem Netz umsetzen, wenn sie vom
 ausgehandelten Traffic-Selektor abweichen.
 Der Peer muss das gleiche entsprechend auf seiner Seite tun.
@@ -385,7 +395,7 @@ Und natürlich muss diese Regel korrekt sein, darum schaue ich sie als
 allererstes an.
 
 Diese Probleme mögen vielleicht etwas weit hergeholt erscheinen,
-sie sind mir jedoch sämtlich schon bei der Arbeit mit VPNs begegnet.
+sie sind mir jedoch sämtlich schon bei der Arbeit mit VPN begegnet.
 
 In einem Fall sollte zu einem Peer ein VPN eingerichtet werden, bei dem
 für den Peer extra ein Adressbereich (/24) ausgewählt worden war, der
@@ -396,8 +406,8 @@ Um so größer war unser Erstaunen, als wir beim Testlauf sahen, dass für
 den Traffic zu diesem VPN die Adressen trotzdem umgesetzt wurden, darum
 nicht mehr zur Policy passten und nicht über das VPN gesendet wurden.
 Bei der Untersuchung der NAT-Regeln mit den Adressen fanden wir recht
-schnell eine NAT-Regel für einen /22-Netzbereich in dem das neue VPN das
-vierte Teilnetz belegte.
+schnell eine NAT-Regel für einen /22-Netzbereich
+in dem das neue VPN das vierte /24-Subnet belegte.
 Von den in der NAT-Regel abgedeckten Adressen waren aber nur das erste
 und das dritte /24-Subnet wirklich verwendet worden und die NAT-Regel
 nur aus Bequemlichkeit auf /22 gelegt, um nicht mehrere NAT-Regeln bzw.
@@ -407,7 +417,7 @@ Bei der Vorbereitung eines Workshops wiederum habe ich es geschafft,
 dass ein VPN-Gateway den Return-Traffic
 zu verschlüsselt über das VPN angekommenen Daten
 unverschlüsselt mit nur halb umgesetzten Adressen zurückschickte.
-Ursache war eine übriggebliebenen globale NAT-Regel.
+Ursache war eine übriggebliebene globale NAT-Regel.
 
 Path-MTU
 --------
@@ -428,7 +438,7 @@ verwendet, die angibt, wieviel Oktetts ein Endgerät oder ein Gateway für
 ein Datagramm der OSI-Ebene 3 (IPv4 oder IPv6) zur Verfügung stehen.
 Das sind bei Ethernet 1500 Bytes, mit Jumbo-Frames auch mehr.
 Bei PPP gehen davon 8 Bytes für die Verwaltungsinformationen drauf,
-so dass bei einem Internetanschluß mit PPPoe nur noch 1492 Byte für das
+so dass bei einem Internetanschluss mit PPPoE nur noch 1492 Byte für das
 IP-Protokoll zur Verfügung stehen.
 Eine Aufstellung gängiger Größen für die MTU
 findet sich in RFC1191 (:cite:`RFC1191`).
@@ -439,20 +449,6 @@ Netzsegmente, die eine unterschiedliche MTU aufweisen können.
 Für diese Strecke ist die Path-MTU (PMTU) die geringste MTU aller
 Netzsegmente, die ein Datagramm durchquert.
 
-.. note::
-
-   Eine Datenübertragung nutzt einen Kanal optimal aus, wenn das
-   Verhältnis von Nutzdaten zu Verwaltungsdaten möglichst groß ist.
-   Das ist es, wenn die Daten mit möglichst großen Datagrammen gesendet
-   werden, da jedes einzelne die gleichen Verwaltungsinformationen mit
-   sich führt.
-
-Jedes Endgerät, jedes Gateway kann nur die MTU der direkt
-angeschlossenen Netzsegmente kennen.
-Die PMTU kann hingegen für verschiedene Datenströme eines Endgerätes
-unterschiedlich sein, sie ist daher eine Merkmal jedes einzelnen Flows
-und muss für diesen ermittelt werden.
-
 .. topic:: Flow
 
    .. index:: ! Flow
@@ -461,13 +457,19 @@ und muss für diesen ermittelt werden.
    zum Beispiel mit dem Internet Protokoll,
    basiert auf Datagrammen,
    einzelnen Dateneinheiten,
-   die Nacheinander versendet werden.
+   die nacheinander versendet werden.
    Wenn ich hier von einem Flow spreche,
    meine ich alle Datagramme,
    die zu einer einzelnen Kommunikationsbeziehung gehören.
    Das umfasst neben den Datagrammen,
    die von einer Seite zur anderen gesendet werden,
    auch die zugehörigen Antwortpakete in der Gegenrichtung.
+
+Jedes Endgerät, jedes Gateway kann nur die MTU der direkt
+angeschlossenen Netzsegmente kennen.
+Die PMTU kann hingegen für verschiedene Datenströme eines Endgerätes
+unterschiedlich sein, sie ist daher eine Merkmal jedes einzelnen Flows
+und muss für diesen ermittelt werden.
 
 Wie, ist in RFC1191 (:cite:`RFC1191`) beschrieben.
 IPv4 verwendet hierfür das DF-Bit des IP-Headers und ICMP-Datagramme vom
@@ -483,7 +485,7 @@ müssen die Gateways
 die entsprechenden ICMP- beziehungsweise ICMPv6-Nachrichten generieren
 und die Firewalls unterwegs müssen sie durchlassen.
 
-Bei einem VPN gibt es im Prinzip drei Stellen, an denen die Path-MTu zu
+Bei einem VPN gibt es im Prinzip drei Stellen, an denen die Path-MTU zu
 klein sein kann:
 
 * vor dem eigenen VPN-Gateway,
@@ -493,7 +495,7 @@ klein sein kann:
 Jede Position bringt ihre eigenen Probleme mit sich.
 
 Ist die MTU eines Netzsegments vor dem eigenen VPN-Gateway zu gering,
-greifen die oben beschriebenen Mechanismem und der IP-Stack des
+greifen die oben beschriebenen Mechanismen und der IP-Stack des
 sendenden Rechners sollte sich automatisch darauf einstellen.
 Gehen die zur PMTU-Discovery benötigten Datagramme verloren, oder werden
 gar nicht erst gesendet, ist das kein Problem für den VPN-Administrator
@@ -508,7 +510,7 @@ sie den Protokoll-Overhead von der MTU des abgehenden Interfaces abziehen.
 Bei TCP-Verbindungen setzen die VPN-Gateways MSS-Clamping ein, damit zu
 große Datagramme gar nicht erst gesendet werden.
 Allerdings beziehen sich die VPN-Gateways dabei immer auf die MTU des
-Netzsegmentes, an dem sie angeschlossen sind.
+Netzsegments, an dem sie angeschlossen sind.
 Ist auf dem Weg zwischen den beiden VPN-Gateways die PMTU geringer, so
 gehen die Fehlernachrichten an das sendende VPN-Gateway und nicht an den
 Sender des im VPN transportierten Datagramms.
@@ -547,26 +549,36 @@ Damit das funktioniert, muss
 * das sendende VPN-Gateway diese Funktionalität unterstützen,
 * diese Funktion in der Konfiguration aktiviert sein,
 * die notwendige Information, um ein geeignetes ICMP-Datagramm für den
-  Absender zu generieren, noch vorhanden sein.
+  Absender zu generieren, noch vorhanden sind.
+  Das heißt, die betreffende SA muss noch aktiv sein.
+  Auch dann wird die ICMP-Nachricht an den Sender
+  erst beim nächsten großen Datagramm generiert,
+  wenn dessen Größe die für die SA notierte MTU überschreitet.
 
 Ist die MTU eines Segments hinter dem VPN-Gateway des Peers zu gering,
-gibt es bei policy-based VPN oft das Problem, dass die Absenderadresse
-der ICMP-Nachricht nicht in der Policy steht und damit die Rückmeldung
-bereits beim VPN verworfen wird und PMTU-Discovery nicht funktioniert.
+gibt es bei policy-based VPN mitunter das Problem,
+dass die Absenderadresse der ICMP-Nachricht nicht in der Policy steht
+und damit die Rückmeldung bereits beim VPN verworfen wird
+und PMTU-Discovery nicht funktioniert.
+RFC4301 (:cite:`RFC4301`) diskutiert dieses Problem in Abschnitt 6.2
+"Processing Protected Transit ICMP Error Messages".
+Ob und wie das umgesetzt ist,
+hängt von der konkreten Implementierung ab.
+
 Bei route-based VPN tritt dieses Problem nicht auf, wenn die
 begleitenden Firewall-Regeln die benötigten ICMP-Nachrichten durch
 lassen.
-Zum Glück ist die MTU der Netzsegmente hinter dem VPN selten geringer
-als die MTU des VPN selbst, so dass dieser Fall wohl kaum in der Praxis
-vorkommen wird.
+Zum Glück ist die MTU der Netzsegmente hinter dem VPN
+selten geringer als die MTU des VPN,
+so dass dieser Fall wohl kaum in der Praxis vorkommen wird.
 
 Grundsätzlich merke ich mir,
 dass ich mich bei einem VPN nicht darauf verlassen kann,
 dass PMTU-Discovery funktioniert.
-
 Habe ich diese,
 mit Hilfe von Paketmitschnitten
-oder durch Kenntnis der Netztopologie als Problemursache identifiziert,
+oder durch Kenntnis der Netztopologie
+als Ursache des Problems identifiziert,
 muss ich unter Umständen andere Wege suchen,
 um das Problem zu umgehen.
 
@@ -595,7 +607,7 @@ die an diesem Rechner über dieses Interface gehen,
 beeinträchtigen.
 Kann ich den Datenverkehr mit und ohne VPN
 an diesem Rechner auf verschiedene Interfaces aufteilen,
-wären allerdings nur die VPN-Verbindungen dieses Rechners betroffen.
+wären allerdings nur die VPN-Verbindungen betroffen.
 
 Inkompatibilität
 ----------------
@@ -603,9 +615,9 @@ Inkompatibilität
 Eine weitere mögliche Fehlerursache sind Inkompatibilitäten
 zwischen verschiedenen IPsec-Implementierungen.
 Es ist mir nicht möglich, diese erschöpfend in einem Buch zu behandeln.
-In den meisten Föllen lassen sie sich darauf zurückführen, dass
-bestimmte Funktionalitäten manchmal nicht oder nur teilweise
-implementiert wurden.
+In den meisten Fällen lassen sie sich darauf zurückführen,
+dass bestimmte Funktionalitäten manchmal gar nicht
+oder nur teilweise implementiert wurden.
 Dabei gibt es nicht nur Unterschiede von Software zu Software, sondern
 auch von Version zu Version der gleichen Software.
 Oft werden verschiedene Geräte vom gleichen Hersteller unterschiedlich
@@ -648,14 +660,23 @@ VPN-Gateway angelegt wird, das mit dem des Peers verbunden ist.
 Diese beiden Interfaces terminieren jeweils auf einer öffentlichen
 IP-Adresse der VPN-Gateways und genau für diese beiden Adressen brauche
 ich nur eine einzige Child-SA.
+Bei policy-based VPN gibt es dieses virtuelle Netzwerkinterface nicht.
 
 .. index:: Transportmodus
 
 Prinzipiell kann ich die virtuellen Netzwerkschnittstellen
-auch mit nichtöffentlichen Adressen des VPN-Gateways terminieren.
+mit nichtöffentlichen Adressen des VPN-Gateways terminieren.
 Bei der Verwendung von öffentlichen Adressen
 kann ich jedoch das VPN im Transportmodus betreiben
 und ein paar Byte Overhead pro Datagramm sparen.
+
+Diese Einsparung kann zu Problemen führen,
+wenn der Tunnel nicht aufgebaut ist
+und keine Firewall-Regel unverschlüsselten Datenverkehr sperrt.
+In solchen Fällen habe ich unverschlüsselten GRE-Traffic
+beim Peer ankommen sehen
+und bevorzuge darum nichtöffentliche Adressen und Tunnelmodus
+als zusätzliche Sicherheit.
 
 .. index:: GRE-Interface
 .. index:: PPTP
@@ -663,15 +684,12 @@ und ein paar Byte Overhead pro Datagramm sparen.
 Als virtuelle Netzwerkschnittstelle kann ich ein GRE-Interface nehmen,
 wie in :cite:`RFC2784` beschrieben oder PPTP (:cite:`RFC2637`).
 
-Sind die GRE-Interfaces eingerichtet und durch IPsec geschützt
-miteinander verbunden, bekommen sie je eine Adresse in einem beliebigen
-Transfernetz.
-Dieses Transfernetz dient nur dem Routing des abgehenden Datenverkehrs.
+Sind die GRE-Interfaces eingerichtet
+und durch IPsec geschützt miteinander verbunden,
+bekommen sie je eine Adresse in einem beliebigen Transfer-Netz.
+Dieses dient nur dem Routing des abgehenden Datenverkehrs.
 Auf der ankommenden Seite muss der Traffic durch Firewall-Regeln
 reguliert werden.
-
-Da das VPN nur die von den GRE-Devices verwendeten Adressen sieht,
-kann der Tunnel im Transport-Modus konfiguriert werden.
 
 Beim policy-based VPN wird jedem Tunnel zwischen zwei Netzwerken eine
 eigene Child-SA bei den Peers zugeordnet.
@@ -683,22 +701,20 @@ dass nur erlaubter Traffic über das VPN kommt.
 Ich benötige hier keine GRE-Interfaces.
 Dafür bin ich gezwungen, das VPN im Tunnel-Modus zu konfigurieren.
 
-Es gibt verschiedene Gründe, sich für die eine oder andere Variante zu
-entscheiden, deren Erörterung an dieser Stelle zu weit führen würde.
-
 Aus dem vorgenannten ergibt sich, dass route-based VPN inkompatibel zu
 policy-based VPN sind.
 Zwar können auf demselben Gateway beide Arten von VPN betrieben werden,
-für einen konkreten Tunnel müssen beide Peers jedoch die selbe Art verwenden.
+für einen konkreten Tunnel müssen beide Peers jedoch dieselbe Art verwenden.
 
 Auch muss ich aufpassen,
 wenn ich ein VPN von policy-basiert auf route-basiert umstelle.
 In einem konkreten Fall hatte ich die Policy für das
 alte policy-basierte VPN noch nicht deaktiviert. Auf der Gegenstelle war
 das VPN schon deaktiviert, so dass kein Traffic mehr darüber lief.
-Allerdings reklamierte die Policy den passenden Traffic des neuen
-route-basierten VPN für das alte VPN und verwarf die Datagramme, weil
-dieses nicht mehr aktiv war.
+Allerdings reklamierte die alte Policy den passenden Traffic
+des neuen route-basierten VPN für den alten Tunnel
+und verwarf die Datagramme,
+weil dieser nicht aktiv war.
 
 Anti-Replay-Check-Probleme
 --------------------------
@@ -740,7 +756,7 @@ Datagramme, die in kurzer Zeit hintereinander eintreffen, noch
 verschärft.
 
 Habe ich ein Problem mit Anti-Replay-Checks, muss ich die verworfenen
-Datagramme anhand der Lognachrichten identifizieren und mit einem
+Datagramme anhand der Log-Nachrichten identifizieren und mit einem
 gleichzeitig laufenden Paketmitschnitt verifizieren, ob es sich um eine
 Replay-Attacke handelt oder eine andere Ursache in Frage kommt.
 Zum Beispiel eine der oben genannten.
