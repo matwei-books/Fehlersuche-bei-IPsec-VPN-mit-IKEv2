@@ -2,10 +2,20 @@
 Abkürzungen
 ===========
 
+.. index:: AES
+
+AES:
+  Advanced Encryption Standard
+
 .. index:: AH
 
 AH:
   Authentication Header
+
+.. index:: CBC
+
+CBC:
+   Cipher Block Chaining
 
 .. index:: ! CLI
 
@@ -21,6 +31,11 @@ ESP:
 
 GUI:
   Graphical User Interface, graphische Benutzeroberfläche
+
+.. index:: HMAC
+
+HMAC:
+  Hash-based Message Authentication Code
 
 .. index:: IKE
 
@@ -67,6 +82,11 @@ PAD:
 PFS:
   Perfect Forward Secrecy
 
+.. index:: PRF
+
+PRF:
+  Pseudorandom Function
+
 .. index:: PSK
 
 PSK:
@@ -86,6 +106,11 @@ SA:
 
 SAD:
   Security Association Database
+
+.. index:: SHA
+
+SHA:
+  Secure Hash Algorithm
 
 .. index:: SPD
 
