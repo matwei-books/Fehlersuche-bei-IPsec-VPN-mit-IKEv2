@@ -40,7 +40,7 @@ ohne vorangehenden UDP-Header und Non-ESP-Marker.
    \clearpage
 
 .. figure:: /images/ipsec-ike-datagram.png
-   :alt: IKEv2-Header aus RFC 7269, Abschnitt 3.1
+   :alt: IKEv2-Header aus RFC 7296, Abschnitt 3.1
    :name: ipsec-ike-datagram
 
    IKE Header
@@ -267,7 +267,7 @@ Die Semantik von Transforms und Attributen unterscheidet sich zwischen IKEv1 und
 Bei IKEv1 konnte ein einzelnes Transform mehrere Algorithmen für ein Protokoll haben bei denen eines im Transform enthalten war und die anderen in den Attributen.
 
 .. figure:: /images/ipsec-sa-payload.png
-   :alt: SA-Payload aus RFC 7269, Abschnitt 3.3
+   :alt: SA-Payload aus RFC 7296, Abschnitt 3.3
    :name: ipsec-sa-payload
 
    Security Association Payload
@@ -283,7 +283,7 @@ Proposal-Unterstrukturen
 ........................
 
 .. figure:: /images/ipsec-sa-payload-proposal.png
-   :alt: Proposal-Unterstruktur einer SA-Payload aus RFC 7269, Abschnitt 3.3.1
+   :alt: Proposal-Unterstruktur einer SA-Payload aus RFC 7296, Abschnitt 3.3.1
    :name: ipsec-sa-payload-proposal
 
    Proposal-Unterstruktur
@@ -338,7 +338,7 @@ Transform-Unterstruktur
 .......................
 
 .. figure:: /images/ipsec-sa-payload-transform.png
-   :alt: Transform-Unterstruktur einer SA-Payload aus RFC 7269, Abschnitt 3.3.2
+   :alt: Transform-Unterstruktur einer SA-Payload aus RFC 7296, Abschnitt 3.3.2
    :name: ipsec-sa-payload-transform
 
    Transform-Unterstruktur
@@ -493,7 +493,7 @@ Bedeutung eines Requests zu modifizieren.
 
 
 .. figure:: /images/ipsec-ike-datagram-notify-payload.png
-   :alt: Notify Payload aus RFC 7269, Abschnitt 3.10
+   :alt: Notify Payload aus RFC 7296, Abschnitt 3.10
    :name: ipsec-ike-datagram-notify-payload
 
    Notify Payload
@@ -508,7 +508,7 @@ Protocol ID (1 Oktett):
   
   Für Benachrichtigungen bezüglich Child-SA muss dieses Feld entweder
   den Wert 2 enthalten, um AH anzuzeigen oder den Wert 3 für ESP.
-  Bei den in RFC7269 definierten Benachrichtigungen ist der SPI nur mit
+  Bei den in RFC7296 definierten Benachrichtigungen ist der SPI nur mit
   INVALID_SELECTORS, REKEY_SA und CHILD_SA_NOT_FOUND eingeschlossen.
 
 SPI Size (1 Oktett):
@@ -531,8 +531,8 @@ Notify-Message-Typen
 ....................
 
 Die folgenden Tabellen listen lediglich die Namen der Nachrichten und
-ihren numerischen Wert. Für Details verweise ich auf RFC7269, Abschnitt
-3.10. Die Tabellen sind aktuell für den Stand von RFC7269.
+ihren numerischen Wert. Für Details verweise ich auf RFC7296, Abschnitt
+3.10. Die Tabellen sind aktuell für den Stand von RFC7296.
 
 Werte von 0 - 16383 sind für das Melden von Fehlern vorgesehen.
 Wenn eine IPsec-Implementierung eine Nachricht mit einem dieser Typen
@@ -606,7 +606,7 @@ der Sender der Delete Payload für ankommende ESP- oder AH-Datagramme
 erwarten würde.
 
 .. figure:: /images/ipsec-ike-datagram-delete-payload.png
-   :alt: Delete Payload aus RFC 7269, Abschnitt 3.11
+   :alt: Delete Payload aus RFC 7296, Abschnitt 3.11
    :name: ipsec-ike-datagram-delete-payload
 
    Delete Payload
