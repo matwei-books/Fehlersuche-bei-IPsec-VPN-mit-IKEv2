@@ -149,6 +149,7 @@ vdivide={1.2in,*,*}
 \setcounter{secnumdepth}{1}
 \hyphenation{
 	da-rauf
+    WireShark
 }
 ''',
 
