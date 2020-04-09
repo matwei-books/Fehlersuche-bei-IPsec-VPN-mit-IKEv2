@@ -27,6 +27,7 @@ SOURCE = source/einfuehrung.rst \
 	 source/software/mikrotik-router.rst \
 	 source/software/pfsense.rst \
 	 source/anhang/datagram-header.rst \
+	 source/anhang/hilfsmittel.rst \
 #
 DRAFTS = build/draft/einfuehrung-draft.pdf \
 	 build/draft/grundlagen/index-draft.pdf \
@@ -47,6 +48,7 @@ DRAFTS = build/draft/einfuehrung-draft.pdf \
 	 build/draft/software/mikrotik-router-draft.pdf \
 	 build/draft/software/pfsense-draft.pdf \
 	 build/draft/anhang/datagram-header-draft.pdf \
+	 build/draft/anhang/hilfsmittel-draft.pdf \
 #
 
 build/draft/%-draft.pdf: source/%.rst; pandoc -o $@ --variable subparagraph -H pandoc/draft.tex $<
