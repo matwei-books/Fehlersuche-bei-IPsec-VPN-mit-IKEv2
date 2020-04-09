@@ -7,4 +7,4 @@
 
    abkuerzungen
    datagram-header
-   hilfsmittel-empty
+   hilfsmittel
