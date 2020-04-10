@@ -3,6 +3,8 @@
 
    \clearpage
 
+.. _sect-paketmitschnitt:
+
 Paketmitschnitt
 ===============
 

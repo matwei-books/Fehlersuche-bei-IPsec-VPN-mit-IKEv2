@@ -5,26 +5,26 @@ Hilfsmittel
 Testlab
 -------
 
-Ein Testlab ist ein nützliches Werkzeug. Nicht nur für die Fehlersuche
-bei VPNs, sondern allgemein bei Netzwerkproblemen und vor allem auch zum
-Lernen und Testen von neuen Lösungen bevor man diese aktiv in
-Produktionsnetzen einsetzt.
+Ein Testlab ist nicht nur für die Fehlersuche bei VPNs nützlich,
+sondern allgemein bei Problemen im Netzwerk
+und vor allem auch zum Lernen und Testen von neuen Lösungen
+bevor ich diese aktiv in Produktionsnetzen einsetze.
 Damit kann ich ein Problem nachstellen,
 oder wenn ich es nicht nachstellen kann,
 gezielt nach den Unterschieden
 zwischen der Problem- und der Testumgebung suchen
 und darüber Hinweise für die Lösung bekommen.
-Außerdem kann ich es für Schulungszwecke einsetzen
+Außerdem kann ich es für Schulungszwecke einsetzen,
 um die theroretischen Erörterungen
 mit praktischen Übungen anschaulich zu machen.
 
-Ich kann ein Testlab temporär aus vorhandenener Hardware zusammenstecken
+Ich kann das Testlab temporär aus vorhandenener Hardware zusammenstecken
 oder dauerhaft mit extra dafür angeschaffter Hardware.
 Es gibt Simulationssoftware wie GNS3,
 mit der ich viele Problemstellungen ohne die dafür im
-Produktivnetz eingesetzte Hardware untersuchen kann. Ich kann eine
-solche Netzwerk-Simulation auch mit Hardware-Komponenten ergänzen, deren
-Funktionalität sich nicht simulieren lässt.
+Produktivnetz eingesetzte Hardware untersuchen kann.
+Ich kann eine solche Netzwerk-Simulation auch mit Hardware ergänzen,
+deren Funktionalität sich nicht simulieren lässt.
 
 Generell bietet ein Testlab eine Menge Vorteile:
 
@@ -39,13 +39,13 @@ Generell bietet ein Testlab eine Menge Vorteile:
 * Ich kann die Komplexität eines Problems
   auf die minimale Anzahl von beteiligten Komponenten reduzieren,
   um mir damit seine Natur klar zu machen.
-  Mit diesem reduzierten Problem ist es vielleicht auch einfacher,
+  Mit diesem reduzierten Problem ist es einfacher,
   Hilfe von anderen zu bekommen.
 
 * Für die Nachfrage in öffentlichen Foren kann ich das Problem
   mit privaten Adressen reproduzieren,
   um mir das Modifizieren der Adressen
-  beim Posten von Konfigurationen oder Mitschnitten zu ersparen.
+  beim Posten von Konfigurationen, Logs oder Mitschnitten zu ersparen.
 
 * In einem Testlab kann ich Paketmitschnitte problemlos an verschiedenen
   Stellen des Netzwerks anfertigen.
@@ -92,11 +92,12 @@ für Proof-of-Concepts oder einfach nur zum Lernen.
 
 Es gibt verschiedene Möglichkeiten, ein Testlab mit GNS3 einzurichten.
 
-Ein Laptop mit geeigneter CPU und genügend RAM kann bereits ausreichen
+Ein Laptop mit geeigneter CPU und genügend RAM kann bereits ausreichen,
 um viele Situationen nachzustellen. Da hier sowohl das Frontend als auch
 der VM-Host, auf dem die simulierten Geräte laufen, in einem Rechner
 vereint sind, ist diese Lösung - einmal eingerichtet - am bequemsten
-einsetzbar. Über einen Netzwerkanschluss und VLANs kann ich diesen
+einzusetzen.
+Über einen Netzwerkanschluss und VLANs kann ich diesen
 Aufbau mit externer Hardware zu komplexen Setups erweitern.
 
 Habe ich keinen Laptop übrig, kann ich das Backend mit den VM auch auf
@@ -120,15 +121,15 @@ Auf dem Laptop reicht die Bedienoberfläche.
 .. [#]  https://docs.gns3.com/
 
 
-Bei dieser sowie be der Cloud-Lösung muss ich darauf achten,
+Bei dieser sowie bei der Cloud-Lösung muss ich darauf achten,
 dass Front- und Backend immer die gleiche Software-Version haben.
 Bei der kompletten Installation auf einem Laptop
 sind diese automatisch auf dem gleichen Stand.
 
-Beim Betrieb von GNS3 kann es einige Probleme geben, die sich umgehen
+Es kann einige Probleme beim Betrieb von GNS3 geben, die sich umgehen
 lassen, wenn man sie kennt.
 
-Bei den Konsolen einiger Geräte,
+Bei den Konsolen von Geräten,
 die mit VNC für die Konsole arbeiten,
 ließen sich einge essentielle Zeichen nicht eingeben.
 In diesem Fall half es, auf eine andere VNC-Viewer-Software zu wechseln.
@@ -143,11 +144,12 @@ bei NAT-Clouds funktionieren nur ausgehende Verbindungen
 weil alle Zugriffe auf externe Netze
 hinter der Schnittstellen-Adresse verborgen sind.
 
-Obwohl ich von GNS3-Projekten aus über die Netzinterfaces
-Zugriff auf alle angeschlossenen Netze bekommen kann,
+Obwohl ich von GNS3-Projekten aus über die Netzwerk-Interfaces
+Zugriff auf alle angeschlossenen externen Netze bekommen kann,
 erreiche ich den Host selbst darüber nicht.
 Dafür muss ich ein Tap-Device einrichten
-und kann über dieses dann mit den simulierten Geräten interagieren.
+und kann über dieses dann vom Host aus
+mit den simulierten Geräten interagieren.
 Das ist insbesondere dann wichtig,
 wenn GNS3 komplett auf einem Laptop läuft und ich von diesem
 beispielsweise das Web-Interface
@@ -173,8 +175,6 @@ den Datagrammen an denen ich interessiert bin.
 Sonde zum Injizieren von Traffic
 --------------------------------
 
-  The proof of the pudding is in the eating.
-
 Ob ein VPN funktioniert, sieht man am besten, wenn Traffic durchgeht.
 Und genau hier liegt das Problem für viele VPN-Administratoren in
 größeren Netzwerkumgebungen. Sie kommen oft nicht an die Geräte heran,
@@ -192,7 +192,7 @@ nicht wirklich ein Datagramm hinausgeschickt, so dass ich nicht die
 komplette Verbindung zum Zielrechner auf Peer-Seite testen kann.
 
 Eine andere Möglichkeit, die sich unabhängig vom VPN-Gateway anbietet,
-ist eine Sonde, die den gewünschten Traffic im Netzwerk injizieren kann.
+ist eine Sonde, die den Traffic im Netzwerk injizieren kann.
 Gemeint ist ein Rechner im internen Netz meines VPN-Gateways, der in der
 Lage ist, den gewünschten Traffic zu erzeugen.
 Das kann ein kleiner Einplatinenrechner sein,
@@ -201,7 +201,7 @@ Wichtig ist, dass auf ihm eine
 geeignete Software zum Injizieren von Datagrammen installiert ist.
 
 Ich kann damit allerdings nur Traffic testen, der aus meinem Netz zum
-Netz der Peers gesendet und die Antworten darauf auswerten.
+Netz der Peers geht und die Antworten darauf auswerten.
 Für Tests in der anderen Richtung
 muss der Peer den benötigten Traffic erzeugen.
 
@@ -210,7 +210,9 @@ an der der Traffic von der originalen Quelle entlangkommt,
 werde ich die Antwort der Gegenseite nicht an der Sonde empfangen.
 Ich muss auf Paketmitschnitte zurückgreifen,
 um zu sehen, ob die richtige Antwort vom VPN zurückkommt.
-Mit Paketmitschnitten bin ich aber ohnehin vertraut.
+Paketmitschnitte zählen aber sowieso zum Handwerkszeug
+beim Netzwerk-Debugging,
+Abschnitt :ref:`sect-paketmitschnitt` geht näher darauf ein.
 
 Bei TCP-Tests werde ich zusätzlich zur Antwort aus dem VPN
 vielleicht TCP-Reset-Datagramme vom echten Rechner
@@ -235,7 +237,7 @@ Für die Testzwecke komme ich meist mit den folgenden Optionen aus:
   am Ende.
 
 ``-I $if, --interface $if``:
-  gibt die Netzwerkschnittstelle ($if) vor, zu der das Datagramm hinaus
+  gibt die Netzwerkschnittstelle ($if) vor, an der das Datagramm
   gesendet wird.
 
 ``-0, --rawip``:
@@ -286,7 +288,7 @@ Für die Testzwecke komme ich meist mit den folgenden Optionen aus:
   gibt die Größe der Daten nach dem Protokoll-Header vor.
 
 ``-E $fname, --file $fname``:
-  sende den Inhalt der Datei $fname als Daten.
+  sendet den Inhalt der Datei $fname als Daten.
 
 ``-e $sign, --sign $sign``:
   füllt die ersten Bytes des Datenbereichs im Datagramm mit $sign.
@@ -300,22 +302,23 @@ und schaue im Paketmitschnitt nach, ob die Antwort meinen Erwartungen
 entspricht.
 
 Mit TCP ist das einfach.
-Weil die ersten beiden Datagramme immer gleich aussehen,
+Weil die ersten Datagramme immer gleich aussehen,
 brauche ich nur die Adressen und Ports variieren.
 In meinem Test-Datagramm sind nur das SYN-Flag und einige Optionen,
 wie z.B. die MSS gesetzt.
-Der Aufruf für hping sieht wie folgt aus::
+Der Aufruf für hping3 sieht wie folgt aus::
 
    hping3 -a $saddr -p $dport -S --tcp-mss 1460 $daddr
 
-Bei UDP-Protokollen ist es etwas schwieriger,
+Bei UDP-Protokollen ist es schwieriger,
 weil hier der Inhalt
-der Datagramme je nach Protokoll unterschiedlich aussehen muss. Für
-einige Protokolle, wie z.B. DNS kann ich ein mitgeschnittenes Datagramm
-nehmen und daraus eine Signatur für das mit hping gesendete Datagramm
-bauen.
+der Datagramme je nach Protokoll unterschiedlich aussehen muss.
+Für einige Protokolle kann ich ein mitgeschnittenes Datagramm nehmen
+und daraus eine Signatur für das mit hping gesendete Datagramm bauen.
 
-Wenn auch das nicht geht, kann ich vielleicht auf ein Anwenderprogramm
-(z.B.  ntpdate für NTP) zurückgreifen
+Wenn auch das nicht geht, kann ich auf ein Anwenderprogramm
+(z.B. ``host`` für DNS oder ``ntpdate`` für NTP) zurückgreifen
 und die Quell-Adresse mit Netfilter modifizieren.
+Dazu brauche ich umfangreiche Kenntnisse des Paketfilters
+und der Adressumsetzung auf dem Sondenrechner.
 
