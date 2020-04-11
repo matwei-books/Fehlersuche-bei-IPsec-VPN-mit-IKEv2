@@ -5,7 +5,7 @@ Hilfsmittel
 Testlab
 -------
 
-Ein Testlab ist nicht nur für die Fehlersuche bei VPNs nützlich,
+Ein Testlab ist nicht nur für die Fehlersuche bei VPN nützlich,
 sondern allgemein bei Problemen im Netzwerk
 und vor allem auch zum Lernen und Testen von neuen Lösungen
 bevor ich diese aktiv in Produktionsnetzen einsetze.
@@ -15,10 +15,10 @@ gezielt nach den Unterschieden
 zwischen der Problem- und der Testumgebung suchen
 und darüber Hinweise für die Lösung bekommen.
 Außerdem kann ich es für Schulungszwecke einsetzen,
-um die theroretischen Erörterungen
+um die theoretischen Erörterungen
 mit praktischen Übungen anschaulich zu machen.
 
-Ich kann das Testlab temporär aus vorhandenener Hardware zusammenstecken
+Ich kann das Testlab temporär aus vorhandener Hardware zusammenstecken
 oder dauerhaft mit extra dafür angeschaffter Hardware.
 Es gibt Simulationssoftware wie GNS3,
 mit der ich viele Problemstellungen ohne die dafür im
@@ -94,7 +94,7 @@ Es gibt verschiedene Möglichkeiten, ein Testlab mit GNS3 einzurichten.
 
 Ein Laptop mit geeigneter CPU und genügend RAM kann bereits ausreichen,
 um viele Situationen nachzustellen. Da hier sowohl das Frontend als auch
-der VM-Host, auf dem die simulierten Geräte laufen, in einem Rechner
+der Host, auf dem die simulierten Geräte laufen, in einem Rechner
 vereint sind, ist diese Lösung - einmal eingerichtet - am bequemsten
 einzusetzen.
 Über einen Netzwerkanschluss und VLANs kann ich diesen
@@ -106,7 +106,7 @@ Je nachdem, ob diese Umgebung in meinem Rechenzentrum
 oder auf angemieteten Servern im Internet läuft,
 kann ich auch hier vielleicht externe Hardware einbringen.
 
-Für ein Schulungsprojekt hatte ich das GNS3-Backend
+Für einen Workshop hatte ich das GNS3-Backend
 auf einem Einplatinenrechner (PC Engines APU)
 mit genügend RAM und CPU-Leistung installiert
 und nur das Frontend auf meinem Laptop.
@@ -129,25 +129,27 @@ sind diese automatisch auf dem gleichen Stand.
 Es kann einige Probleme beim Betrieb von GNS3 geben, die sich umgehen
 lassen, wenn man sie kennt.
 
+.. index:: VNC
+
 Bei den Konsolen von Geräten,
 die mit VNC für die Konsole arbeiten,
-ließen sich einge essentielle Zeichen nicht eingeben.
+ließen sich einige essentielle Zeichen nicht eingeben.
 In diesem Fall half es, auf eine andere VNC-Viewer-Software zu wechseln.
-Ist es mögich, die simulierten Geräte auf eine serielle Konsole
+Ist es möglich, die simulierten Geräte auf eine serielle Konsole
 einzustellen, so bevorzuge ich diese,
 weil dann Cut&Paste meist uneingeschränkt funktioniert.
 
-GNS3-Simulationen interagieren via Clouds mit externen Netzen.
+GNS3-Simulationen interagieren via Cloud mit externen Netzen.
 In einfachen Cloud-Devices
 stehen die Network-Interfaces des Backend-Hosts zur Verfügung,
-bei NAT-Clouds funktionieren nur ausgehende Verbindungen
+bei einer NAT-Cloud funktionieren nur ausgehende Verbindungen
 weil alle Zugriffe auf externe Netze
 hinter der Schnittstellen-Adresse verborgen sind.
 
 Obwohl ich von GNS3-Projekten aus über die Netzwerk-Interfaces
 Zugriff auf alle angeschlossenen externen Netze bekommen kann,
 erreiche ich den Host selbst darüber nicht.
-Dafür muss ich ein Tap-Device einrichten
+Dafür muss ich ein TAP-Device einrichten
 und kann über dieses dann vom Host aus
 mit den simulierten Geräten interagieren.
 Das ist insbesondere dann wichtig,
@@ -166,7 +168,7 @@ in GNS3 Paketmitschnitte aufzunehmen, muss ich vorsichtig sein,
 wenn ich den Traffic an dem Interface mitschneiden will, über das das
 Frontend auf das Backend zugreift.
 Wenn ich hier keinen simulierten Switch dazwischenschalte,
-bekomme ich den Steuerverkehr von GNS3 in den Capture,
+bekomme ich den Steuerungsverkehr von GNS3 in den Mitschnitt,
 so dass ich über den Mitschnitt das Backend lahm lege,
 wenn ich die Daten zu Wireshark ausleite.
 Ein Switch in der Simulation trennt die Steuerdaten von
@@ -187,7 +189,7 @@ und erfordert entsprechende Koordination.
 
 Bei Cisco ASA habe ich die Möglichkeit, mit dem Befehl ``packet-tracer``
 die benötigten Datagramme zu simulieren und damit auch den Aufbau des
-VPNs und der benötigten Child-SA zu initiieren. Allerdings wird dabei
+VPN und der benötigten Child-SA zu initiieren. Allerdings wird dabei
 nicht wirklich ein Datagramm hinausgeschickt, so dass ich nicht die
 komplette Verbindung zum Zielrechner auf Peer-Seite testen kann.
 
@@ -205,7 +207,7 @@ Netz der Peers geht und die Antworten darauf auswerten.
 Für Tests in der anderen Richtung
 muss der Peer den benötigten Traffic erzeugen.
 
-Wenn ich den Testtraffic nicht an einer Stelle einspeise,
+Wenn ich den Test-Traffic nicht an einer Stelle einspeise,
 an der der Traffic von der originalen Quelle entlangkommt,
 werde ich die Antwort der Gegenseite nicht an der Sonde empfangen.
 Ich muss auf Paketmitschnitte zurückgreifen,
@@ -233,7 +235,7 @@ Für die Testzwecke komme ich meist mit den folgenden Optionen aus:
   kein Versuch, symbolische Namen für Hostadressen aufzulösen.
 
 ``-q, --quiet``:
-  es wird nichts ausgegeben außer der Zusammenfassung beim Startup und
+  es wird nichts ausgegeben außer der Zusammenfassung beim Starten und
   am Ende.
 
 ``-I $if, --interface $if``:
@@ -268,15 +270,15 @@ Für die Testzwecke komme ich meist mit den folgenden Optionen aus:
   bei Verwendung von ``-1``.
 
 ``--s $port, --baseport $port``:
-  setzt die Quellportnummer des ersten Datagramms. Hping3 erhöht die
-  Quellportnummer bei jedem Datagramm um 1, wenn nicht zusätzlich die
+  setzt den Quellport des ersten Datagramms. Hping3 erhöht die
+  Nummer des Quellports bei jedem Datagramm um 1, wenn nicht zusätzlich die
   Option ``--keep`` angegeben wird.
 
 ``-p $port, --destport $port``:
-  setzt die Zielportnummer (Default ist 0).
+  setzt den Zielport (Default ist 0).
 
 ``--keep``:
-  behält die angegebene Quellportnummer bei.
+  behält den angegebenen Quellport bei.
 
 ``-S, --syn``:
   setzt das SYN-Flag bei TCP.
@@ -314,7 +316,7 @@ Bei UDP-Protokollen ist es schwieriger,
 weil hier der Inhalt
 der Datagramme je nach Protokoll unterschiedlich aussehen muss.
 Für einige Protokolle kann ich ein mitgeschnittenes Datagramm nehmen
-und daraus eine Signatur für das mit hping gesendete Datagramm bauen.
+und daraus eine Signatur für das mit hping3 gesendete Datagramm bauen.
 
 Wenn auch das nicht geht, kann ich auf ein Anwenderprogramm
 (z.B. ``host`` für DNS oder ``ntpdate`` für NTP) zurückgreifen
