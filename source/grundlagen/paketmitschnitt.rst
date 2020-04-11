@@ -379,21 +379,68 @@ verwende ich je nach Bedarf noch die folgenden Optionen:
 Auswertung mit Wireshark
 ........................
 
-Der Bildschirm ist bei Wireshark in drei Bereiche geteilt, von denen
-einer die Liste der mitgeschnittenen Datagramme enthält, einer die
-Informationen über das aktuell in der Liste markierte Datagramm
+Beim Debugging von VPN in der freien Wildbahn habe ich kaum Gelegenheit,
+Datagramme direkt mit Wireshark mitzuschneiden,
+wenn ich nicht gerade ein Problem in einem Testlab nachstelle.
+Ich kann aber einen Paketmitschnitt,
+den ich auf einem anderen Gerät angefertigt habe,
+auf meine Arbeitsstation kopieren und hier mit Wireshark auswerten.
+
+Die Möglichkeiten für die Aufnahme und Analyse
+von Paketmitschnitten mit Wireshark aufzuzählen
+würde ein eigenes Buch füllen.
+Glücklicherweise existiert mit :cite:`bullock2017wireshark`
+bereits ein Buch,
+dass umfassend in die Arbeit mit Wireshark
+vom Standpunkt eines Security Professionals einführt
+und dass ich jedem empfehlen kann,
+der sich tiefer in das Thema einarbeiten will.
+
+Prinzipiell kann ich mit Wireshark selbst
+Datagramme an einer der Netzwerkschnittstellen meines Rechners mitschneiden.
+Alternativ öffne ich eine bereits erstellte Datei mit einem Mitschnitt
+und analysiere sie mit Wireshark.
+
+Habe ich einen Mitschnitt,
+ist der Bildschirm bei Wireshark in drei Bereiche geteilt,
+von denen der obere die Liste der mitgeschnittenen Datagramme enthält,
+der mittlere Informationen über das gerade betrachtete Datagramm
 und der unterste den Inhalt dieses Datagramms in Hex und ASCII.
 
 Über den drei Bereichen ist ein Eingabefeld für einen Anzeigefilter,
 mit dem ich die im obersten Bereich angezeigte Liste reduzieren kann.
 
-Beim Einstieg in die Analyse eines Mitschnitts helfen mir zunächst die
-Menüpunkte *Analyse* und *Statistics* in der Menüleiste.
+Beim Einstieg in die Analyse eines Mitschnitts helfen mir
+oft die Menüpunkte *Analyse* und *Statistics* in der Menüleiste.
 Dahinter verbergen sich Auswertungen, die gerade bei umfangreichen
 Mitschnitten helfen können, die interessanten Pakete schnell zu finden.
 
-.. figure:: /images/wireshark-datagram-http.png
+.. raw:: latex
+
+   \clearpage
+
+Beim Debugging von VPN weiß ich meist bereits,
+welche Datagramme ich anschauen will.
+Hier interessieren mich vor allem die folgenden Fragen:
+
+* Sind bestimmte Datagramme im Mitschnitt enthalten?
+* Welche Parameter wurden in der IKE-Sitzung gesendet?
+
+Für die erste Frage verwende ich Anzeigefilter,
+um die Anzahl der Datagramme im obersten Feld einzuschränken.
+Diese Anzeigefilter kann ich interaktiv
+durch Rechtsklick auf die Parameter im mittleren Feld erzeugen
+oder direkt in der Eingabeleiste über der Paketliste eingeben.
+
+Für die zweite Frage betrachte ich das mittlere Feld
+bei den IKE-Datagrammen.
+
+.. figure:: /images/wireshark-datagram-ikev2.png
    :alt: Paketmitschnitt mit Wireshark
 
    Paketmitschnitt mit Wireshark
+
+Die Dissektoren von Wireshark erlauben mir,
+die gesendeten Parameter genau zu verifizieren.
+Dabei hilft mir das Kapitel :ref:`appendix-datagramm-header` im Anhang.
 
