@@ -121,3 +121,13 @@ SPD:
 
 SPI:
   Security Parameters Index
+
+.. index:: VM
+
+VM:
+  Virtuelle Maschine
+
+.. index:: VNC
+
+VNC:
+  Virtual Network Computing
