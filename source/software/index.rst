@@ -57,6 +57,19 @@ die ich als wesentlich für die Fehlersuche erachte:
    Mit einem Paketmitschnitt kann ich somit fundierte Aussagen
    zu mir fremden Systemen treffen.
 
+.. topic:: GUI
+
+   .. index:: ! GUI
+
+   Eine graphische Benutzeroberfläche (Graphical User Interface)
+   macht eine Software mit Bildsymbolen und Steuerelementen einfacher nutzbar.
+   Gut gemacht ist sie intuitiv benutzbar
+   und insbesondere für weniger häufig ausgeführte Operationen vorteilhaft.
+
+   Ein Nachteil für die Problemanalyse ist, dass die Konfiguration meist
+   über mehrere Bildschirmelemente verteilt ist, die durch eine
+   umständliche Navigation nur nacheinander betrachtbar sind.
+
 4. **Wie komme ich an die Konfiguration in Textform?**
 
    Obwohl ein GUI für die Konfiguration von VPNs
@@ -75,19 +88,6 @@ die ich als wesentlich für die Fehlersuche erachte:
    Das kann dieser um ein Vielfaches besser als ich, vor allem wenn ich
    abgelenkt bin.
 
-.. topic:: GUI
-
-   .. index:: ! GUI
-
-   Eine graphische Benutzeroberfläche (Graphical User Interface) macht
-   eine Software mit Bildsymbolen und Steuerelementen nutzbar.
-   Gut gemacht ist sie manchmal intuitiv benutzbar und insbesondere für
-   weniger häufig ausgeführte Operationen vorteilhaft.
-
-   Ein Nachteil für die Problemanalyse ist, dass die Konfiguration oft
-   über mehrere Bildschirmelemente verteilt ist, die durch eine manchmal
-   umständliche Navigation nur nacheinander betrachtbar sind.
-
 5. **Gibt es Besonderheiten?**
 
    Diese Frage geht auf Inkompatibilitäten oder bestimmte Fehler ein,
@@ -99,7 +99,7 @@ die ich als wesentlich für die Fehlersuche erachte:
    :maxdepth: 2
    :caption: Inhalt:
 
-   cisco-asa
-   mikrotik-router
-   pfsense
+   cisco-asa-empty
+   mikrotik-router-empty
+   pfsense-empty
 

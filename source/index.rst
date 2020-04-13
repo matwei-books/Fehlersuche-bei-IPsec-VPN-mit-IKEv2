@@ -19,7 +19,7 @@ Fehlersuche bei IKEv2 IPsec VPN
    vorgehen/antworten
    fehler/index
    anhang/index
-   software/index-empty
+   software/index
    kolophon
 
 .. bibliography:: troubleshoot-ipsec.bib
