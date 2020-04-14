@@ -4,11 +4,11 @@
 IPsec-Software
 ==============
 
-In diesem Kapitel gehe ich auf einige konkrete IPsec-Implementierungen ein.
+In diesem Kapitel gehe ich näher auf einige IPsec-Implementierungen ein.
 Es ist mir klar, dass dieser Teil des Buches am schnellsten veralten wird.
-Andererseits sind mir während der Konfiguration von IPsec-VPNs etliche
-Uralt-Installationen bei den Peers begegnet, die aus den verschiedensten
-Gründen weiter betrieben wurden.
+Andererseits sind mir im Laufe der Zeit
+etliche Uralt-Installationen begegnet,
+die aus den verschiedensten Gründen weiter betrieben wurden.
 
 Ich werde nicht
 detailliert auf die Konfiguration von konkreten IPsec-VPNs eingehen
@@ -20,9 +20,10 @@ die ich als wesentlich für die Fehlersuche erachte:
    Hier gibt es prinzipell zwei Möglichkeiten:
 
    * Ich betrachte die Logs direkt auf der Konsole, in der ich angemeldet bin.
-     Gibt es hier keine Möglichkeiten zur Filterung, ist es sinnvoll, die
-     Konsolensitzung in einer Textdatei zu protokollieren um die Logs
-     bequemer zu analysieren.
+     Gibt es hier keine Möglichkeiten zur Filterung,
+     ist es sinnvoll,
+     die Konsolensitzung in einer Textdatei zu protokollieren,
+     um die Logs zu analysieren.
 
    * Die Logs werden zu einem Logserver ausgeleitet.
      Dann muss ich sie von diesem Server abholen.
@@ -30,12 +31,13 @@ die ich als wesentlich für die Fehlersuche erachte:
 2. **Wie komme ich an die Debug-Informationen und wie interpretiere ich diese?**
 
    Oft landen die Debug-Informationen, wenn eingeschaltet, in den Logs.
-   Dann kann ich sie da abholen.
+   Dann kann ich sie zusammen mit den Logs abholen.
 
-   Manchmal kann ich sie in der Terminal-Sitzung betrachten, dann gilt
-   das gleiche wie oben für die Logs.
+   Manchmal kann ich sie direkt in der Terminal-Sitzung betrachten,
+   dann gilt das gleiche wie oben für die Logs in der Konsolensitzung.
    Da beim Debugging sehr viele Informationen anfallen, will ich diese,
-   wenn möglich gleich bei der Entstehung filtern.
+   wenn möglich,
+   gleich bei der Entstehung filtern.
 
 3. **Kann ich einen Paketmitschnitt auf dem VPN-Gateway machen und wenn ja, wie?**
 
@@ -46,8 +48,8 @@ die ich als wesentlich für die Fehlersuche erachte:
 
    Kann ich präzise Filter verwenden,
    sind die gewünschten Informationen leicht zu finden
-   und enthalten die gewünschten Details,
-   soweit es sich nicht gerade um verschlüsselte Datagramme handelt.
+   und enthalten die nötigen Details,
+   wenn es sich nicht gerade um verschlüsselte Datagramme handelt.
    Aber auch da geht bei manchen Implementierungen noch etwas.
 
    Schließlich sieht ein Paketmitschnitt immer gleich aus, wenn ich ihn
@@ -64,11 +66,12 @@ die ich als wesentlich für die Fehlersuche erachte:
    Eine graphische Benutzeroberfläche (Graphical User Interface)
    macht eine Software mit Bildsymbolen und Steuerelementen einfacher nutzbar.
    Gut gemacht ist sie intuitiv benutzbar
-   und insbesondere für weniger häufig ausgeführte Operationen vorteilhaft.
+   und insbesondere für selten ausgeführte Operationen vorteilhaft.
 
-   Ein Nachteil für die Problemanalyse ist, dass die Konfiguration meist
-   über mehrere Bildschirmelemente verteilt ist, die durch eine
-   umständliche Navigation nur nacheinander betrachtbar sind.
+   Ein Nachteil für die Problemanalyse ist,
+   dass die Konfiguration meist über mehrere Bildschirmseiten verteilt ist,
+   die meist nicht durchsuchbar
+   und durch umständliche Navigation nur nacheinander betrachtbar sind.
 
 4. **Wie komme ich an die Konfiguration in Textform?**
 
@@ -81,7 +84,7 @@ die ich als wesentlich für die Fehlersuche erachte:
    wichtig ist und was nicht.
    Auch ist das Navigieren im Text mit den richtigen Werkzeugen einfacher
    und schneller als das Öffnen und Schließen von Menüs.
-   Schließlich, und das ist ein Hauptgrund,
+   Schließlich, und das ist für mich der Hauptgrund,
    kann ich bei einer Konfiguration in Textform
    über die Suchfunktionen und Cut&Paste
    den Computer Adressen und Namen vergleichen lassen.
