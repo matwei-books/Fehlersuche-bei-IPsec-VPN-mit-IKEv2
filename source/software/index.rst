@@ -15,7 +15,7 @@ die ich als wesentlich für die Fehlersuche erachte:
 
 1. **Wie komme ich an die Systemlogs?**
 
-   Hier gibt es prinzipell zwei Möglichkeiten:
+   Hier gibt es prinzipiell zwei Möglichkeiten:
 
    * Ich betrachte die Logs direkt auf der Konsole, in der ich angemeldet bin.
      Gibt es hier keine Möglichkeiten zur Filterung,
@@ -52,7 +52,7 @@ die ich als wesentlich für die Fehlersuche erachte:
 
    Schließlich sieht ein Paketmitschnitt immer gleich aus, wenn ich ihn
    zum Beispiel mit Wireshark analysiere.
-   Demgegenüber unterscheiden sich die Debuggingausgaben von System zu
+   Demgegenüber unterscheiden sich die Debugausgaben von System zu
    System erheblich.
    Mit einem Paketmitschnitt kann ich somit fundierte Aussagen
    zu mir fremden Systemen treffen.
@@ -73,7 +73,7 @@ die ich als wesentlich für die Fehlersuche erachte:
 
 4. **Wie komme ich an die Konfiguration in Textform?**
 
-   Obwohl ein GUI für die Konfiguration von VPNs
+   Obwohl ein GUI für die Konfiguration von VPN
    in bestimmten Situationen vorteilhaft ist,
    habe ich es für die Fehlersuche immer als hinderlich wahrgenommen.
   
