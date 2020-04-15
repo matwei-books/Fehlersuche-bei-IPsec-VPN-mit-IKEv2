@@ -1,6 +1,4 @@
 
-:orphan:
-
 IPsec-Software
 ==============
 
@@ -11,7 +9,7 @@ etliche Uralt-Installationen begegnet,
 die aus den verschiedensten Gründen weiter betrieben wurden.
 
 Ich werde nicht
-detailliert auf die Konfiguration von konkreten IPsec-VPNs eingehen
+detailliert auf die Konfiguration von konkreten IPsec-VPN eingehen
 sondern mich auf Fragen konzentrieren,
 die ich als wesentlich für die Fehlersuche erachte:
 
@@ -31,7 +29,7 @@ die ich als wesentlich für die Fehlersuche erachte:
 2. **Wie komme ich an die Debug-Informationen und wie interpretiere ich diese?**
 
    Oft landen die Debug-Informationen, wenn eingeschaltet, in den Logs.
-   Dann kann ich sie zusammen mit den Logs abholen.
+   Dann kann ich sie zusammen mit diesen abholen.
 
    Manchmal kann ich sie direkt in der Terminal-Sitzung betrachten,
    dann gilt das gleiche wie oben für die Logs in der Konsolensitzung.
@@ -88,8 +86,8 @@ die ich als wesentlich für die Fehlersuche erachte:
    kann ich bei einer Konfiguration in Textform
    über die Suchfunktionen und Cut&Paste
    den Computer Adressen und Namen vergleichen lassen.
-   Das kann dieser um ein Vielfaches besser als ich, vor allem wenn ich
-   abgelenkt bin.
+   Das kann dieser um ein Vielfaches besser als ich,
+   vor allem wenn ich abgelenkt werde.
 
 5. **Gibt es Besonderheiten?**
 
