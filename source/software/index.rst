@@ -100,7 +100,7 @@ die ich als wesentlich für die Fehlersuche erachte:
    :maxdepth: 2
    :caption: Inhalt:
 
-   cisco-asa-empty
+   cisco-asa
    mikrotik-router-empty
    pfsense-empty
 
