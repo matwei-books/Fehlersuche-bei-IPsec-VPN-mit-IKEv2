@@ -12,6 +12,11 @@ AES:
 AH:
   Authentication Header
 
+.. index:: ASA
+
+ASA:
+  Adaptive Security Appliance
+
 .. index:: CBC
 
 CBC:
