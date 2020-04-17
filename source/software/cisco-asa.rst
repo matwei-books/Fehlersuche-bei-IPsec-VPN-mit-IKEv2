@@ -1,10 +1,15 @@
 
-:orphan:
-
 Cisco ASA
 =========
 
 .. index:: !Cisco ASA, Adaptive Security Appliance
+
+Von den mir bekannten VPN-Gateways ist die Cisco ASA
+gerade für den Betrieb sehr vieler VPN am besten geeignet.
+Leider hat das Vertrauen in diesen Hersteller
+durch einige gravierende Sicherheitsprobleme gelitten.
+Ob die Geräte für die eigene Situation angemessen sind,
+muss jeder für sich selbst entscheiden.
 
 Die Cisco ASA (Adaptive Security Appliance) bietet verschiedene Interfaces
 zur Konfiguration:
@@ -14,7 +19,7 @@ zur Konfiguration:
 
 .. index:: ! ASDM
 
-* den ASDM (Adaptive Security Device Manager), einer Java-Anwendung die
+* den ASDM (Adaptive Security Device Manager), eine Java-Anwendung die
   direkt auf dem Gerät abgelegt ist und via Webbrowser gestartet werden
   kann,
 
@@ -43,10 +48,12 @@ Mit dem Fragezeichen oder dem
 Tabulator kann ich jederzeit eine kurze Hilfe bekommen, welche Eingaben
 als nächstes möglich sind.
 
-Muss ich die Konfiguration ändern, kann ich das mit einem der folgenden
-äquivalenten Befehle::
+Muss ich die Konfiguration ändern, kann ich das mit dem folgenden Befehl::
 
   configure terminal
+
+oder abgekürzt::
+
   conf t
 
 Ich beende die Konfiguration mit ``end`` und sichere sie mit dem Befehl
@@ -55,11 +62,12 @@ Ich beende die Konfiguration mit ``end`` und sichere sie mit dem Befehl
 Starten, Stoppen und Kontrollieren von VPN-Tunneln
 --------------------------------------------------
 
-Policy-based VPN werden bei der ASA meist On-Demand gestartet, das
-heißt, wenn interessanter Traffic dafür da ist.
+Policy-based VPN werden bei der ASA meist On-Demand gestartet,
+das heißt, wenn Traffic dafür da ist.
 
-Um einen solchen VPN-Tunnel zu öffnen, kann ich den interessanten Traffic
-direkt in der Konsole mit dem Befehl ``packet-tracer`` simulieren::
+Um einen solchen VPN-Tunnel zu öffnen,
+kann ich diesen Traffic direkt in der Konsole
+mit dem Befehl ``packet-tracer`` simulieren::
 
   packet-tracer input $if $proto $src $dst [detail]
 
@@ -92,16 +100,16 @@ oder einen zweiten::
   sh vpn- d l f n $peeraddress
   show crypto ipsec sa peer $peeraddress
 
-Der erste Befehl ist für mich etwas übersichtlicher, der zweite Befehl
-enthält dafür Informationen, die ich bei tiefergehender Analyse
-benötige.
+Der erste Befehl ist etwas übersichtlicher,
+der zweite Befehl enthält dafür Informationen,
+die ich bei tiefergehender Analyse benötige.
 
 Systemlogs und Debug-Informationen
 ----------------------------------
 
 Im Internet sind Informationen zur Konfiguration von Cisco-Geräten sehr
 leicht zu finden.
-Die ultimative Referenz findet man auf den Webseiten von Cisco selbst.
+Die ultimative Referenz befindet sich auf den Webseiten von Cisco selbst.
 
 Möchte ich die Systemlogs in der Konsole oder SSH-Sitzung sehen,
 gebe ich den folgenden Befehl ein::
@@ -114,7 +122,7 @@ schicken, muss ich die Konfiguration ändern::
    conf t
    logging enable
    logging trap $level
-   logging host $interface $address [ ... ]
+   logging host $if $address [ ... ]
 
 Hierbei steht $level für eine der folgenden Prioritäten:
 
@@ -131,7 +139,7 @@ Level Schlüsselwort
   7   debugging
 ===== =============
 
-Mit $interface gebe ich die Schnittstelle an, zu der die Logs rausgehen,
+Mit $if gebe ich die Schnittstelle an, zu der die Logs rausgehen,
 mit $address die Adresse des Syslogservers.
 Wenn nötig kann ich weitere Informationen zum Logserver bereitstellen,
 näheres findet sich in der Dokumentation zum Logging.
@@ -192,8 +200,8 @@ Dabei achte ich auf die Message-ID (MID).
 Bei der Interpretation der Debugausgaben ziehe ich meine Kenntnisse über
 das IKE-Protokoll zu Rate, die in diesem Buch im Kapitel
 ref:`grundlagen/ikev2:IPsec und IKEv2` zu finden sind.
-Da sich die Debugmeldungen von Version zu Version unterscheiden, will
-ich hier nicht detaillierter darauf eingehen.
+Da sich die Debugmeldungen von Version zu Version unterscheiden,
+werde ich hier nicht detaillierter darauf eingehen.
 Am schnellsten wird man damit vertraut,
 wenn man ein paar funktionierende VPNs beobachtet,
 um zu sehen,
@@ -273,8 +281,8 @@ Mit dem Typ ``asp-drop`` gibt die ASA an, welche Datagramme sie mit
 welcher Begründung verworfen hat.
 Diesen Typ brauche ich eher selten,
 aber wenn ich Datagramme auf einer Seite ankommen sehe
-und nicht auf der anderen Seite abgehen,
-kann ich hier vielleicht einen Hinweis bekommen.
+und nicht auf der anderen abgehen,
+kann ich hier manchmal einen Hinweis bekommen.
 
 Bei den Optionen zum Paketmitschnitt sind die folgenden interessant:
 
@@ -297,9 +305,9 @@ Bei den Optionen zum Paketmitschnitt sind die folgenden interessant:
 
   Zur Auswertung muss ich die Option mit dem Befehl ``no capture $name
   circular-buffer`` ausschalten.
-  Dabei darf ich die Option nicht vergessen,
+  Dabei darf ich die Option ``circular-buffer`` nicht vergessen,
   weil sonst der gesamte Mitschnitt gelöscht wird
-  und damit der ganze Aufwand umsonst gewesen wäre.
+  und der Aufwand umsonst gewesen wäre.
 
 ``buffer``, ``packet-length``:
   Mit diesen beiden Optionen kann ich im Rahmen der auf dem Gerät
@@ -348,10 +356,11 @@ zu einem TFTP-Server schicken::
 
   copy /pcap capture:$name tftp
 
-Da ich einmal bei einer ASA weder Zugang zum ASDM hatte, noch ein
-geeigneter TFTP-Server in Reichweite war, habe ich ein Skript
-geschrieben, dass die Ausgabe von ``show capture $name dump`` in eine
-PCAP-Datei für die weitere Analyse umwandeln kann.
+Da ich einmal bei einer ASA weder Zugang zum ASDM hatte,
+noch ein TFTP-Server in Reichweite war,
+habe ich ein Skript geschrieben,
+dass die Ausgabe von ``show capture $name dump``
+in eine PCAP-Datei für die weitere Analyse umwandeln kann.
 Das Skript ist im Perl-Modul File::PCAP enthalten und kann bei
 meta::cpan [#]_ gefunden werden.
 
@@ -366,8 +375,9 @@ ausgeben lassen::
   show running-config
   show running-config all
 
-Meist reicht der erste Befehl, in hartnäckigen Fällen füge ich das
-``all`` an, um auch die Defaultwerte zu bekommen.
+Meist reicht der erste Befehl.
+In hartnäckigen Fällen füge ich ``all`` an,
+um auch die Defaultwerte angezeigt zu bekommen.
 
 Adressumsetzungen sind zwar in der Konfiguration enthalten,
 aber bei der Verwendung von Objekten mit Namen,
