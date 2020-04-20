@@ -5,7 +5,7 @@ Cisco ASA
 .. index:: !Cisco ASA, Adaptive Security Appliance
 
 Von den mir bekannten VPN-Gateways ist die Cisco ASA
-gerade für den Betrieb sehr vieler VPN am besten geeignet.
+gerade für den Betrieb sehr vieler VPN besonders gut geeignet.
 Leider hat das Vertrauen in diesen Hersteller
 durch einige gravierende Sicherheitsprobleme gelitten.
 Ob die Geräte für die eigene Situation angemessen sind,
@@ -33,17 +33,17 @@ Ich bevorzuge
 für die Extraktion der Konfiguration und für Zustandsabfragen
 die Kommandozeile.
 Für den Zugriff auf die aktuellen Systemlogs
-bietet der ASDM gute Filtermöglichkeiten.
+bietet der ASDM gute Möglichkeiten zur Filterung.
 Wenn es gilt,
 Konfigurationen auf verschiedenen Geräten konsistent zu halten,
 kann der CSM seine Vorteile ausspielen.
 
 Bei den nachfolgenden Betrachtungen gehe ich auf die
-Kommandozeilenbefehle ein, für die ich meist höhere Rechte benötige.
+Befehle der Kommandozeile ein, für die ich meist höhere Rechte benötige.
 Das heißt, nach dem Anmelden gebe ich ``enable`` ein, falls mein Zugang
 nicht von sich aus höhere Rechte besitzt.
-Generell kann ich alle Kommandozeilenbefehle und Optionen so weit kürzen,
-wie sie eindeutig sind.
+Generell kann ich alle Befehle und Optionen so weit kürzen,
+wie sie eindeutig bleiben.
 Mit dem Fragezeichen oder dem
 Tabulator kann ich jederzeit eine kurze Hilfe bekommen, welche Eingaben
 als nächstes möglich sind.
@@ -71,8 +71,9 @@ mit dem Befehl ``packet-tracer`` simulieren::
 
   packet-tracer input $if $proto $src $dst [detail]
 
-Dabei muss ich bei der Protokollspezifikation ``$proto $src $dst``
-sehr genau sein::
+Dabei muss ich bei der Spezifikation des Protokolls
+``$proto $src $dst``
+sehr genau sein und Werte für die spezifischen Parameter angeben::
 
   icmp $saddr 8 0 $daddr
   tcp $saddr $sport $daddr $dport
@@ -87,17 +88,19 @@ als am zuverlässigsten erwiesen::
 
   vpn-db log-off index $i
 
-Den Index ``$i`` dafür bekomme ich
-aus der zweiten Zeile der Ausgabe des folgenden Befehls::
+Den Index ``$i`` bekomme ich
+aus der zweiten Zeile der Ausgabe des Befehls::
 
   show vpn-db detail l2l filter name $peeraddress
 
 Um erste Informationen über ein VPN zu bekommen,
 wie zum Beispiel offene Child-SA oder ob Traffic hindurch geht,
-verwende ich ebenfalls diesen Befehl - hier in der Kurzform -
-oder einen zweiten::
+verwende ich ebenfalls diesen Befehl - hier in der Kurzform::
 
   sh vpn- d l f n $peeraddress
+
+oder einen zweiten::
+
   show crypto ipsec sa peer $peeraddress
 
 Der erste Befehl ist etwas übersichtlicher,
@@ -139,12 +142,12 @@ Level Schlüsselwort
   7   debugging
 ===== =============
 
-Mit $if gebe ich die Schnittstelle an, zu der die Logs rausgehen,
-mit $address die Adresse des Syslogservers.
+Mit ``$if`` gebe ich die Schnittstelle an, zu der die Logs rausgehen,
+mit ``$address`` die Adresse des Logservers.
 Wenn nötig kann ich weitere Informationen zum Logserver bereitstellen,
 näheres findet sich in der Dokumentation zum Logging.
 
-Um auf ASDM oder (SSH-)Konsole zu loggen,
+Um auf den ASDM oder die (SSH-)Konsole zu loggen,
 konfiguriere ich zusätzlich die folgenden Befehle::
 
   logging asdm $level
@@ -176,14 +179,14 @@ Befehlen::
 
 Der erste Befehl schränkt das Debugging auf einen Peer ein und ist
 dringend geboten, wenn mehr als ein Peer aktiv ist.
-Mit $address gebe ich die Adresse des Peers an, an dem ich interessiert
+Mit ``$address`` gebe ich die Adresse des Peers an, an dem ich interessiert
 bin.
-Der Parameter $dlevel bestimmt die Granularität der Debugmeldung und
+Der Parameter ``$dlevel`` bestimmt die Granularität der Debugmeldungen und
 liegt zwischen 1 und 255.
 Mit ``undebug all`` schalte ich das Debugging ab, wenn ich alle
 benötigten Informationen habe.
 
-In den Logs kann ich Debuginformationen an der Markierung
+In den Logs kann ich Debug-Informationen an der Markierung
 ``%ASA-7-711001`` erkennen und damit ausfiltern.
 Ich suche darin nach Zeilen mit dem folgenden Mustern:
 
@@ -197,13 +200,13 @@ Ich suche darin nach Zeilen mit dem folgenden Mustern:
 Dabei achte ich auf die Message-ID (MID).
 *IKE_SA_INIT* hat immer die MID 0, *IKE_AUTH* beginnt bei 1.
 
-Bei der Interpretation der Debugausgaben ziehe ich meine Kenntnisse über
-das IKE-Protokoll zu Rate, die in diesem Buch im Kapitel
-ref:`grundlagen/ikev2:IPsec und IKEv2` zu finden sind.
+Bei der Interpretation der Debugausgaben ziehe ich
+meine Kenntnisse über das IKE-Protokoll zu Rate,
+die im Kapitel ref:`grundlagen/ikev2:IPsec und IKEv2` dargelegt sind.
 Da sich die Debugmeldungen von Version zu Version unterscheiden,
 werde ich hier nicht detaillierter darauf eingehen.
 Am schnellsten wird man damit vertraut,
-wenn man ein paar funktionierende VPNs beobachtet,
+wenn man ein paar funktionierende VPN beobachtet,
 um zu sehen,
 wie die Meldungen aussehen wenn alles in Ordnung ist.
 
@@ -237,8 +240,9 @@ Verwende ich dazu zwei ``capture`` Befehle mit dem gleichen Namen,
 kann ich bei der Auswertung die Datagramme im selben Mitschnitt
 verschlüsselt und unverschlüsselt sehen.
 
-Die Filtermöglichkeiten sind nicht so detailliert wie bei tcpdump oder
-Wireshark, aber für die meisten Zwecke ausreichend.
+Die Möglichkeiten zur Filterung sind nicht so detailliert
+wie bei tcpdump oder Wireshark,
+aber für die meisten Zwecke ausreichend.
 Der grundlegende Aufbau ist wie folgt::
 
   match $proto $spec1 $spec2
@@ -255,14 +259,14 @@ Zusätzlich kann ich bei TCP und UDP
 mit der Ergänzung ``lt``, ``eq`` oder ``gt`` und der Portnummer
 noch Angaben zum Quell- oder Zielport machen.
 
-Komplexerere Kommunikationsbeziehungen erfasse ich
+Komplexere Kommunikationsbeziehungen erfasse ich
 durch mehrmaligen Aufruf des ``capture`` Befehls
 mit verschiedenen eng gefassten Filtern.
 Dabei verwende ich immer den gleichen Namen für den Mitschnitt.
 
 Ein Weg, IKE- von ESP-Traffic bei NAT-T zu unterscheiden
 ist mir zurzeit nicht bekannt.
-Diese Unflexibilität bei der Filterung gegenüber tcpdump oder Wireshark
+Diese geringere Flexibilität bei der Filterung gegenüber tcpdump oder Wireshark
 kompensiert die ASA zumindest teilweise
 mit einigen nützlichen Features beim Mitschnitt.
 
@@ -301,7 +305,7 @@ Bei den Optionen zum Paketmitschnitt sind die folgenden interessant:
   sich stets die letzten mitgeschnittenen Datagramme im Puffer befinden.
   Ich verwende diese Option, wenn ich längere Zeit auf ein Ereignis
   warten muss und der Mitschnitt sonst aufgrund des vollen Puffers
-  abgebrochen würde.
+  abgebrochen wird.
 
   Zur Auswertung muss ich die Option mit dem Befehl ``no capture $name
   circular-buffer`` ausschalten.
@@ -311,7 +315,7 @@ Bei den Optionen zum Paketmitschnitt sind die folgenden interessant:
 
 ``buffer``, ``packet-length``:
   Mit diesen beiden Optionen kann ich im Rahmen der auf dem Gerät
-  verfügbaren Resourcen und der gewünschten Details experimentieren,
+  verfügbaren Ressourcen und der gewünschten Details experimentieren,
   wenn ich sehr viele Datagramme mitschneiden muss.
 
 Auswertung der Paketmitschnitte
@@ -351,8 +355,8 @@ Auch hier habe ich etliche Optionen, die mir die Analyse erleichtern.
 
 Prinzipiell kann ich den Paketmitschnitt auch mit Wireshark analysieren.
 Beim ASDM kann ich die PCAP-Datei direkt herunterladen.
-Auf der Console kann ich die Datei mit folgendem Befehl
-zu einem TFTP-Server schicken::
+Auf der Console schicke ich die Datei mit folgendem Befehl
+zu einem TFTP-Server::
 
   copy /pcap capture:$name tftp
 
@@ -379,15 +383,13 @@ Meist reicht der erste Befehl.
 In hartnäckigen Fällen füge ich ``all`` an,
 um auch die Defaultwerte angezeigt zu bekommen.
 
-Adressumsetzungen sind zwar in der Konfiguration enthalten,
+Adressumsetzungen sind zwar in der Konfiguration zu sehen,
 aber bei der Verwendung von Objekten mit Namen,
 die die Adressen nicht enthalten,
 untersuche ich NAT lieber mit den folgenden Befehlen::
 
-  show nat $addr
-  show nat $addr detail
-  show nat translated $addr
-  show nat translated $addr detail
+  show nat $addr [ detail ]
+  show nat translated $addr [ detail ]
 
 Mit der Option ``detail`` bekomme ich die Adressen hier auch,
 wenn bei der Konfiguration die Objektnamen ungeschickt gewählt wurden.
@@ -400,16 +402,17 @@ ein weiteres Leerzeichen und den Filter an.
 Auch hier habe ich mehrere Möglichkeiten:
 
 ``| include $muster``:
-  zeigt nur die Zeilen, die $muster enthalten, an.
+  zeigt nur die Zeilen an, die $muster enthalten.
 
 ``| grep -v $muster``:
-  zeigt die Zeilen, die $muster nicht enthalten, an.
+  zeigt die Zeilen an, die $muster nicht enthalten.
 
 ``| begin $muster``:
   zeigt die Konfiguration ab der Zeile, die $muster enthält, an.
 
   Mit ``term pager $lines`` kann ich angeben, wieviel Zeilen ich auf
-  einmal angezeigt haben will. Ein Wert von 0 schaltet den Pager ab.
+  einmal angezeigt haben will.
+  Der Wert 0 schaltet den Pager ab.
 
 Um aus der Konfiguration alle relevanten Informationen zu einem VPN
 zu bekommen, benötige ich die folgenden Befehle::
@@ -421,7 +424,8 @@ zu bekommen, benötige ich die folgenden Befehle::
   sh run [all] | b ikev2 policy
   sh nat $address detail
 
-Der erste Befehl zeigt Informationen, die direkt die Child-SA betreffen, an
+Der erste Befehl zeigt Informationen an,
+die direkt die Child-SA betreffen,
 und verweist auf weitere Informationen.
 
 Der zweite Befehl zeigt Informationen zum KeepAlive an.
@@ -430,7 +434,7 @@ Pre-Shared-Keys sind hier unkenntlich gemacht.
 Will ich diese sehen, muss ich den Befehl
 ``more system:running-config | b tunnel-group $peeraddress`` verwenden.
 
-Beim dritten Befehl filtere ich nach der Access Control Liste (ACL) für dieses VPN.
+Beim dritten Befehl filtere ich nach der Access Control List (ACL) für dieses VPN.
 Den Namen der ACL erhalte ich aus dem ersten Befehl.
 Diese ACL bestimmt die zulässigen Traffic-Selektoren.
 
@@ -444,7 +448,7 @@ Schließlich kontrolliere ich mit dem letzten Befehl die
 Adressumsetzungen auf Korrektheit, falls für das VPN Adressen umgesetzt
 werden.
 
-Habe ich am Anfang nur die Peeradresse zur Identifizierung des VPN,
+Habe ich am Anfang nur die Adresse des Peers zur Identifizierung des VPN,
 beginne ich mit dem Befehl ``show run | i $peeraddress`` und finde damit
 die benötigte Crypto-Map.
 
