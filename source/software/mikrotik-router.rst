@@ -1,15 +1,21 @@
 
-:orphan:
-
 MikroTik-Router
 ===============
 
-MikroTik-Router sind in den verschiedensten Größen erhältlich, als
-SOHO-Router, als Core-Router für größere Netzwerke und als virtuelle
+MikroTik-Router eignen sich,
+um mal eben ein VPN aufzubauen
+neben all den anderen Funktionen,
+die sie im Netz übernehmen können.
+Leider wird die Arbeit mit VPN bei ihnen schnell frustrierend
+wenn mehr als ein oder zwei VPN
+zu Peers anderer Hersteller aufgebaut werden sollen,
+da die Logs dann schnell unübersichtlich werden.
+Es gibt diese Router in den verschiedensten Größen,
+als SOHO-Router, als Core-Router für größere Netzwerke und als virtuelle
 Maschine in SDN-Umgebungen. Alle laufen mit Router OS, einem auf Linux
 aufsetzenden proprietären Betriebssystem.
 
-Es gibt drei Möglichkeiten, sie zu konfigurieren:
+Sie können auf drei Arten konfiguriert werden:
 
 * via CLI,
 * via Web-Interface,
@@ -18,15 +24,17 @@ Es gibt drei Möglichkeiten, sie zu konfigurieren:
 Mit WinBox ist es möglich,
 einen MikroTik-Router über die MAC-Adresse zu kontaktieren,
 wenn er mit dem selben Netzsegment verbunden ist.
-Mit Wine funktioniert das leider nicht,
-ansonsten kann ich WinBox mit Wine auf einem Linux-Rechner verwenden.
+Dann brauch man die IP-Adressen nicht erst auf der Konsole einstellen
+oder den Umweg über die Default-Adresse gehen.
+Mit dem Windows-Emulator Wine konnte ich das leider nicht,
+ansonsten funktioniert WinBox mit Wine auf einem Linux-Rechner.
 
 Die Konfiguration läuft auf allen drei Wegen ähnlich ab.
 Hier konzentriere ich mich auf das CLI,
 dass ich über die Konsole oder SSH erreichen kann.
 
 Grundsätzlich gebe ich bei der Konfiguration im CLI
-eine Kategorie, eine Aktion und gegebenenfalls zusätzliche Parameter an.
+eine Kategorie, eine Aktion und nötigenfalls zusätzliche Parameter an.
 Lasse ich die Kategorie weg, so kommt automatisch die aktuelle zum Zuge.
 Gebe ich nur die Kategorie an und keine Aktion,
 dann wird diese Kategorie zur aktuellen.
@@ -52,8 +60,9 @@ Alternativ kann ich auch die verkürzte Schreibweise nehmen::
   remote-peers print
   installed-sa print
 
-Leider zeigt ``installed-sa print`` nicht die Traffic-Selektoren für die
-Child-SA an.  In der aktuellen Version kenne ich auch keinen sauberen Weg,
+Leider zeigt ``installed-sa print`` die Traffic-Selektoren der Child-SA
+nicht an.
+In der aktuellen Version kenne ich auch keinen Weg,
 an diese Information zu kommen.  Als Workaround kann ich auf die
 Informationen aus den Systemlogs zugreifen. Doch auch diese zeigen nur
 die Traffic-Selektoren für Child-SA, die vom Peer initiert wurden. Um die
@@ -91,9 +100,10 @@ Ich kann hier filtern, bevorzuge aber meist die Arbeit mit
 Textwerkzeugen auf dem eigenen Rechner.
 Dafür habe ich mehrere Möglichkeiten.
 
-Am schnellsten geht, die Ausgabe von ``/log print`` in eine Textdatei
-umzuleiten. Zum Beispiel, indem ich via SSH nur diesen Befehl aufrufe
-und die SSH-Sitzung zum Beispiel mit ``script`` protokolliere::
+Am schnellsten ist,
+die Ausgabe von ``/log print`` in eine Textdatei umzuleiten.
+Zum Beispiel, indem ich via SSH nur diesen Befehl aufrufe
+und die SSH-Sitzung mit ``script`` protokolliere::
 
   script mikrotik.log
   ssh user@mikrotik /log print
@@ -103,7 +113,7 @@ Sind die interessanten Lognachrichten nicht im Hauptspeicher zu finden,
 muss ich auf andere Art und Weise auf die Logs zugreifen.
 
 Eine Möglichkeit ist, die Logs zu einem Syslog-Server zu senden
-und dann bei diesem abzuholen.
+und dann bei diesem abholen.
 Um zum Syslog-Server mit Adresse a.b.c.d zu protokollieren, verwende
 ich die folgenden Befehle::
 
@@ -137,7 +147,7 @@ Die Befehle dazu sind::
   /system logging topic
   add action=file topics=ipsec,debug
 
-Sehen kann ich die Dateien mit dem Befehl::
+Anschauen kann ich die Dateien mit dem Befehl::
 
   /file print
 
