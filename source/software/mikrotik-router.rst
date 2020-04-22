@@ -6,16 +6,16 @@ MikroTik-Router eignen sich,
 um mal eben ein VPN aufzubauen
 neben all den anderen Funktionen,
 die sie im Netz übernehmen können.
-Leider wird die Arbeit mit VPN bei ihnen schnell frustrierend
-wenn mehr als ein oder zwei VPN
-zu Peers anderer Hersteller aufgebaut werden sollen,
-da die Logs dann schnell unübersichtlich werden.
 Es gibt diese Router in den verschiedensten Größen,
 als SOHO-Router, als Core-Router für größere Netzwerke und als virtuelle
 Maschine in SDN-Umgebungen. Alle laufen mit Router OS, einem auf Linux
 aufsetzenden proprietären Betriebssystem.
+Wenn damit jedoch mehr als ein oder zwei VPN
+zu Peers anderer Hersteller aufgebaut werden sollen,
+werden die Logs schnell unübersichtlich,
+was die Fehlersuche erschwert.
 
-Sie können auf drei Arten konfiguriert werden:
+MikroTik-Router können auf drei Arten konfiguriert werden:
 
 * via CLI,
 * via Web-Interface,
@@ -33,10 +33,10 @@ Die Konfiguration läuft auf allen drei Wegen ähnlich ab.
 Hier konzentriere ich mich auf das CLI,
 dass ich über die Konsole oder SSH erreichen kann.
 
-Grundsätzlich gebe ich bei der Konfiguration im CLI
+Grundsätzlich gibt man bei der Konfiguration im CLI
 eine Kategorie, eine Aktion und nötigenfalls zusätzliche Parameter an.
-Lasse ich die Kategorie weg, so kommt automatisch die aktuelle zum Zuge.
-Gebe ich nur die Kategorie an und keine Aktion,
+Lässt man die Kategorie weg, so kommt automatisch die aktuelle zum Zuge.
+Gibt man nur die Kategorie an und keine Aktion,
 dann wird diese Kategorie zur aktuellen.
 Nach dem Anmelden ist die aktuelle Kategorie '/'.
 
@@ -63,11 +63,12 @@ Alternativ kann ich auch die verkürzte Schreibweise nehmen::
 Leider zeigt ``installed-sa print`` die Traffic-Selektoren der Child-SA
 nicht an.
 In der aktuellen Version kenne ich auch keinen Weg,
-an diese Information zu kommen.  Als Workaround kann ich auf die
-Informationen aus den Systemlogs zugreifen. Doch auch diese zeigen nur
-die Traffic-Selektoren für Child-SA, die vom Peer initiert wurden. Um die
-Traffic-Selektoren für Child-SA, die das Gerät selbst initiiert hat, zu
-bekommen, muss ich das Debug-Log für IPsec einschalten.
+an diese Information zu kommen.
+Als Workaround kann ich auf die Systemprotokolle zugreifen.
+Doch auch diese zeigen nur die Traffic-Selektoren für Child-SA,
+die vom Peer initiiert wurden.
+Um die Traffic-Selektoren für Child-SA, die das Gerät selbst initiiert hat,
+zu bekommen, muss ich das Debug-Log für IPsec einschalten.
 
 Um einen VPN-Tunnel zu beenden verwende ich die Befehle::
 
@@ -126,7 +127,7 @@ ich die folgenden Befehle::
 Bei den Topics interessiert mich vor allem ``ipsec``.
 Leider wird die Priorität, das heißt der Loglevel, ebenfalls über das
 Attribut *topic* eingestellt.
-Darum kombiniere ich ``ipsec`` meist mit den gewünschten Levels.
+Darum kombiniere ich ``ipsec`` immer mit den gewünschten Levels.
 
 ``topics=ipsec,!packet``
   lässt den Packet-Dump der Datagramme aus.
@@ -139,7 +140,7 @@ Darum kombiniere ich ``ipsec`` meist mit den gewünschten Levels.
   habe ich im Normalbetrieb eingestellt.
 
 Weiterhin kann ich die Logs in eine Datei schreiben lassen
-und diese Datei via SCP für die Untersuchung abzuholen.
+und diese Datei via SCP für die Untersuchung abholen.
 Die Befehle dazu sind::
 
   /system/logging/action
@@ -168,9 +169,13 @@ schreiben lassen, indem ich einen Dateiname vorgebe (``file-name``) und
 gegebenenfalls die Größenbeschränkung (``file-limit``) modifiziere. Die
 Datei finde ich mit ``/file print`` und kann sie mit SCP auf meinen
 Rechner kopieren.
+Bevor ich Limits ändere, schaue ich mit ``/system resource print`` nach,
+wie viel Ressourcen (Hauptspeicher, Plattenplatz) ich zur Verfügung habe.
 
-Es gibt etliche Filterattribute, für die ich jeweils bis zu 16 Werte
-vorgeben kann.
+Es gibt etliche Filterattribute,
+für die ich jeweils bis zu 16 Werte vorgeben kann.
+Diese werden, je nach Einstellung von ``filter-operator-between-entries``,
+mit UND oder ODER verknüpft.
 
 Mit dem Befehl ``/tool sniffer packet`` kann ich
 den Paketmitschnitt auch direkt auf dem Gerät anschauen.
@@ -178,9 +183,6 @@ Das ist bei einfachen Fragen oft ausreichend.
 
 Mit dem Attribut ``memory-scroll`` kann ich einen dauerhaften Mitschnitt
 bei beschränktem Speicherplatz einstellen.
-
-Bevor ich Limits ändere, schaue ich mit ``/system resource print`` nach,
-wie viel Ressourcen (Hauptspeicher, Plattenplatz) ich zur Verfügung habe.
 
 Konfiguration analysieren
 -------------------------
@@ -196,11 +198,11 @@ Für den Export der Konfiguration sind zwei Attribute wichtig:
 
 ``export terse``:
   zeigt die Kategorien in jeder Zeile. Damit ist diese Ausgabe besser
-  für die Suche mit grep geeignet und ich kann die ganze Zeile
+  für die Suche mit ``grep`` geeignet und ich kann die ganze Zeile
   einfacher in die Konfiguration einer anderen Maschine übernehmen.
 
 ``export detail``:
   zeigt auch Defaultwerte.
   Damit kann ich Missverständnisse ausräumen,
-  die durch falsche Annahmen über die Defaults enstanden sind.
+  die durch falsche Annahmen über die Defaults entstanden sind.
 
