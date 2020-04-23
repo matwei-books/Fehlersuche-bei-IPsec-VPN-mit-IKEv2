@@ -1,6 +1,4 @@
 
-:orphan:
-
 .. index:: ! pfSense
 
 pfSense
@@ -10,7 +8,7 @@ pfSense
 
 *pfSense* ist eine Netzwerk-Firewall-Distribution, die auf FreeBSD als
 Betriebsystem mit einem angepassten Kernel basiert.
-Für IPsec verwendet pfSense StrongSwan [#]_.
+Für IPsec verwendet sie StrongSwan [#]_.
 
 .. [#] https://www.strongswan.org/
 
@@ -19,10 +17,13 @@ mit dem ich die enthaltenen Komponenten konfigurieren kann.
 Das Webinterface der pfSense benötigt JavaScript.
 Es hat den Vorteil,
 dass ich jeweils mit einem Klick
-zwischen der Konfiguration, dem Status und den Logs wechseln kann.
+zwischen der Konfiguration, dem Status und den Logs der VPN wechseln kann.
 Das erleichtert die Fehlersuche.
-Es ist also nicht nötig, bei pfSense die Kommandozeile zu benutzen.
-Immerhin ist es möglich.
+Mit der pfSense ist es einfacher,
+mehrere VPN zu unterschiedlichen Peers zu pflegen.
+Sowohl im Web-Interface als auch in der Kommandozeile ist es relativ einfach,
+Status-Informationen verschiedener SA zuzuordnen
+und auch die Logs lassen sich sehr gut nach einzelnen VPN filtern.
 
 .. index:: pfSense; Kommandozeile
 
@@ -41,8 +42,9 @@ Von dort komme ich über den Menüpunkt 8) auf die Unix-Shell.
 Will ich die Konfiguration über die Kommandozeile bearbeiten,
 verwende ich das Programm ``viconfig``,
 in dem ich mit dem Editor ``vi`` eine XML-Konfigurationsdatei bearbeite.
-``viconfig`` kümmert sich anschließend um das Entfernen des
-Configuration-Cache, so dass die geänderten Einstellungen aktiv werden.
+``viconfig`` kümmert sich anschließend
+um das Leeren des Configuration-Cache,
+so dass die geänderten Einstellungen aktiv werden.
 
 .. index:: ! vi
 
@@ -71,6 +73,8 @@ Configuration-Cache, so dass die geänderten Einstellungen aktiv werden.
 
    ``:``
      wechselt vom Befehlsmodus in den Kommandozeilenmodus.
+     Der Cursor geht in die unterste Zeile,
+     die in den anderen Modi nicht zugänglich ist.
 
    ``q!``
      gibt den Befehl zum Verlassen des Editors, ohne eventuell getätigte
@@ -153,8 +157,7 @@ Systemlogs und Debug-Informationen
 
 An die Systemlogs komme ich im Webinterface über **Status > System Logs**.
 Dort finde ich ein Log, das ausschließlich auf IPsec bezogene
-Informationen sammelt, das Systemlog und weitere für verschiedene
-Topics.
+Informationen sammelt, das Systemlog und weitere.
 
 Auf der Konsole finde ich die Logs im Verzeichnis */var/log/*, die Datei
 mit den IPsec-Logs ist */var/log/ipsec.log*. Mit ``ls /var/log`` bekomme
@@ -178,9 +181,19 @@ Meist sind IKE SA, IKE Child SA und Configuration Backend auf
 Bei allen Topics kann ich zwischen den Optionen *Silent*, *Audit*,
 *Control*, *Diag*, *Raw* und *Highest* wählen.
 
-In der Online-Dokumentation [#]_ finden sich viele Tipps und Hinweise
-zur Fehlersuche bei IPsec, dort gibt es auch Hilfe zur Interpretation
-der Lognachrichten.
+Die Logzeilen der einzelnen VPN lassen sich sehr einfach filtern.
+Fast alle Zeilen für einen Peer enthalten einen String,
+wie zum Beispiel ``"con1000"``,
+der genau einem Peer zugeordnet ist.
+Welcher Peer gerade welcher String zugeordnet ist,
+erfahre ich im Web-Interface unter **Status > IPsec > Overview**
+und im CLI über den Befehl ``ipsec status``.
+Im Web-Interface kann ich die Logs filtern und dabei den String angeben,
+im CLI verwende ich ``grep``.
+
+In der Online-Dokumentation [#]_
+finden sich viele weitere Tipps und Hinweise zur Fehlersuche bei IPsec,
+dort gibt es auch Hilfe zur Interpretation der Lognachrichten.
 
 .. [#] https://docs.netgate.com/pfsense/en/latest/vpn/ipsec/ipsec-troubleshooting.html
 
@@ -239,6 +252,6 @@ Config-Caches kümmert.
 Bin ich mir nicht im Klaren,
 was eine bestimmte Konfiguration im Webinterface
 beziehungsweise in der XML-Datei bedeutet,
-kann ich die draus erzeugte Konfiguration für StrongSwan
+kann ich die daraus erzeugte Konfiguration für StrongSwan
 unter */var/etc/* anschauen.
 
