@@ -6,23 +6,25 @@ pfSense
 
 .. index:: StrongSwan
 
-*pfSense* ist eine Netzwerk-Firewall-Distribution, die auf FreeBSD als
-Betriebsystem mit einem angepassten Kernel basiert.
-Für IPsec verwendet sie StrongSwan [#]_.
+*pfSense* ist eine Netzwerk-Firewall-Distribution,
+die auf FreeBSD als Betriebssystem basiert
+und StrongSwan [#]_ für IPsec verwendet.
 
 .. [#] https://www.strongswan.org/
 
+.. index:: RouterOS
+
 Für die Konfiguration steht ein Web-Interface zur Verfügung,
 mit dem ich die enthaltenen Komponenten konfigurieren kann.
-Das Webinterface der pfSense benötigt JavaScript.
+Das Web-Interface der pfSense benötigt JavaScript.
 Es hat den Vorteil,
 dass ich jeweils mit einem Klick
 zwischen der Konfiguration, dem Status und den Logs der VPN wechseln kann.
 Das erleichtert die Fehlersuche.
-Mit der pfSense ist es einfacher,
+Mit der pfSense ist es einfacher als mit RouterOS,
 mehrere VPN zu unterschiedlichen Peers zu pflegen.
-Sowohl im Web-Interface als auch in der Kommandozeile ist es relativ einfach,
-Status-Informationen verschiedener SA zuzuordnen
+Sowohl im Web-Interface als auch in der Kommandozeile
+kann ich einfach Status-Informationen verschiedenen SA zuordnen
 und auch die Logs lassen sich sehr gut nach einzelnen VPN filtern.
 
 .. index:: pfSense; Kommandozeile
@@ -39,10 +41,11 @@ Von dort komme ich über den Menüpunkt 8) auf die Unix-Shell.
 
 .. index:: pfSense; viconfig
 
-Will ich die Konfiguration über die Kommandozeile bearbeiten,
-verwende ich das Programm ``viconfig``,
-in dem ich mit dem Editor ``vi`` eine XML-Konfigurationsdatei bearbeite.
-``viconfig`` kümmert sich anschließend
+Will ich die Konfiguration über die Kommandozeile ändern,
+nehme ich das Programm ``viconfig``,
+welches den Editor ``vi`` aufruft
+um die XML-Konfigurationsdatei zu bearbeiten.
+Anschließend kümmert sich ``viconfig``
 um das Leeren des Configuration-Cache,
 so dass die geänderten Einstellungen aktiv werden.
 
@@ -58,11 +61,10 @@ so dass die geänderten Einstellungen aktiv werden.
    mode* oder *ex mode*).
    Beim Start befindet man sich im Befehlsmodus.
 
-   Es empfiehlt sich die grundlegenden Tastenbefehle zu lernen, um mit
-   diesem Editor zu arbeiten.
+   Es empfiehlt sich die grundlegenden Tastenbefehle zu lernen.
    Startet man vi unerwarteterweise - wie zum Beispiel über
    das Programm ``viconfig`` - kommt man mit der Tastenfolge *ESC*,
-   ``:``, ``q!`` *ENTER* wieder heraus, ohne allzuviel Schaden
+   ``:``, ``q!``, *ENTER* wieder heraus, ohne allzuviel Schaden
    anzurichten.
 
    *ESC*
@@ -83,13 +85,17 @@ so dass die geänderten Einstellungen aktiv werden.
    *ENTER*
      schließt den Befehl im Kommandozeilenmodus ab.
 
-   Wer mit dem Editor *vi* oder einem seiner Nachfolger vertraut ist,
+   Wer mit *vi* oder einem seiner Nachfolger vertraut ist,
    weiß, wie er seine gewollten Änderungen in die Datei zurückschreibt.
+   Wer mit diesem Editor vertraut werden will,
+   kann sich die wichtigsten Befehle mit einem Tutorial [#]_ aneignen.
+
+.. [#] zum Beispiel https://de.wikibooks.org/wiki/Learning_the_vi_editor
 
 Da die pfSense auf einem Unix-System aufsetzt, empfiehlt es sich, sie
 nicht einfach auszuschalten, sondern vorher geordnet hinunterzufahren.
 
-Im Webinterface geht man dafür nach **Diagnostics > Halt System**, in
+Im Web-Interface geht man dafür nach **Diagnostics > Halt System**, in
 der Konsole wählt man ``6) Halt System``.
 Befindet man sich bereits in der Unix-Shell,
 geht auch der Befehl ``shutdown -h now``.
@@ -110,7 +116,7 @@ Läuft das VPN im Transportmodus oder die pfSense hat ein Interface im
 Adressbereich des lokalen Traffic-Selektors beim Tunnelmodus, kann man
 den PING auch direkt von der pfSense absetzen.
 
-Im Webinterface geht man dazu nach **Diagnostics > Ping**
+Im Web-Interface geht man dazu nach **Diagnostics > Ping**
 und trägt im Formular außer der Zieladresse
 auch die Absenderadresse aus dem lokalen Traffic-Selektor ein.
 
@@ -118,23 +124,18 @@ In der Shell gibt man die Absenderadresse mit der Option ``-S`` an::
 
   ping -S lokale.adresse entfernte.adresse
 
-Will man die lokale Adresse nicht explizit angeben, muss man
-Vorkehrungen treffen [#]_, damit der auf der pfSense erzeugte
-Traffic auch über das VPN gesendet wird und nicht zum falschen Interface
-hinausgeht.
-Dazu legt man eine statische Route zum Netz auf der Peer-Seite des VPN
-auf die Adresse des eigenen LAN-Interface.
-
-.. [#] https://docs.netgate.com/pfsense/en/latest/book/ipsec/site-to-site.html#ipsec-pfsensetraffic
-
 Mit dem Programm ``ipsec`` kann man auf der Konsole
 VPN-Verbindungen initiieren oder zurücksetzen.
 Um sich einen Überblick zu verschaffen verwendet man den Befehl::
 
+  ipsec status
+
+oder::
+
   ipsec statusall
 
-Im Webinterface geht man nach **Status > IPsec**
-und kann im Tab **Overview** VPNs zu Peers verbinden oder trennen.
+Im Web-Interface geht man nach **Status > IPsec**
+und kann im Tab **Overview** VPN zu den Peers verbinden oder trennen.
 Im Tab **SADs** kann man einzelne Child-SA zurücksetzen.
 
 Das Äquivalent auf der Kommandozeile wären die Befehle::
@@ -144,7 +145,7 @@ Das Äquivalent auf der Kommandozeile wären die Befehle::
   ipsec down name
   ipsec down name{n}
 
-Dabei zeigt der erste Befehl die verfügbaren VPNs
+Dabei zeigt der erste Befehl die verfügbaren VPN
 und bei bestehenden Verbindungen die Child-SA.
 
 Mit ``ipsec up name`` starte ich eine IKE-Verbindung.
@@ -155,7 +156,7 @@ und ``ipsec down name{n}`` beendet die spezifizierte Child-SA.
 Systemlogs und Debug-Informationen
 ----------------------------------
 
-An die Systemlogs komme ich im Webinterface über **Status > System Logs**.
+An die Systemlogs komme ich im Web-Interface über **Status > System Logs**.
 Dort finde ich ein Log, das ausschließlich auf IPsec bezogene
 Informationen sammelt, das Systemlog und weitere.
 
@@ -167,7 +168,7 @@ ich die Namen der anderen Dateien angezeigt.
    :alt: Einstellungen für Logging
 
 Ob Logs zu anderen Server geschickt werden und wenn ja, zu welchen,
-bekomme ich im Webinterface über **Status > System Logs > Settings**
+bekomme ich im Web-Interface über **Status > System Logs > Settings**
 heraus. Dort schaue ich bei **Remote Logging Options** nach.
 
 .. figure:: /images/pfsense-logging-remote.png
@@ -185,7 +186,7 @@ Die Logzeilen der einzelnen VPN lassen sich sehr einfach filtern.
 Fast alle Zeilen für einen Peer enthalten einen String,
 wie zum Beispiel ``"con1000"``,
 der genau einem Peer zugeordnet ist.
-Welcher Peer gerade welcher String zugeordnet ist,
+Welchem Peer gerade welcher String zugeordnet ist,
 erfahre ich im Web-Interface unter **Status > IPsec > Overview**
 und im CLI über den Befehl ``ipsec status``.
 Im Web-Interface kann ich die Logs filtern und dabei den String angeben,
@@ -193,7 +194,7 @@ im CLI verwende ich ``grep``.
 
 In der Online-Dokumentation [#]_
 finden sich viele weitere Tipps und Hinweise zur Fehlersuche bei IPsec,
-dort gibt es auch Hilfe zur Interpretation der Lognachrichten.
+dort gibt es auch Hilfe zur Interpretation der Logzeilen.
 
 .. [#] https://docs.netgate.com/pfsense/en/latest/vpn/ipsec/ipsec-troubleshooting.html
 
@@ -201,23 +202,23 @@ Paketmitschnitte
 ----------------
 
 Ich habe zwei Möglichkeiten, einen Paketmitschnitt auf einer
-pfSense-Firewall anzufertigen: über das Webinterface oder über die
+pfSense-Firewall anzufertigen: über das Web-Interface oder über die
 Konsole.
 
 .. figure:: /images/pfsense-packet-capture.png
-   :alt: Paketmitschnitt im Webinterface
+   :alt: Paketmitschnitt im Web-Interface
 
-Im Webinterface gehe ich im Menü zu **Diagnostics > Packet Capture**.
-Dort spezifiziere ich in einem Webformular die Datagramme, an denen ich
+Im Web-Interface gehe ich im Menü zu **Diagnostics > Packet Capture**.
+Dort spezifiziere ich in einem Web-Formular die Datagramme, an denen ich
 interessiert bin und die Schnittstelle.
 Unter dem Formular befindet sich ein Start/Stop-Button, mit dem ich die
 Aufzeichnung beginnen und enden lasse.
 Nach dem Ende der Aufzeichnung kann ich den Mitschnitt direkt im
-Webinterface betrachten, was mir bei einfachen Fragestellungen Zeit
+Web-Interface betrachten, was mir bei einfachen Fragestellungen Zeit
 erspart.
-Für detaillierte Untersuchungen kann ich den Mitschnitt auch im
-PCAP-Format heruterladen und dann mit Wireshark oder anderen Werkzeugen
-näher untersuchen.
+Für detaillierte Untersuchungen
+kann ich den Mitschnitt auch im PCAP-Format herunterladen
+und dann mit Wireshark oder anderen Werkzeugen untersuchen.
 
 Auf der Konsole wähle ich zunächst über Menüpunkt 8) die Shell aus und
 schneide dann den Datenverkehr mit ``tcpdump`` mit, wie im Abschnitt
@@ -233,7 +234,7 @@ XML-Format bekommen.
 .. figure:: /images/pfsense-backup-config.png
    :alt: Download der Konfiguration
 
-Im Webinterface gehe ich zu **Diagnostics > Backup & Restore > Backup &
+Im Web-Interface gehe ich zu **Diagnostics > Backup & Restore > Backup &
 Restore**. Dort kann ich die Konfiguration herunterladen oder mit den
 letzten Ständen vergleichen.
 
@@ -243,14 +244,14 @@ Hier stehen mir Textwerkzeuge,
 wie ``diff``, ``grep`` oder ``less``,
 für einfache Analysen zur Verfügung.
 
-Will ich die Konfigurationsdatei in der Shell bearbeiten, empfiehlt sich
-das Programm ``viconfig``, das sich um Details wie das Löschen des
-Config-Caches kümmert.
+Will ich die Konfigurationsdatei in der Shell bearbeiten,
+verwende ich das bereits erwähnte Programm ``viconfig``,
+das sich um Details wie das Leeren des Config-Caches kümmert.
 
 .. index:: StrongSwan
 
 Bin ich mir nicht im Klaren,
-was eine bestimmte Konfiguration im Webinterface
+was eine bestimmte Konfiguration im Web-Interface
 beziehungsweise in der XML-Datei bedeutet,
 kann ich die daraus erzeugte Konfiguration für StrongSwan
 unter */var/etc/* anschauen.
