@@ -164,14 +164,14 @@ Auf der Konsole finde ich die Logs im Verzeichnis */var/log/*, die Datei
 mit den IPsec-Logs ist */var/log/ipsec.log*. Mit ``ls /var/log`` bekomme
 ich die Namen der anderen Dateien angezeigt.
 
-.. figure:: /images/pfsense-logging.png
+.. .. figure:: /images/pfsense-logging.png
    :alt: Einstellungen für Logging
 
 Ob Logs zu anderen Server geschickt werden und wenn ja, zu welchen,
 bekomme ich im Web-Interface über **Status > System Logs > Settings**
 heraus. Dort schaue ich bei **Remote Logging Options** nach.
 
-.. figure:: /images/pfsense-logging-remote.png
+.. .. figure:: /images/pfsense-logging-remote.png
    :alt: Einstellungen für Remote Logging
 
 Ob und in welchem Maße Debug-Informationen protokolliert werden, stelle
@@ -198,15 +198,15 @@ dort gibt es auch Hilfe zur Interpretation der Logzeilen.
 
 .. [#] https://docs.netgate.com/pfsense/en/latest/vpn/ipsec/ipsec-troubleshooting.html
 
+.. figure:: /images/pfsense-packet-capture.png
+   :alt: Paketmitschnitt im Web-Interface
+
 Paketmitschnitte
 ----------------
 
 Ich habe zwei Möglichkeiten, einen Paketmitschnitt auf einer
 pfSense-Firewall anzufertigen: über das Web-Interface oder über die
 Konsole.
-
-.. figure:: /images/pfsense-packet-capture.png
-   :alt: Paketmitschnitt im Web-Interface
 
 Im Web-Interface gehe ich im Menü zu **Diagnostics > Packet Capture**.
 Dort spezifiziere ich in einem Web-Formular die Datagramme, an denen ich
