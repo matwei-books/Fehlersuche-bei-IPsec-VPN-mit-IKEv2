@@ -2,13 +2,15 @@
 MikroTik-Router
 ===============
 
+.. index:: ! RouterOS
+
 MikroTik-Router eignen sich,
 um mal eben ein VPN aufzubauen
 neben all den anderen Funktionen,
 die sie im Netz übernehmen können.
 Es gibt diese Router in den verschiedensten Größen,
 als SOHO-Router, als Core-Router für größere Netzwerke und als virtuelle
-Maschine in SDN-Umgebungen. Alle laufen mit Router OS, einem auf Linux
+Maschine in SDN-Umgebungen. Alle laufen mit RouterOS, einem auf Linux
 aufsetzenden proprietären Betriebssystem.
 Wenn damit jedoch mehr als ein oder zwei VPN
 zu Peers anderer Hersteller aufgebaut werden sollen,
