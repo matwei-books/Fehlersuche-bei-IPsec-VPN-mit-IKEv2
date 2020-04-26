@@ -216,18 +216,38 @@ verwendet hat), gibt es ebenfalls eine Extra-Runde.
 Mehr Details zur Interaktion von COOKIE und INVALID_KE_PAYLOAD findet
 sich in Abschnitt 2.6.1 von :cite:`RFC7296`.
 
+Weitere Fehlermeldungen bei IKE_SA_INIT
+.......................................
+
 .. index:: INVALID_MAJOR_VERSION
 
-INVALID_MAJOR_VERSION
-.....................
+INVALID_MAJOR_VERSION:
+  Diese Nachrichten sollten nur auftreten, wenn ein Request mit einer
+  Major-Version größer als 2 ankommt, was zum gegenwärtigen Zeitpunkt
+  darauf hindeutet, dass etwas ernsthaft schief gegangen ist, da es zur
+  Zeit noch keine IKE-Version größer als 2 gibt.
 
-Diese Nachrichten sollten nur auftreten, wenn ein Request mit einer
-Major-Version größer als 2 ankommt, was zum gegenwärtigen Zeitpunkt
-darauf hindeutet, dass etwas ernsthaft schief gegangen ist, da es zur
-Zeit noch keine IKE-Version größer als 2 gibt.
+  Kommt ein Request mit Major-Version 1, ist beim Peer IKEv1 konfiguriert.
+  Das kann man durch Nachfragen klären.
 
-Kommt ein Request mit Major-Version 1, ist beim Peer IKEv1 konfiguriert.
-Das kann man durch Nachfragen klären.
+.. index:: INVALID_SYNTAX
+
+INVALID_SYNTAX:
+  :cite:`RFC6989` behandelt zusätzliche Diffie-Hellman-Tests für IKEv2.
+  Abschnitt 2.5 dort beschreibt das Protokollverhalten
+  und Abschnitt 5 listet die Tests auf,
+  bei verschiedenen DH-Gruppen gemacht werden.
+  Diese Tests werden vom Responder ausgeführt,
+  wenn der Initiator DH-Schlüsselmaterial sendet,
+  das heißt bei IKE_SA_INIT beziehungsweise bei CREATE_CHILD_SA.
+
+  Im Rahmen des IKE_SA_INIT-Austauschs kann der Responder
+  entweder die Nachricht mit dem fehlerhaften DH-Material ignorieren
+  oder eine INVALID_SYNTAX-Nachricht senden.
+
+  Hinweise, ob es sich tatsächlich
+  um einen fehlgeschlagenen Test nach :cite:`RFC6989` handelt,
+  finden sich im Log oder den Debug-Meldungen des Responders.
 
 .. index:: ! IKE_AUTH
    single: Nachrichten; IKE_AUTH
@@ -478,6 +498,28 @@ Suite diese Gruppe enthält.
 
 Die Traffic-Selektoren für die SA sind in den TS-Payloads im Response
 und können eine Teilmenge dessen sein, was der Initiator vorschlug.
+
+Fehlermeldungen bei CREATE_CHILD_SA
+...................................
+
+.. index:: INVALID_SYNTAX
+
+INVALID_SYNTAX:
+  :cite:`RFC6989` behandelt zusätzliche Diffie-Hellman-Tests für IKEv2.
+  Abschnitt 2.5 dort beschreibt das Protokollverhalten
+  und Abschnitt 5 listet die Tests auf,
+  bei verschiedenen DH-Gruppen gemacht werden.
+  Diese Tests werden vom Responder ausgeführt,
+  wenn der Initiator DH-Schlüsselmaterial sendet,
+  das heißt bei IKE_SA_INIT beziehungsweise bei CREATE_CHILD_SA.
+
+  Im Rahmen des CREATE_CHILD_SA-Austauschs
+  sendet der Responder eine INVALID_SYNTAX-Nachricht
+  bei einem fehlgeschlagenen Test.
+
+  Hinweise, ob es sich tatsächlich
+  um einen fehlgeschlagenen Test nach :cite:`RFC6989` handelt,
+  sollten im Log oder den Debug-Meldungen des Responders erkennbar sein.
 
 .. index:: ! INFORMATIONAL
    single: Nachrichten; INFORMATIONAL
