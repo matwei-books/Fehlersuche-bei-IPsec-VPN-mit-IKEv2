@@ -396,7 +396,14 @@ b) An den Endgeräten kann ich die MTU des entsprechenden
 Beide Möglichkeiten führen auch für andere Verbindungen zu einem
 ungünstigeren Verhältnis von Nutzdaten zu Protokoll-Overhead.
 
-.. topic:: TCP MSS-Clamping
+.. topic:: MSS-Clamping
+
+   MSS-Clamping ist ein Verfahren,
+   um die maximale Datagrammgröße einer Verbindung einzuschränken,
+   indem es der Gegenseite eine geringere Maximum Segment Size übermittelt.
+   MSS-Clamping funktioniert nur für TCP
+   und muss für jede einzelne Verbindung
+   bei deren Start angewendet werden.
 
    .. index:: ! Maximum Segment Size
       see: MSS; Maximum Segment Size
@@ -410,12 +417,12 @@ ungünstigeren Verhältnis von Nutzdaten zu Protokoll-Overhead.
    Diese Option wird beim Aufbau der TCP-Verbindung gesendet
    und ist für die gesamte Verbindung gültig.
 
-   Beim MSS-Clamping wird genau diese Option
-   von einem Gateway auf dem Weg des Datagramms modifiziert.
-
-   Router an einer PPPoE-Verbindung und IPsec-Gateways
-   setzen MSS-Clamping standardmäßig ein,
-   damit die durch den Protokoll-Overhead geringere Path-MTU
-   von vornherein in TCP-Verbindungen berücksichtigt wird
-   und nicht erst die Path-MTU-Mechanismen eingreifen müssen.
+   In den ersten beiden Datagrammen der TCP-Sitzung
+   wird das Feld MSS vom Router oder Gateway reduziert,
+   so dass die beteiligten Rechner keine Datagramme
+   mit einer Nutzlast größer als die angegebene MSS senden.
+   Dabei wird die MSS auf den Wert der kleinsten MTU
+   abzüglich der Größe von IP- und TCP-Header gesetzt.
+   VPN-Gateways ziehen zusätzlich den Overhead
+   für die Verschlüsselung ab.
 

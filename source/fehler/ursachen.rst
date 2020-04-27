@@ -515,27 +515,6 @@ Ist auf dem Weg zwischen den beiden VPN-Gateways die PMTU geringer, so
 gehen die Fehlernachrichten an das sendende VPN-Gateway und nicht an den
 Sender des im VPN transportierten Datagramms.
 
-.. topic:: MSS-Clamping
-
-   .. index:: ! MSS-Clamping
-
-   MSS-Clamping ist ein Verfahren,
-   um die maximale Datagrammgröße einer Verbindung einzuschränken.
-   Es funktioniert nur für TCP
-   und muss für jede einzelne Verbindung beim Start angewendet werden.
-
-   Dabei wird der Wert in der TCP-Option MSS in den ersten beiden
-   Datagrammen der TCP-Sitzung vom Router oder Gateway reduziert,
-   so dass die beteiligten Rechner keine Datagramme
-   mit einer Nutzlast größer als die angegebene MSS senden.
-
-   MSS-Clamping wird vorzugsweise verwendet,
-   wenn die Path-MTU einer Verbindung geringer ist
-   als die bei Ethernet üblichen 1500 Byte.
-   Dabei wird die MSS auf den Wert der aktuellen Path-MTU
-   abzüglich der Größe von IP- und TCP-Header gesetzt.
-
-
 Da mit den ICMP-Nachrichten auch immer der Anfang des verursachenden
 Datagramms an das sendende VPN-Gateway geschickt wird, kann dieses
 anhand der SPI und der Sequenznummer prinzipiell den ursprünglichen
