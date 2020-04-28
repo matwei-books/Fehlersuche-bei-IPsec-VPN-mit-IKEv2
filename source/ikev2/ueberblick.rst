@@ -25,6 +25,8 @@ Insgesamt setzt sich IPsec aus drei Protokollen zusammen
   auf IKE (Internet Key Exchange Protocol)
   für den Schlüsselaustausch,
   RFC7296 beschreibt IKEv2 (siehe :cite:`RFC7296`).
+  In :cite:`ct-2007-20-210` findet sich
+  ein gut verständlicher Überblick über IKEv2 in deutscher Sprache.
   
   Die Aufgabe von ISAKMP ist das Aushandeln der kryptographischen Verfahren und
   Schlüssel für die Security Associations (SA).
