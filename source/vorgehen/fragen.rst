@@ -303,3 +303,13 @@ ob vielleicht ein leistungsfähigeres VPN-Gateway oder Maßnahmen zu dessen Entl
 Hierzu kann ich den gesamten Datenverkehr pro Zeiteinheit betrachten
 und vergleichen, ob ich mich einem - vorher ermittelten - Maximalwert nähere.
 
+- Wie hoch ist die CPU-Last des VPN-Gateways?
+
+Damit frage ich nicht direkt,
+ob das VPN schnell genug ist,
+sondern indirekt,
+wie das betrachtete VPN-Gateway mit der anfallenden Last umgeht.
+Dauerhaft hohe Werte für die CPU-Last sind ein Indikator dafür,
+dass es den Anforderungen kaum nachkomt
+und dass ich mich nach einem leistungsfähigeren Gateway umsehen sollte.
+
