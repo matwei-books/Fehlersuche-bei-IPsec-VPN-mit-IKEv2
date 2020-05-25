@@ -1,4 +1,8 @@
 
+.. raw:: latex
+
+   \clearpage
+
 MikroTik-Router
 ===============
 
@@ -207,4 +211,16 @@ Für den Export der Konfiguration sind zwei Attribute wichtig:
   zeigt auch Defaultwerte.
   Damit kann ich Missverständnisse ausräumen,
   die durch falsche Annahmen über die Defaults entstanden sind.
+
+Besonderheiten
+--------------
+
+Verwendet man mehrere IPsec-SA mit unterschiedlichen Traffic-Selektoren,
+sollte in der Policy ``level=unique`` konfiguriert werden,
+damit der gesendete Traffic an die richtige IPsec-SA gesendet wird.
+Wird das vergessen
+und die Gegenstelle akzeptiert keinen Traffic für die falsche SA,
+dann funktiioniert zwar ein Teil des VPN
+- der, bei dem der Traffic-Selektor der SA passt -
+aber nicht alles.
 

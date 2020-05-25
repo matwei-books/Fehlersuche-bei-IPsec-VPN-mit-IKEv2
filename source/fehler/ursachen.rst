@@ -169,6 +169,25 @@ müssen, da die Logs dazu oft nicht eindeutig sind und ein
 Paketmitschnitt nur bei wenigen VPN-Gateways die entschlüsselten
 IKE-Datagramme enthält.
 
+Eine spezielle Variante der falschen Parameter für Child-SA
+ist eine unterschiedliche Interpretation der Traffic-Selektoren.
+Prinzipiell erlaubt RFC44301 in Abschnitt 4.4.1.1
+sowohl für die Remote IP Address als auch für die Local IP Adress
+eine Liste von Adressbereichen.
+Damit lassen sich einzelne Adressen, eine Liste von Adressen,
+einzelne Adressbereiche sowie mehrere Adressbereiche
+für beide Seiten in einer SA aushandeln.
+
+Das Problem mit den falschen Parameter ist, dass,
+auch wenn mehrere IPsec SA
+mit unterschiedlichen Traffic-Selektoren ausgehandelt sind,
+eine Seite Traffic an eine SA sendet,
+deren Traffic-Selektoren nicht dazu passen.
+Auf der Gegenseite werden die Datagramme dann verworfen.
+Zumindest finden sich in diesem Fall auf der ankommenden Seite
+eindeutige Hinweise in den Logs.
+Die Abhilfe ist unterschiedlich, je nach Software.
+
 Fehlendes PFS auf einer Seite
 .............................
 
@@ -182,6 +201,10 @@ funktionsfähige Child-SA erzeugt werden kann.
 Das Rekeying scheitert dann,
 weil eine Seite den neuen Schlüssel aus dem verwendeten ableiten,
 die andere Seite jedoch einen neuen Schlüssel aushandeln will.
+
+.. raw:: latex
+
+   \clearpage
 
 NAT
 ---

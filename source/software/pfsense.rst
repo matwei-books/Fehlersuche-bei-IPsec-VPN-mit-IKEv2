@@ -1,4 +1,8 @@
 
+.. raw:: latex
+
+   \clearpage
+
 .. index:: ! pfSense
 
 pfSense
