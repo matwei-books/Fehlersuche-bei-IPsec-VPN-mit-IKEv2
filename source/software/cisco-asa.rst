@@ -365,8 +365,11 @@ noch ein TFTP-Server in Reichweite war,
 habe ich ein Skript geschrieben,
 dass die Ausgabe von ``show capture $name dump``
 in eine PCAP-Datei für die weitere Analyse umwandeln kann.
-Das Skript ist im Perl-Modul File::PCAP enthalten und kann bei
+Dieses Skript ist im Perl-Modul File::PCAP enthalten und kann bei
 meta::cpan [#]_ gefunden werden.
+Das Programm ``text2pcap``, ein Teil von Wireshark,
+leistet in etwa das gleiche.
+Als ich das Perl-Skript schrieb kannte ich ``text2pcap`` noch nicht.
 
 .. [#] https://metacpan.org/release/File-PCAP
 
