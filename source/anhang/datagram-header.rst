@@ -278,7 +278,7 @@ Der Payload-Typ für Security Associations - zu finden im IKE-Header
 beziehungsweise im Feld *Next Payload* der vorhergehenden Payload - ist
 33.
 
-In :cite:`RFC7296`, Abschnitt 3.3 ist die SA-Payload ausführlich
+In RFC7296 :cite:`RFC7296`, Abschnitt 3.3 ist die SA-Payload ausführlich
 beschrieben.
 
 Proposal-Unterstrukturen
