@@ -10,7 +10,7 @@ idna==2.8
 imagesize==1.0.0
 Jinja2==2.10.1
 latexcodec==1.0.5
-markdown2==2.3.8
+markdown2==2.3.9
 MarkupSafe==1.1.1
 oauth2==1.9.0.post1
 oset==0.1.3
