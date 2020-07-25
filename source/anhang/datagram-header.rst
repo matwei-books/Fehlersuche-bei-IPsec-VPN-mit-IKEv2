@@ -644,8 +644,10 @@ dessen Länge sowie das Next-Header-Feld. Das abschließende Feld mit dem
 Integrity-Check-Wert ist optional.
 
 .. figure:: /images/ipsec-esp-datagram.png
-   :alt: Toplevel-Format eines ESP-Datagrams aus RFC 4303, Abschnitt 2
+   :alt: Toplevel-Format eines ESP-Datagramms aus RFC 4303, Abschnitt 2
    :name: ipsec-esp-datagram
+
+   ESP-Datagramm
 
 Die Nutzlastdaten enthalten eine Struktur, die abhängig vom gewählten
 Verschlüsselungsalgorithmus und dessen Modus ist.
