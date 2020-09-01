@@ -21,6 +21,10 @@ ich bis zu seiner Lösung in der folgenden Schleife:
 .. figure:: /images/bbaet.png
    :alt: Ablauf der Fehlersuche
 
+.. raw:: latex
+
+   \clearpage
+
 * ich beobachte das Problem,
 * beurteile, was ich gesehen habe,
 * ändere etwas am Gesamtsystem und
