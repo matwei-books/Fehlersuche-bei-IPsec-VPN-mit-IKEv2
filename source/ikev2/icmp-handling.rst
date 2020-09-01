@@ -151,6 +151,13 @@ mit der Destination Address aus dem IP-Header.
 Die Original Destination Address aus der Payload ist
 nicht immer identisch mit der Source Address aus dem IP-Header.
 
+.. raw:: latex
+
+   \clearpage
+
+Path-MTU-Discovery
+------------------
+
 .. index:: ! PMTU-Discovery, ! Path-MTU-Discovery
 
 .. topic:: MTU / PMTU
@@ -178,9 +185,6 @@ nicht immer identisch mit der Source Address aus dem IP-Header.
    Da die PMTU nicht von vornherein für jede Verbindung bekannt ist,
    versuchen einige Protokolle, wie zum Beispiel TCP,
    die PMTU durch Path-MTU-Discovery zu ermitteln.
-
-Path-MTU-Discovery
-------------------
 
 Mit ICMP-Nachrichten Typ 3, Code 4
 beziehungsweise ICMPv6 Typ 2, Code 0
