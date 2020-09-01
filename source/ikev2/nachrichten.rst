@@ -63,9 +63,9 @@ Diese Message-ID verwenden die Peers, um Requests und Responses einander
 zuzuordnen und Wiederholungen von Nachrichten zu erkennen.
 Eine wiederholt gesendete IKE-Nachricht muss die gleiche MID verwenden.
 
-Die MID beginnt mit 0 beim IKE_SA_INIT-Requests des Initiators und wird
-fortlaufend hochgezählt.
-Beim Rekeying einer IKE-SA setzt der Initiator die MID für die neue SA auf 0.
+Die MID startet mit 0 beim IKE_SA_INIT-Requests des Initiators
+und wird fortlaufend hochgezählt.
+Beim Rekeying einer IKE-SA setzt der Initiator die MID erneut auf 0.
 
 Der erste IKE-Request des Responders beginnt ebenfalls mit MID 0, so
 dass zu einer IKE-SA gleichzeitig zwei MID-Nummernkreise existieren
