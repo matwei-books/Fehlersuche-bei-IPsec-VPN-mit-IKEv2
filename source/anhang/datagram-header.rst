@@ -634,9 +634,9 @@ ESP-Datagramm
 -------------
 
 Bild :numref:`ipsec-esp-datagram` zeigt den Aufbau eines ESP-Datagramms.
-Der äußere Header, der ihm unmittelbar voran geht, soll den Wert 50 in
-seinem Protokollfeld (IPv4) beziehungsweise Next-Header-Feld (IPv6,
-Extensions) enthalten.
+Der äußere Header, der ihm unmittelbar voran geht,
+enthält den Wert 50 in seinem Protokollfeld (IPv4)
+beziehungsweise Next-Header-Feld (IPv6, Extensions).
 
 Das Datagramm beginnt mit zwei 4-Byte-großen Feldern, denen die
 verschlüsselten Nutzlastdaten folgen. Diesen wiederum folgt das Padding,
