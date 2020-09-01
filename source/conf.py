@@ -122,6 +122,7 @@ latex_elements = {
     # Additional stuff for the LaTeX preamble.
     #
     'preamble': r'''
+\usepackage{chngcntr}
 \makeatletter
 \fancypagestyle{normal}{%
 \fancyhf{}%

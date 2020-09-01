@@ -2,6 +2,7 @@
 .. raw:: latex
 
    \appendix
+   \counterwithin{figure}{section}
 
 .. toctree::
 
