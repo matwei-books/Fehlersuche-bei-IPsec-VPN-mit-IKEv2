@@ -220,7 +220,38 @@ sollte in der Policy ``level=unique`` konfiguriert werden,
 damit der gesendete Traffic an die richtige IPsec-SA gesendet wird.
 Wird das vergessen
 und die Gegenstelle akzeptiert keinen Traffic für die falsche SA,
-dann funktiioniert zwar ein Teil des VPN
+dann funktioniert zwar ein Teil des VPN
 - der, bei dem der Traffic-Selektor der SA passt -
 aber nicht alles.
+
+Default-Port für IKE ist 4500
+.............................
+
+Eine Eigenart der MikroTik-Router ist,
+dass sie mit den Default-Einstellungen
+für die erste Anfrage beim Peer immer UDP-Port 4500 verwenden.
+Normalerweise geht die erste Anfrage immer an UDP-Port 500
+und erst,
+wenn die Peers NAT zwischen den beiden externen Adressen erkennen,
+schalten sie um auf Port 4500
+und verwenden diesen auch für ESP.
+
+Außerdem stimmt in diesem Fall (zumindest bis Version 6.45)
+die SHA1-Hash für die NAT-Detection nicht,
+so dass der Peer hier NAT erkennt,
+auch wenn gar keines zur Anwendung kommt.
+Dadurch wird der ESP-Traffic ohne Not in UDP gekapselt,
+was mehr Overhead durch IPsec für jedes einzelne Datagramm bedeutet.
+
+Damit der MikroTik-Router bei der ersten Anfrage Port 500 verwendet,
+muss ich diesen explizit bei der Konfiguration des Peers angeben:
+
+.. code-block:: none
+
+   ip ipsec peer ... port=500
+
+Gebe ich damit den Standard-Port vor,
+funktioniert auch die NAT-Detection
+und der IPsec-Tunnel wird mit nativem ESP aufgebaut,
+wodurch der Overhead durch den Tunnel etwas geringer wird.
 
