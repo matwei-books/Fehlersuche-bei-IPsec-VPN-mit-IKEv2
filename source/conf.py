@@ -152,6 +152,7 @@ vdivide={1.2in,*,*}
 	da-rauf
     WireShark
 }
+\def\sphinxstyleindexentry   #1{{#1}}
 ''',
 
     # Latex figure (float) alignment
@@ -180,11 +181,6 @@ latex_docclass = {
    'manual': 'scrbook',
 }
 
-# This is needed to remove the \renewcommand{\maketitle}{...}.
-latex_additional_files = [
-    'sphinxmanual.cls'
-]
-
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
@@ -193,6 +189,7 @@ latex_documents = [
      'Mathias Weidner', 'manual'),
 ]
 
+latex_use_xindy = True;
 
 # -- Options for manual page output ------------------------------------------
 
