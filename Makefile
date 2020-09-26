@@ -57,7 +57,10 @@ build/draft/%-draft.pdf: source/%.rst; pandoc -o $@ --variable subparagraph -H p
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-.PHONY: help Makefile $(SOURCE)
+images:
+	cd source/images && make all
+
+.PHONY: help images Makefile $(SOURCE)
 
 epub: Makefile
 	$(SPHINXBUILD) -M epub "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)

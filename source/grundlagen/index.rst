@@ -18,7 +18,7 @@ gehe.
 Erkenne ich ein Problem oder bekomme eines gemeldet, dann arbeite
 ich bis zu seiner Lösung in der folgenden Schleife:
 
-.. figure:: /images/bbaet.png
+.. figure:: /images/bbaet-bw.png
    :alt: Ablauf der Fehlersuche
 
 .. raw:: latex

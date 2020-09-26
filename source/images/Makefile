@@ -1,5 +1,6 @@
 #
 IMAGES = bbaet.png \
+	 bbaet-bw.png \
 	 entscheidungsbaum-alternativ.png \
        	 entscheidungsbaum.png \
 	 create-child-sa.png \
