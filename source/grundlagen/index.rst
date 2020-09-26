@@ -30,28 +30,31 @@ ich bis zu seiner Lösung in der folgenden Schleife:
 * ändere etwas am Gesamtsystem und
 * teste, um erneut zu beobachten.
 
-Um das Problem zu beobachten sowie das Gesamtsystem ändern und testen
-zu können, benötige ich Grundlagenwissen.
-Zum einen allgemeines Grundlagenwissen, das ich auch auf anderen
-Problemfeldern verwenden kann und zum anderen spezielles
-Grundlagenwissen über die eingesetzte Technologie.
+Dafür benötige ich Grundlagenwissen.
+Zum einen allgemeines Wissen,
+das mir auch auf anderen Problemfeldern nutzt,
+und zum anderen spezielles Grundlagenwissen
+über die eingesetzte Technologie.
 
 Um das Beobachtete richtig zu beurteilen und geeignete Änderungen zu
 finden, benötige ich Fachwissen über die betroffene Materie - hier
 IPsec VPN mit IKEv2.
 
-In diesem Kapitel gehe ich auf allgemeines Grundlagenwissen ein, dass
-mir auch bei verwandten Problemstellungen helfen kann, und unerlässlich
-für die effiziente Fehlersuche bei IPsec VPN ist.
+In diesem Kapitel befasse ich mich allgemeinem Grundlagenwissen,
+dass mir auch bei verwandten Problemstellungen helfen kann,
+und unerlässlich für die effiziente Fehlersuche bei IPsec VPN ist.
 
-Das folgende Kapitel geht auf spezifische Grundlagen zu IPsec und IKEv2
-ein, soweit sie für die Fehlersuche relevant sind.
+Das folgende Kapitel :ref:`ikev2/index:IPsec und IKEv2`
+geht auf spezifische Grundlagen zu IPsec und IKEv2 ein,
+soweit sie für die Fehlersuche relevant sind.
 
-Im Kapitel :ref:`software/index:IPsec-Software` gehe ich beispielhaft
-darauf ein, wie ich mit konkreten Softwareprodukten Fehler in IPsec VPN
-aufspüren kann.
-Dabei kann ich nur auf einen kleinen Ausschnitt aus der Vielfalt der IPsec
-Softwareprodukte eingehen, mit dem ich eigene Erfahrungen gemacht habe.
+Im Anhang :ref:`software/index:IPsec-Software`
+zeige ich beispielhaft,
+wie man mit konkreten Softwareprodukten
+Fehler in IPsec VPN aufspüren kann.
+Dabei kann ich nur auf einen kleinen Ausschnitt
+aus der Vielfalt der IPsec Softwareprodukte eingehen,
+mit dem ich eigene Erfahrungen gemacht habe.
 
 .. toctree::
    :maxdepth: 2
