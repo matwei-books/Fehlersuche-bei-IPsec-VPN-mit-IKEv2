@@ -25,42 +25,84 @@ ich bis zu seiner Lösung in der folgenden Schleife:
 
    \clearpage
 
-* ich beobachte das Problem,
-* beurteile, was ich gesehen habe,
-* ändere etwas am Gesamtsystem und
-* teste, um erneut zu beobachten.
+* Beim **Beobachten** konzentriere ich mich auf zwei Aspekte:
+  zum einen was und zum anderen wie ich beobachte.
 
-Dafür benötige ich Grundlagenwissen.
-Zum einen allgemeines Wissen,
-das mir auch auf anderen Problemfeldern nutzt,
-und zum anderen spezielles Grundlagenwissen
-über die eingesetzte Technologie.
+  * Was beobachte ich?
 
-Um das Beobachtete richtig zu beurteilen und geeignete Änderungen zu
-finden, benötige ich Fachwissen über die betroffene Materie - hier
-IPsec VPN mit IKEv2.
+    Das Kapitel :ref:`vorgehen/fragen:Fragen` geht darauf ein,
+    worauf ich wann bei der Fehlersuche achte.
 
-In diesem Kapitel befasse ich mich allgemeinem Grundlagenwissen,
-dass mir auch bei verwandten Problemstellungen helfen kann,
-und unerlässlich für die effiziente Fehlersuche bei IPsec VPN ist.
+  * Wie beobachte ich?
 
-Das folgende Kapitel :ref:`ikev2/index:IPsec und IKEv2`
-geht auf spezifische Grundlagen zu IPsec und IKEv2 ein,
-soweit sie für die Fehlersuche relevant sind.
+    Eine einfache Statusabfrage an die VPN-Software
+    kann Fragen zum Zustand des Systems beantworten.
+    Diese ist von der verwendeten Software abhängig.
+    Im Abschnitt :ref:`software/index:IPsec-Software` im Anhang
+    kann ich nur auf eine kleine Auswahl eingehen.
 
-Im Anhang :ref:`software/index:IPsec-Software`
-zeige ich beispielhaft,
-wie man mit konkreten Softwareprodukten
-Fehler in IPsec VPN aufspüren kann.
-Dabei kann ich nur auf einen kleinen Ausschnitt
-aus der Vielfalt der IPsec Softwareprodukte eingehen,
-mit dem ich eigene Erfahrungen gemacht habe.
+    Beim Auswerten von Systemlogs oder Debugausgaben,
+    habe ich es oft mit sehr viel Text zu tun.
+    Der Abschnitt :ref:`grundlagen/textdateien:Arbeit mit Textdateien`
+    in diesem Kapitel
+    geht näher auf effizientes Arbeiten damit ein.
+
+    In vielen Fällen bin ich auf Paketmitschnitte angewiesen,
+    um mich zu vergewissern,
+    was passiert.
+    Der Abschnitt :ref:`grundlagen/paketmitschnitt:Paketmitschnitt`
+    in diesem Kapitel
+    geht darauf näher ein.
+
+* Beim **Beurteilen** des Beobachteten
+  helfen Erfahrung und Grundlagenwissen.
+
+  * Im Kapitel :ref:`fehler/index:Typische Probleme` habe ich
+    Erfahrungen mit tatsächlich aufgetretenen Problemen zusammengetragen
+    und nach der Ursache, dem Fehlerbild und der Behebung geordnet.
+
+  * Im Abschnitt :ref:`grundlagen/theoretisch:OSI Modell` ist
+    eines der grundlegenden Modelle in der Netzwerkwelt erläutert.
+
+    Die wichtigsten Grundlagen zu IPsec und IKEv2 für die Fehlersuche
+    sind im Kapitel :ref:`ikev2/index:IPsec und IKEv2` dargelegt
+
+    Auf das Auswerten der Paketmitschnitte geht der Abschnitt
+    :ref:`grundlagen/paketmitschnitt:Paketmitschnitt`
+    in diesem Kapitel ein.
+    Der Abschnitt :ref:`anhang/datagram-header:Datagramm-Header` im Anhang
+    kann bei der Interpretation der IKE-Datagramme helfen.
+
+* Beim **Ändern** der Systemumgebung kommt es darauf an,
+  möglichst keine weiteren Beeinträchtigungen
+  in produktiven Umgebungen zu verursachen.
+
+  Eventuell ist es möglich, das Problem in einem Testlabor nachzustellen.
+  Dieses Testlabor kann aus überzähligen Hardware-Komponenten bestehen
+  oder aus einer Simulationsumgebung wie GNS3.
+  Abschnitt :ref:`anhang/hilfsmittel:Testlab` im Anhang
+  geht auf die Arbeit mit einem Testlabor ein.
+  Kann das Problem nicht im Testlabor nachgestellt werden,
+  kann ich vielleicht temporär
+  auf ein VPN-Gateway an einer anderen Adresse ausweichen,
+  um die produktiven Netze nicht zu stören.
+
+* Das Hauptproblem beim **Testen**
+  ist das Erzeugen geeigneten Traffics,
+  der das Problem zum Vorschein bringt.
+  In größeren Umgebungen mit geteilter Verantwortung für die Bereiche
+  kann die Koordinierung ein Problem für sich darstellen.
+
+  Ein Ausweg daraus kann eine Sonde zum Injizieren von Test-Traffic sein,
+  wie im Abschnitt
+  :ref:`anhang/hilfsmittel:Sonde zum Injizieren von Traffic` im Anhang
+  beschrieben.
 
 .. toctree::
    :maxdepth: 2
    :caption: Inhalt:
 
    theoretisch
-   paketmitschnitt
    textdateien
+   paketmitschnitt
 

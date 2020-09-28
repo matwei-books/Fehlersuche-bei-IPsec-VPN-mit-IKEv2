@@ -3,8 +3,8 @@ OSI Modell
 ==========
 
 Vielleicht fühlt sich der eine oder die andere gelangweilt durch
-so banale Dinge wie das OSI Modell für Netzwerke.
-Fakt ist, dass ich erlebt habe, wie sich eine Fehlersuche über
+banale Dinge wie das OSI Modell für Netzwerke.
+Tatsächlich habe ich erlebt, wie sich eine Fehlersuche über
 mehrere Tage hinzog und es etwa zwanzig Stunden dauerte, bis überhaupt
 jemand daran ging, das zugrundeliegende Netzwerkproblem zwischen den
 beiden beteiligten VPN-Gateways anzugehen.
