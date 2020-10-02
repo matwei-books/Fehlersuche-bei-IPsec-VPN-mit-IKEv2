@@ -86,7 +86,7 @@ und ist unten auf die Dienste von IP und UDP angewiesen.
 
    \clearpage
 
-.. topic:: Wenn man das OSI-Modell außer Acht lässt
+.. admonition:: Wenn man das OSI-Modell außer Acht lässt
 
    Ein Beispiel dafür,
    was passieren kann,
