@@ -191,20 +191,25 @@ mit der Kommandozeilenoption ``--help`` beziehungsweise ``-?`` an Hilfe
 oder, während das Programm schon läuft,
 mit dem Tastaturbefehl ``h`` oder ``H``.
 
+.. raw:: latex
+
+   \clearpage
+
 .. index:: grep
 
 Grep
 ----
 
-Ich verwende grep am häufigsten um Text in einer Pipe oder Datei zu
-filtern oder zu suchen, um eine Datei zu finden, die einen bestimmten
-Text enthält oder um überflüssige Zeilen beim Betrachten einer Datei zu
-entfernen.
+Ich verwende grep sehr häufig
+um Text in einer Pipe oder Datei zu filtern oder zu suchen,
+um eine Datei zu finden, die einen bestimmten Text enthält,
+oder um überflüssige Zeilen beim Betrachten einer Datei zu entfernen.
 
-Normalerweise unterscheidet grep die Groß- und Kleinschreibung der
-angegebenen Muster, mit der Option ``-i`` kann ich das abschalten.
+Normalerweise unterscheidet grep
+die Groß- und Kleinschreibung der angegebenen Muster.
+Mit der Option ``-i`` kann ich das abschalten.
 
-Text in einer Pipe filtere ich meist beim analysieren von Logdateien.
+Text in einer Pipe filtere ich meist beim Analysieren von Logdateien.
 Wenn ich zum Beispiel während einer Debug-Sitzung die relevanten
 aktuellen Logzeilen im Auge behalten will, filtere ich in einer Console
 mit dem Befehl::
@@ -223,7 +228,7 @@ nicht interessieren.
 
 Manchmal interessiert mich nur ein kleiner Ausschnitt aus einer Datei,
 von dem ich weiß, dass er ein bestimmtes Muster enthält.
-Dann suche ich die Zeilen mit diesem Muster::
+Dann suche ich die Zeilen mit einem der folgenden Befehle::
 
   grep Muster Dateiname
   grep -A n Muster Dateiname
@@ -231,21 +236,29 @@ Dann suche ich die Zeilen mit diesem Muster::
   grep -C n Muster Dateiname
 
 Stehen die interessanten Informationen nicht genau in den Zeilen mit dem
-Muster, kann ich mit der Option ``-A n`` *n* Zeilen danach (after)
-ausgeben lassen oder mit Option ``-B n`` *n* Zeilen davor (before).
-Die Option ``-C n`` (context) hingegen gibt mir sowohl *n* Zeilen vor
-der mit dem Muster als auch die darauf folgenden *n* Zeilen aus.
+Muster, kann ich mit der Option ``-A`` (after) *n* Zeilen danach
+ausgeben lassen oder mit Option ``-B`` (before) *n* Zeilen davor.
+Die Option ``-C`` (context) hingegen gibt mir
+sowohl *n* Zeilen vor derjenigen mit dem Muster
+als auch die darauf folgenden *n* Zeilen aus.
+
+.. raw:: latex
+
+   \clearpage
 
 Komme ich auf ein mir bis dahin unbekanntes System, dann muss ich
 mitunter erst einmal die Datei suchen, die ein bestimmtes Muster enthält.
-Dabei hilft mir zum Beispiel für Konfigurationsdateien::
+Dabei hilft mir ``grep`` mit der rekursiven Dateisuche,
+bei der alle Dateien und Verzeichnisse rekursiv unterhalb des
+angegebenen Startverzeichnisses durchsucht werden::
 
   grep -r Muster /etc
 
 Will ich die Datei gleich betrachten, dann bin ich nur an den Dateinamen
-interessiert, die ich mit der Option ``-l`` bekomme::
+interessiert, die ich mit der Option ``-l`` bekomme.
+Diese kann ich in der Shell als Argument an ``less`` übergeben::
 
-  less $(grep -r Muster /etc)
+  less $(grep -lr Muster /etc)
 
 Manchmal finde ich auf einem System als Konfigurationsdatei eine
 modifizierte Template-Datei mit großen Mengen an Kommentaren und nur
@@ -256,8 +269,27 @@ Dann reduziere ich die Datei mit folgendem Befehl auf das Wesentliche::
 
 Sollten andere Zeichen als ``#`` einen Kommentar einleiten, muss ich den
 Ausdruck entsprechend anpassen.
-Was der Ausdruck nach Option ``-E`` konkret bedeutet, erläutere ich im
-Abschnitt :ref:`grundlagen/textdateien:Reguläre Ausdrücke`.
+Was der Ausdruck nach Option ``-E`` konkret bedeutet,
+erläutert der Abschnitt :ref:`grundlagen/textdateien:Reguläre Ausdrücke`.
+
+Die häufigsten mit ``grep`` genutzten Optionen
+sind in :numref:`grep-optionen` zusammengefasst.
+
+.. table:: Häufig verwendete Optionen bei grep
+   :name: grep-optionen
+
+   ============ ============================================================
+    **Option**        **Verwendung**
+   ============ ============================================================
+   -A n         n Zeilen nach dem Muster ausgeben
+   -B n         n Zeilen vor dem Muster ausgeben
+   -C n         n Zeilen vor und nach dem Muster ausgeben
+   -E *regex*   *regex* als erweiterten regulären Ausdruck verwenden
+   -l           nur Dateinamen von Dateien mit dem Muster ausgeben
+   -i           Groß- und Kleinschreibung ignorieren
+   -r *dir*     alle Dateien unterhalb Verzeichnis *dir* rekursiv betrachten
+   -v           nur Zeilen ohne das Muster ausgeben
+   ============ ============================================================
 
 .. index:: diff
 
