@@ -80,9 +80,10 @@ awk oder perl
     zum Beispiel um alle VPN zu identifizieren, die auf eine bestimmte
     Art konfiguriert sind.
 
-Und natürlich arbeite ich bei allen diesen Werkzeugen mit regulären
-Ausdrücken um zu konkretisieren, an welchem Teil des Textes ich
-interessiert bin.
+Diese Programme gehören zur Standardausrüstung bei Unix, Linux und BSD.
+Bei MacOS sind sie entweder vorhanden oder nachrüstbar.
+Bei Microsoft Windows kann ich sie mit dem Linux-Subsystem bekommen
+oder mit Cygwin.
 
 .. index:: less
 
@@ -297,21 +298,27 @@ Diff
 ----
 
 Ein weiteres Werkzeug für die Analyse von Texten ist diff.
-Es vergleicht zwei Texte und markiert die Unterschiede, üblicherweise
-zeilenweise, wobei es die unterschiedlichen Zeilen untereinander
-anzeigt (die Alternative wdiff hingegen markiert wortweise Unterschied
-im Text).
+Es vergleicht zwei Texte und markiert die Unterschiede,
+üblicherweise zeilenweise,
+wobei es die abweichenden Zeilen untereinander anzeigt
+(die Alternative wdiff hingegen markiert wortweise Unterschiede im Text).
 
 Generell verwende ich diff, wenn ich durch optischen Vergleich zweier
 Texte nur mühsam die Unterschiede erkennen kann.
 Das betrifft in den meisten Fällen Konfigurationsdateien, manchmal aber
 auch die Ausgabe von anderen Programmen.
 
-Am häufigsten verwende ich dabei die Option ``-u``, bei der Zeilen, die
-nur in einer Datei vorkommen, mit ``-`` gekennzeichnet werden und die
-der anderen Datei mit ``+``.
-Davor und dahinter werden drei Zeilen, die in beiden Dateien gleich
-sind, ohne Markierung angezeigt.
+Am häufigsten verwende ich dabei die Option ``-u``
+für das Unified Format.
+Dabei werden Zeilen,
+die nur in einer Datei vorkommen,
+mit ``-`` gekennzeichnet
+und Zeilen,
+die nur in der anderen vorkommen,
+mit ``+``.
+Davor und dahinter werden drei Zeilen,
+die in beiden Dateien gleich sind,
+ohne Markierung angezeigt.
 
 Unterscheiden sich zwei Dateien in der Anzahl oder Art der Leerzeichen,
 zum Beispiel weil eine Datei Zeilenende nach DOS-Konvention (CRLF) und
@@ -319,8 +326,27 @@ die andere nach Unix-Konvention (LF) hat, oder in einer Tabulatoren
 verwendet werden und in der anderen Leerzeichen, dann kann ich mit den
 Optionen ``-b``, ``-B``, ``-E``, ``-w`` oder ``-Z`` diese Unterschiede
 ignorieren lassen.
-Die genaue Bedeutung der Optionen steht in der Handbuchseite oder wird
-beim Aufruf von ``diff --help`` angezeigt.
+
+Die genaue Bedeutung dieser und weiterer Optionen
+steht in der Handbuchseite
+oder wird beim Aufruf von ``diff --help`` angezeigt.
+
+Die wichtigsten Optionen fasst :numref:`diff-optionen` zusammen.
+
+.. table:: Häufig verwendete Optionen bei diff
+   :name: diff-optionen
+
+   ============ ========================================================
+    **Option**        **Verwendung**
+   ============ ========================================================
+   -u           Ausgabe im Unified Format
+   -b           Ignoriert Unterschiede in der Anzahl White-Space-Zeichen
+   -B           Ignoriert leere Zeilen
+   -E           Ignoriert Leerzeichen, die Tabulator-Zeichen ersetzen
+   -w           Ignoriert allen White-Space
+   -Z           Ignoriert White-Space am Zeilenende
+   --help       Gibt einen Hilfetext zu den Optionen aus
+   ============ ========================================================
 
 .. index:: AWK
 
