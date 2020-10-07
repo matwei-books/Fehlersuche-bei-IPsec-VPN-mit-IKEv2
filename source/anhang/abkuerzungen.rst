@@ -82,6 +82,11 @@ OSI-Model:
 PAD:
   Peer Authorization Database
 
+.. index:: PCRE
+
+PCRE:
+  Perl Compatible Regular Expressions
+
 .. index:: PFS
 
 PFS:
