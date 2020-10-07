@@ -12,7 +12,7 @@ meiner Kollegen, vor allem bei denen, die sich schwer tun mit komplexen
 Fehlersuchen.
 
 Kann ich souverän mit Text umgehen, so hilft mir das bei der Auswertung
-der Logs und der Debugausgaben sowie bei der Analyse von
+der Logdateien und der Debugausgaben sowie bei der Analyse von
 Konfigurationsdateien, wenn diese als Text vorliegen.
 
 .. admonition:: Am Rande
@@ -81,7 +81,7 @@ awk oder perl
     Art konfiguriert sind.
 
 Diese Programme gehören zur Standardausrüstung bei Unix, Linux und BSD.
-Bei MacOS sind sie entweder vorhanden oder nachrüstbar.
+Bei macOS sind sie entweder vorhanden oder nachrüstbar.
 Bei Microsoft Windows kann ich sie mit dem Linux-Subsystem bekommen
 oder mit Cygwin.
 
@@ -109,9 +109,10 @@ Bewegen
 
 Der Hauptgrund, less zu benutzen ist die komfortable und dabei
 schnelle Bewegung in größeren Texten.
-Das funktioniert mit einem Tastendruck oder einer kurzen Tastenfolge.
-Die gängigsten Tastaturbefehle für das Bewegen im Text.
-zeigt :numref:`less-bewegen`.
+Das funktioniert mit einem einzelnen Tastendruck
+oder einer kurzen Tastenkombination.
+:numref:`less-bewegen` zeigt die gängigsten Tastenkombinationen
+für das Bewegen im Text.
 
 .. table:: Bewegen mit der Tastatur im Programm Less
    :name: less-bewegen
@@ -157,6 +158,10 @@ Richtung der Suche um.
 Mit ``&Muster`` kann ich die Anzeige auf die Zeilen beschränken, die
 *Muster* enthalten.
 
+.. raw:: latex
+
+   \clearpage
+
 Mit ``m`` gefolgt von einem Kleinbuchstaben kann ich eine Stelle im Text
 markieren und mit dem Apostroph (``'``) gefolgt von eben diesem
 Kleinbuchstaben kann ich später zu dieser Stelle zurückspringen.
@@ -190,7 +195,7 @@ Bei Bedarf gibt es Hilfe mit ``man less``.
 Noch schneller kommt man
 mit der Kommandozeilenoption ``--help`` beziehungsweise ``-?`` an Hilfe
 oder, während das Programm schon läuft,
-mit dem Tastaturbefehl ``h`` oder ``H``.
+mit dem Buchstaben ``h`` oder ``H``.
 
 .. raw:: latex
 
@@ -249,9 +254,9 @@ als auch die darauf folgenden *n* Zeilen aus.
 
 Komme ich auf ein mir bis dahin unbekanntes System, dann muss ich
 mitunter erst einmal die Datei suchen, die ein bestimmtes Muster enthält.
-Dabei hilft mir ``grep`` mit der rekursiven Dateisuche,
-bei der alle Dateien und Verzeichnisse rekursiv unterhalb des
-angegebenen Startverzeichnisses durchsucht werden::
+Dabei hilft mir ``grep`` mit der rekursiven Suche durch Dateien,
+bei der alle Dateien und Verzeichnisse unterhalb des
+angegebenen Verzeichnisses durchsucht werden::
 
   grep -r Muster /etc
 
@@ -387,7 +392,7 @@ die beim Einlesen der Zeilen manipuliert werden
 und am Ende ausgegeben werden können.
 
 Oft verwende ich AWK,
-um in den Logs nach bestimmten Fehlermeldungen zu suchen
+um in den Logdateien nach bestimmten Fehlermeldungen zu suchen
 und dann im Aktionsblock die IP-Adresse des Peer-VPN-Gateways
 zu extrahieren und  auszugeben.
 Dazu muss ich abzählen,
@@ -396,8 +401,9 @@ und komme dann mit folgendem Einzeiler aus::
 
   awk '/fehlermeldung/ { print $n }' < /var/log/syslog
 
-Für aufwendigere Manipulationen schaue ich mit ``man awk`` in den
-Handbuchseiten nach, welche Funktionen mir weiterhelfen können.
+Für aufwendigere Manipulationen schaue ich mit ``man awk``
+in der Handbuchseite nach,
+welche Funktionen mir weiterhelfen können.
 
 .. index:: Perl
 
@@ -413,14 +419,14 @@ von Text geeignet sind und einen umfangreichen Bestand an
 Musterlösungen, Bibliotheken und Modulen mitbringen, bieten sich an.
 
 Ich setze auf Perl für tiefer gehende Analysen
-von Logs und Konfigurationsdateien.
+von Logdateien und Konfigurationsdateien.
 Dabei kommt es meist nur darauf an, ein Skript zu schreiben,
 das genau mein Problem löst und das möglichst schnell.
 
 In einem Fall brauchten wir für ein VPN-Migrationsprojekt mit Cisco-ASA
 eine Liste der VPN mit den Peer-Adressen
 und den pro Peer konfigurierten Crypto-Parametern.
-Bei mehreren hundert VPNs war nicht daran zu denken,
+Bei mehreren hundert VPN war nicht daran zu denken,
 das von Hand zu ermitteln.
 Was uns half,
 war ein rudimentärer Parser für die Konfiguration,
@@ -522,9 +528,10 @@ dass der Vergleich nur noch die kleine tatsächliche Änderung anzeigte.
 Reguläre Ausdrücke
 ------------------
 
-Reguläre Ausdrücke sind mächtige Ausdrucksmittel, um Muster in einem
-Text zu beschreiben, anhand derer der Text automatisch verarbeitet
-werden kann.
+.. index:: PCRE
+
+Reguläre Ausdrücke sind mächtige Hilfsmittel,
+um Muster in einem Text zu beschreiben.
 Es gibt sie in verschiedenen Spielarten von einfachen über erweiterten
 bis hin zu Perl-kompatiblen regulären Ausdrücken (PCRE).
 In gewissem Sinne ist auch das Globbing, mit dem in der Shell Dateinamen
@@ -544,11 +551,12 @@ heißt Groß- und Kleinschreibung beachten oder ignorieren.
 Generell gilt, dass alle Zeichen, die kein Sonderzeichen und kein
 Bestandteil eines Modifikators sind, für sich selbst stehen.
 
-Modifzierer
+Modifikator
 ...........
 
-Die meisten Modifikatoren stehen hinter dem Zeichen, dass sie
-modifizieren, wie
+Die meisten Modifikatoren stehen hinter dem Zeichen,
+dessen Bedeutung sie verändern,
+wie
 
 ``?``
   wenn das vorstehende Zeichen gar nicht oder genau einmal vorkommen
@@ -588,29 +596,37 @@ Die folgenden Sonderzeichen verwende ich am häufigsten:
   in der Zeile zu positionieren.
 
 ``(``
-  leitet eine Gruppe von Zeichen ein, die als Gesamtheit betrachtet
-  wird. Nachfolgende Modifikator betreffen die ganze Zeichenfolge der
-  Gruppe. Beendet wird die Gruppe mit dem zugehörigen ``)``.
+  leitet eine Gruppe von Zeichen ein,
+  die zusammen betrachtet werden.
+  Daran anschließende Modifikatoren betreffen
+  die gesamte Zeichenfolge der Gruppe.
+  Beendet wird eine Gruppe mit der zugehörigen schließenden Klammer ``)``.
 
 ``[``
   leitet eine Klassendefinition ein. Eine Klasse ist eine Menge von
-  Zeichen, von denen genau eines an der Stelle vorkommen darf. Die
-  Klassendefinition endet mit dem zugehörigen ``]``. In einer
-  Klassendefinition können Bereiche mit ``-`` angegeben werden, wie z.B.
-  ``[0-9]``, das für alle Ziffern steht.
+  Zeichen, von denen genau eines an der Stelle vorkommen darf.
+  Eine Klassendefinition endet mit dem zugehörigen ``]``.
+  In einer Klassendefinition können Bereiche mit ``-`` angegeben werden,
+  wie z.B.  ``[0-9]``, das für alle Ziffern steht.
+  Das Zeichen ``^`` zu Beginn einer Klassendefinition
+  negiert deren Bedeutung,
+  das heißt,
+  diese Klasse repräsentiert alle Zeichen,
+  die nicht durch die Klasse beschrieben werden.
 
 ``|``
   bildet eine Alternative in einer Gruppe, sowohl die Zeichenfolge vor
   der Alternative als auch die Zeichenfolge danach stehen für ein
-  gültiges Muster in der Gruppe. Zum Beispiel steht ``(abc|def)``
-  entweder für die Folge *abc* oder *def*.
+  gültiges Muster in der Gruppe.
+  Zum Beispiel steht ``(abc|def)``
+  entweder für die Folge *abc* oder für *def*.
 
 Zeichenklassen 
 ..............
 
 Einige Zeichenklassen sind bereits vordefiniert, was mir das Definieren
-an der jeweiligen Stelle erspart. Ich verwende am häufigsten die
-folgenden.
+an der jeweiligen Stelle erspart.
+Ich verwende am häufigsten die folgenden Zeichenklassen.
 
 ``\s``
   Whitespace, also Leerzeichen, Tabulatoren und Zeilenendezeichen.
@@ -622,22 +638,22 @@ folgenden.
   alle Zeichen, die in einem Wort vorkommen können.
 
 ``\W``
-  alle Zeichen, die nicht in einem Wort vorkommen.
+  alle Zeichen, die nicht in einem Wort vorkommen können.
 
-Reguläre Ausdrücke bieten noch viel mehr Möglichkeiten, für eine
-fundierte Einarbeitung stehen die Handbuchseiten der entsprechenden
-Programme zur Verfügung.
+Reguläre Ausdrücke bieten noch viel mehr Möglichkeiten.
+Für eine fundierte Einarbeitung verweise ich
+auf die Handbuchseiten der entsprechenden Programme.
 
-Beispiele
-.........
+Beispiele für reguläre Ausdrücke
+................................
 
-Als Beispiel will ich auf den oben bereits vorgestellten Ausdruck zum
+Als Beispiel will ich den oben bereits vorgestellten Ausdruck zum
 Entfernen von Kommentaren aus Konfigurationsdateien näher erläutern. ::
 
   grep -v -E '^\s*(|#.*)$' /pfad/zur/datei
 
-Mit der Option ``-v`` mache ich klar, dass ich die auf den Ausdruck
-passenden Zeilen nicht sehen will.
+Mit der Option ``-v`` mache ich ``grep`` klar,
+dass ich die auf den Ausdruck passenden Zeilen nicht sehen will.
 
 Der Ausdruck selbst beginnt mit dem Anker ``^`` und endet mit dem Anker
 ``$``, umfasst also die ganze Zeile.
@@ -655,9 +671,11 @@ sind.
 
 Verwendet die Datei andere Zeichen für Zeilenkommentare, muss ich das
 ``#`` entsprechend ersetzen.
-Bei manchen Konfigurationsdateien im INI-Format sind sowohl ``;`` als
-auch ``#`` als Kommentarzeichen zugelassen. Hier ändere ich den
-regulären Ausdruck zu ``^\s*(|[;#].*)$``.
+Bei Konfigurationsdateien im INI-Format sind manchmal sowohl ``;`` als
+auch ``#`` als Kommentarzeichen zugelassen.
+Hier ändere ich den regulären Ausdruck ab zu folgendem Aufruf::
+
+  grep -v -E '^\s*(|[;#].*)$' /pfad/zur/datei
 
 Einen anderen nützlichen Ausdruck verwende ich zum Erkennen und Ersetzen
 von IPv4-Adressen bei Artificial Ignorance::
