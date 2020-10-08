@@ -8,12 +8,12 @@
 Paketmitschnitt
 ===============
 
-Insbesondere bei schwierigen Problemen ist für mich ein Paketmitschnitt
-(Packet Capture) oft die Ultima Ratio bei der Diagnose.
+Insbesondere bei schwierigen Problemen ist ein Paketmitschnitt
+(Packet Capture) häufig die Ultima Ratio bei der Diagnose.
 Zwar sind andere Hilfsmittel wie Logs, Debugausgaben oder
 Diagnosewerkzeuge des VPN-Gateways oft anschaulicher und schneller zu
 kontrollieren.
-Aber gerade, wenn ich Zweifel daran habe, ob das was mir angezeigt wird,
+Aber gerade, wenn ich Zweifel daran habe, ob das, was mir angezeigt wird,
 auch das ist, was passiert, finde ich in einem Paketmitschnitt meist
 Gewissheit in der einen oder anderen Richtung.
 
@@ -29,7 +29,7 @@ entnehmen kann.
 Als VPN-Administrator habe ich manchmal nur zwei Stellen, von denen
 ich Paketmitschnitte bekommen kann, der entschlüsselten
 Seite und der verschlüsselten Seite meines VPN-Gateways.
-Wann ich auf welcher der beiden Seiten den Datenverkehr mitschneide und auswerte
+Wann ich auf welcher Seite den Datenverkehr mitschneide und auswerte
 hängt von der Art des Problems ab.
 
 .. index:: Inside
@@ -42,6 +42,10 @@ ist ein VPN, das von meiner Seite zum Peer aufgebaut wird und sich nicht
 automatisch aufbaut. In diesem Fall kontrolliere ich zunächst auf der
 entschlüsselten Seite, ob der Traffic überhaupt ankommt, der den Aufbau
 des VPNs auslösen soll.
+
+.. raw:: latex
+
+   \clearpage
 
 .. index:: Outside
 
@@ -237,6 +241,23 @@ Ein Filterausdruck dafür könnte in etwa so aussehen::
   net peerSideNet/mask and ( icmp or host insideAddress )
 
   net peerSideNet/mask and ( icmp or net insideNet/mask )
+
+Damit bekomme ich ICMP-Nachrichten,
+die im Netz auf meiner Seite generiert
+und zum Peer gesendet werden,
+zum Beispiel als Reaktion auf Traceroute.
+
+Bin ich an den ICMP-Nachrichten interessiert,
+die beim Peer generiert
+und zu meinem Netz gesendet werden,
+muss ich die beiden Seiten im Ausdruck vertauschen.
+
+Allerdings habe ich bei vielen VPN bemerkt,
+dass diese ICMP-Nachrichten nicht durch das VPN gehen.
+Prinzipiell sollte es möglich sein,
+dass sie das VPN passieren,
+Abschnitt :ref:`ikev2/icmp-handling:Behandlung von ICMP-Nachrichten`
+im nächsten Kapitel geht auf Details dazu ein.
 
 Paketmitschnitt auf der verschlüsselten Seite
 .............................................
