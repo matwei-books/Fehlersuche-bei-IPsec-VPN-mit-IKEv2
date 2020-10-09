@@ -232,7 +232,12 @@ Vermute ich Netzwerkprobleme auf der Inside, muss ich zusätzlich noch
 den ICMP-Datenverkehr aufnehmen. Da die relevanten ICMP-Datagramme von
 jedem Router auf dem Weg zum Zielhost kommen können, kann ich den
 ICMP-Datenverkehr nicht einfach auf bestimmte Absenderadressen beschränken.
-Ein Filterausdruck dafür könnte in etwa so aussehen::
+
+.. raw:: latex
+
+   \clearpage
+
+Ein Filterausdruck für ICMP könnte in etwa so aussehen::
 
   host addressAtPeer and ( icmp or host insideAddress )
 
@@ -267,8 +272,8 @@ Peer-VPN-Gateways interessiert. Normalerweise sollten alle Datagramme
 hier entweder als Sender oder Empfänger die Adresse meines
 VPN-Gateways haben. Darum filtere ich in erster Linie auf die
 Adresse des Peer-Gateways. Lediglich, wenn ich Netzwerkprobleme zwischen
-den beiden VPN-Gateways vermute, filtere ich zusätzlich auf ICMP wie bei
-Inside-Traffic.
+den beiden VPN-Gateways vermute,
+filtere ich zusätzlich auf ICMP.
 
 Der einfachste Filterausdruck auf der verschlüsselten Seite ist::
 
@@ -280,14 +285,19 @@ In den meisten Fällen bin ich nur am IKE-Traffic interessiert, bei
 Problemen mit dem Aufbau des VPN ist das jedoch egal, da dann
 noch kein ESP-Traffic vorkommt.
 
+.. raw:: latex
+
+   \clearpage
+
 Vermute ich Netzwerkprobleme zwischen den beiden VPN-Gateways, so muss
 ich zusätzlich ICMP-Traffic mitschneiden. Der Filterausdruck dafür kann
 dann so aussehen::
 
   ICMP or host peerAddress
 
-Dabei bekomme ich allerdings auch ICMP-Traffic, der sich auf andere VPNs
-bezieht. Das muss ich dann bei der Auswertung berücksichtigen.
+Dabei bekomme ich allerdings auch ICMP-Traffic,
+der sich auf andere VPNs bezieht.
+Das muss ich bei der Auswertung berücksichtigen.
 
 Interessant wird es, wenn ich nur IKE- oder nur ESP-Traffic
 mitschneiden möchte. IKE-Traffic ist üblicherweise UDP mit Port 500.
@@ -308,9 +318,10 @@ gesamten IKE-Traffic, so muss ich sowohl UDP-Port 500 als auch 4500
 mitschneiden, da bei NAT-T der Wechsel von Port 500 zu 4500 mit dem
 IKE_AUTH-Exchange erfolgt.
 
-Bei den meisten Problemen bin ich eher am IKE-Traffic als an ESP
-interessiert. Wenn ich jedoch Replay- oder MTU-Probleme vermute, kann es
-sinnvoll nur den ESP-Traffic zu beobachten.
+Bei den meisten Problemen
+bin ich eher am IKE-Traffic als an ESP interessiert.
+Wenn ich jedoch Replay- oder MTU-Probleme vermute,
+kann es sinnvoll sein, nur den ESP-Traffic zu beobachten.
 Dafür kann ich die folgende Ergänzung verwenden::
 
   ... and esp
