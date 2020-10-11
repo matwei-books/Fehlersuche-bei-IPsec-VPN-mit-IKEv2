@@ -260,3 +260,19 @@ beziehungsweise in der XML-Datei bedeutet,
 kann ich die daraus erzeugte Konfiguration für StrongSwan
 unter */var/etc/* anschauen.
 
+Besonderheiten
+--------------
+
+Beim Hinzufügen von IPsec-Proposals (Phase 2)
+kann es passieren,
+dass kein Tunnel für das neue Proposal aufgebaut wird,
+auch wenn das VPN selbst und die anderen IPsec-Tunnel funktionieren.
+In diesem Fall hilft unter Umständen,
+IPsec kurz zu beenden und wieder neu zu starten [#]_.
+Natürlich kann das problematisch sein,
+wenn auf der pfSense andere VPN produktiv sind.
+In diesem Fall muss man einen geeigneten Zeitpunkt
+für eine Downtime abpassen.
+
+.. [#] vgl. https://www.reddit.com/r/PFSENSE/comments/be84a7/ipsec_problem_with_additional_p2_proposal/
+
