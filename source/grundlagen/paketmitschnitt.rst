@@ -355,10 +355,10 @@ Kommandozeile des Gerätes, wo er angefertigt wurde.
 
     /tool sniffer packet print ...
 
-Bequemer ist die Auswertung mit *Wireshark*, einem grafischen
-Netzwerk-Sniffer, der umfangreiche Möglichkeiten zur Analyse eines
-Mitschnitts bietet. Dafür muss ich die Datei mit dem Mitschnitt erstmal
-auf meinen Rechner kopieren.
+Bequemer ist die Auswertung mit *Wireshark*,
+einem grafischen Netzwerk-Sniffer,
+der umfangreiche Möglichkeiten zur Analyse eines Mitschnitts bietet.
+Dazu muss ich die Datei mit dem Mitschnitt auf meinen Rechner kopieren.
 
 * Bei Cisco ASA benötige ich einen TFTP-Server um die PCAP-Datei zu
   kopieren::
@@ -408,6 +408,10 @@ verwende ich je nach Bedarf noch die folgenden Optionen:
   Mit zwei ``X`` wird der Link-Level-Header zusätzlich ausgegeben,
   mit einem ``X`` beginnt die Ausgabe beim IP-Header.
 
+.. raw:: latex
+
+   \clearpage
+
 Auswertung mit Wireshark
 ........................
 
@@ -447,16 +451,16 @@ oft die Menüpunkte *Analyse* und *Statistics* in der Menüleiste.
 Dahinter verbergen sich Auswertungen, die gerade bei umfangreichen
 Mitschnitten helfen können, die interessanten Pakete schnell zu finden.
 
-.. raw:: latex
-
-   \clearpage
-
 Beim Debugging von VPN weiß ich meist bereits,
 welche Datagramme ich anschauen will.
 Hier interessieren mich vor allem die folgenden Fragen:
 
 * Sind bestimmte Datagramme im Mitschnitt enthalten?
 * Welche Parameter wurden in der IKE-Sitzung gesendet?
+
+.. raw:: latex
+
+   \clearpage
 
 Für die erste Frage verwende ich Anzeigefilter,
 um die Anzahl der Datagramme im obersten Feld einzuschränken.
@@ -467,12 +471,12 @@ oder direkt in der Eingabeleiste über der Paketliste eingeben.
 Für die zweite Frage betrachte ich das mittlere Feld
 bei den IKE-Datagrammen.
 
+Die Dissektoren von Wireshark erlauben mir,
+die gesendeten Parameter genau zu verifizieren.
+Dabei hilft mir das Kapitel :ref:`appendix-datagramm-header` im Anhang.
+
 .. figure:: /images/wireshark-datagram-ikev2.png
    :alt: Paketmitschnitt mit Wireshark
 
    Paketmitschnitt mit Wireshark
-
-Die Dissektoren von Wireshark erlauben mir,
-die gesendeten Parameter genau zu verifizieren.
-Dabei hilft mir das Kapitel :ref:`appendix-datagramm-header` im Anhang.
 
