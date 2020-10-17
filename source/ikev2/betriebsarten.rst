@@ -40,7 +40,7 @@ anbieten, kann ich SA im Transportmodus verwenden, wenn
 Der Transportmodus mit getunneltem Traffic vereinfacht
 das Monitoring der IPsec SA,
 weil der Monitoring Traffic zwingend über dieselben zwei SA geht,
-ebenso wie der sonstige Traffic aller darüber verbundenen Netze.
+wie der sonstige Traffic aller darüber verbundenen Netze.
 Damit ist das Monitoring von einem Ausfall dieser SA
 genauso betroffen wie der produktive Traffic.
 
@@ -81,9 +81,14 @@ pro IPsec-Peer im Betrieb führt.
 Das hat den Vorteil, dass IPsec den erlaubten Traffic mit den Policies
 beschränken und dadurch nachfolgende Firewalls entlasten kann.
 
-Soll der Traffic von mehreren nicht überlappenden Netzwerken
-auf einer oder beiden Seiten durch IPsec geschützt werden,
-werden meist mehrere Child-SA, jeweils eine für eines der Netze,
+.. raw:: latex
+
+   \clearpage
+
+Um den Traffic von mehreren nicht überlappenden Netzwerken
+auf einer oder beiden Seiten durch IPsec zu schützen,
+werden meist mehrere Child-SA,
+jeweils eine für jedes der Netze,
 ausgehandelt.
 
 Das bringt bei einigen Implementationen das Problem,
@@ -100,5 +105,5 @@ einen Fehler meldet, der den Produktivbetrieb nicht stört.
 Prinzipiell erlaubt IPsec verschiedene Netze in den Traffic-Selektoren
 der SPD und somit für die Child-SA.
 Ob und wie das umgesetzt ist,
-hängt von der jeweiligen Implementation ab.
+hängt jedoch von der jeweiligen Implementation ab.
 

@@ -37,8 +37,7 @@ Insgesamt setzt sich IPsec aus drei Protokollen zusammen
 * *Authentication Header* (AH), beschrieben in RFC4302 (siehe
   :cite:`RFC4302`) ist ein Protokoll, dass zwar die Integrität der
   übertragenen Daten schützt, aber nicht deren Vertraulichkeit.
-  Ich persönlich habe das Protokoll noch nicht in der Praxis
-  vorgefunden.
+  Ich persönlich habe das Protokoll noch nie in der Praxis vorgefunden.
 
 .. index:: ! Encapsulating Security Protocol
    see: ESP; Encapsulating Security Protocol
@@ -59,11 +58,12 @@ Insgesamt setzt sich IPsec aus drei Protokollen zusammen
 .. index:: ! Child-SA
    see: IPsec SA; Child-SA
 
-Alle drei Protokolle nutzen Security Associations (SA) um die
-verwendeten kryptographischen Verfahren, Parameter und Schlüssel in
-einer Security Association Database (SAD) abzulegen. Dabei gibt es sowohl
-SA für die IKE-Sitzung, in der die Parameter ausgehandelt werden, als
-auch für die durch IPsec geschützten Daten.
+Alle drei Protokolle nutzen Security Associations (SA),
+um die verwendeten kryptographischen Verfahren, Parameter und Schlüssel
+in einer Security Association Database (SAD) abzulegen.
+Dabei gibt es sowohl SA für die IKE-Sitzungen,
+in der die Parameter ausgehandelt werden,
+als auch für die durch IPsec geschützten Daten.
 Die letzteren nennt man Child-SA oder auch IPsec-SA.
 
 Die konkreten kryptographischen Algorithmen mit den eventuell nötigen
@@ -78,14 +78,10 @@ kryptografischen Algorithmen für ESP und AH beschreibt.
 .. index:: Security Association Database
    see: SAD; Security Association Database
 
-Der Schutz, den IPsec bietet, hängt von den Anforderungen ab, die in einer
-Security Policy Database (SPD) und einer Security Association Database
-(SAD) festgelegt sind.
+Der Schutz, den IPsec bietet, hängt von den Anforderungen ab,
+die in der Security Policy Database (SPD) und der SAD festgelegt sind.
 Dabei bestimmt die SPD, welcher Traffic geschützt wird und die SAD, wie
 dieser Traffic geschützt werden soll.
-In der SAD werden die durch IKE ausgehandelten SA verwaltet,
-die bestimmen,
-wie der im VPN übertragene Traffic verschlüsselt werden soll.
 Im Gegensatz zur SPD ändert sich die SAD sehr häufig:
 mit jeder neuen SA, die ausgehandelt wurde,
 und jeder alten SA, die gelöscht wurde.
@@ -96,10 +92,11 @@ und nur selten durch den Administrator geändert werden.
 .. index:: Peer Authorization Database
    see: PAD; Peer Authorization Database
 
-Eine dritte Datenbank, die Peer Authorization Database (PAD) stellt die
-Verbindung her zwischen der SPD und dem Internet Security Association
-Management Protocol (ISAKMP).
-IKEv2 ist eine konkrete Ausprägung von ISAKMP.
+Eine dritte Datenbank, die Peer Authorization Database (PAD)
+stellt die Verbindung zwischen der SPD und ISAKMP her.
+Sie verknüpft die durch ISAKMP,
+beziehungsweise seiner konkreten Ausprägung IKE,
+authentifizierten Identitäten mit den erlaubten Policies.
 
 IPsec kann den Traffic zwischen einem Paar von Hosts (a),
 zwischen zwei Security-Gateways (b) oder zwischen einem Host und einem
@@ -113,8 +110,8 @@ unterstützen.
 
    Toplevel-Prozessmodell für IPsec
 
-Zwischen ungeschützten und geschützten Schnittstellen
-definiert IPsec eine Grenze.
+IPsec definiert eine Grenze
+zwischen ungeschützten und geschützten Schnittstellen.
 Datagramme, die diese Grenze überqueren, sind den Regeln der SPD
 unterworfen.
 Allgemein werden die Datagramme bei IPsec
@@ -216,7 +213,7 @@ Der Traffic wird entschlüsselt und durchgeleitet
 oder verworfen, wenn Fehler auftreten.
 
 Kann bei ICMP-Fehlermeldungen eine passende SA ermittelt werden,
-werden gegebenenfalls die Parameter dieser SA angepasst.
+führt das unter Umständen zur Anpassung der Parameter dieser SA.
 Ein Anwendungsfall dafür ist
 die Unterstützung der Path-MTU-Discovery für den geschützten Traffic.
 
@@ -246,9 +243,9 @@ die lokalen und fernen Adressen des SPD-Eintrags vertauscht.
 
    \newpage
 
-Der SPD-Datensatz enthält die folgenden Informationen
+Dementsprechend enthält der SPD-Datensatz die folgenden Informationen
 
-- einen Selektor, der erlaubt, ein Datagramm dem bestimmten Eintrag zuzuordnen
+- einen Selektor, der erlaubt, ein Datagramm dem Eintrag zuzuordnen
 - die Entscheidung über das Datagramm: BYPASS, DISCARD oder PROTECT
 - bei PROTECT-Einträgen (SPD-S)
   
@@ -310,7 +307,7 @@ muss man eine Group SPD, wie in RFC3740 definiert, verwenden.
 Next Layer Protocol
 ...................
 
-Dieser Selektor entspricht dem Protocol-Feld bei IPv4
+Dieser Selektor entspricht dem Feld *Protocol* bei IPv4
 beziehungsweise dem Feld *Next Header* bei IPv6.
 Das kann eine einzelne Protokollnummer sein, *ANY* oder *OPAQUE*.
 
