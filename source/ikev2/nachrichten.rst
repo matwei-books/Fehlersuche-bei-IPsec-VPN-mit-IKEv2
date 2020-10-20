@@ -12,8 +12,7 @@ IKEv2 Nachrichten
 .. index:: Request/Response
    see: Request/Response; Nachrichten
 
-Bei IKEv2 erfolgen die Verhandlungen über den paarweisen
-Austausch von Nachrichten.
+IKEv2 funktioniert über den paarweisen Austausch von Nachrichten.
 Ein Paar von Nachrichten nennt man einen *Exchange*,
 beziehungsweise ein *Request/Response* Paar.
 
@@ -34,8 +33,9 @@ ausreicht, um Daten mit IPsec zu sichern.
 
 Der IKE_SA_INIT-Exchange verhandelt die kryptografischen Parameter
 sowohl für IKE selbst als auch für die erste IPsec SA, er tauscht Nonces
-aus und führt den Diffie-Hellman-Austausch durch. Im Idealfall werden
-dabei nur zwei Datagramme - eins in jeder Richtung - gesendet.
+aus und führt den Diffie-Hellman-Austausch durch.
+Im Idealfall werden dabei nur zwei Datagramme gesendet
+- eins in jeder Richtung.
 
 .. topic:: Nonce
 
@@ -79,9 +79,12 @@ Allgemeine Fehlerregeln
 -----------------------
 
 Es gibt viele Fehlermöglichkeiten beim IKE-Austausch.
-Eine allgemeine Regel ist, dass bei einem Request, der schlecht
-formatiert ist oder aufgrund einer Policy nicht akzeptiert werden kann,
-mit einer Notify-Payload beantwortet wird, die auf den Fehler hinweist.
+Eine allgemeine Regel ist,
+dass ein Request,
+der schlecht formatiert ist
+oder aufgrund einer Policy nicht akzeptiert werden kann,
+mit einer Notify-Payload beantwortet wird,
+die auf den Fehler hinweist.
 Ob ein Peer eine solche Benachrichtigung sendet, hängt davon ab, ob
 bereits eine authentisierte IKE-SA existiert.
 
@@ -92,7 +95,7 @@ problematischen Response-Nachricht den IKE-Status aufräumen, zum
 Beispiel in dem er einen Delete-Request sendet.
 
 Weitere Hinweise zu den Fehlerregeln finden sich in Abschnitt 2.21 von
-:cite:`RFC7296`.
+RFC7296 :cite:`RFC7296`.
 
 .. index:: ! IKE_SA_INIT
    single: Nachrichten; IKE_SA_INIT
@@ -100,12 +103,16 @@ Weitere Hinweise zu den Fehlerregeln finden sich in Abschnitt 2.21 von
 IKE_SA_INIT
 -----------
 
+:numref:`ike-sa-init-einfach` zeigt den einfachsten Fall für den
+IKE_SA_INIT-Exchange.
+
 .. figure:: /images/ike-sa-init.png
    :alt: Sequenzdiagramm für einfachen IKE_SA_INIT-Exchange
+   :name: ike-sa-init-einfach
 
    Einfacher IKE_SA_INIT-Exchange
 
-Die Abkürzungen stehen für folgende Informationen
+Dabei stehen die Abkürzungen für folgende Informationen:
 
 *HDR*
   IKE header
@@ -125,8 +132,10 @@ Die Abkürzungen stehen für folgende Informationen
 IKE_SA_INIT ist der einzige Austausch, der unverschlüsselt über das Netz geht
 und in jedem Paketmitschnitt analysiert werden kann. Der Initiator kann
 mehrere kryptographische Algorithmen für die IKE-SA vorschlagen, aus
-denen der Responder eine auswählt. Die Message-ID im IKE-Header ist auf
-beiden Seiten 0.
+denen der Responder eine auswählt.
+Die Message-ID im IKE-Header ist auf beiden Seiten 0,
+unabhängig davon,
+wieviele Datagramme tatsächlich ausgetauscht werden.
 
 Am Ende dieses Austauschs kann jede Seite einen Initialwert SKEYSEED
 berechnen, von dem alle Schlüssel für diese IKE-SA abgeleitet werden.
@@ -141,8 +150,6 @@ nicht authentisiert sind, sollte der Initiator nicht unmittelbar auf die
 Fehlerbenachrichtigung reagieren, es sei denn, sie enthält einen der
 oben genannten korrigierenden Hinweise.
 
-Diese schauen wir uns nun an.
-
 .. index:: COOKIE
 
 COOKIE
@@ -150,6 +157,7 @@ COOKIE
 
 .. figure:: /images/ike-sa-init-cookie.png
    :alt: Sequenzdiagramm für IKE_SA_INIT-Exchange mit COOKIE
+   :name: ike-sa-init-cookie
 
    IKE_SA_INIT-Exchange mit COOKIE
 
@@ -158,18 +166,19 @@ CPU-Überlastung bei denen das Ziel mit IKE_SA_INIT-Requests von
 verschiedenen Adressen überflutet wird. Diese Attacken können weniger
 effektiv gemacht werden, indem der Responder nur minimale CPU-Zeit
 aufwendet und sich nur dann auf einen neuen SA festlegt, wenn er weiß,
-dass der Initiator Datagramme an die angegebene Absenderadresse
-empfangen kann.
+dass der Initiator Datagramme empfangen kann.
 
 Wenn ein Responder eine große Anzahl halboffener IKE-SA entdeckt,
 sollte er auf IKE_SA_INIT-Requests mit einer COOKIE-Benachrichtigung
 antworten. Wenn ein IKE_SA_INIT-Response eine COOKIE-Benachrichtigung
 enthält, muss der Initiator den Request mit dem empfangenen
-COOKIE als erster Payload wiederholen, wobei er allen anderen Payloads
-unverändert lässt.
+COOKIE als erster Payload wiederholen,
+wobei er alle anderen Payloads unverändert lässt.
 
-Im günstigsten Fall kann der Initiator nach vier Datagrammen mit dem
-IKE_AUTH-Exchange fortfahren wenn er einen COOKIE-Response erhalten hat.
+Im günstigsten Fall kann der Initiator nach vier Datagrammen
+wie in :numref:`ike-sa-init-cookie` gezeigt
+mit dem IKE_AUTH-Exchange fortfahren,
+wenn er einen COOKIE-Response erhalten hat.
 
 Empfängt ein Responder einen IKE_SA_INIT-Request mit COOKIE, dessen Wert
 nicht zu dem erwarteten passt, so behandelt er das Datagramm wie eines
@@ -196,12 +205,13 @@ Die Key-Exchange-Payload im IKE_SA_INIT-Request enthält den öffentlichen
 Diffie-Hellman-Wert und die Diffie-Hellman-Gruppennummer.
 Die Nummer der DH-Gruppe
 muss in einem der gesendeten Proposals verwendet werden,
-sie sollte der ersten Gruppe im ersten Proposol entsprechen.
+sie sollte der ersten Gruppe im ersten Proposal entsprechen.
 
-Sollte der Responder eine andere Diffie-Hellman-Gruppe als die des im
-Request gesendeten Schlüsselmaterials verwenden wollen, so sendet er
-eine INVALID_KE_PAYLOAD-Benachrichtigung zurück und der Initiator
-wiederholt seinen Request mit dem gewünschten Schlüsselmaterial.
+Verwendet der Responder eine andere Diffie-Hellman-Gruppe
+als die des gesendeten Schlüsselmaterials,
+so sendet er eine INVALID_KE_PAYLOAD-Benachrichtigung zurück
+und der Initiator wiederholt seinen Request
+mit dem gewünschten Schlüsselmaterial.
 
 Hier ergibt sich ein Twist, wenn der erste Austausch mit COOKIE
 fehlschlug und der zweite mit INVALID_KE_PAYLOAD. Der Initiator muss
@@ -213,8 +223,8 @@ Sendet er den COOKIE und der Responder unterstützt das nicht (zum
 Beispiel, weil er die Key-Exchange-Payload für die Cookie-Berechnung
 verwendet hat), gibt es ebenfalls eine Extra-Runde.
 
-Mehr Details zur Interaktion von COOKIE und INVALID_KE_PAYLOAD findet
-sich in Abschnitt 2.6.1 von :cite:`RFC7296`.
+Mehr Details zur Interaktion von COOKIE und INVALID_KE_PAYLOAD finden
+sich in Abschnitt 2.6.1 von RFC7296.
 
 Weitere Fehlermeldungen bei IKE_SA_INIT
 .......................................
@@ -233,10 +243,10 @@ INVALID_MAJOR_VERSION:
 .. index:: INVALID_SYNTAX
 
 INVALID_SYNTAX:
-  :cite:`RFC6989` behandelt zusätzliche Diffie-Hellman-Tests für IKEv2.
+  RFC6989 :cite:`RFC6989` behandelt zusätzliche Diffie-Hellman-Tests für IKEv2.
   Abschnitt 2.5 dort beschreibt das Protokollverhalten
   und Abschnitt 5 listet die Tests auf,
-  bei verschiedenen DH-Gruppen gemacht werden.
+  die bei verschiedenen DH-Gruppen gemacht werden.
   Diese Tests werden vom Responder ausgeführt,
   wenn der Initiator DH-Schlüsselmaterial sendet,
   das heißt bei IKE_SA_INIT beziehungsweise bei CREATE_CHILD_SA.
@@ -246,7 +256,7 @@ INVALID_SYNTAX:
   oder eine INVALID_SYNTAX-Nachricht senden.
 
   Hinweise, ob es sich tatsächlich
-  um einen fehlgeschlagenen Test nach :cite:`RFC6989` handelt,
+  um einen fehlgeschlagenen Test nach RFC6989 handelt,
   finden sich im Log oder den Debug-Meldungen des Responders.
 
 .. index:: ! IKE_AUTH
@@ -280,7 +290,7 @@ Die Abkürzungen stehen für folgende Informationen:
 *CertReq*
   Zertifikatanforderung (optional)
 *AUTH*
-  die Authentifizierungsdaten (siehe Abschnitt 2.15 in :cite:`RFC7296`)
+  die Authentifizierungsdaten (siehe Abschnitt 2.15 in RFC7296)
 *SAi2, SAr2*
   Proposals beziehungsweise Transforms für die erste Child-SA
 *TSi, TSr*
@@ -294,11 +304,12 @@ IKE_AUTH-Austausch funktioniert hat. Eine Ausnahme sind Paketmitschnitte
 vom Type ``isakmp`` bei Cisco ASA (siehe dazu den Abschnitt
 :ref:`Paketmitschnitt auf dem VPN-Gateway`).
 
-In den meisten Fällen reichen zwei Datagramme für den
-IKE_AUTH-Austausch. Wird hingegen EAP verwendet, kann es mehrere
-IKE_AUTH-Exchanges geben, bei denen dann die Message-ID hochgezählt
-wird. Weitere Informationen zu EAP finden sich in :cite:`RFC7296`
-Abschnitt 2.16.
+In den meisten Fällen reichen
+zwei Datagramme für den IKE_AUTH-Austausch.
+Wird hingegen EAP verwendet,
+kann es mehrere IKE_AUTH-Exchanges geben,
+bei denen dann die Message-ID hochgezählt wird.
+Weitere Informationen zu EAP finden sich in RFC7296 Abschnitt 2.16.
 
 Fehler beim IKE_AUTH-Exchange
 .............................
@@ -309,6 +320,10 @@ Tritt der Fehler beim Responder auf, so schickt dieser die Nachricht
 im Response-Datagramm. Tritt der Fehler beim Initiator auf, kann er
 *AUTHENTICATION_FAILED* in einem separaten INFORMATIONAL-Exchange
 senden.
+
+.. raw:: latex
+
+   \clearpage
 
 Ist die Authentisierung erfolgreich, wird die IKE-SA aufgebaut. Jedoch
 kann das Erzeugen der Child-SA oder die Anforderung von
@@ -402,9 +417,13 @@ zurückweisen und die passende DH-Gruppe angeben.
 Neue Child-SA mit CREATE_CHILD_SA erzeugen
 ..........................................
 
+:numref:`create-child-sa-new-child-sa` zeigt den Austausch
+für das Erzeugen einer neuen Child-SA.
+
 .. figure:: /images/create-child-sa.png
    :alt: Sequenzdiagramm für CREATE_CHILD_SA-Exchange zum Erzeugen von
          Child-SA
+   :name: create-child-sa-new-child-sa
 
    CREATE_CHILD_SA-Exchange zum Erzeugen von Child-SA
 
@@ -413,11 +432,13 @@ Ni-Payload, optional Schlüsselmaterial in der KEi-Payload und die
 Traffic-Selektoren für die vorgeschlagene Child-SA in der TSi- und
 TSr-Payload.
 
-Der Responder antwortet mit der selben MID und dem akzeptierten
-Vorschlag in der SA-Payload, einer Nonce in der Nr-Payload, einer
-DH-Payload und DH-Schlüsselmaterial in der KEr-Payload falls der Initiator
-ebenfalls Schlüsselmaterial gesendet hatte sowie der gewählten
-kryptographischen Suite, die diese DH-Gruppe enthält.
+Der Responder antwortet mit der selben MID
+und dem akzeptierten Vorschlag in der SA-Payload,
+einer Nonce in der Nr-Payload,
+einer DH-Payload und DH-Schlüsselmaterial in der KEr-Payload,
+falls der Initiator ebenfalls Schlüsselmaterial gesendet hatte,
+sowie der gewählten kryptographischen Suite,
+die diese DH-Gruppe enthält.
 
 Die vom Responder gesendeten Traffic-Selektoren in der TSi- und
 TSr-Payload können eine Teilmenge der vorgeschlagenen Selektoren sein.
@@ -437,9 +458,15 @@ Abbau der IKE-SA führen.
 Rekeying von IKE-SA mit CREATE_CHILD_SA
 .......................................
 
+Sektion 2.18 in RFC7296 behandelt
+das Rekeying von IKE-SA im Detail.
+:numref:`create-child-sa-rekey-ike-sa` zeigt den Austausch
+für das Rekeying der IKE-SA.
+
 .. figure:: /images/create-child-sa-rekey-ike.png
    :alt: Sequenzdiagramm für CREATE_CHILD_SA-Exchange zum Rekeying von
          IKE
+   :name: create-child-sa-rekey-ike-sa
 
    CREATE_CHILD_SA-Exchange zum Rekeying von IKE
 
@@ -456,15 +483,16 @@ Diffie-Hellman-Wert in KEr, wenn die gewählte kryptographische Suite
 diese DH-Gruppe enthält. Außerdem sendet er eine neue Responder-SPI in
 der SA-Payload.
 
-Sektion 2.18 in RFC7296 :cite:`RFC7296` behandelt das Rekeying von
-IKE-SA im Detail.
-
 Rekeying von Child-SA mit CREATE_CHILD_SA
 .........................................
+
+:numref:`create-child-sa-rekey-child-sa` zeigt den Austausch
+für das Rekeying von Child-SA.
 
 .. figure:: /images/create-child-sa-rekey-child.png
    :alt: Sequenzdiagramm für CREATE_CHILD_SA-Exchange zum Rekeying von
          Child-SA
+   :name: create-child-sa-rekey-child-sa
 
    CREATE_CHILD_SA-Exchange zum Rekeying von Child-SA
 
@@ -495,9 +523,8 @@ Der Responder antwortet mit dem akzeptierten Vorschlag in der
 SA-Payload, einer Nonce in Nr und einem Diffie-Hellman-Wert in KEr,
 falls KEi im Request enthalten war und die gewählte kryptografische
 Suite diese Gruppe enthält.
-
-Die Traffic-Selektoren für die SA sind in den TS-Payloads im Response
-und können eine Teilmenge dessen sein, was der Initiator vorschlug.
+Die Traffic-Selektoren im Response können eine Teilmenge dessen sein,
+was der Initiator vorschlug.
 
 Fehlermeldungen bei CREATE_CHILD_SA
 ...................................
@@ -505,10 +532,10 @@ Fehlermeldungen bei CREATE_CHILD_SA
 .. index:: INVALID_SYNTAX
 
 INVALID_SYNTAX:
-  :cite:`RFC6989` behandelt zusätzliche Diffie-Hellman-Tests für IKEv2.
+  RFC6989 behandelt zusätzliche Diffie-Hellman-Tests für IKEv2.
   Abschnitt 2.5 dort beschreibt das Protokollverhalten
   und Abschnitt 5 listet die Tests auf,
-  bei verschiedenen DH-Gruppen gemacht werden.
+  die bei verschiedenen DH-Gruppen gemacht werden.
   Diese Tests werden vom Responder ausgeführt,
   wenn der Initiator DH-Schlüsselmaterial sendet,
   das heißt bei IKE_SA_INIT beziehungsweise bei CREATE_CHILD_SA.
@@ -518,7 +545,7 @@ INVALID_SYNTAX:
   bei einem fehlgeschlagenen Test.
 
   Hinweise, ob es sich tatsächlich
-  um einen fehlgeschlagenen Test nach :cite:`RFC6989` handelt,
+  um einen fehlgeschlagenen Test nach RFC6989 handelt,
   sollten im Log oder den Debug-Meldungen des Responders erkennbar sein.
 
 .. index:: ! INFORMATIONAL
@@ -527,10 +554,18 @@ INVALID_SYNTAX:
 INFORMATIONAL
 -------------
 
+:numref:`informational-exchange` zeigt den Austausch
+von INFORMATIONAL Nachrichten.
+
 .. figure:: /images/informational.png
    :alt: Sequenzdiagramm für INFORMATIONAL-Exchange
+   :name: informational-exchange
 
    INFORMATIONAL-Exchange
+
+.. raw:: latex
+
+   \clearpage
 
 Die Abkürzungen stehen für folgende Informationen:
 
@@ -538,17 +573,18 @@ Die Abkürzungen stehen für folgende Informationen:
   IKE header
 *SK{...}*
   der Inhalt in geschweiften Klammern ist verschlüsselt
-*N+*
+*N*
   keine, eine oder mehrere Benachrichtigungen
-*D+*
+*D*
   keine, eine oder mehrere Löschaufforderungen
-*CP+*
+*CP*
   keine, eine oder mehrere Konfigurationsinformationen
 
-Zum Senden von Steuernachrichten über Fehlerbedingungen oder bestimmte
-Ereignisse dienen INFORMATIONAL-Nachrichten. Diese dürfen erst nach dem
-initialen Austausch gesendet werden, kryptografisch geschützt durch die
-ausgehandelten Schlüssel.
+Zum Senden von Steuernachrichten
+bei Fehlerbedingungen oder bestimmten Ereignisse
+dienen INFORMATIONAL-Nachrichten.
+Diese dürfen erst nach dem initialen Austausch gesendet werden,
+kryptografisch geschützt durch die ausgehandelten Schlüssel.
 
 Die Nachrichten in einem INFORMATIONAL-Exchange enthalten keine, eine
 oder mehrere Notification-, Delete- oder Configuration-Payloads. Der
@@ -592,9 +628,9 @@ Halb geschlossene ESP- oder AH-Verbindungen sind regelwidrig.
 Ein Peer kann ankommende Daten für eine halb geschlossene SA ablehnen und
 darf nicht einseitig eine SA schließen und die andere Hälfte des Paares
 weiter verwenden.
-Wenn eine Verbindung genügend verstümmelt ist, kann ein Peer die IKE-SA
-schließen und anschließend eine neue IKE-SA mit den nötigen Child-SA
-erzeugen.
+Gibt es halb geschlossene ESP- oder AH-Verbindungen,
+kann ein Peer die zugehörige IKE-SA schließen
+und anschließend eine neue IKE-SA mit den nötigen Child-SA erzeugen.
 
 INFORMATIONAL-Nachrichten außerhalb von IKE-SA
 ..............................................
@@ -603,8 +639,7 @@ Es gibt Fälle, in denen ein Knoten Datagramme erhält, die er nicht
 verarbeiten kann, bei denen er seinen Peer aber darüber unterrichten
 will:
 
-* Wenn ein ESP- oder AH-Datagramm ankommt, dessen SPI der Empfänger
-  nicht kennt.
+* Wenn ein ESP- oder AH-Datagramm mit unbekannter SPI ankommt
 * Wenn ein verschlüsseltes IKE-Datagramm mit unbekannter SPI ankommt.
 * Wenn ein IKE-Datagramm mit einer höheren Version ankommt, als die
   aktuell verwendete Software unterstützt.
@@ -612,16 +647,21 @@ will:
 .. index:: INVALID_SPI
    single: Fehlermeldung; INVALID_SPI
 
-Im ersten Fall kann der Empfänger, wenn er eine aktive IKE-SA zum Sender
-unterhält, über diese eine INVALID_SPI-Benachrichtigung über das empfangene
-Datagramm in einem INFORMATIONAL-Austausch senden. Die
-Benachrichtigungsdaten enthalten dann die unbekannte SPI.
-Wenn keine aktive IKE-SA existiert, kann der Knoten eine INFORMATIONAL-Nachricht ohne
-kryptografischen Schutz an den Absender schicken, wobei er die Adressen
-und Portnummer des angekommenen Datagramms nimmt und jeweils Absender
-und Empfänger vertauscht. Der Empfänger dieser INFORMATIONAL-Nachricht
-sollte diese nur als Hinweis ansehen, dass etwas schiefgegangen ist
-(weil diese Nachricht sehr leicht gefälscht werden kann). Auf keinen
+Im ersten Fall kann der Empfänger,
+wenn er eine aktive IKE-SA mit dem Sender unterhält,
+über diese eine INVALID_SPI-Benachrichtigung
+für das empfangene Datagramm in einem INFORMATIONAL-Exchange senden.
+Die Benachrichtigungsdaten enthalten dann die unbekannte SPI.
+
+Existiert keine aktive IKE-SA mit dem Sender,
+kann der Empfänger eine INFORMATIONAL-Nachricht
+ohne kryptografischen Schutz an den Absender schicken,
+wobei er die Adressen und eventuell Portnummern (bei NAT-T)
+des angekommenen Datagramms nimmt
+und jeweils Absender und Empfänger vertauscht.
+Der Empfänger der INFORMATIONAL-Nachricht
+sollte diese nur als Hinweis ansehen, dass etwas schiefgegangen ist.
+Auf keinen
 Fall darf der Empfänger der INFORMATIONAL-Nachricht auf diese antworten.
 Diese Nachricht wird wie folgt konstruiert: da der Empfänger keine SPI
 für diese Nachricht hat, sind sowohl 0 als auch zufällige Werte für die
@@ -632,10 +672,13 @@ Response-Flag auf 0.
    single: Fehlermeldung; INVALID_IKE_SPI
    single: Fehlermeldung; INVALID_MAJOR_VERSION
 
-Im zweiten und dritten Fall wird die Nachricht immer ohne
-kryptografischen Schutz gesendet und enthält entweder eine
-INVALID_IKE_SPI- oder INVALID_MAJOR_VERSION-Benachrichtigung (ohne
-weitere Daten). Die Nachricht ist eine Antwort und wird dahin gesendet,
+Im zweiten und dritten Fall wird die Nachricht
+immer ohne kryptografischen Schutz gesendet
+und enthält entweder eine INVALID_IKE_SPI-
+oder INVALID_MAJOR_VERSION-Benachrichtigung
+ohne weitere Daten.
+Die Nachricht ist eine Antwort und wird dahin gesendet,
 woher sie kam, mit den gleichen IKE-SPI wobei Message-ID und
-Exchange-Typ aus dem Request kopiert werden. Das Response-Flag wird auf
-1 gesetzt.
+Exchange-Typ aus dem Request kopiert werden.
+Das Response-Flag wird auf 1 gesetzt.
+
