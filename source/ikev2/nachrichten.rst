@@ -59,7 +59,7 @@ vom Typ CREATE_CHILD_SA oder INFORMATIONAL.
 
 Jede Nachricht enthält eine 32-Bit große Message-ID (MID) als Teil des
 festen IKE-Headers.
-Diese Message-ID verwenden die Peers, um Requests und Responses einander
+Diese Message-ID verwenden die Peers, um Request und Response einander
 zuzuordnen und Wiederholungen von Nachrichten zu erkennen.
 Eine wiederholt gesendete IKE-Nachricht muss die gleiche MID verwenden.
 
@@ -115,7 +115,7 @@ IKE_SA_INIT-Exchange.
 Dabei stehen die Abkürzungen für folgende Informationen:
 
 *HDR*
-  IKE header
+  IKE Header
 *SAi1*
   Sets von vorgeschlagenen kryptografischen Algorithmen
 *SAr1*
@@ -278,7 +278,7 @@ manchmal einzige ESP- oder AH-SA auf.
 Die Abkürzungen stehen für folgende Informationen:
 
 *HDR*
-  IKE header
+  IKE Header
 *SK{...}*
   der Inhalt in geschweiften Klammern ist verschlüsselt
 *IDi, IDr*
@@ -570,7 +570,7 @@ von INFORMATIONAL Nachrichten.
 Die Abkürzungen stehen für folgende Informationen:
 
 *HDR*
-  IKE header
+  IKE Header
 *SK{...}*
   der Inhalt in geschweiften Klammern ist verschlüsselt
 *N*
