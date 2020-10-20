@@ -3,8 +3,8 @@ Fragen
 ======
 
 Bei jeder Fehlersuche habe ich die besten Erfolgsaussichten,
-wenn ich mit den richtigen Fragen anfange.
-Ich beginne immer mit den selben Fragen,
+wenn ich mit den richtigen Fragen anfange
+und das sind bei mir immer dieselben,
 die ich je nach Problemfeld anpasse.
 
 1. Tritt das Problem "jetzt" auf?
@@ -29,23 +29,6 @@ einen Totalausfall von einem partiellen Ausfall zu unterscheiden.
 Die dritte Frage erinnert mich,
 alle Aspekte des Problems zu bedenken,
 und die vierte Frage geht auf nichtfunktionale Anforderungen ein.
-
-Der oben gezeigte Entscheidungsbaum ist dabei einfacher zu merken,
-als der folgende, optimierte Entscheidungsbaum
-der zum gleichen Ergebnis führt.
-
-.. figure:: ../images/entscheidungsbaum-alternativ.png
-   :alt: Optimierter Entscheidungsbaum
-
-   Optimierter Entscheidungsbaum
-
-Auch hier fange ich wieder oben an,
-nachdem ich ein Unterprogramm abgearbeitet habe.
-Ich unterscheide allerdings zwei Ausgänge,
-je nachdem ob das Problem nicht mehr auftritt,
-weil es behoben ist,
-oder ob das Problem zwar vorhanden ist,
-aber nicht in meiner Verantwortung liegt.
 
 Da ich nicht alle Probleme selbst lösen kann,
 steht immer eine fünfte Frage im Hintergrund:
@@ -93,8 +76,7 @@ indem ich die dafür nötigen Umstände herbeiführe.
 Dann bedeutet "jetzt": unter genau diesen Umständen.
 Diese Information brauche ich,
 um am Ende zeigen zu können,
-dass das Problem behoben ist
-und nicht einfach nur gerade nicht auftritt.
+dass das Problem tatsächlich behoben ist.
 
 Die Antworten auf die erste Frage bekomme ich
 aus der Problemmeldung oder dem Ticket,
@@ -107,15 +89,13 @@ und idealerweise zu Testzwecken selbst hervorrufen kann.
 
 Ich habe schon Fehlermeldungen geschlossen,
 weil ich das Problem nicht nachvollziehen konnte.
-Und ich bin nicht der einzige [#]_.
+Und ich bin nicht der einzige.
 Die beste Fehlersuche geht ins Leere [#]_
 wenn das Problem aktuell gar nicht besteht.
 
-.. rubric:: Fußnoten
+.. .. rubric:: Fußnoten
 
-.. [#] https://xkcd.com/583/
-
-.. [#] https://dzone.com/articles/if-you-cant-reproduce-bug-you>
+.. [#] https://dzone.com/articles/if-you-cant-reproduce-bug-you
 
 Bei Iterationen im Entscheidungsbaum,
 wenn ich zum wiederholten Mal oben anfange,
@@ -142,8 +122,7 @@ Funktioniert irgendetwas?
 Diese Frage gibt mir Hinweise,
 was ich bei der Fehlersuche zunächst ignorieren kann,
 und worauf ich mein Hauptaugenmerk richten sollte.
-Dabei ist dieses irgendetwas nicht zufällig aus dem Lostopf gezogen,
-sondern zielgerichtet ausgewählt,
+Dabei ist dieses irgendetwas zielgerichtet ausgewählt,
 um den Fehler schnell einzugrenzen.
 
 Ein VPN ist, wie der Name schon sagt, ein Netzwerk
@@ -157,7 +136,6 @@ Konkret frage ich also darum erstes:
 Ganz sicher kann ich sein,
 wenn mir nicht nur die Security Associations (SA) angezeigt werden,
 sondern auch Datenverkehr in beiden Richtungen.
-
 Bei einer positiven Antwort erspare ich mir sehr viele Untersuchungen.
 Außerdem sehe ich oft, ob Daten gesendet werden
 und kann dann die Fehlersuche entsprechend ausrichten.
@@ -199,7 +177,7 @@ mit denen sein VPN-Gateway versucht,
 den Tunnel aufzubauen
 und vergleiche sie mit meiner Konfiguration.
 
-Ich frage immer detaillierter nach,
+So frage ich immer detaillierter nach,
 bis ich zum Kern des Problems komme
 und behebe dabei entdeckte Fehler
 bis schließlich Daten im Tunnel übertragen werden.
@@ -223,7 +201,7 @@ Kommen diese nicht an,
 brauche ich zunächst nichts weiter zu machen
 und kann die Suche delegieren.
 Kommen sie am VPN-Gateway an,
-muss ich untersuchen
+muss ich untersuchen,
 warum nichts auf der anderen Seite hinausgeht.
 
 Gehen keine weiteren IPsec SA nach dem ersten auf,
@@ -255,8 +233,8 @@ und damit ein objektives Kriterium für die Geschwindigkeit des VPN.
 Zwei Faktoren beeinflussen die Geschwindigkeit in einem Netz und damit auch im VPN wesentlich:
 
 -  der Durchsatz beziehungsweise die maximale Datenmenge pro Zeiteinheit,
-   die durch das Netz geht - diesen will ich möglichst groß - und
--  die Latenz beziehungsweise die Zeit zum Übertragen eines einzelnen
+   die durch das Netz geht - diesen will ich möglichst groß -
+-  und die Latenz beziehungsweise die Zeit zum Übertragen eines einzelnen
    Datagramms - diese will ich möglichst klein haben.
 
 Beide Faktoren beeinflussen sich gegenseitig
