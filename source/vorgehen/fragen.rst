@@ -252,17 +252,17 @@ an welcher Stelle im Netz die Verbindung verlangsamt wird.
 Finde ich als Ursache das VPN-Gateway,
 muss ich über leistungsfähigere Hardware nachdenken.
 
--  Wie sieht die Round-Trip-Zeit der entschlüsselten Daten aus?
+-  Wie sieht die Paketumlaufzeit der entschlüsselten Daten aus?
 
 Das ist eine der Fragen zur Geschwindigkeit eines VPN,
 die sich relativ einfach beantworten lässt.
-Allerdings gehen in die Round-Trip-Zeit
+Allerdings gehen in die Paketumlaufzeit
 neben der Zeit für die Ver- und Entschlüsselung
 noch die Zeit für die Übertragung im Netz
 und die Antwortzeit der Gegenstelle ein,
-so dass bei einer langen Round-Trip-Zeit
+so dass bei einer langen Paketumlaufzeit
 die Ursache nicht auf Anhieb benannt werden kann.
-Durch Vergleichsmessungen der Paketlaufzeit zwischen den beiden VPN-Gateways
+Durch Vergleichsmessungen der Umlaufzeit zwischen den beiden VPN-Gateways
 lassen sich zumindest Teile der Störgrößen herausrechnen.
 Durch genaues Betrachten der Zeitstempel der Datagramme lässt sich ermitteln,
 ob das Problem eher auf der verschlüsselten oder auf der entschlüsselten Seite liegt.
