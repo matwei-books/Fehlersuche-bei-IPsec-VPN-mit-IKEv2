@@ -64,17 +64,16 @@ ICMP-Nachrichten, die auf der geschützten Seite ankommen,
 sind im Normalfall vertrauenswürdiger,
 weil man ihre Herkunft und Beschaffenheit überprüfen kann,
 wenn man die Kontrolle über das Netz hat.
-
 Trotzdem sollten auch für den Empfang dieser Nachrichten
 Steuerungsmöglichkeiten am Gateway vorhanden sein.
 
 ICMP-Nachrichten zwischen den geschützten Netzen
 ------------------------------------------------
 
-Neben den ICMP-Nachrichten, die an die VPN-Gateways gerichtet sind,
+Neben den ICMP-Nachrichten für die VPN-Gateways
 sind die Transit-Nachrichten zu betrachten,
 die geschützt durch das VPN
-zwischen den Netzen auf den roten Seiten übertragen werden.
+zwischen den internen Netzen übertragen werden.
 
 Die IPsec-Gateways müssen bei diesen
 sowohl die ICMP- und IP-Header als auch die Payload berücksichtigen
@@ -212,7 +211,7 @@ an drei Stellen generiert werden:
 
    ICMP-Datagramm mit ESP-Payload
 
-Interessant für den VPN-Administrator sind diese Nachrichten,
+Interessant für den VPN-Administrator sind diese ICMP-Nachrichten,
 wenn sie zwischen den VPN-Gateways erzeugt
 und folglich an das lokale VPN-Gateway gesendet werden.
 Der eigentliche Adressat dieser Nachricht
