@@ -7,8 +7,9 @@ Problems. Die Fragen nützen mir jedoch nichts, wenn ich nicht in der
 Lage bin, Antworten darauf zu finden.
 Darum geht es in diesem Kapitel.
 
-Dabei muss ich mich - insbesondere bei schwierigen Problemen -
-immer fragen "Ist das wahr? Ist das, was ich gesehen habe, alles"?
+Bei der Fehlersuche muss ich
+- insbesondere bei schwierigen Problemen - immer fragen:
+"Ist das wahr? Ist das, was ich gesehen habe, alles"?
 In den meisten Fällen werden mich die gefundenen Antworten auf den richtigen Weg bringen.
 Wenn jedoch meine Antworten scheinbar keinen Sinn ergeben,
 muss ich die Voraussetzungen und Zwischenschritte hinterfragen und kontrollieren.
@@ -24,13 +25,12 @@ Antworten auf meine Fragen zu bekommen:
 Aussagen von VPN-Benutzern
 --------------------------
 
-Beschwerden von VPN-Benutzern sind oft der Anlass für die Fehlersuche.
-Dann ist es gerade am Anfang der Untersuchung daher wichtig,
+Oft ist der Anlass für die Fehlersuche eine Beschwerde von VPN-Benutzern.
+Dann ist es gerade am Anfang der Untersuchung wichtig,
 so viel wie möglich von den Benutzern
 über die genauen Umstände des Problems zu erfahren:
-seit wann tritt das Problem auf,
-welche Geräte sind daran beteiligt,
-bei welchen Aktionen tritt das Problem auf.
+seit wann und bei welchen Aktionen tritt das Problem auf,
+welche Geräte sind daran beteiligt.
 
 Am Ende der Fehlersuche gehört es einfach dazu,
 dass ich denjenigen, der ein Problem gemeldet hat,
@@ -67,9 +67,8 @@ und im Paketmitschnitt auf beiden Seiten nachweislich
 kein Traffic des jeweils anderen VPN-Gateways auftauchte.
 Das VPN-Gateway generierte einen Logeintrag für jeden Verbindungsversuch,
 den es unternahm.
-Dieser Logeintrag enthielt die Traffic-Selektoren
-für den auslösenden Traffic, der durch das VPN gehen sollte,
-und die IP-Adresse des Peer-Gateways,
+Dieser Logeintrag enthielt unter anderem
+die IP-Adresse des Peer-Gateways,
 zu dem die Verbindung aufgebaut werden sollte.
 Es dauerte einige Zeit, diesen Netzwerkadministrator zu überzeugen,
 dass es sich bei den Logeinträgen um ausgehenden Traffic handelte,
@@ -98,6 +97,8 @@ lassen sich meist leicht mit bestimmten Ereignissen verknüpfen,
 so dass ich mit der Zeit ein Gefühl
 für die Bedeutung der einzelnen Einträge bekomme.
 
+.. index:: Log-Statistiken
+
 Die folgende Befehlskette in einer Unix-Shell liefert mir die Häufigkeit
 von bestimmten Logeinträgen in absteigender Reihenfolge::
 
@@ -107,8 +108,8 @@ Dabei passiert folgendes:
 
 ``sed -E 's/^.{16}//' < $logfile``
   Der Befehl *sed* bekommt den Inhalt der Datei *$logfile* in der
-  Standardeingabe, entfernt in jeder Zeile die ersten 16 Zeichen - den
-  Zeitstempel - und gibt den Rest aus.
+  Standardeingabe,
+  entfernt aus jeder Zeile den Zeitstempel und gibt den Rest aus.
 
 ``sort``
   Der Befehl *sort* gibt die Zeilen (ohne Zeitstempel) alphabetisch
@@ -148,7 +149,7 @@ vom Zeitraum danach zur Verfügung.
 Während vor der Umstellung etwa 100 Logzeilen pro Tag
 für das betreffende VPN generiert wurden,
 waren es nach der Umstellung etwa 10000.
-Einige Zeit später bekamen wir zeitnahen Zugriff auf die VPN-Logs.
+Einige Zeit später bekamen wir dann zeitnahen Zugriff auf die VPN-Logs.
 
 .. [#] Die Logs standen erst nach mehreren Stunden,
    zeitweilig mehr als einen Tag nach dem Schreiben,
@@ -159,14 +160,14 @@ Paketmitschnitte
 
 Auf die konkrete Durchführung von Paketmitschnitten gehe ich im Abschnitt
 :ref:`grundlagen/paketmitschnitt:Paketmitschnitt` bei den Grundlagen ein.
-Hier reiße ich nur kurz an,
-wann und wofür ich Paketmitschnitte einsetze.
+Hier deute ich nur kurz an,
+wann und wofür ich diese einsetze.
 
 Bei der Fehlersuche verwende ich Paketmitschnitte sehr häufig, und zwar
 
 * wenn Logs nicht eindeutig sind,
 * wenn Tests nicht eindeutig sind oder nicht funktionieren,
-* zur Überprüfung von Vermutungen denen ich nicht ganz traue.
+* zur Überprüfung von Vermutungen, denen ich nicht ganz traue.
 
 Ein Paketmitschnitt kann schneller einen Überblick über den groben
 Ablauf einer IKE-Konversation geben als die Debug-Informationen,
@@ -180,19 +181,20 @@ mir hinterher auch, ob meine Abhilfe wirksam ist.
 
 Was mir der Paketmitschnitt nicht anzeigt ist der Inhalt der
 verschlüsselten IKE-Nachrichten. Vermute ich hierbei Probleme, muss ich
-auf Debugmeldungen zurückgreifen. Allerdings gibt es auch hier eine
-Ausnahme: die Cisco ASA kann einen Paketmitschnitt vom Typ ``isakmp``
-schreiben, bei dem sie zusätzlich zu den verschlüsselten Datagrammen
+auf Debugmeldungen zurückgreifen.
+Allerdings gibt es auch da eine Ausnahme:
+die Cisco ASA kann einen Paketmitschnitt vom Typ ``isakmp`` schreiben,
+bei dem sie zusätzlich zu den verschlüsselten Datagrammen
 Pseudo-Datagramme mit den entschlüsselten IKE-Informationen in den
-Mitschnitt einfügt. Diese Information kann mir unter Umständen das
-Einschalten der Debugmeldungen ersparen.
+Mitschnitt einfügt.
+Das kann mir unter Umständen das Einschalten der Debugmeldungen ersparen.
 
 Debugausgaben
 -------------
 
-Debugausgaben verwende ich, wenn die Logmeldungen zu ungenau für die
-Eingrenzung des Problems und im Paketmitschnitt nicht die nötigen
-Informationen zu finden sind.
+Debugausgaben verwende ich,
+wenn die Logmeldungen zu ungenau für die Eingrenzung des Problems sind
+und der Paketmitschnitt nicht die nötigen Informationen liefert.
 
 Konkret suche ich in den Debugausgaben nach den vier Nachrichtentypen,
 die bei IKEv2 ausgetauscht werden, deren Parametern und den Reaktionen
@@ -250,6 +252,10 @@ Meist habe ich eine von zwei Möglichkeiten, an Debugmeldungen zu kommen:
 Im ersten Fall protokolliere ich meine Sitzung in eine Datei, entweder
 mit dem Programm *script* oder, zum Beispiel bei Putty, durch die
 Log-Funktion des SSH-Programms.
+
+.. raw:: latex
+
+   \clearpage
 
 Im zweiten Fall filtere ich die Debugnachrichten aus den Systemlogs aus.
 Dabei muss ich aufpassen, dass ich alles relevante und möglichst wenig
