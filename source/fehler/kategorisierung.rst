@@ -4,15 +4,15 @@ Problemkategorien
 
 Ein Problem identifiziert zu haben,
 ist nur ein Schritt auf dem Weg zur Lösung.
-Um es zu lösen sind weitere Schritte nötig.
+Um es vollständig zu lösen sind weitere Schritte nötig.
 Möglicherweise delegiere ich dabei Teilschritte an jemand anders.
-Die folgende Kategorisierung hilft mir dabei.
+Dabei hilft mir die folgende Kategorisierung.
 
 Ich unterscheide 
 
-* externe Probleme
-* Fehlkonfigurationen
-* Softwarefehler
+* externe Probleme,
+* Fehlkonfigurationen,
+* Softwarefehler.
 
 Externe Probleme
 ----------------
@@ -20,7 +20,7 @@ Externe Probleme
 Externe Probleme liegen per Definition nicht im Einflußbereich des
 VPN-Administrators. Diese Probleme müssen jedoch gelöst sein, bevor
 überhaupt die Chance besteht,
-ein VPN aufzubauen oder zu reparieren.
+ein VPN aufzubauen, zu nutzen oder zu reparieren.
 
 Unter externen Problemen verstehe ich zum Beispiel
 
@@ -56,7 +56,7 @@ das Problem lösen mussten jedoch die Netzwerk-Administratoren.
 Fehlkonfigurationen
 -------------------
 
-Hier bin eindeutig ich als VPN-Administrator in der Pflicht.
+Hier ist eindeutig der VPN-Administrator in der Pflicht.
 In manchen Fällen kann man Fehlkonfigurationen
 durch gewissenhaften Vergleich mit den vereinbarten Parametern erkennen.
 
@@ -98,25 +98,27 @@ mindestens ein weiteres Mal, bevor ich das Problem eskaliere und um
 Hilfe bitte.
 
 Mitunter ist das Problem bereits bekannt und in Knowledge-Base-Artikeln
-oder Fehlerreports beschrieben.
-Danach kann ich in den Foren, beim Hersteller oder einfach im Internet suchen.
-Bei dieser Suche helfen mir die bis dahin erlangten Informationen,
+oder Bugreports beschrieben.
+Danach kann ich in den Foren, beim Hersteller oder im Internet suchen.
+Bei dieser Suche helfen mir die bis dahin gewonnenen Informationen,
 das Problem möglichst genau zu beschreiben.
 Gibt es einen Workaround,
-dann kann ich diesen prüfen und vielleicht anwenden.
+kann ich diesen prüfen und anwenden.
 
 Wenn das nicht hilft, nehme ich Kontakt zum Support des Herstellers
 beziehungsweise zu geeigneten Supportforen auf.
-Oft bekomme ich Hinweise auf weitere Tests, die ich machen kann um das
-Problem weiter einzugrenzen.
+Oft bekomme ich Hinweise auf zusätzliche Tests,
+die ich machen kann,
+um das Problem weiter einzugrenzen.
 
 Kann das Problem behoben werden, nehme ich die Lösung in meine eigene
 Wissensdatenbank auf. Habe ich ein öffentliches Forum bemüht, so
 hinterlasse ich dort eine Beschreibung der Lösung für mein Problem,
-möglichst in einer Form die leicht nachvollziehbar ist.
+möglichst in einer Form,
+die leicht nachvollziehbar ist.
 
 Manchmal bleibt auch hier als Ausweg nur
 der Wechsel auf andere Konfigurationsparameter,
-wenn das möglich ist,
+falls das möglich ist,
 oder auf eine andere Software für das VPN-Gateway.
 
