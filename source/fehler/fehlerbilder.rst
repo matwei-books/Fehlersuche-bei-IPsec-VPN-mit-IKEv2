@@ -24,10 +24,9 @@ ob ich sie von Hand aufbauen kann, wenn das möglich ist.
 
 In den meisten Fällen sollte es möglich sein, einen VPN-Tunnel von
 jedem Peer aus aufzubauen.
-Bei On-Demand-Tunneln an Cisco ASA zum Beispiel geht der Tunnel
-aber nur auf, wenn interessanter Traffic auf der Inside ankommt.
-Hier kann ich den interessanten Traffic mit dem Befehl
-``packet-tracer`` simulieren.
+Bei On-Demand-Tunneln an Cisco ASA geht der Tunnel aber nur auf,
+wenn interessanter Traffic auf der Inside ankommt.
+Hier kann ich diesen Traffic mit dem Befehl ``packet-tracer`` simulieren.
 Bei anderer Software und policy-basierten VPN kann ich mitunter
 temporär eine Adresse aus dem lokalen Adressbereich des Tunnels
 auf das VPN-Gateway legen
@@ -56,49 +55,32 @@ Dann schaue ich als nächstes mit einem Paketmitschnitt auf der Outside,
 ob ich überhaupt Traffic vom und zum Peer-VPN-Gateway sehe,
 insbesondere IKE-Traffic - das heißt, UDP Port 500 oder 4500.
 Sehe ich IKE-Traffic von beiden Peers und der Tunnel geht nicht auf,
-muss ich die IKE-Verhandlungen debuggen.
+muss ich die IKE-Verhandlungen analysieren.
 
 Sehe ich nur den Traffic meines eigenen VPN-Gateways, handelt es sich
 möglicherweise um ein Verbindungsproblem, das heißt ein externes
 Problem, dass ich delegieren kann.
+Um das auszuschließen,
+bitte ich den Peer,
+auf seiner Outside ebenfalls einen Paketmitschnitt zu machen
+und nach Datagrammen von meinem VPN-Gateway Ausschau zu halten.
+
 Insbesondere darf ich mich nicht dazu verleiten lassen, einen Fehler in
 der VPN-Konfiguration zu suchen, wenn die IP-Verbindung zwischen den
 Peers nicht funktioniert.
-Ein objektives Kriterium ist für mich ein Paketmitschnitt,
-der Datagramme vom Peer-VPN-Gateway zeigt.
+Nur ein Paketmitschnitt,
+der Datagramme von beiden VPN-Gateways zeigt,
+ist für mich ein objektives Kriterium.
 Die Systemprotokolle können unerfahrene Administratoren
 hier durchaus in die Irre führen.
 
-Ich war persönlich in einen Fall involviert, der bereits vor meiner
-Schicht begann und erst nach meiner Schicht gelöst war.
-Die beteiligten Peers hatten mehrere VPN zu unterschiedlichen
-Adressen, so dass die Administratoren erfahren genug sein sollten,
-um das zugrundeliegende Problem zu erkennen.
-Allerdings funktionierten auf beiden Seiten etliche andere VPNs
-und nur dieses eine nicht,
-so dass zunächst jeder der beiden Administratoren
-von einem Problem auf der anderen Seite ausging.
-
-Im Paketmitschnitt war jeweils nur der abgehende Traffic zum Peer zu
-sehen, aber kein ankommender. Ein Ping oder Traceroute von dritter
-Stelle aus funktionierte hingegen für beide Peer-VPN-Gateways.
-
-Schließlich konnten wir einen Netzwerkadministrator überzeugen,
-sich der Sache anzunehmen.
-Dieser fand nach einiger Zeit die Ursache des Problems.
-Beide Unternehmen hatten mehrere ISP für ihre Internetanschlüsse,
-und es gab einen ISP der eine Verbindung zu beiden Peers hatte.
-Diesen ISP nutzten die Peers für dieses VPN
-und genau im Netz dieses ISP liefen die Datagramme
-für den jeweils anderen Peer ins Leere.
-
-Die schnelle Lösung war, den VPN-Traffic nicht über diesen ISP zu
-schicken und irgendwann hatte dieser auch sein Netz wieder in Ordnung
-gebracht.
-
-.. raw:: latex
-
-   \clearpage
+Funktioniert die IP-Verbindung zwischen den VPN-Peers,
+aber der Responder antwortet nicht auf Verbindungsversuche vom Peer,
+dann ist die Fehlersuche auf der Seite des Responders einfacher.
+Hier gilt es als nächstes,
+die vom Peer bei IKE_SA_INIT gesendeten Parameter
+mit der eigenen Konfiguration zu vergleichen.
+Dazu reichen die Daten aus dem Paketmitschnitt.
 
 .. index:: Inside
 
@@ -113,9 +95,9 @@ VPN-Tunnel aber kein Traffic
 
 Habe ich mich davon überzeugt,
 dass  IKE- und IPsec-SA zum Peer aufgebaut werden,
-schaue ich als nächstes ob Daten durch die zugehörigen Tunnel gehen,
+schaue ich als nächstes,
+ob Daten durch die zugehörigen Tunnel gehen,
 das heißt, ob die Traffic-Counter hochzählen.
-
 Stehen die Counter einige Zeit nach dem Einrichten der IPsec SA immer
 noch auf 0, muss ich nachschauen, woran es liegt.
 
@@ -126,7 +108,7 @@ Auf dieser Seite schaue ich zuerst nach.
 
 .. index:: Outside
 
-Kommt der interessante Traffic vom Peer, schaue ich mit einem
+Kommt dieser Traffic vom Peer, schaue ich zunächst mit einem
 Paketmitschnitt auf der Outside, ob außer den IKE-Datagrammen für den
 Aufbau und die Pflege des Tunnels auch ESP- oder AH-Datagramme
 auftauchen.
@@ -157,12 +139,21 @@ In diesem Fall verwerfen etliche VPN-Gateways die Datagramme
 und schreiben eine entsprechende Meldung in das Systemlog,
 die mich auf dieses Problem hinweist.
 
+Finde ich keine Erklärung,
+warum der verschlüsselt ankommende Traffic mein VPN-Gateway
+nicht auf der anderen Seite verlässt,
+wird es Zeit,
+das Problem zu Eskalieren
+und mir Hilfe zu holen.
+
 .. index:: Inside
 
-Erwarte ich hingegen den interessanten Traffic auf der Inside,
-prüfe ich dort mit einem Paketmitschnitt,
-ob er auch wirklich ankommt.
-Kommt er nicht, handelt es sich um
+Erwarte ich hingegen das erste Datagramm,
+dass die Verbindung aufbaut,
+auf der Inside,
+prüfe ich zuerst dort mit einem Paketmitschnitt,
+ob es auch wirklich ankommt.
+Kommt es nicht, handelt es sich um
 ein - aus meiner Sicht - externes Problem,
 dass ich delegieren kann,
 wenn ich nicht selbst auch für das interne Netz zuständig bin.
@@ -170,6 +161,10 @@ wenn ich nicht selbst auch für das interne Netz zuständig bin.
 Sehe ich den Traffic auf der Inside ankommen, aber keinen adäquaten
 verschlüsselten Traffic auf der Outside abgehen, muss ich die
 Konfiguration meines VPN-Gateways noch einmal genau prüfen.
+
+.. raw:: latex
+
+   \clearpage
 
 Dabei muss ich auch eventuell vorhandene Adressumsetzungen berücksichtigen.
 In einem konkreten Fall war das VPN-Gateway gleichzeitig
@@ -181,6 +176,10 @@ Durch das Masquerading passte die Absenderadresse der Datagramme
 nicht mehr zur Policy
 und die Datagramme wurden direkt und unverschlüsselt nach außen gesendet
 anstatt durch das VPN.
+Das hatte ich erst bemerkt,
+als ich nicht mehr nur verschlüsseltem Traffic auf der Outside suchte,
+sondern zusätzlich den originalen Traffik von der Inside.
+Diesen fand ich dann mit den durch NAT umgesetzten Adressen.
 
 Auch alte, nicht mehr verwendete Policies können ein VPN stören.
 Einmal hatte ich eine Policy für ein VPN,
@@ -192,7 +191,7 @@ passierte aber nicht das VPN-Gateway.
 In diesem Fall reklamierte die alte Policy den Traffic für sich.
 Da das zur alten Policy gehörende VPN aber nicht aufgebaut war,
 verwarf das VPN-Gateway den Traffic.
-Nach dem Deaktivieren dieser Policy funktionierte die Verbindung sofort.
+Nach dem Deaktivieren der alten Policy funktionierte die Verbindung sofort.
 
 .. index:: Inside
 
@@ -249,8 +248,8 @@ Die SA, die ich suche, steht als SPI vorn im ESP- oder AH-Header.
 Kommen die Datagramme auf der Inside, kann ich die Konfiguration nach
 ACL, NAT- und Firewall-Regeln absuchen, die die Adressen des Datagramms
 umfassen und dabei immer größere Netzmasken betrachten. Finde ich
-mehrere Regeln, muss ich die Reihenfolge betrachten, in der die
-Regeln wirksam werden.
+mehrere Regeln, muss ich die Reihenfolge betrachten,
+in der diese Regeln wirksam werden.
 
 VPN funktioniert, aber Dateitransfer nicht
 ------------------------------------------
@@ -275,9 +274,11 @@ Beim Peer kommen eben diese großen Datagramme nicht an,
 nicht einmal verschlüsselt auf der Outside.
 
 Der eine oder andere wird sich jetzt vielleicht denken, worum es geht.
-Vergleicht aber bitte die Situation bei beiden Peers und denkt daran,
-dass dem VPN-Administrator in vielen Fällen nur eines dieser beiden
-Captures zur Verfügung steht.
+Das Problem in dieser Situation ist oft,
+dass den VPN-Administratoren beider Seiten
+zunächst nur einer dieser beiden Paketmitschnitte zur Verfügung steht.
+Am ehesten kommt man auf die richtige Idee,
+wenn man dann den Mitschnitt mit dem großen Datagramm hat.
 
 Das Problem ist,
 dass die Path-MTU zwischen beiden Gateways zu klein ist

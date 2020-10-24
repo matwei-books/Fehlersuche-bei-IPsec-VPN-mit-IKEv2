@@ -178,11 +178,9 @@ Damit lassen sich einzelne Adressen, eine Liste von Adressen,
 einzelne Adressbereiche sowie mehrere Adressbereiche
 für beide Seiten in einer SA aushandeln.
 
-Das Problem mit den falschen Parameter ist, dass,
-auch wenn mehrere IPsec SA
-mit unterschiedlichen Traffic-Selektoren ausgehandelt sind,
-eine Seite Traffic an eine SA sendet,
-deren Traffic-Selektoren nicht dazu passen.
+Ein weiteres Problem mit falschen Parametern ist,
+dass eine Seite Traffic mit einer SA sendet,
+deren Traffic-Selektoren beim Empfänger nicht dazu passen.
 Auf der Gegenseite werden die Datagramme dann verworfen.
 Zumindest finden sich in diesem Fall auf der ankommenden Seite
 eindeutige Hinweise in den Logs.
@@ -200,7 +198,7 @@ Schlüsselmaterial von IKE_SA_INIT verwendet, so dass hier eine
 funktionsfähige Child-SA erzeugt werden kann.
 Das Rekeying scheitert dann,
 weil eine Seite den neuen Schlüssel aus dem verwendeten ableiten,
-die andere Seite jedoch einen neuen Schlüssel aushandeln will.
+die andere Seite jedoch den neuen Schlüssel aushandeln will.
 
 .. raw:: latex
 
@@ -316,9 +314,9 @@ geroutet werden.
 
    NAT bei VPN-Datenverkehr
 
-Kommen wir nun zu konkreten Problemen mit internem NAT,
+Kommen wir nun zu den konkreten Problemen mit internem NAT,
 die ich identifizieren und beheben kann.
-Dabei hilft uns das Diagramm :numref:`vpn-nat`, das aufzeigt, an welchen Stellen
+Dabei hilft das Diagramm in :numref:`vpn-nat`, das aufzeigt, an welchen Stellen
 die Datagramme welche Adressen haben können.
 Dieses Diagramm kann auch bei Verständigungsproblemen mit dem Peer
 während der Fehlersuche helfen.
@@ -373,8 +371,6 @@ Einige VPN-Gateways nehmen das nicht so genau, während andere
 VPN-Gateways die erfolgreich entschlüsselten Datagramme dann verwerfen,
 weil die Adressen nicht zu den Traffic-Selektoren passen.
 Einen Hinweis darauf finde ich meist in den Logs.
-Beheben muss dieses Problem der Administrator des sendenden
-VPN-Gateways.
 
 Ein weiteres Problem sind umfassende NAT-Regeln, die vor den
 spezifischen Regeln für ein einzelnes VPN greifen,
@@ -472,6 +468,12 @@ Netzsegmente, die eine unterschiedliche MTU aufweisen können.
 Für diese Strecke ist die Path-MTU (PMTU) die geringste MTU aller
 Netzsegmente, die ein Datagramm durchquert.
 
+Jedes Endgerät und jedes Gateway kann nur die MTU der direkt
+angeschlossenen Netzsegmente kennen.
+Die PMTU kann hingegen für verschiedene Datenströme eines Endgerätes
+unterschiedlich sein, sie ist daher eine Merkmal jedes einzelnen Flows
+und muss für diesen ermittelt werden.
+
 .. topic:: Flow
 
    .. index:: ! Flow
@@ -488,13 +490,10 @@ Netzsegmente, die ein Datagramm durchquert.
    die von einer Seite zur anderen gesendet werden,
    auch die zugehörigen Antwortpakete in der Gegenrichtung.
 
-Jedes Endgerät, jedes Gateway kann nur die MTU der direkt
-angeschlossenen Netzsegmente kennen.
-Die PMTU kann hingegen für verschiedene Datenströme eines Endgerätes
-unterschiedlich sein, sie ist daher eine Merkmal jedes einzelnen Flows
-und muss für diesen ermittelt werden.
+.. index:: Path-MTU-Discovery
 
-Wie, ist in RFC1191 (:cite:`RFC1191`) beschrieben.
+Wie die Path-MTU ermittelt wird,
+ist in RFC1191 beschrieben.
 IPv4 verwendet hierfür das DF-Bit des IP-Headers und ICMP-Datagramme vom
 Typ 3 (Destination Unreachable), Subtyp 4 (Fragmentierung nötig, Don’t
 Fragment aber gesetzt).
@@ -651,7 +650,6 @@ Aber auch ein Spreadsheet oder eine spezielle Software für die
 Wissensdatenbank kann geeignet sein.
 Wichtig ist die regelmäßige Pflege und die Konsultation der Datenbank
 vor dem Einrichten von neuen VPN.
-Dazu muss die Wissensdatenbank einfach und schnell zu bedienen sein.
 
 Policy-based VPN versus route-based VPN
 ---------------------------------------
@@ -659,9 +657,9 @@ Policy-based VPN versus route-based VPN
 Der grundlegende Unterschied zwischen diesen beiden Ausprägungen von VPN
 ist, dass bei route-based VPN ein virtuelles Netzwerkinterface auf jedem
 VPN-Gateway angelegt wird, das mit dem des Peers verbunden ist.
-Diese beiden Interfaces terminieren jeweils auf einer öffentlichen
-IP-Adresse der VPN-Gateways und genau für diese beiden Adressen brauche
-ich nur eine einzige Child-SA.
+Diese beiden Interfaces terminieren jeweils
+auf einer IP-Adresse der VPN-Gateways
+und genau für diese beiden Adressen brauche ich nur eine einzige Child-SA.
 Bei policy-based VPN gibt es dieses virtuelle Netzwerkinterface nicht.
 
 .. index:: Transportmodus
@@ -672,7 +670,7 @@ Bei der Verwendung von öffentlichen Adressen
 kann ich jedoch das VPN im Transportmodus betreiben
 und ein paar Byte Overhead pro Datagramm sparen.
 
-Diese Einsparung kann zu Problemen führen,
+Diese Einsparung kann allerdings zu Problemen führen,
 wenn der Tunnel nicht aufgebaut ist
 und keine Firewall-Regel unverschlüsselten Datenverkehr sperrt.
 In solchen Fällen habe ich unverschlüsselten GRE-Traffic
@@ -684,7 +682,8 @@ als zusätzliche Sicherheit.
 .. index:: PPTP
 
 Als virtuelle Netzwerkschnittstelle kann ich ein GRE-Interface nehmen,
-wie in :cite:`RFC2784` beschrieben oder PPTP (:cite:`RFC2637`).
+wie in RFC2784 :cite:`RFC2784` beschrieben
+oder PPTP (RFC2637 :cite:`RFC2637`).
 
 Sind die GRE-Interfaces eingerichtet
 und durch IPsec geschützt miteinander verbunden,
