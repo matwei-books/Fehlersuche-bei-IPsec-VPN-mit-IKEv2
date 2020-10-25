@@ -2,6 +2,11 @@
 Abkürzungen
 ===========
 
+.. index:: ACL
+
+ACL:
+  Access Control List
+
 .. index:: AES
 
 AES:
@@ -17,6 +22,21 @@ AH:
 ASA:
   Adaptive Security Appliance
 
+.. index:: ASCII
+
+ASCII:
+  American Standard Code for Information Interchange
+
+.. index:: ASDM
+
+ASDM:
+  Adaptive Security Device Manager
+
+.. index:: BSD
+
+BSD:
+  Berkeley Software Distribution
+
 .. index:: CBC
 
 CBC:
@@ -27,10 +47,50 @@ CBC:
 CLI:
   Command Line Interface
 
+.. index:: CRLF
+
+CRLF:
+  Carriage Return, Line Feed (Zeilenende mit zwei Zeichen)
+
+.. index:: CSM
+
+CSM:
+  Cisco Secuity Manager
+
+.. index:: CSV
+
+CSV:
+  Comma-Separated Values (ein Dateiformat)
+
+.. index:: DH
+
+DH:
+  Diffie-Hellman (Verfahren zum Schlüsselaustausch)
+
+.. index:: DNS
+
+DNS:
+  Domain Name System
+
+.. index:: EAP
+
+EAP:
+  Extensible Authentication Protocol
+
+.. index:: ESN
+
+ESN:
+  Extended Sequence Numbers
+
 .. index:: ESP
 
 ESP:
   Encapsulating Security Payload
+
+.. index:: GRE
+
+GRE:
+  Generic Routing Encapsulation
 
 .. index:: GUI
 
@@ -41,6 +101,11 @@ GUI:
 
 HMAC:
   Hash-based Message Authentication Code
+
+.. index:: HTTP
+
+HTTP:
+  Hypertext Transfer Protocol
 
 .. index:: IKE
 

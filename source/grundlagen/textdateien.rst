@@ -326,7 +326,7 @@ die in beiden Dateien gleich sind,
 ohne Markierung angezeigt.
 
 Unterscheiden sich zwei Dateien in der Anzahl oder Art der Leerzeichen,
-zum Beispiel weil eine Datei Zeilenende nach DOS-Konvention (CRLF) und
+zum Beispiel weil eine Datei Zeilenende nach MS-DOS-Konvention (CRLF) und
 die andere nach Unix-Konvention (LF) hat, oder in einer Tabulatoren
 verwendet werden und in der anderen Leerzeichen, dann kann ich mit den
 Optionen ``-b``, ``-B``, ``-E``, ``-w`` oder ``-Z`` diese Unterschiede
