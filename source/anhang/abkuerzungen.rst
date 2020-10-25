@@ -107,10 +107,35 @@ HMAC:
 HTTP:
   Hypertext Transfer Protocol
 
+.. index:: IANA
+
+IANA:
+  Internet Assigned Numbers Authority
+
+.. index:: ICMP
+
+ICMP:
+  Internet Control Message Protocol
+
 .. index:: IKE
 
 IKE:
   Internet Key Exchange Protocol
+
+.. index:: IOS
+
+IOS:
+  Internetwork Operating System
+
+.. index:: IP
+
+IP:
+  Internet Protocol
+
+.. index:: IPsec
+
+IPsec:
+  Internet Protocol Security
 
 .. index:: ISAKMP
 
@@ -122,6 +147,31 @@ ISAKMP:
 L2L:
   Lan to Lan
 
+.. index:: LDAP
+
+LDAP:
+  Lightweight Directory Access Protocol
+
+.. index:: LF
+
+LF:
+  Line Feed
+
+.. index:: MID
+
+MID:
+  Message Identifier
+
+.. index:: MODP
+
+MODP-Group:
+  Modular Exponential Group
+
+.. index:: MS-DOS
+
+MS-DOS:
+  Microsoft Disk Operating System
+
 .. index:: MSS
 
 MSS:
@@ -132,15 +182,25 @@ MSS:
 MTU:
   Maximum Transmission Unit
 
-.. index:: MID
+.. index:: NAT
 
-MID:
-  Message Identifier
+NAT:
+  Network Address Translation
 
-.. index:: OSI-Modell
+.. index:: NAT-T
 
-OSI-Model:
-  Open Systems Interconnection Model
+NAT-T:
+  NAT-Traversal
+
+.. index:: NTP
+
+NTP:
+  Network Time Protocol
+
+.. index:: OSI
+
+OSI:
+  Open Systems Interconnection
 
 .. index:: PAD
 
@@ -157,6 +217,26 @@ PCRE:
 PFS:
   Perfect Forward Secrecy
 
+.. index:: PMTU
+
+PMTU:
+  Path-MTU
+
+.. index:: PPP
+
+PPP:
+  Point-to-Point Protocol
+
+.. index:: PPPoE
+
+PPPoE:
+  PPP over Ethernet
+
+.. index:: PPTP
+
+PPTP:
+  Point-to-Point Tunneling Protocol
+
 .. index:: PRF
 
 PRF:
@@ -172,6 +252,11 @@ PSK:
 QoS:
   Quality of Service
 
+.. index:: RFC
+
+RFC:
+  Request for Comments
+
 .. index:: SA
 
 SA:
@@ -181,6 +266,16 @@ SA:
 
 SAD:
   Security Association Database
+
+.. index:: SCP
+
+SCP:
+  Secure Copy
+
+.. index:: SDN
+
+SDN:
+  Software-Defined Networking
 
 .. index:: SHA
 
@@ -197,6 +292,36 @@ SPD:
 SPI:
   Security Parameters Index
 
+.. index:: SSH
+
+SSH:
+  Secure Shell
+
+.. index:: TCP
+
+TCP:
+  Transmission Control Protocol
+
+.. index:: TFTP
+
+TFTP:
+  Trivial File Transfer Protocol
+
+.. index:: TTL
+
+TTL:
+  Time to Live (Header-Feld bei IP)
+
+.. index:: UDP
+
+UDP:
+  User Datagram Protocol
+
+.. index:: VLAN
+
+VLAN:
+  Virtual Local Area Network
+
 .. index:: VM
 
 VM:
@@ -206,3 +331,14 @@ VM:
 
 VNC:
   Virtual Network Computing
+
+.. index:: VPN
+
+VPN:
+  Virtual Private Network
+
+.. index:: XML
+
+XML:
+  Extensible Markup Language
+
