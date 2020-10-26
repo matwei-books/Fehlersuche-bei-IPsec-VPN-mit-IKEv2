@@ -34,7 +34,7 @@ eingefügt. Diese vier Oktetts - auch Non-ESP-Marker genannt - dienen
 dazu, IKE-Nachrichten von IPsec-Datagrammen bei NAT-Traversal zu
 unterscheiden.
 
-Bild :numref:`ipsec-ike-datagram` zeigt den den IKEv2-Header
+:numref:`ipsec-ike-datagram` zeigt den den IKEv2-Header
 ohne vorangehenden UDP-Header und Non-ESP-Marker.
 
 .. raw:: latex
@@ -46,6 +46,8 @@ ohne vorangehenden UDP-Header und Non-ESP-Marker.
    :name: ipsec-ike-datagram
 
    IKE Header
+
+Die Felder haben die folgende Bedeutung:
 
 Initiator’s SPI (8 Oktetts):
   wird vom Initiator gewählt um eine IKE SA eindeutig zu identifizieren.
@@ -65,7 +67,8 @@ Major Version (4 Bits):
   Anwendungen, die diese Version von IKE implementieren,
   müssen das Feld auf den Wert 2 setzen.
   Nachrichten mit einer größeren Versionsnummer müssen von Anwendungen,
-  die nur Version 2 implementieren ignoriert
+  die nur Version 2 implementieren,
+  ignoriert
   oder mit einer INVALID_MAJOR_VERSION-Nachricht zurückgewiesen werden.
 
 Minor Version (4 Bits):
@@ -87,7 +90,7 @@ Exchange Type (1 Oktett):
   INFORMATIONAL   37
   =============== ====
 
-  Die aktuell gültigen Werte finden sich in :cite:`IKEv2parameters`.
+  Die aktuell gültigen Werte finden sich bei der IANA :cite:`IKEv2parameters`.
 
 Flags (1 Oktett):
   zeigt spezifische Optionen für diese Nachricht an.
@@ -152,7 +155,7 @@ in dem dieser Begriff verwendet wird.
 Jede IKE-Payload beginnt mit einem generischen Header wie in
 :numref:`ipsec-ike-datagram-gph` dessen Felder ich nachfolgend
 erläutere. Die konkreten IKE-Parameter sind als Payload in den
-Abschnitten 3.2 bis 3.16 von :cite:`RFC7296` beschrieben.
+Abschnitten 3.2 bis 3.16 von RFC7296 :cite:`RFC7296` beschrieben.
 
 .. figure:: /images/ipsec-ike-datagram-gph.png
    :alt: IKEv2 Generic Payload Header aus RFC 7296, Abschnitt 3.2
@@ -170,18 +173,19 @@ Next Payload (1 Oktett):
   verschlüsselte Payload, die immer als letzte in der Kette eingefügt
   werden muss.
 
-  Eine verschlüsselte Payload enthält selbst Datenstrukturen in Form
-  von Payloads mit generischen Payload Headern. Bei einer
-  verschlüsselten Payload verweist das Feld *Next Payload* auf den Typ
+  Eine verschlüsselte Payload enthält selbst wiederum
+  Datenstrukturen in Form von Payloads mit generischen Payload Headern.
+  Hier verweist das Feld *Next Payload* auf den Typ
   der ersten enthaltenen Payload und das *Next Payload* Feld der
   letzten enthaltenen Payload ist 0.
 
-  Die aktuell gültigen Werte finden sich in :cite:`IKEv2parameters`.
+  Die aktuell gültigen Werte
+  finden sich bei der IANA :cite:`IKEv2parameters`.
 
   Payload-Typen 1-31 sollen auch in Zukunft nicht verwendet werden, so
   dass es keine Überschneidung mit IKEv1 gibt.
 
-  Die Payload-Typen nach RFC 7296 (Details: Abschnitt 3.2 bis 3.16) sind:
+  Die Payload-Typen nach RFC 7296 (beschrieben in Abschnitt 3.2 bis 3.16) sind:
 
   ============================ ======== =====
   Next Payload Type            Notation Value
