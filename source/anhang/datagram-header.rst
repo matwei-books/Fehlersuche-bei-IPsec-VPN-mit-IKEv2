@@ -156,6 +156,8 @@ Jede IKE-Payload beginnt mit einem generischen Header wie in
 :numref:`ipsec-ike-datagram-gph` dessen Felder ich nachfolgend
 erläutere. Die konkreten IKE-Parameter sind als Payload in den
 Abschnitten 3.2 bis 3.16 von RFC7296 :cite:`RFC7296` beschrieben.
+Die aktuell gültigen Werte für alle IKEv2-Parameter
+finden sich bei der IANA :cite:`IKEv2parameters`.
 
 .. figure:: /images/ipsec-ike-datagram-gph.png
    :alt: IKEv2 Generic Payload Header aus RFC 7296, Abschnitt 3.2
@@ -178,9 +180,6 @@ Next Payload (1 Oktett):
   Hier verweist das Feld *Next Payload* auf den Typ
   der ersten enthaltenen Payload und das *Next Payload* Feld der
   letzten enthaltenen Payload ist 0.
-
-  Die aktuell gültigen Werte
-  finden sich bei der IANA :cite:`IKEv2parameters`.
 
   Payload-Typen 1-31 sollen auch in Zukunft nicht verwendet werden, so
   dass es keine Überschneidung mit IKEv1 gibt.
@@ -234,7 +233,7 @@ Payload Length (2 Oktetts, unsigned Integer):
 Security Association Payload
 ----------------------------
 
-Mit der Security Association Payload (SA-Payload im Folgenden) werden die Attribute einer SA ausgehandelt.
+Mit der Security Association Payload (SA-Payload) werden die Attribute einer SA ausgehandelt.
 Sie kann mehrere Proposals enthalten.
 Tut sie es, müssen diese vom bevorzugten zum unbeliebtesten Proposal sortiert sein.
 Jedes Proposal enthält genau ein IPsec-Protokoll (IKE, ESP oder AH), jedes Protokoll kann mehrere Transforms enthalten und jedes Transform mehrere Attribute.
@@ -242,12 +241,23 @@ Proposals, Transforms und Attribute haben - wie die Payload selbst - ihre eigene
 Sie sind verschachtelt, so dass die Payload-Length einer SA den gesamten Umfang der Proposals, Transforms und Attribute umfasst.
 Die Länge eines Proposals umfasst die Länge aller enthaltenen Transforms und Attribute.
 Die Länge eines Transforms umfasst die Länge aller enthaltenen Attribute.
+In RFC7296 :cite:`RFC7296`, Abschnitt 3.3 ist die SA-Payload ausführlich
+beschrieben.
 
-Die Proposals in der SA-Payload sind - beginnend bei 1 - durchnummeriert.
-Ein Initiator kann sowohl Standard-Chiffren als Authenticated-Encryption-Chiffren vorschlagen, muss dann aber verschiedene Proposals verwenden, da diese nicht im selben Proposal gemischt werden können.
+.. figure:: /images/ipsec-sa-payload.png
+   :alt: SA-Payload aus RFC 7296, Abschnitt 3.3
+   :name: ipsec-sa-payload
+
+   Security Association Payload
+
+Die Proposals in der SA-Payload sind beginnend mit 1 durchnummeriert.
+Ein Initiator kann sowohl Standard-Chiffren
+als auch Authenticated-Encryption-Chiffren vorschlagen,
+muss dann aber verschiedene Proposals verwenden,
+da diese nicht im selben Proposal gemischt werden können.
 
 Jede Proposal-Struktur wird gefolgt von einer oder mehreren Transform-Strukturen.
-Die Anzahl der verschiedenen Transforms wird durch das Protokoll bestimmt.
+Deren Anzahl wird durch das Protokoll bestimmt.
 AH hat im Allgemeinen zwei Transforms: Extended Sequence Numbers (ESN) und den Algorithmus zur Integritätsprüfung.
 ESP hat im Allgemeinen drei: ESN, den Verschlüsselungsalgorithmus und den Algorithmus zur Integritätsprüfung.
 Bei IKE sind es vier: eine Diffie-Hellman-Gruppe, ein Algorithmus zur Integritätsprüfung, ein PRF-Algorithmus und ein Verschlüsselungsalgorithmus.
@@ -260,9 +270,7 @@ zwei Kandidaten mit Transform-Typ 1 (3DES, AES-CBC)
 und zwei Kandidaten mit Transform-Typ 3 (HMAC_MD5, HMAC_SHA) an,
 was effektiv vier möglichen Kombinationen dieser Algorithmen entspricht.
 Will der Initiator nur eine Untermenge der vier Kombinationen anbieten,
-gibt es keine Möglichkeit,
-das in einem einzigen Proposal zu kodieren,
-er muss mehrere Proposals verwenden.
+muss er unter Umständen mehrere Proposals verwenden.
 
 Ein Transform kann ein oder mehrere Attribute haben, zum Beispiel die Schlüssellänge bei einem Verschlüsselungsalgorithmus mit variabler Schlüssellänge.
 Das Transform würde den Algorithmus spezifizieren und das Attribut die Schlüssellänge.
@@ -272,21 +280,14 @@ Um alternative Werte für ein Attribut vorzuschlagen, muss der Initiator mehrere
 Die Semantik von Transforms und Attributen unterscheidet sich zwischen IKEv1 und IKEv2.
 Bei IKEv1 konnte ein einzelnes Transform mehrere Algorithmen für ein Protokoll haben bei denen eines im Transform enthalten war und die anderen in den Attributen.
 
-.. figure:: /images/ipsec-sa-payload.png
-   :alt: SA-Payload aus RFC 7296, Abschnitt 3.3
-   :name: ipsec-sa-payload
-
-   Security Association Payload
-
 Der Payload-Typ für Security Associations - zu finden im IKE-Header
 beziehungsweise im Feld *Next Payload* der vorhergehenden Payload - ist
 33.
 
-In RFC7296 :cite:`RFC7296`, Abschnitt 3.3 ist die SA-Payload ausführlich
-beschrieben.
-
 Proposal-Unterstrukturen
 ........................
+
+Die erste Proposal-Unterstruktur folgt unmittelbar dem Header der SA-Payload.
 
 .. figure:: /images/ipsec-sa-payload-proposal.png
    :alt: Proposal-Unterstruktur einer SA-Payload aus RFC 7296, Abschnitt 3.3.1
@@ -294,13 +295,20 @@ Proposal-Unterstrukturen
 
    Proposal-Unterstruktur
 
+.. raw:: latex
+
+   \clearpage
+
+:numref:`ipsec-sa-payload-proposal` zeigt eine Proposal-Unterstruktur
+einer SA-Payload, deren Felder folgende Bedeutung haben.
+
 Last Substruc (1 Oktett):
   Gibt an, ob dieses das letzte Proposal ist oder nicht.
   Das Feld hat den Wert 0, wenn es das letzte ist und den Wert 2, wenn
   es noch mehr Proposals gibt.
 
 RESERVED (1 Oktett):
-  Muss auf beim Senden 0 gesetzt und beim Empfang ignoriert werden
+  Muss beim Senden auf 0 gesetzt und beim Empfang ignoriert werden
 
 Proposal Length (2 Oktetts, unsigned integer):
   Die Länge dieses Proposals inklusive aller Transforms und Attribute.
@@ -343,11 +351,16 @@ Transforms (variabel):
 Transform-Unterstruktur
 .......................
 
+Die erste Transform-Unterstruktur folgt unmittelbar
+dem Feld SPI der zugehörigen Proposal-Unterstruktur.
+
 .. figure:: /images/ipsec-sa-payload-transform.png
    :alt: Transform-Unterstruktur einer SA-Payload aus RFC 7296, Abschnitt 3.3.2
    :name: ipsec-sa-payload-transform
 
    Transform-Unterstruktur
+
+Die Felder der Transform-Unterstruktur haben folgende Bedeutung.
 
 Last Substruc (1 Oktett):
   Gibt an, ob das das letzte Transform ist.
@@ -363,77 +376,83 @@ Transform Length:
 Transform Type (1 Oktett):
   Die Art des Transforms.
   Einige Transforms können optional sein.
-  Wenn der Initiator vorschlagen will, dass ein optionales Transform
-  weggelassen wird, sendet er es nicht im Proposal. Will der Initiator
-  die Verwendung optional für den Responder machen, sendet er eine
-  Transform-Unterstruktur mit Transform ID = 0.
+  Wenn der Initiator ein optionales Transform weglassen will,
+  sendet er es nicht im Proposal.
+  Will der Initiator die Verwendung optional für den Responder machen,
+  sendet er eine Transform-Unterstruktur mit Transform ID = 0.
 
   Die Werte der folgenden Tabelle entsprechen dem Stand von RFC 7296.
 
-  =============================== ======= ==========================
-  Beschreibung                    Trans.  Verwendet in
-                                   Type
-  =============================== ======= ==========================
-  Encryption Algorithm (ENCR)     1       IKE and ESP
-  Pseudorandom Function (PRF)     2       IKE
-  Integrity Algorithm (INTEG)     3       IKE*, AH, optional in ESP
-  Diffie-Hellman Group (D-H)      4       IKE, optional in AH & ESP
-  Extended Sequence Numbers (ESN) 5       AH and ESP
-  =============================== ======= ==========================
+  === ===============================  ==========================
+  Typ Beschreibung                     Verwendet in
+  === ===============================  ==========================
+   1  Encryption Algorithm (ENCR)      IKE and ESP
+   2  Pseudorandom Function (PRF)      IKE
+   3  Integrity Algorithm (INTEG)      IKE*, AH, optional in ESP
+   4  Diffie-Hellman Group (D-H)       IKE, optional in AH & ESP
+   5  Extended Sequence Numbers (ESN)  AH and ESP
+  === ===============================  ==========================
 
   (*) Das Aushandeln eines Integritätsalgorithmus (INTEG) ist
   verbindlich für die in RFC 7296 spezifizierten verschlüsselten
-  Payloads. :cite:`RFC5282` zum Beispiel spezifiziert zusätzliche
+  Payloads. RFC5282 :cite:`RFC5282` zum Beispiel spezifiziert zusätzliche
   Formate, die auf authentisierter Verschlüsselung beruhen und in denen
   kein separater Integritätsalgorithmus ausgehandelt wird.
 
 Transform ID (2 Oktetts):
-  Die spezifische Instanz des Transform Type der vorgeschlagen wird.
+  Die spezifische Instanz des vorgeschlagenen
+  beziehungsweise angenommenen Transform Type.
 
-Für Transform-Typ 1 sind die Transform-ID in nachfolgender Tabelle
-aufgelistet.  Die Werte der Tabelle entsprechen dem Stand von RFC 7296.
+Für Transform-Typ 1 (Encryption Algorithm, ENCR)
+sind die Transform-ID in nachfolgender Tabelle aufgelistet.
+Die Werte entsprechen dem Stand von RFC 7296.
 
 ============== ====== =============================
 Name           Nummer Definiert in
 ============== ====== =============================
 ENCR_DES_IV64  1      (UNSPECIFIED)
-ENCR_DES       2      :cite:`RFC2405`, :cite:`ANSI-X3.106`
-ENCR_3DES      3      :cite:`RFC2451`
-ENCR_RC5       4      :cite:`RFC2451`
-ENCR_IDEA      5      :cite:`RFC2451`, :cite:`IDEA`
-ENCR_CAST      6      :cite:`RFC2451`
-ENCR_BLOWFISH  7      :cite:`RFC2451`
+ENCR_DES       2      RFC2405 :cite:`RFC2405`, :cite:`ANSI-X3.106`
+ENCR_3DES      3      RFC2451 :cite:`RFC2451`
+ENCR_RC5       4      RFC2451 :cite:`RFC2451`
+ENCR_IDEA      5      RFC2451 :cite:`RFC2451`, :cite:`IDEA`
+ENCR_CAST      6      RFC2451 :cite:`RFC2451`
+ENCR_BLOWFISH  7      RFC2451 :cite:`RFC2451`
 ENCR_3IDEA     8      (UNSPECIFIED)
 ENCR_DES_IV32  9      (UNSPECIFIED)
-ENCR_NULL      11     :cite:`RFC2410`
-ENCR_AES_CBC   12     :cite:`RFC3602`
-ENCR_AES_CTR   13     :cite:`RFC3686`
+ENCR_NULL      11     RFC2410 :cite:`RFC2410`
+ENCR_AES_CBC   12     RFC3602 :cite:`RFC3602`
+ENCR_AES_CTR   13     RFC3686 :cite:`RFC3686`
 ============== ====== =============================
 
-Die folgende Tabelle listet die Transform-ID für Transform-Typ 2
-(Pseudorandom Function, PRF) mit Stand von RFC 7296.
+.. raw:: latex
+
+   \clearpage
+
+Die Transform-ID für Transform-Typ 2
+(Pseudorandom Function, PRF) mit Stand von RFC7296
+sind in folgender Tabelle aufgelistet.
 
 ============== ====== ==================================
 Name           Nummer Definiert in
 ============== ====== ==================================
-PRF_HMAC_MD5   1      :cite:`RFC2104`, :cite:`RFC1321`
-PRF_HMAC_SHA1  2      :cite:`RFC2104`, :cite:`FIPS.180-4.2012`
+PRF_HMAC_MD5   1      RFC2104 :cite:`RFC2104`, RFC1321 :cite:`RFC1321`
+PRF_HMAC_SHA1  2      RFC2104 :cite:`RFC2104`, :cite:`FIPS.180-4.2012`
 PRF_HMAC_TIGER 3      (UNSPECIFIED)
 ============== ====== ==================================
 
-Die definierten Werte für die Transform-ID für Transform-Typ 3
-(Integrity Algorithm) mit Stand von RFC 7296 listet die folgende Tabelle.
+Die Transform-ID für Transform-Typ 3 (Integrity Algorithm)
+mit Stand von RFC7296 listet die folgende Tabelle.
 
-================= ====== ===============
+================= ====== =======================
 Name              Nummer Definiert in
-================= ====== ===============
+================= ====== =======================
 NONE              0
-AUTH_HMAC_MD5_96  1      :cite:`RFC2403`
-AUTH_HMAC_SHA1_96 2      :cite:`RFC2404`
+AUTH_HMAC_MD5_96  1      RFC2403 :cite:`RFC2403`
+AUTH_HMAC_SHA1_96 2      RFC2404 :cite:`RFC2404`
 AUTH_DES_MAC      3      (UNSPECIFIED)
 AUTH_KPDK_MD5     4      (UNSPECIFIED)
-AUTH_AES_XCBC_96  5      :cite:`RFC3566`
-================= ====== ===============
+AUTH_AES_XCBC_96  5      RFC3566 :cite:`RFC3566`
+================= ====== =======================
 
 Für den Transform-Typ 4 (Diffie-Hellman-Gruppe) listet die folgende
 Tabelle die Transform-ID mit Stand von RFC 7296.
@@ -444,22 +463,22 @@ Name                Nummer  Definiert in
 NONE                0
 768-bit MODP Group  1       Appendix B von RFC 7296
 1024-bit MODP Group 2       Appendix B von RFC 7296
-1536-bit MODP Group 5       :cite:`RFC3526`
-2048-bit MODP Group 14      :cite:`RFC3526`
-3072-bit MODP Group 15      :cite:`RFC3526`
-4096-bit MODP Group 16      :cite:`RFC3526`
-6144-bit MODP Group 17      :cite:`RFC3526`
-8192-bit MODP Group 18      :cite:`RFC3526`
+1536-bit MODP Group 5       RFC3526 :cite:`RFC3526`
+2048-bit MODP Group 14      RFC3526 :cite:`RFC3526`
+3072-bit MODP Group 15      RFC3526 :cite:`RFC3526`
+4096-bit MODP Group 16      RFC3526 :cite:`RFC3526`
+6144-bit MODP Group 17      RFC3526 :cite:`RFC3526`
+8192-bit MODP Group 18      RFC3526 :cite:`RFC3526`
 =================== ======= =======================
 
 Obwohl ESP und AH einen Diffie-Hellman-Austausch nicht direkt enthalten,
-kann dieser für die Child-SA ausgehandelt werden. Damit kann Perfect
-Forward Secrecy für die Child-SA-Schlüssel gewährleistet werden.
+kann dieser für die Child-SA ausgehandelt werden. Damit wird Perfect
+Forward Secrecy für die Child-SA-Schlüssel gewährleistet.
 
 Die aufgelisteten MODP Diffie-Hellman-Gruppen benötigen keine speziellen
 Gültigkeitstests. Andere DH-Gruppen können zusätzliche Tests benötigen, um
 sie sicher zu verwenden. Weitere Informationen zu diesem Thema finden sich
-in :cite:`RFC6989`.
+in RFC6989 :cite:`RFC6989`.
 
 Die für Transform-Typ 5 (Extended Sequence Numbers) definierten
 Transform-ID mit Stand von RFC7296 sind in der folgenden Tabelle
@@ -472,9 +491,11 @@ No Extended Sequence Numbers 0
 Extended Sequence Numbers    1
 ============================ ======
 
-Ein Initiator der ESN unterstützt wird üblicherweise zwei ESN-Transforms
-verwenden, mit den Werten "0" und "1" in seinen Proposals. Ein Proposal
-dass einen einzigen ESN-Transform mit dem Wert "1" enthält bedeutet,
+Ein Initiator, der ESN unterstützt,
+wird üblicherweise zwei ESN-Transforms verwenden,
+mit den Werten "0" und "1" in seinen Proposals.
+Ein Proposal, dass einen einzigen ESN-Transform mit dem Wert "1" enthält,
+bedeutet,
 dass die Verwendung von normalen (nicht erweiterten) Sequenznummern
 nicht akzeptabel ist.
 
