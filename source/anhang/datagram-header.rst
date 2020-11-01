@@ -525,22 +525,27 @@ Bedeutung eines Requests zu modifizieren.
 
    Notify Payload
 
+:numref:`ipsec-ike-datagram-notify-payload` zeigt eine Notify Payload.
+Die Felder haben folgende Bedeutung:
+
 .. index:: INVALID_SELECTORS, REKEY_SA, CHILD_SA_NOT_FOUND
 
 Protocol ID (1 Oktett):
-  Wenn die Benachrichtigung eine existierende SA betrifft, deren SPI
-  im SPI-Feld angegeben ist, zeigt dieses Feld den Typ dieser SA an.
-  Wenn das SPI-Feld leer ist, muss in diesem Feld der Wert 0 gesendet
-  werden und es muss beim Empfang ignoriert werden.
+  Ist eine SPI angegeben,
+  zeigt dieses Feld den Typ der SA an.
+  Bezieht sich die Benachrichtigung auf keine SA,
+  muss darin der Wert 0 gesendet werden
+  und es muss beim Empfang ignoriert werden.
   
   Für Benachrichtigungen bezüglich Child-SA muss dieses Feld entweder
   den Wert 2 enthalten, um AH anzuzeigen oder den Wert 3 für ESP.
   Bei den in RFC7296 definierten Benachrichtigungen ist der SPI nur mit
   INVALID_SELECTORS, REKEY_SA und CHILD_SA_NOT_FOUND eingeschlossen.
+  Beim Rekeying von IKE SA sind keine Notification Payloads involviert.
 
 SPI Size (1 Oktett):
   Länge in Oktetts des SPI, der durch die Protocol ID bestimmt wird. 0
-  für IKE, 4 für AH oder ESP.
+  für die aktuelle IKE SA, 4 für AH oder ESP.
 
 Notify Message Type (2 Oktetts):
   Gibt den Typ der Nachricht an.
@@ -557,20 +562,20 @@ Der Payload-Typ für die Notify Payload ist 42.
 Notify-Message-Typen
 ....................
 
-Die folgenden Tabellen listen lediglich die Namen der Nachrichten und
-ihren numerischen Wert. Für Details verweise ich auf RFC7296, Abschnitt
-3.10. Die Tabellen sind aktuell für den Stand von RFC7296.
+Die folgenden beidenTabellen listen lediglich
+die Namen der Nachrichten und ihren numerischen Wert.
+Für Details verweise ich auf RFC7296, Abschnitt 3.10.
 
 Werte von 0 - 16383 sind für das Melden von Fehlern vorgesehen.
-Wenn eine IPsec-Implementierung eine Nachricht mit einem dieser Typen
-erhält, den sie nicht versteht, muss sie annehmen, dass der zugehörige
+Erhält eine IPsec-Implementierung eine Nachricht mit einem Fehlertypen,
+den sie nicht versteht, muss sie annehmen, dass der zugehörige
 Request vollständig fehlgeschlagen ist. Unbekannte Fehlertypen in einem
 Request beziehungsweise unbekannte Statustypen in einem Request oder
 Response müssen ignoriert und sollten protokolliert werden.
 
-=============================== ====
+=============================== =====
 NOTIFY Nachrichten: Fehlertypen Wert
-=============================== ====
+=============================== =====
 UNSUPPORTED_CRITICAL_PAYLOAD       1
 INVALID_IKE_SPI                    4
 INVALID_MAJOR_VERSION              5
@@ -588,9 +593,7 @@ TS_UNACCEPTABLE                   38
 INVALID_SELECTORS                 39
 TEMPORARY_FAILURE                 43
 CHILD_SA_NOT_FOUND                44
-=============================== ====
-
-Werte größer als 16383 kennzeichnen Statustypen.
+=============================== =====
 
 =============================== =====
 NOTIFY Nachrichten: Statustypen  Wert
@@ -616,27 +619,17 @@ Delete Payload
 
 Die Delete Payload enthält einen protokollspezifischen SA-Identifikator,
 den der Sender aus seiner SAD entfernt hat, der somit nicht mehr gültig
-ist.
-
-Bild :numref:`ipsec-ike-datagram-delete-payload` zeigt das Format der
-Delete Payload. Sie kann mehrere SPI enthalten, jedoch müssen alle für
-das gleiche Protokoll (IKE, ESP oder AH) sein. Verschiedene Protokolle
-dürfen nicht in einer Delete Payload gemischt werden. Es ist jedoch
-möglich, mehrere Delete Payloads in einem INFORMATIONAL Exchange zu
-senden von denen jede Payload SPIs für ein anderes Protokoll
-kennzeichnet.
-
-Die Löschung einer IKE-SA wird durch die Protokoll-ID 1 angezeigt, ohne
-SPIs. Das Löschen einer Child-SA wird durch die entsprechende
-Protokoll-ID (2 für AH, 3 für ESP) angezeigt zusammen mit den SPI die
-der Sender der Delete Payload für ankommende ESP- oder AH-Datagramme
-erwarten würde.
+ist. Ihr Payload-Type ist 42.
 
 .. figure:: /images/ipsec-ike-datagram-delete-payload.png
    :alt: Delete Payload aus RFC 7296, Abschnitt 3.11
    :name: ipsec-ike-datagram-delete-payload
 
    Delete Payload
+
+:numref:`ipsec-ike-datagram-delete-payload` zeigt
+das Format der Delete Payload,
+deren Felder folgende Bedeutung haben.
 
 Protocol ID (1 Oktett):
   1 für IKE, 2 für AH oder 3 für ESP.
@@ -653,18 +646,34 @@ Security Parameter Index(es) (variable Länge):
   Die Länge dieses Feldes ergibt sich aus den Feldern *SPI Size* und
   *Num of SPIs*.
 
-Der Payload-Typ für die Delete Payload ist 42.
+Eine Delete Payload kann mehrere SPI enthalten,
+jedoch müssen alle für das gleiche Protokoll (IKE, ESP oder AH) sein.
+Verschiedene Protokolle
+dürfen nicht in einer Delete Payload gemischt werden. Es ist jedoch
+möglich, mehrere Delete Payloads in einem INFORMATIONAL Exchange zu
+senden von denen jede Payload SPIs für ein anderes Protokoll
+kennzeichnet.
+
+Die Löschung einer IKE-SA wird durch die Protokoll-ID 1 angezeigt,
+ohne SPI.
+Das Löschen von Child-SA
+wird durch die entsprechende Protokoll-ID angezeigt,
+zusammen mit den SPI,
+welche der Sender der Delete Payload
+für ankommende ESP- oder AH-Datagramme erwarten würde.
 
 ESP-Datagramm
 -------------
 
-Bild :numref:`ipsec-esp-datagram` zeigt den Aufbau eines ESP-Datagramms.
-Der äußere Header, der ihm unmittelbar voran geht,
+:numref:`ipsec-esp-datagram` zeigt den Aufbau eines ESP-Datagramms.
+Der äußere Header, welcher ihm unmittelbar voran geht,
 enthält den Wert 50 in seinem Protokollfeld (IPv4)
 beziehungsweise Next-Header-Feld (IPv6, Extensions).
 
-Das Datagramm beginnt mit zwei 4-Byte-großen Feldern, denen die
-verschlüsselten Nutzlastdaten folgen. Diesen wiederum folgt das Padding,
+Das Datagramm beginnt mit einem ESP-Header,
+bestehend aus zwei 4-Byte-großen Feldern,
+denen die verschlüsselten Nutzlastdaten folgen.
+Diesen wiederum folgt das Padding,
 dessen Länge sowie das Next-Header-Feld. Das abschließende Feld mit dem
 Integrity-Check-Wert ist optional.
 
@@ -674,8 +683,8 @@ Integrity-Check-Wert ist optional.
 
    ESP-Datagramm
 
-Die Nutzlastdaten enthalten eine Struktur, die abhängig vom gewählten
-Verschlüsselungsalgorithmus und dessen Modus ist.
+Die Struktur der Nutzlastdaten ist abhängig vom gewählten
+Verschlüsselungsalgorithmus und dessen Modus.
 
 Der explizite ESP-Trailer besteht aus dem Padding, dessen Länge und dem
 Next-Header-Feld. Die Integritäts-Check-Daten zählen zum impliziten
@@ -685,9 +694,7 @@ Der Schutz der Integrität des Datagramms umfasst den SPI, die Sequenznummer,
 die Nutzlastdaten und den ESP-Trailer (explizit und implizit).
 
 Wenn die Vertraulichkeit des Datagramms geschützt wird, besteht der
-verschlüsselte Teil aus den Nutzlastdaten (mit Ausnahme der Daten für
-die kryptographische Synchronisierung, die darin enthalten sind) und dem
-expliziten ESP-Trailer.
+verschlüsselte Teil aus den Nutzlastdaten und dem expliziten ESP-Trailer.
 
 Bei der Nutzung von ESN werden nur die niederwertigen 32 Bit der
 64-bitigen Sequenznummer im ESP-Header des Datagramms übermittelt. Die
