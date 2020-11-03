@@ -116,7 +116,7 @@ Auf dem Laptop habe ich dafür die Installation für Ubuntu herangezogen.
 Für das Einrichten auf PC Engines APU
 habe ich zunächst Ubuntu LTS Server installiert
 und anschließend darauf die Cloud-Lösung von GNS3.
-Auf dem Laptop reicht die Bedienoberfläche.
+Auf dem Laptop reicht dann die Bedienoberfläche.
 
 .. [#]  https://docs.gns3.com/
 
@@ -169,7 +169,7 @@ wenn ich den Traffic an dem Interface mitschneiden will, über das das
 Frontend auf das Backend zugreift.
 Wenn ich hier keinen simulierten Switch dazwischenschalte,
 bekomme ich den Steuerungsverkehr von GNS3 in den Mitschnitt,
-so dass ich über den Mitschnitt das Backend lahm lege,
+so dass ich darüber das Backend lahm lege,
 wenn ich die Daten zu Wireshark ausleite.
 Ein Switch in der Simulation trennt die Steuerdaten von
 den Datagrammen an denen ich interessiert bin.
@@ -221,22 +221,20 @@ vielleicht TCP-Reset-Datagramme vom echten Rechner
 mit der getesteten Quell-Adresse sehen.
 Das ist eine normale Reaktion.
 
-Welche Software ist nun geeignet?
-
 .. index:: hping3
 
-Ich empfehle *hping3*.
+Eine Software, mit der sich eine solche Sonde einrichten lässt,
+ist *hping3*.
 Zwar lassen sich die meisten Datagramme auch mit anderen Programmen erzeugen,
 doch kenne ich keines,
 mit dem sich eine derartige Vielfalt von Datagrammen erzeugen lässt.
 Für die Testzwecke komme ich meist mit den folgenden Optionen aus:
 
 ``-n, --numeric``:
-  kein Versuch, symbolische Namen für Hostadressen aufzulösen.
+  Namen für Hostadressen nicht auflösen.
 
 ``-q, --quiet``:
-  es wird nichts ausgegeben außer der Zusammenfassung beim Starten und
-  am Ende.
+  nichts ausgeben außer der Zusammenfassung beim Start und am Ende.
 
 ``-I $if, --interface $if``:
   gibt die Netzwerkschnittstelle ($if) vor, an der das Datagramm
@@ -258,7 +256,7 @@ Für die Testzwecke komme ich meist mit den folgenden Optionen aus:
 ``-a $host, --spoof $host``:
   gibt eine gefälschte Absenderadresse für das gesendete Datagramm vor.
 
-``-H $proto, --ipproto``:
+``-H $ipproto``:
   setzt das IP-Protokoll bei Option ``-0``.
 
 ``-y, --dontfrag``:
@@ -269,7 +267,7 @@ Für die Testzwecke komme ich meist mit den folgenden Optionen aus:
   Verschiedene Optionen zum Spezifizieren der ICMP-Datagramme
   bei Verwendung von ``-1``.
 
-``--s $port, --baseport $port``:
+``-s $port, --baseport $port``:
   setzt den Quellport des ersten Datagramms. Hping3 erhöht die
   Nummer des Quellports bei jedem Datagramm um 1, wenn nicht zusätzlich die
   Option ``--keep`` angegeben wird.
@@ -299,7 +297,7 @@ Per Default sendet hping3 TCP-Datagramme. Um UDP-, ICMP- oder andere
 IP-Datagramme zu senden, muss ich eine der Optionen ``-2``, ``-1`` oder
 ``-0`` verwenden.
 
-Ich teste generell mit einem Datagramm, dass ich zur Peer-Seite schicke
+Generell teste ich mit einem Datagramm, dass ich zur Peer-Seite schicke
 und schaue im Paketmitschnitt nach, ob die Antwort meinen Erwartungen
 entspricht.
 
@@ -307,7 +305,7 @@ Mit TCP ist das einfach.
 Weil die ersten Datagramme immer gleich aussehen,
 brauche ich nur die Adressen und Ports variieren.
 In meinem Test-Datagramm sind nur das SYN-Flag und einige Optionen,
-wie z.B. die MSS gesetzt.
+wie z.B. MSS gesetzt.
 Der Aufruf für hping3 sieht wie folgt aus::
 
    hping3 -a $saddr -p $dport -S --tcp-mss 1460 $daddr
