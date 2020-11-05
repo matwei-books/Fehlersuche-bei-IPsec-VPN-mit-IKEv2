@@ -171,7 +171,7 @@ ich die Namen der anderen Dateien angezeigt.
 .. .. figure:: /images/pfsense-logging.png
    :alt: Einstellungen für Logging
 
-Ob Logs zu anderen Server geschickt werden und wenn ja, zu welchen,
+Ob Logs zu anderen Servern geschickt werden und wenn ja, zu welchen,
 bekomme ich im Web-Interface über **Status > System Logs > Settings**
 heraus. Dort schaue ich bei **Remote Logging Options** nach.
 
@@ -205,6 +205,8 @@ dort gibt es auch Hilfe zur Interpretation der Logzeilen.
 .. figure:: /images/pfsense-packet-capture.png
    :alt: Paketmitschnitt im Web-Interface
 
+   Paktetmitschnitt im Web-Interface
+
 Paketmitschnitte
 ----------------
 
@@ -233,10 +235,12 @@ Konfiguration analysieren
 -------------------------
 
 Die Konfiguration der pfSense kann ich als Textdatei *config.xml* im
-XML-Format bekommen.
+XML-Format herunterladen.
 
 .. figure:: /images/pfsense-backup-config.png
    :alt: Download der Konfiguration
+
+   Download der Konfiguration
 
 Im Web-Interface gehe ich zu **Diagnostics > Backup & Restore > Backup &
 Restore**. Dort kann ich die Konfiguration herunterladen oder mit den

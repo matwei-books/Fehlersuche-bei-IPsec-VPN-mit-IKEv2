@@ -7,6 +7,9 @@ Es ist mir klar, dass dieser Teil des Buches am schnellsten veralten wird.
 Andererseits sind mir im Laufe der Zeit
 etliche Uralt-Installationen begegnet,
 die aus den verschiedensten Gründen weiter betrieben wurden.
+Daher ist es durchaus möglich,
+dass die eine oder andere Information aus diesem Kapitel
+auch in ein paar Jahren noch Bestand haben wird.
 
 Ich werde nicht
 detailliert auf die Konfiguration von konkreten IPsec-VPN eingehen
@@ -17,27 +20,26 @@ die ich als wesentlich für die Fehlersuche erachte:
 
    Hier gibt es prinzipiell zwei Möglichkeiten:
 
-   * Ich betrachte die Logs direkt auf der Konsole, in der ich angemeldet bin.
-     Gibt es hier keine Möglichkeiten zur Filterung,
-     ist es sinnvoll,
-     die Konsolensitzung in einer Textdatei zu protokollieren,
-     um die Logs zu analysieren.
+   a. Ich betrachte die Logs direkt auf der Konsole, in der ich angemeldet bin.
+      Gibt es hier keine Möglichkeiten zur Filterung,
+      ist es sinnvoll,
+      die Konsolensitzung in einer Textdatei zu protokollieren,
+      um die Logs zu analysieren.
 
-   * Die Logs werden zu einem Logserver ausgeleitet.
-     Dann muss ich sie von diesem Server abholen.
+   b. Die Logs werden zu einem Logserver ausgeleitet.
+      Dann muss ich sie von diesem Server abholen.
 
 2. **Wie komme ich an die Debug-Informationen und wie interpretiere ich diese?**
 
    Oft landen die Debug-Informationen, wenn eingeschaltet, in den Logs.
    Dann kann ich sie zusammen mit diesen abholen.
-
    Manchmal kann ich sie direkt in der Terminal-Sitzung betrachten,
    dann gilt das gleiche wie oben für die Logs in der Konsolensitzung.
    Da beim Debugging sehr viele Informationen anfallen, will ich diese,
    wenn möglich,
    gleich bei der Entstehung filtern.
 
-3. **Kann ich einen Paketmitschnitt auf dem VPN-Gateway machen und wenn ja, wie?**
+3. **Kann ich Paketmitschnitte auf dem VPN-Gateway machen und wenn ja, wie?**
 
    Aus den anderen Kapiteln dürfte klar geworden sein, dass ich
    Paketmitschnitte als ultimative Bestätigung oder Widerlegung für

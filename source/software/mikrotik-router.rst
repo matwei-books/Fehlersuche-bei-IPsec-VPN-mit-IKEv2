@@ -120,7 +120,7 @@ Sind die interessanten Lognachrichten nicht im Hauptspeicher zu finden,
 muss ich auf andere Art und Weise auf die Logs zugreifen.
 
 Eine Möglichkeit ist, die Logs zu einem Syslog-Server zu senden
-und dann bei diesem abholen.
+und dann bei diesem abzuholen.
 Um zum Syslog-Server mit Adresse a.b.c.d zu protokollieren, verwende
 ich die folgenden Befehle::
 
@@ -149,12 +149,12 @@ Weiterhin kann ich die Logs in eine Datei schreiben lassen
 und diese Datei via SCP für die Untersuchung abholen.
 Die Befehle dazu sind::
 
-  /system/logging/action
+  /system logging action
   add action=file name=vpn.log
   /system logging topic
   add action=file topics=ipsec,debug
 
-Anschauen kann ich die Dateien mit dem Befehl::
+Welche Dateien es gibt sehe ich mit dem Befehl::
 
   /file print
 
@@ -217,7 +217,7 @@ Besonderheiten
 
 Verwendet man mehrere IPsec-SA mit unterschiedlichen Traffic-Selektoren,
 sollte in der Policy ``level=unique`` konfiguriert werden,
-damit der gesendete Traffic an die richtige IPsec-SA gesendet wird.
+damit der Traffic an die richtige IPsec-SA gesendet wird.
 Wird das vergessen
 und die Gegenstelle akzeptiert keinen Traffic für die falsche SA,
 dann funktioniert zwar ein Teil des VPN

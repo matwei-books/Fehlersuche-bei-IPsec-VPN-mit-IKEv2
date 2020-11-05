@@ -202,7 +202,8 @@ Dabei achte ich auf die Message-ID (MID).
 
 Bei der Interpretation der Debugausgaben ziehe ich
 meine Kenntnisse über das IKE-Protokoll zu Rate,
-die im Kapitel ref:`grundlagen/ikev2:IPsec und IKEv2` dargelegt sind.
+die im Kapitel :ref:`ikev2/nachrichten:IKEv2 Nachrichten`
+und im Anhang :ref:`anhang/datagram-header:Datagramm-Header` dargelegt sind.
 Da sich die Debugmeldungen von Version zu Version unterscheiden,
 werde ich hier nicht detaillierter darauf eingehen.
 Am schnellsten wird man damit vertraut,
