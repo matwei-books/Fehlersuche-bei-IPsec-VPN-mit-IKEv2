@@ -18,3 +18,11 @@ Dieses Buch soll ein Reisebegleiter sein und über die größten Klippen hinweg 
 Dazu vermittelt es die grundlegenden Zusammenhänge bei IPsec-VPN, zeigt mögliche Probleme auf und woran diese zu erkennen sind beziehungsweise, wie sie sich von ähnlichen Problemen unterscheiden lassen.
 Es beschreibt Probleme, die einem funktionsfähigen IPsec-VPN entgegenstehen und Wege, die Probleme zu identifizieren, um sie zu lösen.
 
+Dieses Werk ist lizensiert unter den Bedingungen der
+[Creative Commons Namensnennung-Nicht kommerziell-Share Alike 4.0 International Public License][cc-by-nc-sa].
+
+[![CC BY-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
+
+[cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
+[cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
+
