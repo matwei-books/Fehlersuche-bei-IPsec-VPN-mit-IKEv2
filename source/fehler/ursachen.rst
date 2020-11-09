@@ -38,6 +38,8 @@ und natürlich alles,
 was ich über das Problem herausgefunden habe,
 um die Behebung zu beschleunigen.
 
+.. index:: AH, ESP
+
 Bei einer Unterbrechung zwischen den beiden VPN-Gateways ist das
 einfach: ich will UDP Port 500 und Port 4500, ESP und vielleicht AH,
 falls ich das überhaupt verwende.

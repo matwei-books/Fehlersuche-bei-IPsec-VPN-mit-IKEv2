@@ -599,6 +599,8 @@ gesendeten Payloads bestimmt.
 Eine SA löschen
 ...............
 
+.. index:: AH, ESP
+
 ESP- und AH-SA existieren immer paarweise, mit einer SA in jeder
 Richtung. Wenn eine SA geschlossen wird, müssen immer beide SA des
 Paares geschlossen (das heißt gelöscht) werden.

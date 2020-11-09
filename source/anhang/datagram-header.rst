@@ -256,6 +256,8 @@ als auch Authenticated-Encryption-Chiffren vorschlagen,
 muss dann aber verschiedene Proposals verwenden,
 da diese nicht im selben Proposal gemischt werden können.
 
+.. index:: AH, ESP
+
 Jede Proposal-Struktur wird gefolgt von einer oder mehreren Transform-Strukturen.
 Deren Anzahl wird durch das Protokoll bestimmt.
 AH hat im Allgemeinen zwei Transforms: Extended Sequence Numbers (ESN) und den Algorithmus zur Integritätsprüfung.
@@ -319,6 +321,8 @@ Proposal Num (1 Oktett):
   des vorhergehenden. Wenn ein Proposal angenommen wird,
   muss die zurückgesendete Nummer der des akzeptierten Proposals entsprechen.
 
+.. index:: Protocol ID
+
 Protocol ID (1 Oktett):
   Spezifiziert das IPsec-Protokoll für das Proposal.
 
@@ -372,6 +376,8 @@ RESERVED (1 Oktett):
 Transform Length:
   Die Länge der Transform-Unterstruktur in Oktetts inklusive Header und
   Attributes.
+
+.. index:: AH, ESP
 
 Transform Type (1 Oktett):
   Die Art des Transforms.
@@ -528,7 +534,7 @@ Bedeutung eines Requests zu modifizieren.
 :numref:`ipsec-ike-datagram-notify-payload` zeigt eine Notify Payload.
 Die Felder haben folgende Bedeutung:
 
-.. index:: INVALID_SELECTORS, REKEY_SA, CHILD_SA_NOT_FOUND
+.. index:: INVALID_SELECTORS, REKEY_SA, CHILD_SA_NOT_FOUND, Protocol ID
 
 Protocol ID (1 Oktett):
   Ist eine SPI angegeben,
