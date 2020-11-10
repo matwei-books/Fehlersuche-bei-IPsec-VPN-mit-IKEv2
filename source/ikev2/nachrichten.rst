@@ -314,6 +314,9 @@ Weitere Informationen zu EAP finden sich in RFC7296 Abschnitt 2.16.
 Fehler beim IKE_AUTH-Exchange
 .............................
 
+.. index:: AUTHENTICATION_FAILED
+   single: Fehlermeldung; AUTHENTICATION_FAILED
+
 Jeder Fehler bei IKE_AUTH, der dazu führt, dass die Authentisierung
 fehlschlägt, sollte zu einer *AUTHENTICATION_FAILED* Nachricht führen.
 Tritt der Fehler beim Responder auf, so schickt dieser die Nachricht
@@ -336,10 +339,6 @@ deswegen nicht die Authentisierung scheitern lassen. Jedoch ist es
 möglich, dass der Initiator anschließend die IKE-SA mit einer
 DELETE-Nachricht löscht.
 
-Nur bei den folgenden drei Benachrichtigungen während eines
-IKE_AUTH-Austausches beziehungsweise im unmittelbar folgenden
-INFORMATIONAL-Austausch wird die IKE-SA nicht erzeugt:
-
 .. index:: UNSUPPORTED_CRITICAL_PAYLOAD
    single: Fehlermeldung; UNSUPPORTED_CRITICAL_PAYLOAD
 
@@ -348,6 +347,10 @@ INFORMATIONAL-Austausch wird die IKE-SA nicht erzeugt:
 
 .. index:: AUTHENTICATION_FAILED
    single: Fehlermeldung; AUTHENTICATION_FAILED
+
+Nur bei den folgenden drei Benachrichtigungen während eines
+IKE_AUTH-Austausches beziehungsweise im unmittelbar folgenden
+INFORMATIONAL-Austausch wird die IKE-SA nicht erzeugt:
 
 * UNSUPPORTED_CRITICAL_PAYLOAD
 * INVALID_SYNTAX

@@ -579,6 +579,8 @@ Request vollständig fehlgeschlagen ist. Unbekannte Fehlertypen in einem
 Request beziehungsweise unbekannte Statustypen in einem Request oder
 Response müssen ignoriert und sollten protokolliert werden.
 
+.. index:: Fehlermeldung
+
 =============================== =====
 NOTIFY Nachrichten: Fehlertypen Wert
 =============================== =====

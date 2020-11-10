@@ -265,6 +265,8 @@ recht einfach separieren kann.
 Habe ich nur ein oder sehr wenige aktive VPN auf dem Gateway,
 kann ich mir das Ausfiltern eventuell sparen.
 
+.. index:: BSD
+
 Bei den Debugmeldungen in der Standardausgabe fehlen oft die
 Zeitstempel. Diese kann ich aushilfsweise erzeugen, wenn die Konsole
 Befehle entgegennimmt und ich mit *date* (BSD, Linux) oder *show clock*

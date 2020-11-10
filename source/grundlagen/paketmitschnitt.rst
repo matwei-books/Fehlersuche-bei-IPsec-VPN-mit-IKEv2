@@ -123,6 +123,8 @@ die nötigen Befehle kennen. Auf der Kommandozeile sind das zum Beispiel
 
     diag sniff packet ...
 
+.. index:: BSD
+
 * bei Checkpoint, GeNUScreen, Linux- oder BSD-Firewalls mit VPN::
 
     tcpdump -w filename ...
@@ -401,6 +403,8 @@ verwende ich je nach Bedarf noch die folgenden Optionen:
 
   Die Option ``-v`` kann ich mehrfach, bis zu dreimal, angeben um noch
   mehr Informationen aus dem Datagramm zu erhalten.
+
+.. index:: ASCII
 
 ``-X`` /``-XX``
   zeigt den Inhalt des Datagramms in Hex und ASCII an,

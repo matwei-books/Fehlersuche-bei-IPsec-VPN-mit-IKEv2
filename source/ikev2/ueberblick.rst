@@ -31,7 +31,7 @@ Insgesamt setzt sich IPsec aus drei Protokollen zusammen
   Die Aufgabe von ISAKMP ist das Aushandeln der kryptographischen Verfahren und
   Schlüssel für die Security Associations (SA).
 
-.. index:: ! Authentication Header
+.. index:: Authentication Header
    see: AH; Authentication Header
 
 * *Authentication Header* (AH), beschrieben in RFC4302 (siehe

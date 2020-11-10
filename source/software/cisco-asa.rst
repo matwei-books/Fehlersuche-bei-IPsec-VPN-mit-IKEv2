@@ -18,13 +18,13 @@ zur Konfiguration:
 * die Kommandozeile, die derjenigen in Cisco-Routern und Switches
   ähnelt,
 
-.. index:: ! ASDM
+.. index:: ASDM
 
 * den ASDM (Adaptive Security Device Manager), eine Java-Anwendung die
   direkt auf dem Gerät abgelegt ist und via Webbrowser gestartet werden
   kann,
 
-.. index:: ! CSM
+.. index:: CSM
 
 * den CSM (Cisco Security Manager), mit dem mehrere ASA verwaltet werden
   können.
@@ -147,6 +147,8 @@ Mit ``$if`` gebe ich die Schnittstelle an, zu der die Logs rausgehen,
 mit ``$address`` die Adresse des Logservers.
 Wenn nötig kann ich weitere Informationen zum Logserver bereitstellen,
 näheres findet sich in der Dokumentation zum Logging.
+
+.. index:: ASDM
 
 Um auf den ASDM oder die (SSH-)Konsole zu loggen,
 konfiguriere ich zusätzlich die folgenden Befehle::

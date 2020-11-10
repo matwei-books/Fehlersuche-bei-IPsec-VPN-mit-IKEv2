@@ -8,15 +8,13 @@
 pfSense
 =======
 
-.. index:: StrongSwan
+.. index:: BSD, StrongSwan
 
 *pfSense* ist eine Netzwerk-Firewall-Distribution,
 die auf FreeBSD als Betriebssystem basiert
 und StrongSwan [#]_ für IPsec verwendet.
 
 .. [#] https://www.strongswan.org/
-
-.. index:: RouterOS
 
 Für die Konfiguration steht ein Web-Interface zur Verfügung,
 mit dem ich die enthaltenen Komponenten konfigurieren kann.
