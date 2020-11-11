@@ -77,6 +77,8 @@ Minor Version (4 Bits):
   müssen die Unterversion auf 0 setzen
   und in empfangenen Nachrichten ignorieren.
 
+.. index:: CREATE_CHILD_SA
+
 Exchange Type (1 Oktett):
   zeigt den Typ der Nachrichten an.
   Die erlaubten Werte nach RFC 7296 sind:
@@ -264,6 +266,8 @@ AH hat im Allgemeinen zwei Transforms: Extended Sequence Numbers (ESN) und den A
 ESP hat im Allgemeinen drei: ESN, den Verschlüsselungsalgorithmus und den Algorithmus zur Integritätsprüfung.
 Bei IKE sind es vier: eine Diffie-Hellman-Gruppe, ein Algorithmus zur Integritätsprüfung, ein PRF-Algorithmus und ein Verschlüsselungsalgorithmus.
 
+.. index:: CBC
+
 Gibt es mehrere Transforms vom gleichen Typ, so gilt im Proposal die ODER-Verknüpfung der einzelnen Transforms.
 Gibt es mehrere Transforms mit verschiedenem Typ, so gilt die UND-Verknüpfung der einzelnen Transforms.
 Zum Beispiel bietet ein Proposal für ESP
@@ -413,6 +417,8 @@ Für Transform-Typ 1 (Encryption Algorithm, ENCR)
 sind die Transform-ID in nachfolgender Tabelle aufgelistet.
 Die Werte entsprechen dem Stand von RFC 7296.
 
+.. index:: CBC
+
 ============== ====== =============================
 Name           Nummer Definiert in
 ============== ====== =============================
@@ -477,9 +483,14 @@ NONE                0
 8192-bit MODP Group 18      RFC3526 :cite:`RFC3526`
 =================== ======= =======================
 
-Obwohl ESP und AH einen Diffie-Hellman-Austausch nicht direkt enthalten,
-kann dieser für die Child-SA ausgehandelt werden. Damit wird Perfect
-Forward Secrecy für die Child-SA-Schlüssel gewährleistet.
+.. index:: Perfect Forward Secrecy
+   see: PFS; Perfect Forward Secrecy
+   single: Child-SA; PFS
+
+Obwohl ESP und AH einen Diffie-Hellman-Austausch nicht selbst enthalten,
+kann dieser in IKE für die Child-SA ausgehandelt werden.
+Damit wird Perfect Forward Secrecy (PFS)
+für die Child-SA-Schlüssel gewährleistet.
 
 Die aufgelisteten MODP Diffie-Hellman-Gruppen benötigen keine speziellen
 Gültigkeitstests. Andere DH-Gruppen können zusätzliche Tests benötigen, um
@@ -534,7 +545,10 @@ Bedeutung eines Requests zu modifizieren.
 :numref:`ipsec-ike-datagram-notify-payload` zeigt eine Notify Payload.
 Die Felder haben folgende Bedeutung:
 
-.. index:: INVALID_SELECTORS, REKEY_SA, CHILD_SA_NOT_FOUND, Protocol ID
+.. index:: INVALID_SELECTORS, REKEY_SA, CHILD_SA_NOT_FOUND, Protocol ID,
+   single: Fehlermeldung; CHILD_SA_NOT_FOUND
+
+.. index:: Child SA
 
 Protocol ID (1 Oktett):
   Ist eine SPI angegeben,
@@ -579,7 +593,7 @@ Request vollständig fehlgeschlagen ist. Unbekannte Fehlertypen in einem
 Request beziehungsweise unbekannte Statustypen in einem Request oder
 Response müssen ignoriert und sollten protokolliert werden.
 
-.. index:: Fehlermeldung
+.. index:: Fehlertyp, CHILD_SA_NOT_FOUND
 
 =============================== =====
 NOTIFY Nachrichten: Fehlertypen Wert
@@ -602,6 +616,8 @@ INVALID_SELECTORS                 39
 TEMPORARY_FAILURE                 43
 CHILD_SA_NOT_FOUND                44
 =============================== =====
+
+.. index:: COOKIE
 
 =============================== =====
 NOTIFY Nachrichten: Statustypen  Wert
@@ -661,6 +677,10 @@ dürfen nicht in einer Delete Payload gemischt werden. Es ist jedoch
 möglich, mehrere Delete Payloads in einem INFORMATIONAL Exchange zu
 senden von denen jede Payload SPIs für ein anderes Protokoll
 kennzeichnet.
+
+.. index::
+   single: Child-SA; Löschen
+   single: IKE-SA; Löschen
 
 Die Löschung einer IKE-SA wird durch die Protokoll-ID 1 angezeigt,
 ohne SPI.

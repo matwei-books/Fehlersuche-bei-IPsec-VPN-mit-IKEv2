@@ -103,7 +103,8 @@ Paketmitschnitt auf dem VPN-Gateway
 Will ich Datagramme direkt auf dem VPN-Gateway mitschneiden, muss ich
 die nötigen Befehle kennen. Auf der Kommandozeile sind das zum Beispiel
 
-.. index:: Cisco ASA
+.. index::
+   single: Paketmitschnitt; Cisco ASA
 
 * bei Cisco ASA::
 

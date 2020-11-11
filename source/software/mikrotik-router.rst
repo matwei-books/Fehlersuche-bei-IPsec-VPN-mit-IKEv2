@@ -35,6 +35,9 @@ oder den Umweg über die Default-Adresse gehen.
 Mit dem Windows-Emulator Wine konnte ich das leider nicht,
 ansonsten funktioniert WinBox mit Wine auf einem Linux-Rechner.
 
+.. index::
+   pair: CLI; MikroTik
+
 Die Konfiguration läuft auf allen drei Wegen ähnlich ab.
 Hier konzentriere ich mich auf das CLI,
 dass ich über die Konsole oder SSH erreichen kann.
@@ -65,6 +68,9 @@ Alternativ kann ich auch die verkürzte Schreibweise nehmen::
   /ip ipsec
   remote-peers print
   installed-sa print
+
+.. index::
+   single: Child-SA; Traffic-Selektoren
 
 Leider zeigt ``installed-sa print`` die Traffic-Selektoren der Child-SA
 nicht an.

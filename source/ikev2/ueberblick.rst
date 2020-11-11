@@ -56,7 +56,7 @@ Insgesamt setzt sich IPsec aus drei Protokollen zusammen
    Komponenten von IPsec
 
 .. index:: ! Child-SA
-   see: IPsec SA; Child-SA
+   see: IPsec-SA; Child-SA
 
 Alle drei Protokolle nutzen Security Associations (SA),
 um die verwendeten kryptographischen Verfahren, Parameter und Schlüssel

@@ -39,6 +39,9 @@ Wenn es gilt,
 Konfigurationen auf verschiedenen Geräten konsistent zu halten,
 kann der CSM seine Vorteile ausspielen.
 
+.. index::
+   pair: CLI; Cisco ASA
+
 Bei den nachfolgenden Betrachtungen gehe ich auf die
 Befehle der Kommandozeile ein, für die ich meist höhere Rechte benötige.
 Das heißt, nach dem Anmelden gebe ich ``enable`` ein, falls mein Zugang
@@ -94,6 +97,8 @@ aus der zweiten Zeile der Ausgabe des Befehls::
 
   show vpn-db detail l2l filter name $peeraddress
 
+.. index:: Child-SA
+
 Um erste Informationen über ein VPN zu bekommen,
 wie zum Beispiel offene Child-SA oder ob Traffic hindurch geht,
 verwende ich ebenfalls diesen Befehl - hier in der Kurzform::
@@ -107,6 +112,9 @@ oder einen zweiten::
 Der erste Befehl ist etwas übersichtlicher,
 der zweite Befehl enthält dafür Informationen,
 die ich bei tiefergehender Analyse benötige.
+
+.. index::
+   pair: Cisco ASA; Systemlogs
 
 Systemlogs und Debug-Informationen
 ----------------------------------
@@ -213,6 +221,9 @@ Am schnellsten wird man damit vertraut,
 wenn man ein paar funktionierende VPN beobachtet,
 um zu sehen,
 wie die Meldungen aussehen wenn alles in Ordnung ist.
+
+.. index::
+   pair: Cisco ASA; Paketmitschnitt
 
 Paketmitschnitte
 ----------------
@@ -376,6 +387,9 @@ leistet in etwa das gleiche.
 Als ich das Perl-Skript schrieb kannte ich ``text2pcap`` noch nicht.
 
 .. [#] https://metacpan.org/release/File-PCAP
+
+.. index::
+   pair: Cisco ASA; Konfiguration analysieren
 
 Konfiguration analysieren
 -------------------------

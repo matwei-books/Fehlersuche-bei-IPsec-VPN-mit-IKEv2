@@ -31,6 +31,8 @@ Konfigurationsdateien, wenn diese als Text vorliegen.
    war die Zeit für die Bedienung der graphischen Benutzeroberfläche.
    Ganz abgesehen von den Macken die manche unausgereifte Software hat.
 
+   .. index:: CSV
+
    In einem Fall änderten wir notgedrungen unseren Workflow so ab,
    dass wir alle interessanten Logzeilen nach Excel exportieren,
    in Excel genau die Spalte,
@@ -324,6 +326,8 @@ mit ``+``.
 Davor und dahinter werden drei Zeilen,
 die in beiden Dateien gleich sind,
 ohne Markierung angezeigt.
+
+.. index:: CRLF
 
 Unterscheiden sich zwei Dateien in der Anzahl oder Art der Leerzeichen,
 zum Beispiel weil eine Datei Zeilenende nach MS-DOS-Konvention (CRLF) und

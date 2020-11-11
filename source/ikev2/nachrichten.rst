@@ -112,6 +112,8 @@ IKE_SA_INIT-Exchange.
 
    Einfacher IKE_SA_INIT-Exchange
 
+.. index:: COOKIE
+
 Dabei stehen die Abkürzungen für folgende Informationen:
 
 *HDR*
@@ -150,7 +152,7 @@ nicht authentisiert sind, sollte der Initiator nicht unmittelbar auf die
 Fehlerbenachrichtigung reagieren, es sei denn, sie enthält einen der
 oben genannten korrigierenden Hinweise.
 
-.. index:: COOKIE
+.. index:: ! COOKIE
 
 COOKIE
 ......
@@ -265,10 +267,12 @@ INVALID_SYNTAX:
 IKE_AUTH
 --------
 
+.. index:: Child-SA
+
 Der IKE_AUTH-Exchange ist der zweite Nachrichtenaustausch einer
 IKEv2-Sitzung und hat die Message-ID 1. In diesem Austausch
 authentisieren sich die beiden VPN-Peers und bauen die erste und
-manchmal einzige ESP- oder AH-SA auf.
+manchmal einzige ESP- oder AH-Child-SA auf.
 
 .. figure:: /images/ike-auth.png
    :alt: Sequenzdiagramm für IKE_AUTH-Exchange
@@ -384,6 +388,8 @@ fehlschlug und die IKE-SA angelegt wurde:
 
 .. index:: ! CREATE_CHILD_SA
    single: Nachrichten; CREATE_CHILD_SA
+   single: Child-SA; Erzeugen
+   pair: Child-SA; Rekeying
 
 CREATE_CHILD_SA
 ---------------

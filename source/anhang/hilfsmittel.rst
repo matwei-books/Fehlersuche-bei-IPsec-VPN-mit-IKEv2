@@ -187,6 +187,8 @@ Anwender nach dem Rechten zu schauen.
 Aber auch das reißt die Anwender aus ihrer täglichen Arbeit
 und erfordert entsprechende Koordination.
 
+.. index:: Child-SA
+
 Bei Cisco ASA habe ich die Möglichkeit, mit dem Befehl ``packet-tracer``
 die benötigten Datagramme zu simulieren und damit auch den Aufbau des
 VPN und der benötigten Child-SA zu initiieren. Allerdings wird dabei

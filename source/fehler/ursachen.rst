@@ -157,6 +157,9 @@ Lediglich von der Cisco ASA ist mir bekannt, dass sie Paketmitschnitte
 (*type isakmp*) schreiben kann, die die entschlüsselten IKE-Datagramme
 enthalten.
 
+.. index::
+   single: Child-SA; falsche Parameter
+
 Falsche Parameter für Child-SA
 ..............................
 
@@ -187,6 +190,10 @@ Auf der Gegenseite werden die Datagramme dann verworfen.
 Zumindest finden sich in diesem Fall auf der ankommenden Seite
 eindeutige Hinweise in den Logs.
 Die Abhilfe ist unterschiedlich, je nach Software.
+
+.. index::
+   single: PFS; fehlendes
+   single: Child-SA; Rekeying
 
 Fehlendes PFS auf einer Seite
 .............................

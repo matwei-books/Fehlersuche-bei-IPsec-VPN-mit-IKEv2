@@ -30,6 +30,7 @@ kann ich einfach Status-Informationen verschiedenen SA zuordnen
 und auch die Logs lassen sich sehr gut nach einzelnen VPN filtern.
 
 .. index:: pfSense; Kommandozeile
+   pair: CLI; pfSense
 
 Auf die Kommandozeile komme ich entweder über die Konsole des Rechners,
 auf dem pfSense läuft oder nach Anmeldung via SSH.
@@ -135,6 +136,8 @@ Um sich einen Überblick zu verschaffen verwendet man den Befehl::
 oder::
 
   ipsec statusall
+
+.. index:: Child-SA
 
 Im Web-Interface geht man nach **Status > IPsec**
 und kann im Tab **Overview** VPN zu den Peers verbinden oder trennen.

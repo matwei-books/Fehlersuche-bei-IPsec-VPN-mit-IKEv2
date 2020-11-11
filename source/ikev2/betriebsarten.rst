@@ -1,4 +1,7 @@
 
+.. index::
+   single: Child-SA; Modus
+
 Betriebsarten
 =============
 
