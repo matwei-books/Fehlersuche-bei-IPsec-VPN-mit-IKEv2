@@ -422,6 +422,8 @@ ein Pipe-Symbol (``|``),
 ein weiteres Leerzeichen und den Filter an.
 Auch hier habe ich mehrere Möglichkeiten:
 
+.. index:: grep
+
 ``| include $muster``:
   zeigt nur die Zeilen an, die $muster enthalten.
 

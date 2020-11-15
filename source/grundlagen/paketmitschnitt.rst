@@ -163,6 +163,8 @@ Am häufigsten verwende ich tcpdump mit den folgenden Optionen::
 -s len
   Maximalgröße jedes einzelnen mitgeschnittenen Datagramms
 
+.. index:: DNS
+
 Keine Adressen und Portnummern zu übersetzen spart im einfachsten Fall
 Zeit, insbesondere bei den Adressen erspare ich mir damit zusätzlichen
 DNS-Datenverkehr.
@@ -346,6 +348,8 @@ Kommandozeile des Gerätes, wo er angefertigt wurde.
 * Bei Cisco ASA::
 
     show capture name ...
+
+.. index:: Fortinet
 
 * Bei Fortinet habe ich die Ausgabe direkt in der SSH-Sitzung, in der ich
   den Paketmitschnitt gestartet habe.

@@ -203,6 +203,8 @@ INVALID_KE_PAYLOAD
 
    IKE_SA_INIT-Exchange mit INVALID_KE_PAYLOAD
 
+.. index:: DH-Gruppe
+
 Die Key-Exchange-Payload im IKE_SA_INIT-Request enthält den öffentlichen
 Diffie-Hellman-Wert und die Diffie-Hellman-Gruppennummer.
 Die Nummer der DH-Gruppe
@@ -243,6 +245,8 @@ INVALID_MAJOR_VERSION:
   Das kann man durch Nachfragen klären.
 
 .. index:: INVALID_SYNTAX
+
+.. index:: DH-Gruppe; Tests
 
 INVALID_SYNTAX:
   RFC6989 :cite:`RFC6989` behandelt zusätzliche Diffie-Hellman-Tests für IKEv2.
@@ -308,6 +312,8 @@ IKE_AUTH-Austausch funktioniert hat. Eine Ausnahme sind Paketmitschnitte
 vom Type ``isakmp`` bei Cisco ASA (siehe dazu den Abschnitt
 :ref:`Paketmitschnitt auf dem VPN-Gateway`).
 
+.. index:: EAP
+
 In den meisten Fällen reichen
 zwei Datagramme für den IKE_AUTH-Austausch.
 Wird hingegen EAP verwendet,
@@ -331,6 +337,12 @@ senden.
 .. raw:: latex
 
    \clearpage
+
+.. index:: FAILED_CP_REQUIRED
+   single: Fehlermeldung; FAILED_CP_REQUIRED
+
+.. index:: NO_PROPOSAL_CHOSEN
+   single: Fehlermeldung; NO_PROPOSAL_CHOSEN
 
 Ist die Authentisierung erfolgreich, wird die IKE-SA aufgebaut. Jedoch
 kann das Erzeugen der Child-SA oder die Anforderung von
@@ -365,9 +377,6 @@ fehlschlägt, wird die IKE-SA trotzdem erzeugt. Die folgenden
 Fehlermeldungen deuten darauf hin, dass nur das Erzeugen der Child-SA
 fehlschlug und die IKE-SA angelegt wurde:
 
-.. index:: NO_PROPOSAL_CHOSEN
-   single: Fehlermeldung; NO_PROPOSAL_CHOSEN
-
 .. index:: TS_UNACCEPTABLE
    single: Fehlermeldung; TS_UNACCEPTABLE
 
@@ -376,9 +385,6 @@ fehlschlug und die IKE-SA angelegt wurde:
 
 .. index:: INTERNAL_ADDRESS_FAILURE
    single: Fehlermeldung; INTERNAL_ADDRESS_FAILURE
-
-.. index:: FAILED_CP_REQUIRED
-   single: Fehlermeldung; FAILED_CP_REQUIRED
 
 * NO_PROPOSAL_CHOSEN
 * TS_UNACCEPTABLE
@@ -415,6 +421,8 @@ auch das Rekeying zurückgewiesen werden.
 
 .. index:: INVALID_KE_PAYLOAD
    single: Fehlermeldung; INVALID_KE_PAYLOAD
+
+.. index:: DH-Gruppe; CREATE_CHILD_SA
 
 Optional kann mit den CREATE_CHILD_SA-Nachrichten frisches
 Schlüsselmaterial mit einer KE-Payload gesendet werden. In diesem Fall
@@ -539,6 +547,8 @@ Fehlermeldungen bei CREATE_CHILD_SA
 ...................................
 
 .. index:: INVALID_SYNTAX
+
+.. index:: DH-Gruppe; Tests
 
 INVALID_SYNTAX:
   RFC6989 behandelt zusätzliche Diffie-Hellman-Tests für IKEv2.

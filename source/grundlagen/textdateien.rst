@@ -203,7 +203,7 @@ mit dem Buchstaben ``h`` oder ``H``.
 
    \clearpage
 
-.. index:: grep
+.. index:: ! grep
 
 Grep
 ----

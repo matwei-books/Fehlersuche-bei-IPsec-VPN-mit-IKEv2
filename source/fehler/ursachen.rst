@@ -373,6 +373,8 @@ Für den Peer gilt das gleiche auf seiner Seite.
 Das muss ich wissen und gegebenenfalls bei der Fehlersuche
 berücksichtigen.
 
+.. index:: ESP
+
 Wichtig ist insbesondere bei policy-based VPN, dass die Adressen der
 Datagramme, die verschlüsselt im ESP-Tunnel gesendet werden, genau zu
 den für die Child-SA ausgehandelten Traffic-Selektoren passen.
@@ -597,6 +599,8 @@ zu ersetzen.
 Das gelingt jedoch nicht, wenn ich keine Kontrolle über dieses Segment
 habe oder wenn mir die Mittel fehlen.
 
+.. index:: Flow
+
 Der nächste Gedanke wäre, am VPN-Gateway die MTU entsprechend zu
 reduzieren, so dass dieses automatisch mit niedrigeren Werten arbeitet.
 Das beeinflusst dann allerdings alle VPN dieses Gateways und die
@@ -678,6 +682,8 @@ mit nichtöffentlichen Adressen des VPN-Gateways terminieren.
 Bei der Verwendung von öffentlichen Adressen
 kann ich jedoch das VPN im Transportmodus betreiben
 und ein paar Byte Overhead pro Datagramm sparen.
+
+.. index:: GRE
 
 Diese Einsparung kann allerdings zu Problemen führen,
 wenn der Tunnel nicht aufgebaut ist

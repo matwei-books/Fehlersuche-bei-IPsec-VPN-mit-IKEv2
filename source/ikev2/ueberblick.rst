@@ -39,8 +39,8 @@ Insgesamt setzt sich IPsec aus drei Protokollen zusammen
   übertragenen Daten schützt, aber nicht deren Vertraulichkeit.
   Ich persönlich habe das Protokoll noch nie in der Praxis vorgefunden.
 
-.. index:: ! Encapsulating Security Protocol
-   see: ESP; Encapsulating Security Protocol
+.. index:: ! ESP
+   see: Encapsulating Security Protocol; ESP
 
 * *Encapsulating Security Protocol* (ESP), beschrieben in RFC4303
   (siehe :cite:`RFC4303`) schützt sowohl die Vertraulichkeit als auch

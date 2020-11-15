@@ -37,6 +37,9 @@ anbieten, kann ich SA im Transportmodus verwenden, wenn
 
 * der direkte Traffic zwischen den Security-Gateways abgesichert werden
   soll,
+
+.. index:: GRE
+
 * oder der abgesicherte Traffic selbst wiederum in IP getunnelten
   Traffic enthält, wie zum Beispiel IP-in-IP :cite:`RFC2003`,
   GRE :cite:`RFC2784` oder IPsec Transport Mode for dynamic Routing

@@ -187,6 +187,8 @@ Meist sind IKE SA, IKE Child SA und Configuration Backend auf
 Bei allen Topics kann ich zwischen den Optionen *Silent*, *Audit*,
 *Control*, *Diag*, *Raw* und *Highest* wählen.
 
+.. index:: grep
+
 Die Logzeilen der einzelnen VPN lassen sich sehr einfach filtern.
 Fast alle Zeilen für einen Peer enthalten einen String,
 wie zum Beispiel ``"con1000"``,

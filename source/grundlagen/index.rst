@@ -73,6 +73,8 @@ ich bis zu seiner Lösung in der folgenden Schleife:
     Der Abschnitt :ref:`anhang/datagram-header:Datagramm-Header` im Anhang
     kann bei der Interpretation der IKE-Datagramme helfen.
 
+.. index:: GNS3
+
 * Beim **Ändern** der Systemumgebung kommt es darauf an,
   möglichst keine weiteren Beeinträchtigungen
   in produktiven Umgebungen zu verursachen.

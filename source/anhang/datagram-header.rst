@@ -77,7 +77,7 @@ Minor Version (4 Bits):
   müssen die Unterversion auf 0 setzen
   und in empfangenen Nachrichten ignorieren.
 
-.. index:: CREATE_CHILD_SA
+.. index:: CREATE_CHILD_SA, Exchange
 
 Exchange Type (1 Oktett):
   zeigt den Typ der Nachrichten an.
@@ -142,6 +142,8 @@ Length (4 Oktetts, unsigned Integer):
 Generic Payload Header
 ----------------------
 
+.. index:: Datagramm-Header; Generic Payload Header
+
 .. index:: ! Payload
 
 Bei der Beschreibung von Protokoll-Headern
@@ -187,6 +189,8 @@ Next Payload (1 Oktett):
   dass es keine Überschneidung mit IKEv1 gibt.
 
   Die Payload-Typen nach RFC 7296 (beschrieben in Abschnitt 3.2 bis 3.16) sind:
+
+  .. index:: EAP
 
   ============================ ======== =====
   Next Payload Type            Notation Value
@@ -235,6 +239,8 @@ Payload Length (2 Oktetts, unsigned Integer):
 Security Association Payload
 ----------------------------
 
+.. index:: Datagramm-Header; Security Association Payload
+
 Mit der Security Association Payload (SA-Payload) werden die Attribute einer SA ausgehandelt.
 Sie kann mehrere Proposals enthalten.
 Tut sie es, müssen diese vom bevorzugten zum unbeliebtesten Proposal sortiert sein.
@@ -258,7 +264,7 @@ als auch Authenticated-Encryption-Chiffren vorschlagen,
 muss dann aber verschiedene Proposals verwenden,
 da diese nicht im selben Proposal gemischt werden können.
 
-.. index:: AH, ESP
+.. index:: AH, ESP, ESN
 
 Jede Proposal-Struktur wird gefolgt von einer oder mehreren Transform-Strukturen.
 Deren Anzahl wird durch das Protokoll bestimmt.
@@ -393,6 +399,8 @@ Transform Type (1 Oktett):
 
   Die Werte der folgenden Tabelle entsprechen dem Stand von RFC 7296.
 
+  .. index:: DH-Gruppe, ESN
+
   === ===============================  ==========================
   Typ Beschreibung                     Verwendet in
   === ===============================  ==========================
@@ -492,10 +500,14 @@ kann dieser in IKE für die Child-SA ausgehandelt werden.
 Damit wird Perfect Forward Secrecy (PFS)
 für die Child-SA-Schlüssel gewährleistet.
 
+.. index:: DH-Gruppe; Tests
+
 Die aufgelisteten MODP Diffie-Hellman-Gruppen benötigen keine speziellen
 Gültigkeitstests. Andere DH-Gruppen können zusätzliche Tests benötigen, um
 sie sicher zu verwenden. Weitere Informationen zu diesem Thema finden sich
 in RFC6989 :cite:`RFC6989`.
+
+.. index:: ESN
 
 Die für Transform-Typ 5 (Extended Sequence Numbers) definierten
 Transform-ID mit Stand von RFC7296 sind in der folgenden Tabelle
@@ -526,6 +538,8 @@ Details finden sich in der IANA Registry
 
 Notify Payload
 --------------
+
+.. index:: Datagramm-Header; Notify Payload
 
 Mit der Notify Payload werden informelle Daten, wie Fehlerzustände
 und Zustandsänderungen an den IKE-Peer gesendet. Sie kann in
@@ -586,6 +600,8 @@ Die folgenden beidenTabellen listen lediglich
 die Namen der Nachrichten und ihren numerischen Wert.
 Für Details verweise ich auf RFC7296, Abschnitt 3.10.
 
+.. index:: Fehlertyp
+
 Werte von 0 - 16383 sind für das Melden von Fehlern vorgesehen.
 Erhält eine IPsec-Implementierung eine Nachricht mit einem Fehlertypen,
 den sie nicht versteht, muss sie annehmen, dass der zugehörige
@@ -593,7 +609,12 @@ Request vollständig fehlgeschlagen ist. Unbekannte Fehlertypen in einem
 Request beziehungsweise unbekannte Statustypen in einem Request oder
 Response müssen ignoriert und sollten protokolliert werden.
 
-.. index:: Fehlertyp, CHILD_SA_NOT_FOUND
+.. index:: UNSUPPORTED_CRITICAL_PAYLOAD, INVALID_IKE_SPI,
+   INVALID_MAJOR_VERSION, INVALID_SYNTAX, INVALID_MESSAGE_ID,
+   INVALID_SPI, NO_PROPOSAL_CHOSEN, INVALID_KE_PAYLOAD,
+   AUTHENTICATION_FAILED, SINGLE_PAIR_REQUIRED, NO_ADDITIONAL_SAS,
+   INTERNAL_ADDRESS_FAILURE, FAILED_CP_REQUIRED, TS_UNACCEPTABLE,
+   INVALID_SELECTORS, TEMPORARY_FAILURE, CHILD_SA_NOT_FOUND
 
 =============================== =====
 NOTIFY Nachrichten: Fehlertypen Wert
@@ -636,10 +657,12 @@ ESP_TFC_PADDING_NOT_SUPPORTED   16394
 NON_FIRST_FRAGMENTS_ALSO        16395
 =============================== =====
 
-.. index:: ! Delete Payload
-
 Delete Payload
 --------------
+
+.. index:: ! Delete Payload
+
+.. index:: Datagramm-Header; Delete Payload
 
 Die Delete Payload enthält einen protokollspezifischen SA-Identifikator,
 den der Sender aus seiner SAD entfernt hat, der somit nicht mehr gültig
@@ -693,6 +716,8 @@ für ankommende ESP- oder AH-Datagramme erwarten würde.
 ESP-Datagramm
 -------------
 
+.. index:: Datagramm-Header; ESP
+
 :numref:`ipsec-esp-datagram` zeigt den Aufbau eines ESP-Datagramms.
 Der äußere Header, welcher ihm unmittelbar voran geht,
 enthält den Wert 50 in seinem Protokollfeld (IPv4)
@@ -723,6 +748,8 @@ die Nutzlastdaten und den ESP-Trailer (explizit und implizit).
 
 Wenn die Vertraulichkeit des Datagramms geschützt wird, besteht der
 verschlüsselte Teil aus den Nutzlastdaten und dem expliziten ESP-Trailer.
+
+.. index:: ESN
 
 Bei der Nutzung von ESN werden nur die niederwertigen 32 Bit der
 64-bitigen Sequenznummer im ESP-Header des Datagramms übermittelt. Die

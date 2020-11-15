@@ -206,6 +206,8 @@ Beispiel auf die IPsec-Konfiguration::
 
   /ip ipsec export
 
+.. index:: grep
+
 Für den Export der Konfiguration sind zwei Attribute wichtig:
 
 ``export terse``:
@@ -232,6 +234,8 @@ aber nicht alles.
 
 Default-Port für IKE ist 4500
 .............................
+
+.. index:: ESP
 
 Eine Eigenart der MikroTik-Router ist,
 dass sie mit den Default-Einstellungen
