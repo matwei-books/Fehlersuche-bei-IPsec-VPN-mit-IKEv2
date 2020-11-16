@@ -81,6 +81,8 @@ damit diese Nachrichten
 nicht für Manipulationen missbraucht werden können.
 Auch das sollte konfigurierbar sein.
 
+.. index:: ICMP-Payload
+
 Hier gibt es folgende Konvention:
 will ein Administrator, dass die ICMP-Payload nicht beachtet wird,
 dann konfiguriert er einen SPD-Eintrag,
@@ -98,8 +100,6 @@ wenn ein SPD-Eintrag existiert,
 der den Traffic anhand des ICMP- und IP-Headers erlaubt.
 Eine entsprechende Child-SA wird ausgehandelt,
 wenn gerade keine passende aktiv ist.
-
-.. index:: ICMP-Payload
 
 Gibt es hingegen keinen SPD-Eintrag,
 der auf die ICMP- und IP-Headerdaten passt,

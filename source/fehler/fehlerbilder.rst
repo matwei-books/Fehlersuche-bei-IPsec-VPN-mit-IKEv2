@@ -291,6 +291,8 @@ so dass diese nicht beim anderen Peer ankommen.
 An einer Stelle im Netz zwischen den beiden VPN-Gateways
 ist die MTU kleiner als unmittelbar an den Geräten selbst.
 
+.. index:: ICMP
+
 Normalerweise würde Path-MTU-Discovery das Problem entschärfen.
 Wenn diese nicht funktioniert,
 kommen folgende Ursachen in Betracht:
@@ -366,6 +368,8 @@ Einfluss auf die Konfiguration des betreffenden Paketfilters zu nehmen.
 Bei Punkt 4 gehört eine geeignete Ausnahmeregel auf die Host-Firewall.
 
 .. topic:: Smart MTU Black Hole Detection
+
+   .. index:: ICMP Black Hole
 
    RFC4821 schlägt einen Mechanismus vor,
    mit dem ICMP Black Holes,

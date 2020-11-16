@@ -3,6 +3,9 @@
 
    \clearpage
 
+.. index::
+   single: IKE; Nachrichten
+
 IKEv2 Nachrichten
 =================
 

@@ -14,8 +14,8 @@ Insgesamt setzt sich IPsec aus drei Protokollen zusammen
 .. index:: ! Internet Security Association and Key Management Protocol
    see: ISAKMP; Internet Security Association and Key Management Protocol
 
-.. index:: ! Internet Key Exchange Protocol
-   see: IKE; Internet Key Exchange Protocol
+.. index:: IKE
+   see: Internet Key Exchange Protocol; IKE
 
 * *Internet Security Association and Key Management Protocol* (ISAKMP),
   ursprünglich beschrieben in RFC2408, das durch RFC4306 obsolet wurde,
@@ -310,6 +310,8 @@ Next Layer Protocol
 Dieser Selektor entspricht dem Feld *Protocol* bei IPv4
 beziehungsweise dem Feld *Next Header* bei IPv6.
 Das kann eine einzelne Protokollnummer sein, *ANY* oder *OPAQUE*.
+
+.. index:: ICMP
 
 Verschiedene zusätzliche Selektoren hängen
 von den Werten bei *Next Layer Protocol* ab:

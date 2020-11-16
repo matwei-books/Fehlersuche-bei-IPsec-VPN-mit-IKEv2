@@ -246,6 +246,8 @@ Für die Testzwecke komme ich meist mit den folgenden Optionen aus:
   Damit sendet hping3 IP-Datagramme mit den Daten, die mit der Option
   ``--sign`` oder ``--file`` angegeben wurden.
 
+.. index:: ICMP
+
 ``-1, --icmp``:
   Damit sendet hping3 ICMP-Echo-Requests. Andere Typen/Codes können mit
   ``--icmptype`` und ``--icmpcode`` spezifiziert werden.

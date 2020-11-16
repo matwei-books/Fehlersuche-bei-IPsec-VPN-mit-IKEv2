@@ -233,6 +233,9 @@ Filterausdruck damit ergänzen, zum Beispiel so::
 
   ... and tcp and port 443
 
+.. index::
+   pair: Paketmitschnitt; ICMP
+
 Vermute ich Netzwerkprobleme auf der Inside, muss ich zusätzlich noch
 den ICMP-Datenverkehr aufnehmen. Da die relevanten ICMP-Datagramme von
 jedem Router auf dem Weg zum Zielhost kommen können, kann ich den
@@ -463,6 +466,8 @@ Mitschnitten helfen können, die interessanten Pakete schnell zu finden.
 Beim Debugging von VPN weiß ich meist bereits,
 welche Datagramme ich anschauen will.
 Hier interessieren mich vor allem die folgenden Fragen:
+
+.. index:: IKE
 
 * Sind bestimmte Datagramme im Mitschnitt enthalten?
 * Welche Parameter wurden in der IKE-Sitzung gesendet?

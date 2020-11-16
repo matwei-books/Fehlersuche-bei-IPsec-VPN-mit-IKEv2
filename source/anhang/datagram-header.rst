@@ -14,7 +14,8 @@ und andererseits,
 die Debugmeldungen zu interpretieren,
 wenn ich bei einer Fehlersuche darauf zurückgreife.
 
-.. index:: Datagramm-Header; IKE
+.. index:: IKE
+   single: Datagramm-Header; IKE
 
 IKE Header
 ----------
@@ -156,6 +157,8 @@ die zwischen zwei Partnern mit einem Protokoll übertragen werden.
 Daher ist es wichtig den Kontext zu beachten,
 in dem dieser Begriff verwendet wird.
 
+.. index:: IKE-Payload
+
 Jede IKE-Payload beginnt mit einem generischen Header wie in
 :numref:`ipsec-ike-datagram-gph` dessen Felder ich nachfolgend
 erläutere. Die konkreten IKE-Parameter sind als Payload in den
@@ -239,7 +242,8 @@ Payload Length (2 Oktetts, unsigned Integer):
 Security Association Payload
 ----------------------------
 
-.. index:: Datagramm-Header; Security Association Payload
+.. index:: IKE
+   single: Datagramm-Header; Security Association Payload
 
 Mit der Security Association Payload (SA-Payload) werden die Attribute einer SA ausgehandelt.
 Sie kann mehrere Proposals enthalten.
@@ -272,7 +276,7 @@ AH hat im Allgemeinen zwei Transforms: Extended Sequence Numbers (ESN) und den A
 ESP hat im Allgemeinen drei: ESN, den Verschlüsselungsalgorithmus und den Algorithmus zur Integritätsprüfung.
 Bei IKE sind es vier: eine Diffie-Hellman-Gruppe, ein Algorithmus zur Integritätsprüfung, ein PRF-Algorithmus und ein Verschlüsselungsalgorithmus.
 
-.. index:: CBC
+.. index:: CBC, HMAC
 
 Gibt es mehrere Transforms vom gleichen Typ, so gilt im Proposal die ODER-Verknüpfung der einzelnen Transforms.
 Gibt es mehrere Transforms mit verschiedenem Typ, so gilt die UND-Verknüpfung der einzelnen Transforms.
@@ -332,6 +336,9 @@ Proposal Num (1 Oktett):
   muss die zurückgesendete Nummer der des akzeptierten Proposals entsprechen.
 
 .. index:: Protocol ID
+   single: IKE; Protocol ID
+   single: AH; Protocol ID
+   single: ESP; Protocol ID
 
 Protocol ID (1 Oktett):
   Spezifiziert das IPsec-Protokoll für das Proposal.
@@ -447,6 +454,8 @@ ENCR_AES_CTR   13     RFC3686 :cite:`RFC3686`
 .. raw:: latex
 
    \clearpage
+
+.. index:: HMAC
 
 Die Transform-ID für Transform-Typ 2
 (Pseudorandom Function, PRF) mit Stand von RFC7296
@@ -638,7 +647,7 @@ TEMPORARY_FAILURE                 43
 CHILD_SA_NOT_FOUND                44
 =============================== =====
 
-.. index:: COOKIE
+.. index:: COOKIE, HTTP_CERT_LOOKUP_SUPPORTED
 
 =============================== =====
 NOTIFY Nachrichten: Statustypen  Wert

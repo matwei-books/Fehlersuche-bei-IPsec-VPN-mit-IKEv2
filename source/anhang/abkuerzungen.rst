@@ -282,6 +282,11 @@ SDN:
 SHA:
   Secure Hash Algorithm
 
+.. index:: SMTP
+
+SMTP:
+  Simple Mail Transfer Protocol
+
 .. index:: SPD
 
 SPD:

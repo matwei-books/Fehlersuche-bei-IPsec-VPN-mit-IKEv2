@@ -49,6 +49,8 @@ Um wirklich nützlich zu sein,
 brauche ich noch den Bezug zu real existierenden Protokollen,
 mit denen ich in meiner täglichen Arbeit zu tun habe.
 
+.. index:: DNS, HTTP, LDAP, SMTP
+
 Da finde ich
 
 * Ethernet in den Schichten 1 und 2
@@ -69,6 +71,8 @@ Das stimmt.
 IPsec habe ich hier noch nicht erwähnt,
 weil es eine besondere Rolle einnimmt,
 wie alle Tunnelprotokolle.
+
+.. index:: IKE
 
 IPsec bietet nach oben Dienste der Schicht 3 an,
 wie IPv4 und IPv6.

@@ -38,7 +38,7 @@ und natürlich alles,
 was ich über das Problem herausgefunden habe,
 um die Behebung zu beschleunigen.
 
-.. index:: AH, ESP
+.. index:: AH, ESP, ICMP
 
 Bei einer Unterbrechung zwischen den beiden VPN-Gateways ist das
 einfach: ich will UDP Port 500 und Port 4500, ESP und vielleicht AH,
@@ -501,7 +501,7 @@ und muss für diesen ermittelt werden.
    die von einer Seite zur anderen gesendet werden,
    auch die zugehörigen Antwortpakete in der Gegenrichtung.
 
-.. index:: Path-MTU-Discovery
+.. index:: Path-MTU-Discovery, ICMP
 
 Wie die Path-MTU ermittelt wird,
 ist in RFC1191 beschrieben.
