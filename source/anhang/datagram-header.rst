@@ -78,7 +78,8 @@ Minor Version (4 Bits):
   müssen die Unterversion auf 0 setzen
   und in empfangenen Nachrichten ignorieren.
 
-.. index:: CREATE_CHILD_SA, Exchange
+.. index:: IKE_SA_INIT, IKE_AUTH, CREATE_CHILD_SA, INFORMATIONAL,
+   Exchange
 
 Exchange Type (1 Oktett):
   zeigt den Typ der Nachrichten an.
@@ -156,8 +157,6 @@ sind mit Payload die Nutzdaten gemeint,
 die zwischen zwei Partnern mit einem Protokoll übertragen werden.
 Daher ist es wichtig den Kontext zu beachten,
 in dem dieser Begriff verwendet wird.
-
-.. index:: IKE-Payload
 
 Jede IKE-Payload beginnt mit einem generischen Header wie in
 :numref:`ipsec-ike-datagram-gph` dessen Felder ich nachfolgend

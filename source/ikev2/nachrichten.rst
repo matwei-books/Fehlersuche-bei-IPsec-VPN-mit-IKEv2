@@ -20,6 +20,7 @@ Ein Paar von Nachrichten nennt man einen *Exchange*,
 beziehungsweise ein *Request/Response* Paar.
 
 .. index:: ! Initiator, ! Responder
+   single: IKE-SA; Rekeying
 
 Der Peer, der einen IKE_SA_INIT-Request sendet, wird *Initiator* genannt,
 derjenige, welcher darauf antwortet, *Responder*.
@@ -29,6 +30,8 @@ In den ausgetauschten IKE-Datagrammen
 ist der Initiator am gesetzten Flag zu erkennen.
 
 .. index:: Nachrichten; initiale
+
+.. index:: IKE_SA_INIT, IKE_AUTH
 
 Die ersten beiden Exchanges sind IKE_SA_INIT und IKE_AUTH.
 Sie bilden den initialen Nachrichtenaustausch, der im einfachsten Fall
@@ -55,6 +58,8 @@ Im Idealfall werden dabei nur zwei Datagramme gesendet
 Der IKE_AUTH-Exchange authentisiert die vorherigen Nachrichten, tauscht
 Identitäten und Zertifikate und etabliert die erste IPsec SA.
 
+.. index:: CREATE_CHILD_SA, INFORMATIONAL
+
 Alle nachfolgenden Exchanges sind kryptographisch geschützt und entweder
 vom Typ CREATE_CHILD_SA oder INFORMATIONAL.
 
@@ -69,6 +74,8 @@ Eine wiederholt gesendete IKE-Nachricht muss die gleiche MID verwenden.
 Die MID startet mit 0 beim IKE_SA_INIT-Requests des Initiators
 und wird fortlaufend hochgezählt.
 Beim Rekeying einer IKE-SA setzt der Initiator die MID erneut auf 0.
+
+.. index:: IKE-SA; MID-Nummernkreise
 
 Der erste IKE-Request des Responders beginnt ebenfalls mit MID 0, so
 dass zu einer IKE-SA gleichzeitig zwei MID-Nummernkreise existieren
@@ -475,6 +482,8 @@ das für den Initiator inakzeptabel, muss er die SA löschen.
 Ein fehlgeschlagener Versuch, eine Child-SA zu erzeugen sollte nicht zum
 Abbau der IKE-SA führen.
 
+.. index:: ! IKE-SA; Rekeying
+
 Rekeying von IKE-SA mit CREATE_CHILD_SA
 .......................................
 
@@ -641,6 +650,8 @@ beantwortet mit Delete-Payloads für die andere Richtung.
 Wenn zufälligerweise beide Peers zur gleichen Zeit entscheiden ein Paar
 von SA zu schließen und sich die Requests kreuzen, ist es möglich, dass
 die Responses keine Delete-Payloads enthalten.
+
+.. index:: IKE-SA; Löschen
 
 Ähnlich den ESP- und AH-SA werden auch IKE-SA mit Delete-Payloads
 geschlossen, wobei noch verbliebene Child-SA ebenfalls geschlossen

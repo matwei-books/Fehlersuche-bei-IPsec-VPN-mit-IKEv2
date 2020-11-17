@@ -321,10 +321,11 @@ NAT-Traversal verwendet wird, wird es komplizierter::
 .. index:: Non-ESP-Marker
 
 Der Ausdruck ``udp[8:4] = 0`` bezeichnet den Non-ESP-Marker, mit dem ich bei
-NAT-T IKE-Traffic von ESP unterscheiden kann. Will ich den
-gesamten IKE-Traffic, so muss ich sowohl UDP-Port 500 als auch 4500
-mitschneiden, da bei NAT-T der Wechsel von Port 500 zu 4500 mit dem
-IKE_AUTH-Exchange erfolgt.
+NAT-T IKE-Traffic von ESP unterscheiden kann.
+Will ich den gesamten IKE-Traffic,
+so muss ich sowohl UDP-Port 500 als auch 4500 mitschneiden,
+da bei NAT-T der Wechsel von Port 500 zu 4500
+meist mit dem IKE_AUTH-Exchange erfolgt.
 
 Bei den meisten Problemen
 bin ich eher am IKE-Traffic als an ESP interessiert.

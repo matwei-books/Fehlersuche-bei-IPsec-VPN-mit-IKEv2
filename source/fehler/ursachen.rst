@@ -145,14 +145,17 @@ Sehe ich im Mitschnitt noch einen kompletten IKE_AUTH-Exchange, so kann
 ich davon ausgehen, dass beide Peers die selben Crypto-Algorithmen für
 IKE verwenden.
 
+.. index:: IKE_AUTH
+
 Scheitert IKE_AUTH, könnten Probleme mit dem PSK die Ursache sein
 oder generell Probleme mit der gewählten Authentisierungsmethode.
 Da mit dem IKE_AUTH-Exchange auch die erste Child-SA verhandelt wird,
 kann das Problem auch an den Parametern für diese liegen.
 
-Leider kann ich Probleme bei IKE_AUTH in den meisten Fällen nicht mit
-einem Paketmitschnitt erkennen, da hier schon die bei IKE_SA_INIT
-ausgehandelte Verschlüsselung zur Anwendung kommt.
+Leider kann ich Probleme bei IKE_AUTH in den meisten Fällen nicht
+mit einem Paketmitschnitt diagnostizieren,
+da hier schon
+die bei IKE_SA_INIT ausgehandelte Verschlüsselung zur Anwendung kommt.
 Lediglich von der Cisco ASA ist mir bekannt, dass sie Paketmitschnitte
 (*type isakmp*) schreiben kann, die die entschlüsselten IKE-Datagramme
 enthalten.
