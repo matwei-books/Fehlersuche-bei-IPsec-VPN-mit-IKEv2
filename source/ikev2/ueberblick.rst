@@ -348,6 +348,8 @@ Benannte SPD-Einträge werden auf zwei Arten verwendet:
    der Wert der Remote IP Address in der SPD
    den Wert der Adresse im ESP-Tunnel.
 
+.. index:: Initiator
+
 2. Ein SPD-Eintrag mit Name wird vom Initiator
    einer IKE-Sitzung verwendet,
    um den Benutzer zu identifizieren,

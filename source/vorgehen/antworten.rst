@@ -201,6 +201,8 @@ die bei IKEv2 ausgetauscht werden, deren Parametern und den Reaktionen
 meines VPN-Gateways auf diese Nachrichten. Die Nachrichten sind im
 Abschnitt :ref:`ikev2/nachrichten:IKEv2 Nachrichten` näher beschrieben.
 
+.. index:: Initiator
+
 Die Reaktionen auf diese Nachrichten fallen
 durchaus unterschiedlich aus, je nachdem, welche Seite Initiator
 beziehungsweise Responder ist. Meist ist eine IKE-Sitzung einfacher auf

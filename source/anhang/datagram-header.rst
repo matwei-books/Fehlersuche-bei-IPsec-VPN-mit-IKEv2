@@ -48,6 +48,8 @@ ohne vorangehenden UDP-Header und Non-ESP-Marker.
 
    IKE Header
 
+.. index:: Initiator, Responder
+
 Die Felder haben die folgende Bedeutung:
 
 Initiator’s SPI (8 Oktetts):
@@ -260,6 +262,8 @@ beschrieben.
    :name: ipsec-sa-payload
 
    Security Association Payload
+
+.. index:: Initiator
 
 Die Proposals in der SA-Payload sind beginnend mit 1 durchnummeriert.
 Ein Initiator kann sowohl Standard-Chiffren
@@ -700,6 +704,8 @@ Security Parameter Index(es) (variable Länge):
   Identifiziert die Security Associations, die gelöscht werden sollen.
   Die Länge dieses Feldes ergibt sich aus den Feldern *SPI Size* und
   *Num of SPIs*.
+
+.. index:: INFORMATIONAL
 
 Eine Delete Payload kann mehrere SPI enthalten,
 jedoch müssen alle für das gleiche Protokoll (IKE, ESP oder AH) sein.

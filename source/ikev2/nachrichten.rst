@@ -334,7 +334,7 @@ Weitere Informationen zu EAP finden sich in RFC7296 Abschnitt 2.16.
 Fehler beim IKE_AUTH-Exchange
 .............................
 
-.. index:: AUTHENTICATION_FAILED
+.. index:: AUTHENTICATION_FAILED, Initiator
    single: Fehlermeldung; AUTHENTICATION_FAILED
 
 Jeder Fehler bei IKE_AUTH, der dazu führt, dass die Authentisierung
