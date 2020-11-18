@@ -122,11 +122,6 @@ ICMP:
 IKE:
   Internet Key Exchange Protocol
 
-.. index:: IOS
-
-IOS:
-  Internetwork Operating System
-
 .. index:: IP
 
 IP:

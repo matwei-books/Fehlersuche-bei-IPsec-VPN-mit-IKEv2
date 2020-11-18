@@ -203,7 +203,7 @@ Datagramme auf beiden Seiten gleich, würde ich ein Problem bei der
 Implementierung der Cookies auf der Seite des Responders vermuten
 und den Support des Herstellers hinzuziehen.
 
-.. index:: INVALID_KE_PAYLOAD
+.. index:: ! INVALID_KE_PAYLOAD
 
 INVALID_KE_PAYLOAD
 ..................
@@ -243,7 +243,7 @@ sich in Abschnitt 2.6.1 von RFC7296.
 Weitere Fehlermeldungen bei IKE_SA_INIT
 .......................................
 
-.. index:: INVALID_MAJOR_VERSION
+.. index:: ! INVALID_MAJOR_VERSION
 
 INVALID_MAJOR_VERSION:
   Diese Nachrichten sollten nur auftreten, wenn ein Request mit einer

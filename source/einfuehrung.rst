@@ -53,6 +53,8 @@ Das Diagramm zeigt die verschiedenen Akteure
 bei einem VPN zwischen zwei Netzwerken.
 Dabei gibt es verschiedene mögliche Problemfelder:
 
+.. index:: IPsec
+
 * An zentraler Stelle ist IPsec als Protokoll selbst.
   Im Gegensatz zu OpenVPN,
   bei dem beide Seiten Software aus der gleichen Quelle verwenden,

@@ -49,7 +49,7 @@ Um wirklich nützlich zu sein,
 brauche ich noch den Bezug zu real existierenden Protokollen,
 mit denen ich in meiner täglichen Arbeit zu tun habe.
 
-.. index:: DNS, HTTP, LDAP, SMTP
+.. index:: DNS, HTTP, IP, LDAP, SMTP
 
 Da finde ich
 
@@ -65,6 +65,8 @@ So kann ich IP statt über Ethernet auch über Glasfaser, V24
 oder andere Protokolle übertragen.
 TCP und UDP laufen genauso gut über IPv4 wie über IPv6
 und DNS kann ich über UDP und TCP nutzen.
+
+.. index:: IPsec
 
 Und IPsec, das Buch ist doch über IPsec?
 Das stimmt.

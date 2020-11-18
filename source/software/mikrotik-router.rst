@@ -53,7 +53,6 @@ Durch Eingabe von einem oder zwei <TAB> werden mögliche Fortsetzungen
 der aktuellen Kommandozeile angezeigt beziehungsweise teilweise
 eingegebene Kategorien, Aktionen oder Parameter soweit ergänzt, wie sie
 eindeutig sind.
-Das funktioniert ähnlich der Kommandozeilenvervollständigung bei Cisco IOS.
 
 Starten, Stoppen und Kontrollieren von VPN-Tunneln
 --------------------------------------------------

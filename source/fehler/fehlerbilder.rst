@@ -82,8 +82,6 @@ die vom Peer bei IKE_SA_INIT gesendeten Parameter
 mit der eigenen Konfiguration zu vergleichen.
 Dazu reichen die Daten aus dem Paketmitschnitt.
 
-.. index:: Inside
-
 Kann ich das VPN aufbauen,
 suche ich nach dem interessanten Traffic auf der Inside.
 Sehe ich diesen Traffic nicht, dann muss ich mich um die Verbindung vom

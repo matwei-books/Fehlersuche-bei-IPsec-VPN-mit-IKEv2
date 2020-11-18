@@ -2,6 +2,8 @@
 Überblick
 =========
 
+.. index:: IPsec
+
 IPsec bietet Schutz vor Ausspähung und Veränderung für IP-Traffic.
 Die grundlegende Architektur für IPsec-konforme Systeme ist in RFC4301
 beschrieben (siehe :cite:`RFC4301`).
@@ -11,11 +13,9 @@ Gateway oder als unabhängiges Gerät.
 Insgesamt setzt sich IPsec aus drei Protokollen zusammen
 (siehe :numref:`ipsec-overview`):
 
-.. index:: ! Internet Security Association and Key Management Protocol
-   see: ISAKMP; Internet Security Association and Key Management Protocol
+.. index:: ! ISAKMP
 
 .. index:: IKE
-   see: Internet Key Exchange Protocol; IKE
 
 * *Internet Security Association and Key Management Protocol* (ISAKMP),
   ursprünglich beschrieben in RFC2408, das durch RFC4306 obsolet wurde,
