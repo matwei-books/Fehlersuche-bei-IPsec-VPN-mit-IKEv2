@@ -123,12 +123,13 @@ Flags (1 Oktett):
   beziehungsweise nach einem Rekeying,
   welcher Peer das Rekeying veranlasst hat.
 
-.. index:: Message ID
+.. index:: MID
+   see: Message-ID; MID
 
-Message ID (4 Oktetts, unsigned Integer):
+Message-ID (4 Oktetts, unsigned Integer):
   wird verwendet, um das
   erneute Übertragen von verlorenen Datagrammen zu steuern und die
-  Anfragen und Antworten zuzuordnen. Die Message ID (MID) ist
+  Anfragen und Antworten zuzuordnen. Die Message-ID (MID) ist
   wesentlich für die Sicherheit des Protokolls, weil sie hilft
   Replay-Attacken zu verhindern.
 

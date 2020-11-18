@@ -461,8 +461,8 @@ Bei einem VPN wächst die Anzahl der potentiellen Fehlerquellen.
 
 Worum geht es?
 
-.. index:: Maximum Transmission Unit
-   see: MTU; Maximum Transmission Unit
+.. index:: MTU
+   see: Maximum Transmission Unit; MTU
 
 In jedem Netzsegment ist die maximale Größe eines Datagramms, dass in
 einem Stück übertragen werden kann, begrenzt.

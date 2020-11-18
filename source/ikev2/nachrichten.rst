@@ -63,7 +63,7 @@ Identitäten und Zertifikate und etabliert die erste IPsec SA.
 Alle nachfolgenden Exchanges sind kryptographisch geschützt und entweder
 vom Typ CREATE_CHILD_SA oder INFORMATIONAL.
 
-.. index:: ! Message ID
+.. index:: ! MID
 
 Jede Nachricht enthält eine 32-Bit große Message-ID (MID) als Teil des
 festen IKE-Headers.

@@ -161,7 +161,8 @@ Path-MTU-Discovery
 
 .. topic:: MTU / PMTU
 
-   .. index:: ! Maximum Transmission Unit
+   .. index:: ! MTU
+      see: Maximum Transmission Unit; MTU
    .. index:: ! Path-MTU
 
    Die Maximum Transmission Unit (MTU) beschreibt

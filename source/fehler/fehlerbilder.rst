@@ -412,8 +412,8 @@ ungünstigeren Verhältnis von Nutzdaten zu Protokoll-Overhead.
    und muss für jede einzelne Verbindung
    bei deren Start angewendet werden.
 
-   .. index:: ! Maximum Segment Size
-      see: MSS; Maximum Segment Size
+   .. index:: ! MSS
+      see: Maximum Segment Size; MSS
 
    Die Maximum Segment Size ist ein Parameter
    bei den optionalen Feldern im TCP-Header,
