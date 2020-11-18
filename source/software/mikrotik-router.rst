@@ -116,15 +116,33 @@ Ich kann hier filtern, bevorzuge aber meist die Arbeit mit
 Textwerkzeugen auf dem eigenen Rechner.
 Dafür habe ich mehrere Möglichkeiten.
 
-Am schnellsten ist,
-die Ausgabe von ``/log print`` in eine Textdatei umzuleiten.
+Wenn ich den Verbindungsaufbau kontrollieren kann
+oder exakte Timing-Informationen bekomme,
+geht am schnellsten,
+die Lognachrichten in einem Terminalfenster durchlaufen lassen.
+Dazu verwende ich im CLI der MikroTik den Befehl::
+
+  /log print follow
+
+Sobald der Verbindungsaufbau durch ist,
+beende ich mit ``CTRL-C`` die Ausgabe der Logzeilen
+und kann die Log- und Debug-Meldungen
+relativ einfach in der Ausgabe des Terminalfensters finden.
+Das funktioniert allerdings nur,
+wenn auf dem MikroTik-Router nur wenige VPN laufen,
+weil ansonsten unweigerlich INFORMATIONAL-Meldungen
+von anderen IKE-Sitzungen in der Ausgabe auftauchen
+und diese unübersichtlich machen.
+
+Alternativ kann ich
+die Ausgabe von ``/log print`` in eine Textdatei umleiten.
 Zum Beispiel, indem ich via SSH nur diesen Befehl aufrufe
 und die SSH-Sitzung mit ``script`` protokolliere::
 
   script mikrotik.log
   ssh user@mikrotik /log print
   exit
-
+ 
 Sind die interessanten Lognachrichten nicht im Hauptspeicher zu finden,
 muss ich auf andere Art und Weise auf die Logs zugreifen.
 
