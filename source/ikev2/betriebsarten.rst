@@ -79,6 +79,8 @@ Im Tunnelmodus wird das komplette Datagramm in einem IPsec-Datagramm
 gekapselt, das innere Datagramm hat meist andere Adressen im IP-Header
 als das äußere.
 
+.. index:: L2L
+
 Diese Betriebsart eignet sich für L2L-Kopplungen zwischen verschiedenen
 Netzen oder für die Verbindung eines einzelnen Rechners zu einem oder
 mehreren Netzwerken.

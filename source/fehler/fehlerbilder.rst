@@ -199,7 +199,7 @@ Phasen angezeigt, die ein Datagramm von Inside nach Outside durchläuft.
 Auch diese können einen Hinweis auf die Stelle geben,
 an der ich genauer hinschauen sollte.
 
-.. index:: grep
+.. index:: grep, less
 
 Generell ist es von Vorteil, wenn mir die VPN-Konfiguration zur Prüfung
 als Text vorliegt, weil ich darin mit einem guten Editor oder auch schon

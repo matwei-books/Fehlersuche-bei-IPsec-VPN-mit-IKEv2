@@ -385,6 +385,8 @@ Dazu muss ich die Datei mit dem Mitschnitt auf meinen Rechner kopieren.
 Auswertung mit tcpdump
 ......................
 
+.. index:: less
+
 Bei der Auswertung eines Paketmitschnitts mit tcpdump verwende ich meist
 den Pager *less* um in der Ausgabe bequem zu navigieren::
 

@@ -80,6 +80,8 @@ Dabei gibt es verschiedene mögliche Problemfelder:
   Solange alles funktioniert, mag das angehen, im Fehlerfall kann es die
   Verwirrung vergrößern.
 
+.. index:: L2L
+
 * Gerade bei L2L-VPN kommen im Fehlerfall
   oft Probleme mit der Koordination zwischen den Beteiligten hinzu.
   Während es bei den meisten VPN-Gateways eine Möglichkeit gibt,

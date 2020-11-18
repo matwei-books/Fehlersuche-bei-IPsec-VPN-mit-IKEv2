@@ -97,7 +97,7 @@ lassen sich meist leicht mit bestimmten Ereignissen verknüpfen,
 so dass ich mit der Zeit ein Gefühl
 für die Bedeutung der einzelnen Einträge bekomme.
 
-.. index:: Log-Statistiken
+.. index:: Log-Statistiken, sed, sort, uniq, less
 
 Die folgende Befehlskette in einer Unix-Shell liefert mir die Häufigkeit
 von bestimmten Logeinträgen in absteigender Reihenfolge::

@@ -87,7 +87,7 @@ Bei macOS sind sie entweder vorhanden oder nachrüstbar.
 Bei Microsoft Windows kann ich sie mit dem Linux-Subsystem bekommen
 oder mit Cygwin.
 
-.. index:: less
+.. index:: ! less
 
 Less
 ----
@@ -327,7 +327,7 @@ Davor und dahinter werden drei Zeilen,
 die in beiden Dateien gleich sind,
 ohne Markierung angezeigt.
 
-.. index:: CRLF
+.. index:: CRLF, LF
 
 Unterscheiden sich zwei Dateien in der Anzahl oder Art der Leerzeichen,
 zum Beispiel weil eine Datei Zeilenende nach MS-DOS-Konvention (CRLF) und
