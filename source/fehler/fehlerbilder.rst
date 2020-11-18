@@ -382,8 +382,6 @@ Bei Punkt 4 gehört eine geeignete Ausnahmeregel auf die Host-Firewall.
    
    \newpage
 
-.. index:: ! MSS-Clamping
-
 Kann ich Path-MTU-Discovery nicht reparieren, bleiben mir noch zwei
 Möglichkeiten:
 
@@ -404,6 +402,8 @@ Beide Möglichkeiten führen auch für andere Verbindungen zu einem
 ungünstigeren Verhältnis von Nutzdaten zu Protokoll-Overhead.
 
 .. topic:: MSS-Clamping
+
+   .. index:: ! MSS-Clamping
 
    MSS-Clamping ist ein Verfahren,
    um die maximale Datagrammgröße einer Verbindung einzuschränken,

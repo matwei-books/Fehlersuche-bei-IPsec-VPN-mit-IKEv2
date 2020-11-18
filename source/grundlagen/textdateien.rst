@@ -327,7 +327,7 @@ Davor und dahinter werden drei Zeilen,
 die in beiden Dateien gleich sind,
 ohne Markierung angezeigt.
 
-.. index:: CRLF, LF
+.. index:: CRLF, LF, MS-DOS
 
 Unterscheiden sich zwei Dateien in der Anzahl oder Art der Leerzeichen,
 zum Beispiel weil eine Datei Zeilenende nach MS-DOS-Konvention (CRLF) und
