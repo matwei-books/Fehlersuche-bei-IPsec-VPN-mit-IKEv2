@@ -29,7 +29,7 @@ Sowohl im Web-Interface als auch in der Kommandozeile
 kann ich einfach Status-Informationen verschiedenen SA zuordnen
 und auch die Logs lassen sich sehr gut nach einzelnen VPN filtern.
 
-.. index:: pfSense; Kommandozeile
+.. index:: pfSense
    pair: CLI; pfSense
 
 Auf die Kommandozeile komme ich entweder über die Konsole des Rechners,
@@ -158,6 +158,10 @@ Mit ``ipsec up name`` starte ich eine IKE-Verbindung.
 Der Befehl ``ipsec down name`` beendet die IKE-Verbindung
 und ``ipsec down name{n}`` beendet die spezifizierte Child-SA.
 
+.. index::
+   pair: pfSense; Systemlogs
+   pair: pfSense; Debug-Informationen
+
 Systemlogs und Debug-Informationen
 ----------------------------------
 
@@ -210,6 +214,9 @@ dort gibt es auch Hilfe zur Interpretation der Logzeilen.
 
    Paktetmitschnitt im Web-Interface
 
+.. index::
+   pair: pfSense; Paketmitschnitt
+
 Paketmitschnitte
 ----------------
 
@@ -233,6 +240,9 @@ Auf der Konsole wähle ich zunächst über Menüpunkt 8) die Shell aus und
 schneide dann den Datenverkehr mit ``tcpdump`` mit, wie im Abschnitt
 :ref:`grundlagen/paketmitschnitt:Paketmitschnitt mit tcpdump` bei den
 Grundlagen beschrieben.
+
+.. index::
+   pair: pfSense; Konfiguration analysieren
 
 Konfiguration analysieren
 -------------------------

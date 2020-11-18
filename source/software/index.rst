@@ -16,6 +16,8 @@ detailliert auf die Konfiguration von konkreten IPsec-VPN eingehen
 sondern mich auf Fragen konzentrieren,
 die ich als wesentlich für die Fehlersuche erachte:
 
+.. index:: Systemlogs
+
 1. **Wie komme ich an die Systemlogs?**
 
    Hier gibt es prinzipiell zwei Möglichkeiten:
@@ -29,6 +31,8 @@ die ich als wesentlich für die Fehlersuche erachte:
    b. Die Logs werden zu einem Logserver ausgeleitet.
       Dann muss ich sie von diesem Server abholen.
 
+.. index:: Debug-Informationen
+
 2. **Wie komme ich an die Debug-Informationen und wie interpretiere ich diese?**
 
    Oft landen die Debug-Informationen, wenn eingeschaltet, in den Logs.
@@ -38,6 +42,8 @@ die ich als wesentlich für die Fehlersuche erachte:
    Da beim Debugging sehr viele Informationen anfallen, will ich diese,
    wenn möglich,
    gleich bei der Entstehung filtern.
+
+.. index:: Paketmitschnitt
 
 3. **Kann ich Paketmitschnitte auf dem VPN-Gateway machen und wenn ja, wie?**
 
@@ -72,6 +78,8 @@ die ich als wesentlich für die Fehlersuche erachte:
    dass die Konfiguration meist über mehrere Bildschirmseiten verteilt ist,
    die meist nicht durchsuchbar
    und durch umständliche Navigation nur nacheinander betrachtbar sind.
+
+.. index:: Konfiguration analysieren
 
 4. **Wie komme ich an die Konfiguration in Textform?**
 

@@ -115,6 +115,7 @@ die ich bei tiefergehender Analyse benötige.
 
 .. index::
    pair: Cisco ASA; Systemlogs
+   pair: Cisco ASA; Debug-Informationen
 
 Systemlogs und Debug-Informationen
 ----------------------------------

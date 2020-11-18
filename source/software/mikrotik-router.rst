@@ -87,6 +87,10 @@ Um einen VPN-Tunnel zu beenden verwende ich die Befehle::
   remote-peers kill-connections
   installed-sa flush
 
+.. index::
+   pair: MikroTik; Systemlogs
+   pair: MikroTik; Debug-Informationen
+
 Systemlogs und Debug-Informationen
 ----------------------------------
 
@@ -167,6 +171,9 @@ Von meinem Rechner aus hole ich sie mittels SCP wie folgt zur Analyse ab::
 
   scp user@mikrotik:vpn.log .
 
+.. index::
+   pair: MikroTik; Paketmitschnitt
+
 Paketmitschnitte
 ----------------
 
@@ -194,6 +201,9 @@ Das ist bei einfachen Fragen oft ausreichend.
 
 Mit dem Attribut ``memory-scroll`` kann ich einen dauerhaften Mitschnitt
 bei beschränktem Speicherplatz einstellen.
+
+.. index::
+   pair: MikroTik; Konfiguration analysieren
 
 Konfiguration analysieren
 -------------------------
