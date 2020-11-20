@@ -20,13 +20,14 @@ wenn ich bei einer Fehlersuche darauf zurückgreife.
 IKE Header
 ----------
 
-.. index:: ! Non-ESP-Marker
-
 IKE-Nachrichten verwenden UDP-Port 500 oder 4500.
 Dabei werden die Informationen vom Beginn des Datagramms bis
 einschließlich des UDP-Headers weitgehend ignoriert. Lediglich die
 Quell- und Zieladressen und Quell- und Zielports werden für das
 Antwort-Datagramm (Response) vertauscht.
+
+
+.. index:: ! Non-ESP-Marker, NAT-T
 
 UDP-Port 4500 kommt bei NAT-Traversal zur Anwendung.
 In diesem Fall
@@ -195,7 +196,7 @@ Next Payload (1 Oktett):
 
   Die Payload-Typen nach RFC 7296 (beschrieben in Abschnitt 3.2 bis 3.16) sind:
 
-  .. index:: EAP
+  .. index:: EAP, Nonce
 
   ============================ ======== =====
   Next Payload Type            Notation Value
@@ -778,6 +779,8 @@ Header der nächsten Protokollschicht eingefügt.
 
 Im Tunnelmodus wird der ESP-Header vor dem gekapselten IP-Datagramm
 eingefügt.
+
+.. index:: NAT-T
 
 Bei NAT-Traversal (NAT-T) wird das gesamte ESP-Datagramm als Nutzlast in
 einem UDP-Datagramm transportiert. Dabei ist der Zielport des

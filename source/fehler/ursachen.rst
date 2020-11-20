@@ -216,6 +216,9 @@ die andere Seite jedoch den neuen Schlüssel aushandeln will.
 
    \clearpage
 
+.. index::
+   single: NAT; extern/intern
+
 NAT
 ---
 

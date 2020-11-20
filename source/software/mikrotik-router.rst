@@ -262,7 +262,7 @@ aber nicht alles.
 Default-Port für IKE ist 4500
 .............................
 
-.. index:: ESP
+.. index:: ESP, NAT
 
 Eine Eigenart der MikroTik-Router ist,
 dass sie mit den Default-Einstellungen

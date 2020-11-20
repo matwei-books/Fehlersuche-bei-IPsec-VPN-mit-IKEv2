@@ -313,6 +313,8 @@ Dafür kann ich den Filter wie folgt ergänzen::
 
   ... and udp and port 500
 
+.. index:: NAT-T
+
 Liegt eines der beiden Gateways hinter einer NAT-Box, so dass
 NAT-Traversal verwendet wird, wird es komplizierter::
 

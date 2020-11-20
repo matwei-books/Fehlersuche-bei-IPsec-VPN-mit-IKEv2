@@ -320,7 +320,7 @@ der Datagramme je nach Protokoll unterschiedlich aussehen muss.
 Für einige Protokolle kann ich ein mitgeschnittenes Datagramm nehmen
 und daraus eine Signatur für das mit hping3 gesendete Datagramm bauen.
 
-.. index:: DNS
+.. index:: DNS, NTP
 
 Wenn auch das nicht geht, kann ich auf ein Anwenderprogramm
 (z.B. ``host`` für DNS oder ``ntpdate`` für NTP) zurückgreifen

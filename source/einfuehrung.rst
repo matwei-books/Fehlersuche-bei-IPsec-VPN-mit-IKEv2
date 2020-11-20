@@ -73,6 +73,8 @@ Dabei gibt es verschiedene mögliche Problemfelder:
   sieht jeder Administrator nur sein VPN-Gateway, was im Diagramm durch die
   Strichlinien angedeutet ist.
 
+.. index:: NAT
+
 * Ein weiteres Problem ist NAT, die Manipulation von IP-Adressen.
   NAT führt dazu, dass sich die Adressen ein und desselben Datagramms im Netz A
   von den im Tunnel verwendeten und diese von den im Netz B unterscheiden

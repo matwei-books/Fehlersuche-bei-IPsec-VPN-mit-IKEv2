@@ -74,7 +74,7 @@ IPsec habe ich hier noch nicht erwähnt,
 weil es eine besondere Rolle einnimmt,
 wie alle Tunnelprotokolle.
 
-.. index:: IKE
+.. index:: IKE, NAT-T
 
 IPsec bietet nach oben Dienste der Schicht 3 an,
 wie IPv4 und IPv6.

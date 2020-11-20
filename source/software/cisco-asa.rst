@@ -405,6 +405,8 @@ Meist reicht der erste Befehl.
 In hartnäckigen Fällen füge ich ``all`` an,
 um auch die Defaultwerte angezeigt zu bekommen.
 
+.. index:: NAT
+
 Adressumsetzungen sind zwar in der Konfiguration zu sehen,
 aber bei der Verwendung von Objekten mit Namen,
 die die Adressen nicht enthalten,

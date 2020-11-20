@@ -56,6 +56,8 @@ Ein Nachteil von SA im Transportmodus mit getunneltem Traffic ist,
 dass IPsec keine Zugriffskontrolle wie beim Tunnelmodus über die
 Traffic-Selektoren ausüben kann.
 
+.. index:: NAT
+
 Weiterhin kann ich den Transportmodus nicht verwenden,
 wenn der ungeschützte Traffic über eine NAT-Box läuft
 und seine Adressen manipuliert werden.
