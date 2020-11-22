@@ -2,8 +2,8 @@
 OSI Modell
 ==========
 
-.. index:: ! Open Systems Interconnections Modell
-   see: OSI-Modell; Open Systems Interconnections Modell
+.. index:: ! OSI
+   see: Open Systems Interconnections Modell; OSI
 .. _OSI-Modell:
 
 Das *Open Systems Interconnections* Modell ist nicht mehr als ein Modell.
