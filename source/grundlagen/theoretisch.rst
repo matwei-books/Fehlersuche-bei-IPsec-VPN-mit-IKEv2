@@ -49,7 +49,7 @@ Um wirklich nützlich zu sein,
 brauche ich noch den Bezug zu real existierenden Protokollen,
 mit denen ich in meiner täglichen Arbeit zu tun habe.
 
-.. index:: DNS, HTTP, IP, LDAP, SMTP
+.. index:: DNS, HTTP, IP, LDAP, SMTP, TCP, UDP
 
 Da finde ich
 

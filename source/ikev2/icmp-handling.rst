@@ -19,6 +19,8 @@ zwischen den beiden Kategorien
 Fehlermeldungen (error), wie zum Beispiel *ICMP Unreachable*,
 und informative Meldungen (non-error), wie zum Beispiel PING.
 
+.. index:: SPD
+
 Informative ICMP-Nachrichten werden über die Policy,
 das heißt wie normaler Traffic, behandelt
 und entsprechend der SPD weitergeleitet oder verworfen.
@@ -221,6 +223,8 @@ ist der Rechner im geschützten Netz,
 der das zu große Datagramm geschickt hat.
 Diesen kann das Gateway unterwegs, welches das Problem hat, nicht kennen
 weil dort nur verschlüsselte Datagramme ankommen.
+
+.. index:: SA
 
 Also sendet das Gateway unterwegs die ICMP-Nachricht an das VPN-Gateway,
 welches das zu große verschlüsselte Datagramm sendete

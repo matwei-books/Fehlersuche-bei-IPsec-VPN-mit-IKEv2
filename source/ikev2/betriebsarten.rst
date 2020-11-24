@@ -16,7 +16,7 @@ absichern, von der gleichen Art sein.
 Es ist jedoch gut, im Hinterkopf zu behalten, dass immer zwei SA mit dem
 gleichen Peer, Betriebsmodus und Traffic-Selektor existieren sollten.
 
-.. index:: Transportmodus
+.. index:: ! Transportmodus
 
 Transportmodus
 --------------
@@ -72,7 +72,7 @@ Leider ist das nicht nur eine theoretische Möglichkeit.
 Ich habe derartigen Traffic bei bestimmten Geräten bereits gesehen
 als die IPsec-SA deaktiviert war.
 
-.. index:: Tunnelmodus
+.. index:: ! Tunnelmodus
 
 Tunnelmodus
 -----------

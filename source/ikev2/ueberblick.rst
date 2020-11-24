@@ -55,8 +55,9 @@ Insgesamt setzt sich IPsec aus drei Protokollen zusammen
 
    Komponenten von IPsec
 
-.. index:: ! Child-SA
+.. index:: ! Child-SA, SAD, SA
    see: IPsec-SA; Child-SA
+   see: Security Association Database; SAD
 
 Alle drei Protokolle nutzen Security Associations (SA),
 um die verwendeten kryptographischen Verfahren, Parameter und Schlüssel
@@ -72,11 +73,8 @@ Für IKEv2 beschreibt :cite:`RFC4307` die kryptographischen Algorithmen,
 während :cite:`RFC4305` die Anforderungen an die Implementation von
 kryptografischen Algorithmen für ESP und AH beschreibt.
 
-.. index:: Security Policy Database
-   see: SPD; Security Policy Database
-
-.. index:: Security Association Database
-   see: SAD; Security Association Database
+.. index:: SPD
+   see: Security Policy Database; SPD
 
 Der Schutz, den IPsec bietet, hängt von den Anforderungen ab,
 die in der Security Policy Database (SPD) und der SAD festgelegt sind.
@@ -311,7 +309,7 @@ Dieser Selektor entspricht dem Feld *Protocol* bei IPv4
 beziehungsweise dem Feld *Next Header* bei IPv6.
 Das kann eine einzelne Protokollnummer sein, *ANY* oder *OPAQUE*.
 
-.. index:: ICMP
+.. index:: ICMP, TCP, UDP
 
 Verschiedene zusätzliche Selektoren hängen
 von den Werten bei *Next Layer Protocol* ab:

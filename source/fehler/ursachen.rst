@@ -559,7 +559,7 @@ Sender des im VPN transportierten Datagramms.
 
 Da mit den ICMP-Nachrichten auch immer der Anfang des verursachenden
 Datagramms an das sendende VPN-Gateway geschickt wird, kann dieses
-anhand der SPI und der Sequenznummer prinzipiell den ursprünglichen
+anhand des SPI und der Sequenznummer prinzipiell den ursprünglichen
 Datenstrom bestimmen und eine angepasste ICMP-Nachricht für den
 ursprünglichen Sender generieren.
 
@@ -646,6 +646,8 @@ auch von Version zu Version der gleichen Software.
 Oft werden verschiedene Geräte vom gleichen Hersteller unterschiedlich
 konfiguriert und haben verschiedene Features implementiert.
 
+.. index:: SHA
+
 Im einfachsten Fall kann es sein, dass bestimmte Crypto-Parameter
 einfach nicht funktionieren.
 Ich persönlich habe verschiedentlich Probleme mit SHA384 bei bestimmten
@@ -692,7 +694,7 @@ Bei der Verwendung von öffentlichen Adressen
 kann ich jedoch das VPN im Transportmodus betreiben
 und ein paar Byte Overhead pro Datagramm sparen.
 
-.. index:: GRE
+.. index:: GRE, Tunnelmodus
 
 Diese Einsparung kann allerdings zu Problemen führen,
 wenn der Tunnel nicht aufgebaut ist

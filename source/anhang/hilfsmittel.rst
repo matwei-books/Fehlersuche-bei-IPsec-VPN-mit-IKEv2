@@ -221,6 +221,8 @@ Paketmitschnitte zählen aber sowieso zum Handwerkszeug
 beim Netzwerk-Debugging,
 Abschnitt :ref:`sect-paketmitschnitt` geht näher darauf ein.
 
+.. index:: TCP
+
 Bei TCP-Tests werde ich zusätzlich zur Antwort aus dem VPN
 vielleicht TCP-Reset-Datagramme vom echten Rechner
 mit der getesteten Quell-Adresse sehen.
@@ -307,6 +309,8 @@ IP-Datagramme zu senden, muss ich eine der Optionen ``-2``, ``-1`` oder
 Generell teste ich mit einem Datagramm, dass ich zur Peer-Seite schicke
 und schaue im Paketmitschnitt nach, ob die Antwort meinen Erwartungen
 entspricht.
+
+.. index:: TCP
 
 Mit TCP ist das einfach.
 Weil die ersten Datagramme immer gleich aussehen,

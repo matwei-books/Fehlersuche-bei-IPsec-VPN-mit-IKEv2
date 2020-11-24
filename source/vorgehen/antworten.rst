@@ -48,6 +48,8 @@ und eventuell auch die Netzwerkadministratoren
 zu Rate zu ziehen,
 um das Problem einzugrenzen und die beteiligten Adressen zu erfahren.
 
+.. index:: ! Systemlogs
+
 Systemlogs vom VPN-Gateway
 --------------------------
 
@@ -246,6 +248,8 @@ die ich mit einem guten Pager wie z.B. *less* untersuchen kann.
 Wichtig ist,
 dass ich gut und schnell im Text navigieren kann
 und diesen dabei nicht aus Versehen ändere.
+
+.. index:: SSH
 
 Meist habe ich eine von zwei Möglichkeiten, an Debugmeldungen zu kommen:
 

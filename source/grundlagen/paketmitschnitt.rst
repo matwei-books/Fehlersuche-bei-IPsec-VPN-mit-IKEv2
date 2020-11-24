@@ -230,6 +230,8 @@ VPN-Gateway berücksichtigen. Sinnvolle Filterausdrücke dafür sind::
 
   net insideNet/mask and host addressAtPeer
 
+.. index:: TCP, UDP
+
 Bin ich nur an speziellen TCP- oder UDP-Ports interessiert, kann ich den
 Filterausdruck damit ergänzen, zum Beispiel so::
 
@@ -374,6 +376,8 @@ Bequemer ist die Auswertung mit *Wireshark*,
 einem grafischen Netzwerk-Sniffer,
 der umfangreiche Möglichkeiten zur Analyse eines Mitschnitts bietet.
 Dazu muss ich die Datei mit dem Mitschnitt auf meinen Rechner kopieren.
+
+.. index:: TFTP
 
 * Bei Cisco ASA benötige ich einen TFTP-Server um die PCAP-Datei zu
   kopieren::

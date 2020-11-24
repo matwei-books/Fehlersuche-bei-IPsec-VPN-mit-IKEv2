@@ -442,7 +442,7 @@ und erlaubte,
 mit wenig Aufwand in regelmäßigen Abständen
 den tatsächlichen Stand der Umstellung zu kontrollieren.
 
-.. index:: Artificial Ignorance
+.. index:: Artificial Ignorance, sort, uniq
 
 Das zweite wichtige Anwendungsfeld für Perl-Skripts ist die
 Log-Komprimierung mit *Artificial Ignorance*,

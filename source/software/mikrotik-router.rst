@@ -6,7 +6,7 @@
 MikroTik-Router
 ===============
 
-.. index:: ! RouterOS
+.. index:: ! RouterOS, SDN
    see: MikroTik; RouterOS
 
 MikroTik-Router eignen sich,
@@ -135,6 +135,8 @@ weil ansonsten unweigerlich INFORMATIONAL-Meldungen
 von anderen IKE-Sitzungen in der Ausgabe auftauchen
 und diese unübersichtlich machen.
 
+.. index:: SSH
+
 Alternativ kann ich
 die Ausgabe von ``/log print`` in eine Textdatei umleiten.
 Zum Beispiel, indem ich via SSH nur diesen Befehl aufrufe
@@ -185,6 +187,8 @@ Die Befehle dazu sind::
 Welche Dateien es gibt sehe ich mit dem Befehl::
 
   /file print
+
+.. index:: SCP
 
 Von meinem Rechner aus hole ich sie mittels SCP wie folgt zur Analyse ab::
 
@@ -273,6 +277,8 @@ und erst,
 wenn die Peers NAT zwischen den beiden externen Adressen erkennen,
 schalten sie um auf Port 4500
 und verwenden diesen auch für ESP.
+
+.. index:: SHA
 
 Außerdem stimmt in diesem Fall (zumindest bis Version 6.45)
 die SHA1-Hash für die NAT-Detection nicht,

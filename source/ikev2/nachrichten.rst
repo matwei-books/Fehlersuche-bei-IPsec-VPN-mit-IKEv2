@@ -453,6 +453,8 @@ für das Erzeugen einer neuen Child-SA.
 
    CREATE_CHILD_SA-Exchange zum Erzeugen von Child-SA
 
+.. index:: SA-Payload
+
 Der Initiator sendet SA-Vorschläge in der SA-Payload, eine Nonce in der
 Ni-Payload, optional Schlüsselmaterial in der KEi-Payload und die
 Traffic-Selektoren für die vorgeschlagene Child-SA in der TSi- und
@@ -469,7 +471,7 @@ die diese DH-Gruppe enthält.
 Die vom Responder gesendeten Traffic-Selektoren in der TSi- und
 TSr-Payload können eine Teilmenge der vorgeschlagenen Selektoren sein.
 
-.. index:: ! USE_TRANSPORT_MODE, Transportmode
+.. index:: ! USE_TRANSPORT_MODE, Transportmodus, Tunnelmodus
 
 Um für den Child-SA den Transportmodus zu vereinbaren, kann der Initiator die
 Benachrichtigung USE_TRANSPORT_MODE in den Request einfügen. Falls der
@@ -546,7 +548,7 @@ Die REKEY_SA-Benachrichtigung muss in einem CREATE_CHILD_SA-Austausch
 enthalten sein, wenn dieser eine existierende ESP- oder AH-SA ersetzen
 soll.
 Das SPI-Feld dieser Notify-Payload identifiziert die zu ersetzende SA.
-Das ist die SPI, die der Exchange-Initiator in ankommenden ESP- oder
+Das ist der SPI, den der Exchange-Initiator in ankommenden ESP- oder
 AH-Datagrammen erwarten würde.
 Das Feld Protokoll-ID der REKEY_SA-Benachrichtigung ist passend zum
 Protokoll der ersetzten SA, zum Beispiel 3 für ESP oder 2 für AH.
@@ -677,8 +679,8 @@ Es gibt Fälle, in denen ein Knoten Datagramme erhält, die er nicht
 verarbeiten kann, bei denen er seinen Peer aber darüber unterrichten
 will:
 
-* Wenn ein ESP- oder AH-Datagramm mit unbekannter SPI ankommt
-* Wenn ein verschlüsseltes IKE-Datagramm mit unbekannter SPI ankommt.
+* Wenn ein ESP- oder AH-Datagramm mit unbekanntem SPI ankommt
+* Wenn ein verschlüsseltes IKE-Datagramm mit unbekanntem SPI ankommt.
 * Wenn ein IKE-Datagramm mit einer höheren Version ankommt, als die
   aktuell verwendete Software unterstützt.
 
@@ -689,7 +691,7 @@ Im ersten Fall kann der Empfänger,
 wenn er eine aktive IKE-SA mit dem Sender unterhält,
 über diese eine INVALID_SPI-Benachrichtigung
 für das empfangene Datagramm in einem INFORMATIONAL-Exchange senden.
-Die Benachrichtigungsdaten enthalten dann die unbekannte SPI.
+Die Benachrichtigungsdaten enthalten dann den unbekannten SPI.
 
 Existiert keine aktive IKE-SA mit dem Sender,
 kann der Empfänger eine INFORMATIONAL-Nachricht
@@ -701,8 +703,8 @@ Der Empfänger der INFORMATIONAL-Nachricht
 sollte diese nur als Hinweis ansehen, dass etwas schiefgegangen ist.
 Auf keinen
 Fall darf der Empfänger der INFORMATIONAL-Nachricht auf diese antworten.
-Diese Nachricht wird wie folgt konstruiert: da der Empfänger keine SPI
-für diese Nachricht hat, sind sowohl 0 als auch zufällige Werte für die
+Diese Nachricht wird wie folgt konstruiert: da der Empfänger keinen SPI
+für diese Nachricht hat, sind sowohl 0 als auch zufällige Werte für den
 Initiator-SPI akzeptabel, das Initiator-Flag wird auf 1 gesetzt, das
 Response-Flag auf 0.
 

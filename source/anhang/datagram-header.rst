@@ -49,7 +49,7 @@ ohne vorangehenden UDP-Header und Non-ESP-Marker.
 
    IKE Header
 
-.. index:: Initiator, Responder
+.. index:: Initiator, Responder, SA, SPI
 
 Die Felder haben die folgende Bedeutung:
 
@@ -198,7 +198,7 @@ Next Payload (1 Oktett):
 
   Die Payload-Typen nach RFC 7296 (beschrieben in Abschnitt 3.2 bis 3.16) sind:
 
-  .. index:: EAP, Nonce
+  .. index:: EAP, Nonce, SA
 
   ============================ ======== =====
   Next Payload Type            Notation Value
@@ -241,8 +241,8 @@ RESERVED (7 Bits):
 Payload Length (2 Oktetts, unsigned Integer):
   Länge in Oktetts der aktuellen Payload inklusive des Payload Headers.
 
-.. index:: ! Security Association Payload
-   see: SA-Payload; Security Association Payload
+.. index:: ! SA-Payload
+   see: Security Association Payload; SA-Payload
 
 Security Association Payload
 ----------------------------
@@ -359,6 +359,8 @@ Protocol ID (1 Oktett):
   AH                 2
   ESP                3
   ======== ===========
+
+.. index:: SPI
 
 SPI Size (1 Oktett):
   Bei einer initialen IKE-SA-Verhandlung muss das Feld 0 sein, es gilt
@@ -595,6 +597,8 @@ Protocol ID (1 Oktett):
   INVALID_SELECTORS, REKEY_SA und CHILD_SA_NOT_FOUND eingeschlossen.
   Beim Rekeying von IKE SA sind keine Notification Payloads involviert.
 
+.. index:: SPI
+
 SPI Size (1 Oktett):
   Länge in Oktetts des SPI, der durch die Protocol ID bestimmt wird. 0
   für die aktuelle IKE SA, 4 für AH oder ESP.
@@ -699,6 +703,8 @@ deren Felder folgende Bedeutung haben.
 Protocol ID (1 Oktett):
   1 für IKE, 2 für AH oder 3 für ESP.
 
+.. index:: SPI
+
 SPI Size (1 Oktett):
   Länge in Oktetts des SPI, der durch die Protocol ID bestimmt wird. 0
   für IKE, 4 für AH oder ESP.
@@ -776,13 +782,15 @@ Bei der Nutzung von ESN werden nur die niederwertigen 32 Bit der
 höherwertigen Bits werden beim Sender und Empfänger im entsprechenden
 Zähler mitgeführt und gehen in die Integritätsberechnung ein.
 
+.. index:: Transportmodus, Tunnelmodus
+
 Im Transportmodus wird der ESP-Header nach dem IP-Header und vor dem
 Header der nächsten Protokollschicht eingefügt.
 
 Im Tunnelmodus wird der ESP-Header vor dem gekapselten IP-Datagramm
 eingefügt.
 
-.. index:: NAT-T
+.. index:: NAT-T, Non-ESP-Marker, SPI
 
 Bei NAT-Traversal (NAT-T) wird das gesamte ESP-Datagramm als Nutzlast in
 einem UDP-Datagramm transportiert. Dabei ist der Zielport des

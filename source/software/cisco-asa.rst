@@ -271,6 +271,8 @@ Ich habe grundsätzlich die beiden Möglichkeiten:
 * ``$network $mask``
 * ``host $address``
 
+.. index:: TCP, UDP
+
 Zusätzlich kann ich bei TCP und UDP
 mit der Ergänzung ``lt``, ``eq`` oder ``gt`` und der Portnummer
 noch Angaben zum Quell- oder Zielport machen.
@@ -350,6 +352,8 @@ Auch hier habe ich etliche Optionen, die mir die Analyse erleichtern.
 ``dump``:
   zeigt das komplette Datagramm als Hexdump an.
 
+.. index:: TTL
+
 ``detail``:
   zeigt etwas mehr Details an, benötigt dafür mindestens zwei Zeilen pro
   Datagramm.
@@ -368,6 +372,8 @@ Auch hier habe ich etliche Optionen, die mir die Analyse erleichtern.
 ``packet-number $number``, ``count $count``:
   mit diesen beiden Optionen kann ich gezielt die Datagramme
   untersuchen, die mich interessieren.
+
+.. index:: TFTP
 
 Prinzipiell kann ich den Paketmitschnitt auch mit Wireshark analysieren.
 Beim ASDM kann ich die PCAP-Datei direkt herunterladen.
