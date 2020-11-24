@@ -212,8 +212,6 @@ PCRE:
 PFS:
   Perfect Forward Secrecy
 
-.. index:: PMTU
-
 PMTU:
   Path-MTU
 

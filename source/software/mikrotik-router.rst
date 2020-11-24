@@ -7,6 +7,7 @@ MikroTik-Router
 ===============
 
 .. index:: ! RouterOS
+   see: MikroTik; RouterOS
 
 MikroTik-Router eignen sich,
 um mal eben ein VPN aufzubauen
@@ -36,7 +37,7 @@ Mit dem Windows-Emulator Wine konnte ich das leider nicht,
 ansonsten funktioniert WinBox mit Wine auf einem Linux-Rechner.
 
 .. index::
-   pair: CLI; MikroTik
+   pair: CLI; RouterOS
 
 Die Konfiguration läuft auf allen drei Wegen ähnlich ab.
 Hier konzentriere ich mich auf das CLI,
@@ -88,8 +89,8 @@ Um einen VPN-Tunnel zu beenden verwende ich die Befehle::
   installed-sa flush
 
 .. index::
-   pair: MikroTik; Systemlogs
-   pair: MikroTik; Debug-Informationen
+   pair: RouterOS; Systemlogs
+   pair: RouterOS; Debug-Informationen
 
 Systemlogs und Debug-Informationen
 ----------------------------------
@@ -190,7 +191,7 @@ Von meinem Rechner aus hole ich sie mittels SCP wie folgt zur Analyse ab::
   scp user@mikrotik:vpn.log .
 
 .. index::
-   pair: MikroTik; Paketmitschnitt
+   pair: RouterOS; Paketmitschnitt
 
 Paketmitschnitte
 ----------------
@@ -221,7 +222,7 @@ Mit dem Attribut ``memory-scroll`` kann ich einen dauerhaften Mitschnitt
 bei beschränktem Speicherplatz einstellen.
 
 .. index::
-   pair: MikroTik; Konfiguration analysieren
+   pair: RouterOS; Konfiguration analysieren
 
 Konfiguration analysieren
 -------------------------

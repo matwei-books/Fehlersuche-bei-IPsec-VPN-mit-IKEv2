@@ -14,7 +14,7 @@ In den meisten Fällen werden mich die gefundenen Antworten auf den richtigen We
 Wenn jedoch meine Antworten scheinbar keinen Sinn ergeben,
 muss ich die Voraussetzungen und Zwischenschritte hinterfragen und kontrollieren.
 
-Im Wesentlichen habe ich drei Möglichkeiten,
+Im Wesentlichen habe ich vier Möglichkeiten,
 Antworten auf meine Fragen zu bekommen:
 
 * Aussagen von VPN-Benutzern
@@ -155,6 +155,8 @@ Einige Zeit später bekamen wir dann zeitnahen Zugriff auf die VPN-Logs.
    zeitweilig mehr als einen Tag nach dem Schreiben,
    zur Verfügung.
 
+.. index:: Paketmitschnitt
+
 Paketmitschnitte
 ----------------
 
@@ -201,7 +203,7 @@ die bei IKEv2 ausgetauscht werden, deren Parametern und den Reaktionen
 meines VPN-Gateways auf diese Nachrichten. Die Nachrichten sind im
 Abschnitt :ref:`ikev2/nachrichten:IKEv2 Nachrichten` näher beschrieben.
 
-.. index:: Initiator
+.. index:: Initiator, Responder
 
 Die Reaktionen auf diese Nachrichten fallen
 durchaus unterschiedlich aus, je nachdem, welche Seite Initiator
@@ -303,7 +305,7 @@ ab::
 
   undebug all
 
-.. index:: MikroTik
+.. index:: MikroTik, RouterOS
 
 Bei einem **MikroTik Router** kann ich
 Debugausgaben für IPsec mit folgendem Befehl einschalten::

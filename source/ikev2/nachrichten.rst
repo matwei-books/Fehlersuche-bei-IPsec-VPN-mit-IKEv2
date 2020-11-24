@@ -9,18 +9,17 @@
 IKEv2 Nachrichten
 =================
 
-.. index:: Exchange
-   see: Exchange; Nachrichten
 
-.. index:: Request/Response
+.. index:: Nachrichten
    see: Request/Response; Nachrichten
+   see: Exchange; Nachrichten
 
 IKEv2 funktioniert über den paarweisen Austausch von Nachrichten.
 Ein Paar von Nachrichten nennt man einen *Exchange*,
 beziehungsweise ein *Request/Response* Paar.
 
 .. index:: ! Initiator, ! Responder
-   single: IKE-SA; Rekeying
+   pair: IKE-SA; Rekeying
 
 Der Peer, der einen IKE_SA_INIT-Request sendet, wird *Initiator* genannt,
 derjenige, welcher darauf antwortet, *Responder*.
@@ -105,7 +104,7 @@ problematischen Response-Nachricht den IKE-Status aufräumen, zum
 Beispiel in dem er einen Delete-Request sendet.
 
 Weitere Hinweise zu den Fehlerregeln finden sich in Abschnitt 2.21 von
-RFC7296 :cite:`RFC7296`.
+RFC 7296 :cite:`RFC7296`.
 
 .. index:: ! IKE_SA_INIT
    single: Nachrichten; IKE_SA_INIT
@@ -238,7 +237,7 @@ Beispiel, weil er die Key-Exchange-Payload für die Cookie-Berechnung
 verwendet hat), gibt es ebenfalls eine Extra-Runde.
 
 Mehr Details zur Interaktion von COOKIE und INVALID_KE_PAYLOAD finden
-sich in Abschnitt 2.6.1 von RFC7296.
+sich in Abschnitt 2.6.1 von RFC 7296.
 
 Weitere Fehlermeldungen bei IKE_SA_INIT
 .......................................
@@ -259,7 +258,7 @@ INVALID_MAJOR_VERSION:
 .. index:: DH-Gruppe; Tests
 
 INVALID_SYNTAX:
-  RFC6989 :cite:`RFC6989` behandelt zusätzliche Diffie-Hellman-Tests für IKEv2.
+  RFC 6989 :cite:`RFC6989` behandelt zusätzliche Diffie-Hellman-Tests für IKEv2.
   Abschnitt 2.5 dort beschreibt das Protokollverhalten
   und Abschnitt 5 listet die Tests auf,
   die bei verschiedenen DH-Gruppen gemacht werden.
@@ -272,7 +271,7 @@ INVALID_SYNTAX:
   oder eine INVALID_SYNTAX-Nachricht senden.
 
   Hinweise, ob es sich tatsächlich
-  um einen fehlgeschlagenen Test nach RFC6989 handelt,
+  um einen fehlgeschlagenen Test nach RFC 6989 handelt,
   finden sich im Log oder den Debug-Meldungen des Responders.
 
 .. index:: ! IKE_AUTH
@@ -308,7 +307,7 @@ Die Abkürzungen stehen für folgende Informationen:
 *CertReq*
   Zertifikatanforderung (optional)
 *AUTH*
-  die Authentifizierungsdaten (siehe Abschnitt 2.15 in RFC7296)
+  die Authentifizierungsdaten (siehe Abschnitt 2.15 in RFC 7296)
 *SAi2, SAr2*
   Proposals beziehungsweise Transforms für die erste Child-SA
 *TSi, TSr*
@@ -329,7 +328,7 @@ zwei Datagramme für den IKE_AUTH-Austausch.
 Wird hingegen EAP verwendet,
 kann es mehrere IKE_AUTH-Exchanges geben,
 bei denen dann die Message-ID hochgezählt wird.
-Weitere Informationen zu EAP finden sich in RFC7296 Abschnitt 2.16.
+Weitere Informationen zu EAP finden sich in RFC 7296 Abschnitt 2.16.
 
 Fehler beim IKE_AUTH-Exchange
 .............................
@@ -482,12 +481,13 @@ das für den Initiator inakzeptabel, muss er die SA löschen.
 Ein fehlgeschlagener Versuch, eine Child-SA zu erzeugen sollte nicht zum
 Abbau der IKE-SA führen.
 
-.. index:: ! IKE-SA; Rekeying
+.. index::
+   pair: IKE-SA; Rekeying
 
 Rekeying von IKE-SA mit CREATE_CHILD_SA
 .......................................
 
-Sektion 2.18 in RFC7296 behandelt
+Sektion 2.18 in RFC 7296 behandelt
 das Rekeying von IKE-SA im Detail.
 :numref:`create-child-sa-rekey-ike-sa` zeigt den Austausch
 für das Rekeying der IKE-SA.
@@ -511,6 +511,9 @@ SA-Vorschlag in der SA-Payload, einer Nonce in Nr und dem
 Diffie-Hellman-Wert in KEr, wenn die gewählte kryptographische Suite
 diese DH-Gruppe enthält. Außerdem sendet er eine neue Responder-SPI in
 der SA-Payload.
+
+.. index::
+   pair: Rekeying; Child-SA
 
 Rekeying von Child-SA mit CREATE_CHILD_SA
 .........................................
@@ -563,7 +566,7 @@ Fehlermeldungen bei CREATE_CHILD_SA
 .. index:: DH-Gruppe; Tests
 
 INVALID_SYNTAX:
-  RFC6989 behandelt zusätzliche Diffie-Hellman-Tests für IKEv2.
+  RFC 6989 behandelt zusätzliche Diffie-Hellman-Tests für IKEv2.
   Abschnitt 2.5 dort beschreibt das Protokollverhalten
   und Abschnitt 5 listet die Tests auf,
   die bei verschiedenen DH-Gruppen gemacht werden.
@@ -576,7 +579,7 @@ INVALID_SYNTAX:
   bei einem fehlgeschlagenen Test.
 
   Hinweise, ob es sich tatsächlich
-  um einen fehlgeschlagenen Test nach RFC6989 handelt,
+  um einen fehlgeschlagenen Test nach RFC 6989 handelt,
   sollten im Log oder den Debug-Meldungen des Responders erkennbar sein.
 
 .. index:: ! INFORMATIONAL

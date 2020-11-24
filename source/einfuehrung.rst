@@ -118,7 +118,7 @@ Diese können getrost übersprungen und bei Bedarf nachgelesen werden.
 Danach folgt eine Einführung in IKEv2,
 soweit für die Diagnose von Problemen nötig.
 Für detailliertere Erörterungen verweise ich auf die Literatur,
-insbesondere :cite:`RFC7296` und :cite:`Bartlett2016`,
+insbesondere RFC 7296 :cite:`RFC7296` und :cite:`Bartlett2016`,
 welches eine sehr gute Einführung in IKEv2
 insbesondere mit Cisco Geräten bietet.
 

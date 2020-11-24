@@ -81,7 +81,7 @@ Beispiel:
 
 * falsche Parameter für Child-SA
 
-* fehlendes PFS auf einer Seite
+* fehlende PFS auf einer Seite
 
 Falsche IKE-Version
 ...................
@@ -145,7 +145,7 @@ Sehe ich im Mitschnitt noch einen kompletten IKE_AUTH-Exchange, so kann
 ich davon ausgehen, dass beide Peers die selben Crypto-Algorithmen für
 IKE verwenden.
 
-.. index:: IKE_AUTH
+.. index:: IKE_AUTH, PSK
 
 Scheitert IKE_AUTH, könnten Probleme mit dem PSK die Ursache sein
 oder generell Probleme mit der gewählten Authentisierungsmethode.
@@ -179,7 +179,7 @@ IKE-Datagramme enthält.
 
 Eine spezielle Variante der falschen Parameter für Child-SA
 ist eine unterschiedliche Interpretation der Traffic-Selektoren.
-Prinzipiell erlaubt RFC44301 in Abschnitt 4.4.1.1
+Prinzipiell erlaubt RFC 4301 in Abschnitt 4.4.1.1
 sowohl für die Remote IP Address als auch für die Local IP Adress
 eine Liste von Adressbereichen.
 Damit lassen sich einzelne Adressen, eine Liste von Adressen,
@@ -195,11 +195,11 @@ eindeutige Hinweise in den Logs.
 Die Abhilfe ist unterschiedlich, je nach Software.
 
 .. index::
-   single: PFS; fehlendes
-   single: Child-SA; Rekeying
+   single: PFS; fehlende
+   pair: Child-SA; Rekeying
 
-Fehlendes PFS auf einer Seite
-.............................
+Fehlende PFS auf einer Seite
+............................
 
 Wenn PFS nur auf einer Seite konfiguriert ist und auf der anderen nicht,
 funktioniert das VPN mitunter zunächst
@@ -294,7 +294,7 @@ gezwungen, in meinen organisationseigenen Netzen Adressen zu verwenden,
 die über das Internet nicht zu mir geroutet werden.
 Manche Organisationen verwenden dann beliebige öffentliche Adressen, die
 anderen zugeteilt wurden, was ganz eigene Probleme mit sich bringt.
-Aber auch wenn ich mit Adressen arbeite, die nach RFC1918 :cite:`RFC1918`
+Aber auch wenn ich mit Adressen arbeite, die nach RFC 1918 :cite:`RFC1918`
 reserviert sind, muss ich oft genug auf NAT zurückgreifen.
 Ich muss es immer dann verwenden,
 wenn ich auf beiden Seiten des VPN überlappende Adressbereiche habe.
@@ -349,7 +349,7 @@ verbindet.
 Da beide Netze dann unabhängig voneinander geplant sind, ist es durchaus
 möglich, dass es zu Überschneidungen bei den Adressen auf beiden Seiten
 kommt.
-Insbesondere, wenn Adressen aus den in RFC1918 :cite:`RFC1918` genannten
+Insbesondere, wenn Adressen aus den in RFC 1918 :cite:`RFC1918` genannten
 Adressbereichen verwendet werden.
 In diesem Fall müssen beide Seiten Adressbereiche finden, die zu ihrem
 eigenen Netz und zum Netz des Peers passen.
@@ -455,6 +455,8 @@ zu verschlüsselt über das VPN angekommenen Daten
 unverschlüsselt mit nur halb umgesetzten Adressen zurückschickte.
 Ursache war eine übriggebliebene globale NAT-Regel.
 
+.. index:: Path-MTU
+
 Path-MTU
 --------
 
@@ -464,7 +466,7 @@ Bei einem VPN wächst die Anzahl der potentiellen Fehlerquellen.
 
 Worum geht es?
 
-.. index:: MTU
+.. index:: MTU, PPP, PPPoE
    see: Maximum Transmission Unit; MTU
 
 In jedem Netzsegment ist die maximale Größe eines Datagramms, dass in
@@ -477,7 +479,7 @@ Bei PPP gehen davon 8 Bytes für die Verwaltungsinformationen drauf,
 so dass bei einem Internetanschluss mit PPPoE nur noch 1492 Byte für das
 IP-Protokoll zur Verfügung stehen.
 Eine Aufstellung gängiger Größen für die MTU
-findet sich in RFC1191 (:cite:`RFC1191`).
+findet sich in RFC 1191 (:cite:`RFC1191`).
 
 Die MTU bezieht sich immer auf direkt angeschlossene Netzsegmente.
 Auf dem Weg vom Empfänger zum Ziel passiert ein Datagramm oft mehrere
@@ -510,7 +512,7 @@ und muss für diesen ermittelt werden.
 .. index:: Path-MTU-Discovery, ICMP
 
 Wie die Path-MTU ermittelt wird,
-ist in RFC1191 beschrieben.
+ist in RFC 1191 beschrieben.
 IPv4 verwendet hierfür das DF-Bit des IP-Headers und ICMP-Datagramme vom
 Typ 3 (Destination Unreachable), Subtyp 4 (Fragmentierung nötig, Don’t
 Fragment aber gesetzt).
@@ -579,7 +581,7 @@ gibt es bei policy-based VPN mitunter das Problem,
 dass die Absenderadresse der ICMP-Nachricht nicht in der Policy steht
 und damit die Rückmeldung bereits beim VPN verworfen wird
 und PMTU-Discovery nicht funktioniert.
-RFC4301 (:cite:`RFC4301`) diskutiert dieses Problem in Abschnitt 6.2
+RFC 4301 (:cite:`RFC4301`) diskutiert dieses Problem in Abschnitt 6.2
 "Processing Protected Transit ICMP Error Messages".
 Ob und wie das umgesetzt ist,
 hängt von der konkreten Implementierung ab.
@@ -704,8 +706,8 @@ als zusätzliche Sicherheit.
 .. index:: PPTP
 
 Als virtuelle Netzwerkschnittstelle kann ich ein GRE-Interface nehmen,
-wie in RFC2784 :cite:`RFC2784` beschrieben
-oder PPTP (RFC2637 :cite:`RFC2637`).
+wie in RFC 2784 :cite:`RFC2784` beschrieben
+oder PPTP (RFC 2637 :cite:`RFC2637`).
 
 Sind die GRE-Interfaces eingerichtet
 und durch IPsec geschützt miteinander verbunden,
@@ -765,6 +767,8 @@ denen der Anti-Replay-Check fehlschlagen kann:
 
 * Datagramme können während der Übertragung umsortiert werden und somit
   in falscher Reihenfolge eintreffen.
+
+.. index:: QoS
 
 * Durch QoS-Funktionen beim sendenden VPN-Gateway können die Datagramme
   bereits hier so umsortiert werden,

@@ -5,7 +5,7 @@
 .. index:: IPsec
 
 IPsec bietet Schutz vor Ausspähung und Veränderung für IP-Traffic.
-Die grundlegende Architektur für IPsec-konforme Systeme ist in RFC4301
+Die grundlegende Architektur für IPsec-konforme Systeme ist in RFC 4301
 beschrieben (siehe :cite:`RFC4301`).
 Eine Implementation kann in einem Host arbeiten, als Security
 Gateway oder als unabhängiges Gerät.
@@ -18,13 +18,13 @@ Insgesamt setzt sich IPsec aus drei Protokollen zusammen
 .. index:: IKE
 
 * *Internet Security Association and Key Management Protocol* (ISAKMP),
-  ursprünglich beschrieben in RFC2408, das durch RFC4306 obsolet wurde,
-  welches wiederum durch RFC5996 abgelöst wurde und dieses durch
-  RFC7296.
-  ISAKMP verwies bereits in RFC2408
+  ursprünglich beschrieben in RFC 2408, das durch RFC 4306 obsolet wurde,
+  welches wiederum durch RFC 5996 abgelöst wurde und dieses durch
+  RFC 7296.
+  ISAKMP verwies bereits in RFC 2408
   auf IKE (Internet Key Exchange Protocol)
   für den Schlüsselaustausch,
-  RFC7296 beschreibt IKEv2 (siehe :cite:`RFC7296`).
+  RFC 7296 beschreibt IKEv2 (siehe :cite:`RFC7296`).
   In :cite:`ct-2007-20-210` findet sich
   ein gut verständlicher Überblick über IKEv2 in deutscher Sprache.
   
@@ -34,7 +34,7 @@ Insgesamt setzt sich IPsec aus drei Protokollen zusammen
 .. index:: Authentication Header
    see: AH; Authentication Header
 
-* *Authentication Header* (AH), beschrieben in RFC4302 (siehe
+* *Authentication Header* (AH), beschrieben in RFC 4302 (siehe
   :cite:`RFC4302`) ist ein Protokoll, dass zwar die Integrität der
   übertragenen Daten schützt, aber nicht deren Vertraulichkeit.
   Ich persönlich habe das Protokoll noch nie in der Praxis vorgefunden.
@@ -42,7 +42,7 @@ Insgesamt setzt sich IPsec aus drei Protokollen zusammen
 .. index:: ! ESP
    see: Encapsulating Security Protocol; ESP
 
-* *Encapsulating Security Protocol* (ESP), beschrieben in RFC4303
+* *Encapsulating Security Protocol* (ESP), beschrieben in RFC 4303
   (siehe :cite:`RFC4303`) schützt sowohl die Vertraulichkeit als auch
   die Integrität der übertragenen Daten.
   Es kann damit die Funktionalität von AH übernehmen,
@@ -89,8 +89,8 @@ Die SPD enthält die Policies,
 die die erlaubten Parameter für die SA begrenzen
 und nur selten durch den Administrator geändert werden.
 
-.. index:: Peer Authorization Database
-   see: PAD; Peer Authorization Database
+.. index:: ! PAD
+   see: Peer Authorization Database; PAD
 
 Eine dritte Datenbank, die Peer Authorization Database (PAD)
 stellt die Verbindung zwischen der SPD und ISAKMP her.
@@ -129,7 +129,7 @@ Eine IPsec-Implementation kann mehrere Schnittstellen auf jeder Seite
 der Grenze unterstützen.
 In diesem Buch meint *Inside* die rote Seite und *Outside* die schwarze.
 
-RFC4301 erläutert die Aufgaben der SPD ausführlich,
+RFC 4301 erläutert die Aufgaben der SPD ausführlich,
 ohne auf die konkrete Form der Datenbank
 oder ihre Schnittstelle einzugehen.
 Der Text spezifiziert nur die minimale Funktionalität,
@@ -302,7 +302,7 @@ Die Struktur erlaubt die Angabe von
 
 Die SPD bietet keinen Support für Multicast-Adressen.
 Wenn Multicast über IPsec gesendet werden soll,
-muss man eine Group SPD, wie in RFC3740 definiert, verwenden.
+muss man eine Group SPD, wie in RFC 3740 definiert, verwenden.
 
 Next Layer Protocol
 ...................
@@ -337,6 +337,8 @@ Ein Name kann als Identifikator
 für eine lokale oder entfernte Adresse bei IPsec
 verwendet werden.
 
+.. index:: Responder
+
 Benannte SPD-Einträge werden auf zwei Arten verwendet:
 
 1. Ein SPD-Eintrag mit Name wird beim Responder (nicht dem Initiator)
@@ -359,5 +361,5 @@ Benannte SPD-Einträge werden auf zwei Arten verwendet:
    Der Name wird nur lokal verwendet und nicht über
    das Netz zum Peer kommuniziert.
    
-Details hierzu finden sich auf Seite 28-29 von RFC4301.
+Details hierzu finden sich auf Seite 28-29 von RFC 4301.
 

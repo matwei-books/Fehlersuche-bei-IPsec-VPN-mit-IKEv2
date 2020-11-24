@@ -3,6 +3,8 @@
 
    \clearpage
 
+.. index:: Paketmitschnitt
+
 .. _sect-paketmitschnitt:
 
 Paketmitschnitt
@@ -130,7 +132,7 @@ die nötigen Befehle kennen. Auf der Kommandozeile sind das zum Beispiel
 
     tcpdump -w filename ...
 
-.. index:: MikroTik
+.. index:: MikroTik, RouterOS
 
 * bei MikroTik::
 

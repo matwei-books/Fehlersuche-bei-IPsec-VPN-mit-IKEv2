@@ -162,6 +162,9 @@ wobei der Ethernet-Schnittstelle,
 die von der GNS3-Cloud verwendet wird, ein Trunk zugewiesen wird.
 Auf einem simulierten Switch in GNS3 kann ich die VLANs trennen.
 
+.. index::
+   single: Paketmitschnitt; GNS3
+
 Obwohl oder gerade weil es sehr einfach ist,
 an den Verbindungen zwischen den simulierten Geräten
 in GNS3 Paketmitschnitte aufzunehmen, muss ich vorsichtig sein,

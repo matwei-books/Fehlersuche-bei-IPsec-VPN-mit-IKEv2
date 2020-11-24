@@ -14,7 +14,7 @@ hatte ich mich detailliert
 mit der Behandlung von ICMP bei Firewalls auseinandergesetzt
 und will das hier nicht weiter als nötig ausdehnen.
 
-RFC4301 :cite:`RFC4301` unterscheidet bei ICMP-Traffic
+RFC 4301 :cite:`RFC4301` unterscheidet bei ICMP-Traffic
 zwischen den beiden Kategorien
 Fehlermeldungen (error), wie zum Beispiel *ICMP Unreachable*,
 und informative Meldungen (non-error), wie zum Beispiel PING.
@@ -27,7 +27,7 @@ wenn noch keine passenden existieren
 und die Policy die Nachrichten erlaubt.
 
 Mit der Behandlung von ICMP-Fehlermeldungen beschäftigt sich
-Abschnitt 6 in RFC4301.
+Abschnitt 6 in RFC 4301.
 Dieser unterscheidet ICMP-Nachrichten,
 die an das VPN-Gateway gerichtet sind,
 von Transit-Nachrichten,
@@ -50,7 +50,7 @@ ob tatsächlich das angezeigte Problem im Netzwerk existiert
 oder ob es sich um einen ausgeklügelten Angriff handelt.
 Oft hat man auch keine Möglichkeit,
 das auf andere Art für Datagramme von der schwarzen Seite zu überprüfen.
-RFC4301 verlangt daher von einer konformen Implementierung
+RFC 4301 verlangt daher von einer konformen Implementierung
 für den Administrator bei der Konfiguration die Möglichkeit,
 diese Meldungen zu ignorieren oder zu akzeptieren.
 Außerdem muss es Mechanismen geben,
@@ -154,16 +154,17 @@ nicht immer identisch mit der Source Address aus dem IP-Header.
 
    \clearpage
 
+.. index:: ! Path-MTU-Discovery
+
 Path-MTU-Discovery
 ------------------
-
-.. index:: ! PMTU-Discovery, ! Path-MTU-Discovery
 
 .. topic:: MTU / PMTU
 
    .. index:: ! MTU
       see: Maximum Transmission Unit; MTU
    .. index:: ! Path-MTU
+      see: PMTU; Path-MTU
 
    Die Maximum Transmission Unit (MTU) beschreibt
    die maximale Paketgröße eines Protokolls
@@ -191,7 +192,7 @@ beziehungsweise ICMPv6 Typ 2, Code 0
 signalisiert ein Gateway oder Router
 auf dem Weg eines Datagramms vom Sender zum Empfänger,
 dass das Datagramm zu groß für das nächste Netzsegment ist.
-Das Verfahren ist in RFC1191 (:cite:`RFC1191`) beschrieben
+Das Verfahren ist in RFC 1191 (:cite:`RFC1191`) beschrieben
 und wird zum Beispiel von TCP verwendet,
 um die optimale Größe der Datagramme für eine Verbindung zu finden.
 
@@ -241,7 +242,7 @@ frühestens nach dem zweiten gesendeten großen Datagramm.
 Hier gibt es also systembedingt eine zusätzliche Verzögerung,
 bis die Path-MTU-Discovery wirksam wird.
 
-RFC4301 schreibt vor,
+RFC 4301 schreibt vor,
 dass die zu einer SA gehörende Path-MTU altern soll,
 damit sie - durch erneute PMTU-Discovery - 
 an geänderte Bedingungen im Netz angepasst werden kann.

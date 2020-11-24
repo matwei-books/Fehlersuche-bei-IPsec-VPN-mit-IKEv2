@@ -81,8 +81,7 @@ Minor Version (4 Bits):
   müssen die Unterversion auf 0 setzen
   und in empfangenen Nachrichten ignorieren.
 
-.. index:: IKE_SA_INIT, IKE_AUTH, CREATE_CHILD_SA, INFORMATIONAL,
-   Exchange
+.. index:: IKE_SA_INIT, IKE_AUTH, CREATE_CHILD_SA, INFORMATIONAL
 
 Exchange Type (1 Oktett):
   zeigt den Typ der Nachrichten an.
@@ -98,6 +97,9 @@ Exchange Type (1 Oktett):
   =============== ====
 
   Die aktuell gültigen Werte finden sich bei der IANA :cite:`IKEv2parameters`.
+
+.. index::
+   single: Rekeying; Initiator-Flag
 
 Flags (1 Oktett):
   zeigt spezifische Optionen für diese Nachricht an.
@@ -165,7 +167,7 @@ in dem dieser Begriff verwendet wird.
 Jede IKE-Payload beginnt mit einem generischen Header wie in
 :numref:`ipsec-ike-datagram-gph` dessen Felder ich nachfolgend
 erläutere. Die konkreten IKE-Parameter sind als Payload in den
-Abschnitten 3.2 bis 3.16 von RFC7296 :cite:`RFC7296` beschrieben.
+Abschnitten 3.2 bis 3.16 von RFC 7296 :cite:`RFC7296` beschrieben.
 Die aktuell gültigen Werte für alle IKEv2-Parameter
 finden sich bei der IANA :cite:`IKEv2parameters`.
 
@@ -256,7 +258,7 @@ Proposals, Transforms und Attribute haben - wie die Payload selbst - ihre eigene
 Sie sind verschachtelt, so dass die Payload-Length einer SA den gesamten Umfang der Proposals, Transforms und Attribute umfasst.
 Die Länge eines Proposals umfasst die Länge aller enthaltenen Transforms und Attribute.
 Die Länge eines Transforms umfasst die Länge aller enthaltenen Attribute.
-In RFC7296 :cite:`RFC7296`, Abschnitt 3.3 ist die SA-Payload ausführlich
+In RFC 7296 :cite:`RFC7296`, Abschnitt 3.3 ist die SA-Payload ausführlich
 beschrieben.
 
 .. figure:: /images/ipsec-sa-payload.png
@@ -273,7 +275,7 @@ als auch Authenticated-Encryption-Chiffren vorschlagen,
 muss dann aber verschiedene Proposals verwenden,
 da diese nicht im selben Proposal gemischt werden können.
 
-.. index:: AH, ESP, ESN
+.. index:: AH, ESP, ESN, PRF
 
 Jede Proposal-Struktur wird gefolgt von einer oder mehreren Transform-Strukturen.
 Deren Anzahl wird durch das Protokoll bestimmt.
@@ -411,7 +413,7 @@ Transform Type (1 Oktett):
 
   Die Werte der folgenden Tabelle entsprechen dem Stand von RFC 7296.
 
-  .. index:: DH-Gruppe, ESN
+  .. index:: DH-Gruppe, ESN, PRF
 
   === ===============================  ==========================
   Typ Beschreibung                     Verwendet in
@@ -425,7 +427,7 @@ Transform Type (1 Oktett):
 
   (*) Das Aushandeln eines Integritätsalgorithmus (INTEG) ist
   verbindlich für die in RFC 7296 spezifizierten verschlüsselten
-  Payloads. RFC5282 :cite:`RFC5282` zum Beispiel spezifiziert zusätzliche
+  Payloads. RFC 5282 :cite:`RFC5282` zum Beispiel spezifiziert zusätzliche
   Formate, die auf authentisierter Verschlüsselung beruhen und in denen
   kein separater Integritätsalgorithmus ausgehandelt wird.
 
@@ -443,49 +445,49 @@ Die Werte entsprechen dem Stand von RFC 7296.
 Name           Nummer Definiert in
 ============== ====== =============================
 ENCR_DES_IV64  1      (UNSPECIFIED)
-ENCR_DES       2      RFC2405 :cite:`RFC2405`, :cite:`ANSI-X3.106`
-ENCR_3DES      3      RFC2451 :cite:`RFC2451`
-ENCR_RC5       4      RFC2451 :cite:`RFC2451`
-ENCR_IDEA      5      RFC2451 :cite:`RFC2451`, :cite:`IDEA`
-ENCR_CAST      6      RFC2451 :cite:`RFC2451`
-ENCR_BLOWFISH  7      RFC2451 :cite:`RFC2451`
+ENCR_DES       2      RFC 2405 :cite:`RFC2405`, :cite:`ANSI-X3.106`
+ENCR_3DES      3      RFC 2451 :cite:`RFC2451`
+ENCR_RC5       4      RFC 2451 :cite:`RFC2451`
+ENCR_IDEA      5      RFC 2451 :cite:`RFC2451`, :cite:`IDEA`
+ENCR_CAST      6      RFC 2451 :cite:`RFC2451`
+ENCR_BLOWFISH  7      RFC 2451 :cite:`RFC2451`
 ENCR_3IDEA     8      (UNSPECIFIED)
 ENCR_DES_IV32  9      (UNSPECIFIED)
-ENCR_NULL      11     RFC2410 :cite:`RFC2410`
-ENCR_AES_CBC   12     RFC3602 :cite:`RFC3602`
-ENCR_AES_CTR   13     RFC3686 :cite:`RFC3686`
+ENCR_NULL      11     RFC 2410 :cite:`RFC2410`
+ENCR_AES_CBC   12     RFC 3602 :cite:`RFC3602`
+ENCR_AES_CTR   13     RFC 3686 :cite:`RFC3686`
 ============== ====== =============================
 
 .. raw:: latex
 
    \clearpage
 
-.. index:: HMAC
+.. index:: HMAC, PRF
 
 Die Transform-ID für Transform-Typ 2
-(Pseudorandom Function, PRF) mit Stand von RFC7296
+(Pseudorandom Function, PRF) mit Stand von RFC 7296
 sind in folgender Tabelle aufgelistet.
 
 ============== ====== ==================================
 Name           Nummer Definiert in
 ============== ====== ==================================
-PRF_HMAC_MD5   1      RFC2104 :cite:`RFC2104`, RFC1321 :cite:`RFC1321`
-PRF_HMAC_SHA1  2      RFC2104 :cite:`RFC2104`, :cite:`FIPS.180-4.2012`
+PRF_HMAC_MD5   1      RFC 2104 :cite:`RFC2104`, RFC1321 :cite:`RFC1321`
+PRF_HMAC_SHA1  2      RFC 2104 :cite:`RFC2104`, :cite:`FIPS.180-4.2012`
 PRF_HMAC_TIGER 3      (UNSPECIFIED)
 ============== ====== ==================================
 
 Die Transform-ID für Transform-Typ 3 (Integrity Algorithm)
-mit Stand von RFC7296 listet die folgende Tabelle.
+mit Stand von RFC 7296 listet die folgende Tabelle.
 
 ================= ====== =======================
 Name              Nummer Definiert in
 ================= ====== =======================
 NONE              0
-AUTH_HMAC_MD5_96  1      RFC2403 :cite:`RFC2403`
-AUTH_HMAC_SHA1_96 2      RFC2404 :cite:`RFC2404`
+AUTH_HMAC_MD5_96  1      RFC 2403 :cite:`RFC2403`
+AUTH_HMAC_SHA1_96 2      RFC 2404 :cite:`RFC2404`
 AUTH_DES_MAC      3      (UNSPECIFIED)
 AUTH_KPDK_MD5     4      (UNSPECIFIED)
-AUTH_AES_XCBC_96  5      RFC3566 :cite:`RFC3566`
+AUTH_AES_XCBC_96  5      RFC 3566 :cite:`RFC3566`
 ================= ====== =======================
 
 .. index:: MODP
@@ -499,16 +501,16 @@ Name                Nummer  Definiert in
 NONE                0
 768-bit MODP Group  1       Appendix B von RFC 7296
 1024-bit MODP Group 2       Appendix B von RFC 7296
-1536-bit MODP Group 5       RFC3526 :cite:`RFC3526`
-2048-bit MODP Group 14      RFC3526 :cite:`RFC3526`
-3072-bit MODP Group 15      RFC3526 :cite:`RFC3526`
-4096-bit MODP Group 16      RFC3526 :cite:`RFC3526`
-6144-bit MODP Group 17      RFC3526 :cite:`RFC3526`
-8192-bit MODP Group 18      RFC3526 :cite:`RFC3526`
+1536-bit MODP Group 5       RFC 3526 :cite:`RFC3526`
+2048-bit MODP Group 14      RFC 3526 :cite:`RFC3526`
+3072-bit MODP Group 15      RFC 3526 :cite:`RFC3526`
+4096-bit MODP Group 16      RFC 3526 :cite:`RFC3526`
+6144-bit MODP Group 17      RFC 3526 :cite:`RFC3526`
+8192-bit MODP Group 18      RFC 3526 :cite:`RFC3526`
 =================== ======= =======================
 
-.. index:: Perfect Forward Secrecy
-   see: PFS; Perfect Forward Secrecy
+.. index:: PFS
+   see: Perfect Forward Secrecy; PFS
    single: Child-SA; PFS
 
 Obwohl ESP und AH einen Diffie-Hellman-Austausch nicht selbst enthalten,
@@ -521,12 +523,12 @@ für die Child-SA-Schlüssel gewährleistet.
 Die aufgelisteten MODP Diffie-Hellman-Gruppen benötigen keine speziellen
 Gültigkeitstests. Andere DH-Gruppen können zusätzliche Tests benötigen, um
 sie sicher zu verwenden. Weitere Informationen zu diesem Thema finden sich
-in RFC6989 :cite:`RFC6989`.
+in RFC 6989 :cite:`RFC6989`.
 
 .. index:: ESN
 
 Die für Transform-Typ 5 (Extended Sequence Numbers) definierten
-Transform-ID mit Stand von RFC7296 sind in der folgenden Tabelle
+Transform-ID mit Stand von RFC 7296 sind in der folgenden Tabelle
 gelistet.
 
 ============================ ======
@@ -589,7 +591,7 @@ Protocol ID (1 Oktett):
   
   Für Benachrichtigungen bezüglich Child-SA muss dieses Feld entweder
   den Wert 2 enthalten, um AH anzuzeigen oder den Wert 3 für ESP.
-  Bei den in RFC7296 definierten Benachrichtigungen ist der SPI nur mit
+  Bei den in RFC 7296 definierten Benachrichtigungen ist der SPI nur mit
   INVALID_SELECTORS, REKEY_SA und CHILD_SA_NOT_FOUND eingeschlossen.
   Beim Rekeying von IKE SA sind keine Notification Payloads involviert.
 
@@ -614,7 +616,7 @@ Notify-Message-Typen
 
 Die folgenden beidenTabellen listen lediglich
 die Namen der Nachrichten und ihren numerischen Wert.
-Für Details verweise ich auf RFC7296, Abschnitt 3.10.
+Für Details verweise ich auf RFC 7296, Abschnitt 3.10.
 
 .. index:: Fehlertyp
 
@@ -654,7 +656,7 @@ TEMPORARY_FAILURE                 43
 CHILD_SA_NOT_FOUND                44
 =============================== =====
 
-.. index:: COOKIE, HTTP_CERT_LOOKUP_SUPPORTED
+.. index:: COOKIE, HTTP_CERT_LOOKUP_SUPPORTED, REKEY_SA
 
 =============================== =====
 NOTIFY Nachrichten: Statustypen  Wert

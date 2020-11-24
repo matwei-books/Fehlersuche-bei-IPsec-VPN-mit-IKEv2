@@ -376,6 +376,8 @@ zu einem TFTP-Server::
 
   copy /pcap capture:$name tftp
 
+.. index:: Perl
+
 Da ich einmal bei einer ASA weder Zugang zum ASDM hatte,
 noch ein TFTP-Server in Reichweite war,
 habe ich ein Skript geschrieben,

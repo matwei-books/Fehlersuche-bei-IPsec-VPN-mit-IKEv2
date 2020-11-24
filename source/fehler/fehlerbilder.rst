@@ -369,7 +369,7 @@ Bei Punkt 4 gehört eine geeignete Ausnahmeregel auf die Host-Firewall.
 
    .. index:: ICMP Black Hole
 
-   RFC4821 schlägt einen Mechanismus vor,
+   RFC 4821 schlägt einen Mechanismus vor,
    mit dem ICMP Black Holes,
    also das Problem der fehlenden ICMP-Benachrichtigungen,
    entdeckt und die MTU intelligent herabgesetzt werden kann.
@@ -381,6 +381,8 @@ Bei Punkt 4 gehört eine geeignete Ausnahmeregel auf die Host-Firewall.
 .. raw:: latex
    
    \newpage
+
+.. index:: Path-MTU-Discovery
 
 Kann ich Path-MTU-Discovery nicht reparieren, bleiben mir noch zwei
 Möglichkeiten:
