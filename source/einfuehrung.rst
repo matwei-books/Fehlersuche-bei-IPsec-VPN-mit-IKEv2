@@ -33,6 +33,8 @@ Aus meinen in dieser Zeit gesammelten Erfahrungen entstand ein Workshop
 zum Thema Fehlersuche bei IPsec für die Kollegen und schließlich dieses
 Buch.
 
+.. index:: VPN
+
 Ein VPN zu betreiben und Fehler dabei zu suchen ist schon nicht einfach,
 wenn man beide Endpunkte selbst betreibt.
 Dann hat man allerdings die meisten Komponenten unter eigener Kontrolle

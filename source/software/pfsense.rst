@@ -42,7 +42,7 @@ Zunächst lande ich in einem Menü wie dem folgenden:
 
 Von dort komme ich über den Menüpunkt 8) auf die Unix-Shell.
 
-.. index:: pfSense; viconfig
+.. index:: pfSense; viconfig, XML
 
 Will ich die Konfiguration über die Kommandozeile ändern,
 nehme ich das Programm ``viconfig``,
@@ -246,6 +246,8 @@ Grundlagen beschrieben.
 
 Konfiguration analysieren
 -------------------------
+
+.. index:: XML
 
 Die Konfiguration der pfSense kann ich als Textdatei *config.xml* im
 XML-Format herunterladen.

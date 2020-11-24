@@ -92,6 +92,8 @@ für Proof-of-Concepts oder einfach nur zum Lernen.
 
 Es gibt verschiedene Möglichkeiten, ein Testlab mit GNS3 einzurichten.
 
+.. index:: VLAN
+
 Ein Laptop mit geeigneter CPU und genügend RAM kann bereits ausreichen,
 um viele Situationen nachzustellen. Da hier sowohl das Frontend als auch
 der Host, auf dem die simulierten Geräte laufen, in einem Rechner
@@ -99,6 +101,8 @@ vereint sind, ist diese Lösung - einmal eingerichtet - am bequemsten
 einzusetzen.
 Über einen Netzwerkanschluss und VLANs kann ich diesen
 Aufbau mit externer Hardware zu komplexen Setups erweitern.
+
+.. index:: VM
 
 Habe ich keinen Laptop übrig, kann ich das Backend mit den VM auch auf
 einer vorhandenen virtuellen Umgebung laufen lassen.
@@ -156,6 +160,8 @@ Das ist insbesondere dann wichtig,
 wenn GNS3 komplett auf einem Laptop läuft und ich von diesem
 beispielsweise das Web-Interface
 eines der simulierten Geräte ansprechen will.
+
+.. index:: VLAN
 
 Für komplexe Simulationen mit externen Geräten verwende ich VLANs,
 wobei der Ethernet-Schnittstelle,
@@ -256,6 +262,8 @@ Für die Testzwecke komme ich meist mit den folgenden Optionen aus:
 ``-1, --icmp``:
   Damit sendet hping3 ICMP-Echo-Requests. Andere Typen/Codes können mit
   ``--icmptype`` und ``--icmpcode`` spezifiziert werden.
+
+.. index:: UDP
 
 ``-2, --udp``:
   Damit sendet hping3 UDP-Datagramme an den Port 0 des Zielrechners.

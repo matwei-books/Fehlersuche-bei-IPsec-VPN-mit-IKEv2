@@ -271,8 +271,6 @@ Ich habe grundsätzlich die beiden Möglichkeiten:
 * ``$network $mask``
 * ``host $address``
 
-.. index:: TCP, UDP
-
 Zusätzlich kann ich bei TCP und UDP
 mit der Ergänzung ``lt``, ``eq`` oder ``gt`` und der Portnummer
 noch Angaben zum Quell- oder Zielport machen.

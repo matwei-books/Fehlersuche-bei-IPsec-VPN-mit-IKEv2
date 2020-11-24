@@ -14,7 +14,7 @@ und andererseits,
 die Debugmeldungen zu interpretieren,
 wenn ich bei einer Fehlersuche darauf zurückgreife.
 
-.. index:: IKE
+.. index:: IKE, UDP
    single: Datagramm-Header; IKE
 
 IKE Header
@@ -660,7 +660,8 @@ TEMPORARY_FAILURE                 43
 CHILD_SA_NOT_FOUND                44
 =============================== =====
 
-.. index:: COOKIE, HTTP_CERT_LOOKUP_SUPPORTED, REKEY_SA
+.. index:: COOKIE, HTTP_CERT_LOOKUP_SUPPORTED, REKEY_SA,
+   USE_TRANSPORT_MODE
 
 =============================== =====
 NOTIFY Nachrichten: Statustypen  Wert
@@ -790,7 +791,7 @@ Header der nächsten Protokollschicht eingefügt.
 Im Tunnelmodus wird der ESP-Header vor dem gekapselten IP-Datagramm
 eingefügt.
 
-.. index:: NAT-T, Non-ESP-Marker, SPI
+.. index:: NAT-T, Non-ESP-Marker, SPI, UDP
 
 Bei NAT-Traversal (NAT-T) wird das gesamte ESP-Datagramm als Nutzlast in
 einem UDP-Datagramm transportiert. Dabei ist der Zielport des
