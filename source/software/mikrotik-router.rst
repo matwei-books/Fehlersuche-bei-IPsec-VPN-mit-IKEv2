@@ -225,13 +225,23 @@ Das ist bei einfachen Fragen oft ausreichend.
 Mit dem Attribut ``memory-scroll`` kann ich einen dauerhaften Mitschnitt
 bei beschränktem Speicherplatz einstellen.
 
+Es ist sinnvoll,
+sich mit den Paketmitschnitten bei RouterOS vertraut zu machen,
+bevor man diese benötigt.
+Je nach Modell und Konfiguration der Schnittstellen kann es sonst sein,
+dass man gar nichts
+oder nur direkt an ein Interface gesandte Datagramme erhält.
+Auch verhalten sich die Switch-Modelle teilweise anders
+als die Router-Modelle,
+obwohl beide mit RouterOS betrieben werden können.
+
 .. index::
    pair: RouterOS; Konfiguration analysieren
 
 Konfiguration analysieren
 -------------------------
 
-Die Konfiguration bekomme ich mit dem Befehl ``export`` in Textform.
+Die Konfiguration bekomme ich mit dem Befehl ``export`` als Text.
 Direkt in der Wurzel eingegeben (``/export``) bekomme ich die gesamte
 Konfiguration, ich kann mich aber auch auf Teile beschränken, zum
 Beispiel auf die IPsec-Konfiguration::
@@ -298,4 +308,37 @@ Gebe ich damit den Standard-Port vor,
 funktioniert auch die NAT-Detection
 und der IPsec-Tunnel wird mit nativem ESP aufgebaut,
 wodurch der Overhead durch den Tunnel etwas geringer wird.
+
+.. index:: CHR
+
+Netzwerk-Performance des CHR ist lizenzabhängig
+...............................................
+
+Ein CHR (Cloud Hosted Router) ist eine virtuelle Maschine,
+welche in verschiedenen Umgebungen laufen kann,
+die die benötigte Hardware (X86) zur Verfügung stellen,
+zum Beispiel unter VMware, Xen oder im GNS3-Netzwerksimulator.
+
+Das benötigte Image ist für alle Plattformen das gleiche
+und kann frei von der Website heruntergeladen werden.
+Dieses Image hat die volle Funktionalität,
+ist jedoch beim Datendurchsatz auf ungefähr 1 MBit/s beschränkt.
+
+Für Simulationen in GNS3 ist das in den meisten Fällen ausreichend.
+Im Produktivbetrieb ist es in den meisten Fällen ratsam,
+mit einem einmaligen Erwerb eine höheren Lizenz
+einen höheren Datendurchsatz freizuschalten.
+
+Das Verfahren ist in meinen Augen nur fair,
+da man genügend Zeit hat,
+den CHR in der speziellen Umgebung zu evaluieren,
+und sich anschließend mit dem Erwerb der benötigten Lizenz
+an den Kosten für die Entwicklung zu beteiligen.
+
+Man muss allerdings daran denken,
+die höhere Lizenz freizuschalten.
+Uns ist es hin und wieder passiert,
+dass wir nicht rechtzeitig daran gedacht hatten
+und uns anschließend über die schlechte Performance
+des VPN mit dem CHR wunderten.
 

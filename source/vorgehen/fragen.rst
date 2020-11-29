@@ -292,6 +292,25 @@ ob das VPN schnell genug ist,
 sondern indirekt,
 wie das betrachtete VPN-Gateway mit der anfallenden Last umgeht.
 Dauerhaft hohe Werte für die CPU-Last sind ein Indikator dafür,
-dass es den Anforderungen kaum nachkomt
+dass es den Anforderungen kaum nachkommt
 und dass ich mich nach einem leistungsfähigeren Gateway umsehen sollte.
 
+- Habe ich die benötigten Lizenzen erworben?
+
+Diese Frage muss ich mir nur in einem speziellen Kontext stellen.
+Nämlich, wenn die Performance eines Gerätes oder einer VM abhängig ist
+von erworbenen Lizenzen.
+
+Ein Beispiel hierfür sind MikroTik CHR,
+die kostenlos mit vollem Funktionsumfang
+von der Website des Herstellers bezogen werden können.
+Diese virtuellen Maschinen sind jedoch beim Datendurchsatz
+auf 1 MBit/s beschränkt,
+bis eine entsprechende Lizenz erworben wurde.
+
+Da das Problem hier nicht durch technische Maßnahmen
+sondern durch den Erwerb von Lizenzen gelöst wird,
+verliert man es leicht aus den Augen.
+Ich selbst habe mehrfach erlebt,
+dass eine Fehlersuche unnötig gewesen wäre,
+wenn wir an die Lizenzen gedacht hätten.

@@ -42,7 +42,12 @@ BSD:
 CBC:
    Cipher Block Chaining
 
-.. index:: ! CLI
+.. index:: CHR
+
+CHR:
+   Cloud Hosted Router
+
+.. index:: CLI
 
 CLI:
   Command Line Interface
