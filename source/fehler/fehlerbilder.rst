@@ -82,6 +82,31 @@ die vom Peer bei IKE_SA_INIT gesendeten Parameter
 mit der eigenen Konfiguration zu vergleichen.
 Dazu reichen die Daten aus dem Paketmitschnitt.
 
+.. index:: Zertifikat, Fragmentierung, IKEV2_FRAGMENTATION_SUPPORTED
+
+Bei VPN mit Authentisierung per Zertifikat kann es passieren,
+dass nach dem Austausch von IKE_SA_INIT
+der Austausch von IKE_AUTH in einen Timeout läuft.
+Mitunter funktionierte das VPN auch bisher,
+aber nicht mehr nach einem Wechsel der Zertifikate.
+Das kann daran liegen,
+dass aufgrund großer Zertifikate die IKE_AUTH-Nachrichten
+nicht mehr in einem Datagramm übertragen werden können.
+Beim Initiator der Verbindung
+lässt sich das im Paketmitschnitt verifizieren.
+Die IKE_AUTH-Nachricht geht in mehreren IP-Fragmenten raus
+oder in einem IP-Datagramm,
+das größer ist als 1500 Byte.
+Beim Responder kommen diese Fragmente gar nicht oder unvollständig an,
+so dass dieser die IKE_AUTH-Nachricht nicht verarbeiten kann
+und in einen Timeout läuft.
+Abhilfe kann IKE Message Fragmentation
+nach RFC 7383 :cite:`RFC7383` bringen,
+wenn beide Peers das Verfahren unterstützen.
+Unterstützen die Peers das Verfahren,
+finden sich im IKE_SA_INIT-Austausch
+Notify-Payloads mit der Nachricht IKEV2_FRAGMENTATION_SUPPORTED.
+
 Kann ich das VPN aufbauen,
 suche ich nach dem interessanten Traffic auf der Inside.
 Sehe ich diesen Traffic nicht, dann muss ich mich um die Verbindung vom
@@ -159,10 +184,6 @@ wenn ich nicht selbst auch für das interne Netz zuständig bin.
 Sehe ich den Traffic auf der Inside ankommen, aber keinen adäquaten
 verschlüsselten Traffic auf der Outside abgehen, muss ich die
 Konfiguration meines VPN-Gateways noch einmal genau prüfen.
-
-.. raw:: latex
-
-   \clearpage
 
 Dabei muss ich auch eventuell vorhandene Adressumsetzungen berücksichtigen.
 In einem konkreten Fall war das VPN-Gateway gleichzeitig
@@ -365,44 +386,6 @@ Einfluss auf die Konfiguration des betreffenden Paketfilters zu nehmen.
 
 Bei Punkt 4 gehört eine geeignete Ausnahmeregel auf die Host-Firewall.
 
-.. topic:: Smart MTU Black Hole Detection
-
-   .. index:: ICMP Black Hole
-
-   RFC 4821 schlägt einen Mechanismus vor,
-   mit dem ICMP Black Holes,
-   also das Problem der fehlenden ICMP-Benachrichtigungen,
-   entdeckt und die MTU intelligent herabgesetzt werden kann.
-
-   Dieser RFC ist von 2007
-   und moderne Betriebssysteme sollten das können.
-   Manchmal muss das Verfahren jedoch erst am Endgerät aktiviert werden.
-
-.. raw:: latex
-   
-   \newpage
-
-.. index:: Path-MTU-Discovery
-
-Kann ich Path-MTU-Discovery nicht reparieren, bleiben mir noch zwei
-Möglichkeiten:
-
-a) Für TCP-Verbindungen kann ich mit MSS-Clamping die maximale
-   Größe der Datagramme beschränken.
-
-   Das VPN-Gateway macht sowieso automatisch MSS-Clamping um den
-   Protokoll-Overhead für IPsec zu berücksichtigen.
-   Diesen automatisch eingestellten Wert müsste ich per Konfiguration
-   noch kleiner machen.
-
-b) An den Endgeräten kann ich die MTU des entsprechenden
-   Netzwerk-Interfaces reduzieren.
-   Das wirkt sich allerdings auf alle Datenübertragungen des Endgerätes
-   aus und sollte nur als allerletztes Mittel verwendet werden.
-
-Beide Möglichkeiten führen auch für andere Verbindungen zu einem
-ungünstigeren Verhältnis von Nutzdaten zu Protokoll-Overhead.
-
 .. topic:: MSS-Clamping
 
    .. index:: ! MSS-Clamping
@@ -434,4 +417,43 @@ ungünstigeren Verhältnis von Nutzdaten zu Protokoll-Overhead.
    abzüglich der Größe von IP- und TCP-Header gesetzt.
    VPN-Gateways ziehen zusätzlich den Overhead
    für die Verschlüsselung ab.
+
+.. index:: Path-MTU-Discovery
+
+Kann ich Path-MTU-Discovery nicht reparieren,
+bleiben mir noch ein paar Möglichkeiten:
+
+a) Für TCP-Verbindungen kann ich mit MSS-Clamping die maximale
+   Größe der Datagramme beschränken.
+
+   Das VPN-Gateway macht sowieso automatisch MSS-Clamping um den
+   Protokoll-Overhead für IPsec zu berücksichtigen.
+   Diesen automatisch eingestellten Wert müsste ich per Konfiguration
+   noch kleiner machen.
+
+b) An den Endgeräten kann ich die MTU des entsprechenden
+   Netzwerk-Interfaces reduzieren.
+   Das wirkt sich allerdings auf alle Datenübertragungen des Endgerätes
+   aus und sollte nur als allerletztes Mittel verwendet werden.
+
+.. index:: Smart MTU Black Hole Detection
+
+c) Unterstützt das Betriebssystem der Endgeräte Smart MTU Black Hole
+   Detection, kann ich versuchen dieses zu aktivieren.
+
+Die ersten beiden Möglichkeiten führen auch für andere Verbindungen
+zu einem ungünstigeren Verhältnis von Nutzdaten zu Protokoll-Overhead.
+
+.. topic:: Smart MTU Black Hole Detection
+
+   .. index:: ICMP Black Hole
+
+   RFC 4821 schlägt einen Mechanismus vor,
+   mit dem ICMP Black Holes,
+   also das Problem der fehlenden ICMP-Benachrichtigungen,
+   entdeckt und die MTU intelligent herabgesetzt werden kann.
+
+   Dieser RFC ist von 2007
+   und moderne Betriebssysteme sollten das können.
+   Manchmal muss das Verfahren jedoch erst am Endgerät aktiviert werden.
 

@@ -196,31 +196,33 @@ Next Payload (1 Oktett):
   Payload-Typen 1-31 sollen auch in Zukunft nicht verwendet werden, so
   dass es keine Überschneidung mit IKEv1 gibt.
 
-  Die Payload-Typen nach RFC 7296 (beschrieben in Abschnitt 3.2 bis 3.16) sind:
+  Die Payload-Typen nach RFC 7296 (beschrieben in Abschnitt 3.2 bis 3.16)
+  und RFC 7383 sind:
 
   .. index:: EAP, Nonce, SA
 
-  ============================ ======== =====
-  Next Payload Type            Notation Value
-  ============================ ======== =====
-  No Next Payload                       0
-  Security Association         SA       33
-  Key Exchange                 KE       34
-  Identification - Initiator   IDi      35
-  Identification - Responder   IDr      36
-  Certificate                  CERT     37
-  Certificate Request          CERTREQ  38
-  Authentication               AUTH     39
-  Nonce                        Ni, Nr   40
-  Notify                       N        41
-  Delete                       D        42
-  Vendor ID                    V        43
-  Traffic Selector - Initiator TSi      44
-  Traffic Selector - Responder TSr      45
-  Encrypted and Authenticated  SK       46
-  Configuration                CP       47
-  Extensible Authentication    EAP      48
-  ============================ ======== =====
+  ==================================== ======== =====
+  Next Payload Type                    Notation Value
+  ==================================== ======== =====
+  No Next Payload                               0
+  Security Association                 SA       33
+  Key Exchange                         KE       34
+  Identification - Initiator           IDi      35
+  Identification - Responder           IDr      36
+  Certificate                          CERT     37
+  Certificate Request                  CERTREQ  38
+  Authentication                       AUTH     39
+  Nonce                                Ni, Nr   40
+  Notify                               N        41
+  Delete                               D        42
+  Vendor ID                            V        43
+  Traffic Selector - Initiator         TSi      44
+  Traffic Selector - Responder         TSr      45
+  Encrypted and Authenticated          SK       46
+  Configuration                        CP       47
+  Extensible Authentication            EAP      48
+  Encrypted and Authenticated Fragment SKF      53
+  ==================================== ======== =====
   
 Critical (1 Bit):
    bezieht sich auf die aktuelle Payload und hat folgende Bedeutung:
@@ -661,7 +663,7 @@ CHILD_SA_NOT_FOUND                44
 =============================== =====
 
 .. index:: COOKIE, HTTP_CERT_LOOKUP_SUPPORTED, REKEY_SA,
-   USE_TRANSPORT_MODE
+   USE_TRANSPORT_MODE, IKEV2_FRAGMENTATION_SUPPORTED
 
 =============================== =====
 NOTIFY Nachrichten: Statustypen  Wert
@@ -678,6 +680,7 @@ HTTP_CERT_LOOKUP_SUPPORTED      16392
 REKEY_SA                        16393
 ESP_TFC_PADDING_NOT_SUPPORTED   16394
 NON_FIRST_FRAGMENTS_ALSO        16395
+IKEV2_FRAGMENTATION_SUPPORTED   16430
 =============================== =====
 
 Delete Payload

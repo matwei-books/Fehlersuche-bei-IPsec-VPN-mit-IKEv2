@@ -632,6 +632,67 @@ Kann ich den Datenverkehr mit und ohne VPN
 an diesem Rechner auf verschiedene Interfaces aufteilen,
 wären allerdings nur die VPN-Verbindungen betroffen.
 
+Große IKE-Nachrichten
+.....................
+
+Ein Sonderfall von Problemen,
+die durch eine zu geringe Path-MTU verursacht werden,
+sind Probleme beim IKE-Protokoll selbst.
+Dabei kommt es meist nicht einmal darauf an,
+dass die MTU entlang des Pfades zwischen den Peers kürzer ist
+als bei den Peers selbst.
+Das Problem tritt auch auf,
+wenn eine IKE-Nachricht so groß ist,
+dass sie nicht mehr in einem UDP-Datagramm
+zum Peer gesendet werden kann.
+
+.. index:: Zertifikat
+
+Wohl am häufigsten tritt dieses Problem während IKE_AUTH
+bei Authentifizierung mit Zertifikaten auf,
+wenn diese Zertifikate sehr groß sind.
+Seltener taucht das Problem bei IKE_SA_INIT auf.
+Dort vor allem dann,
+wenn der Inititator sehr viele Proposals sendet
+und eine DH-Gruppe mit sehr großem Schlüsselmaterial gewählt hat.
+
+.. index:: Fragmentierung
+
+Erkennen lässt sich dieses Problem im Paketmitschnitt.
+Beim Initiator gehen IKEv2-Nachrichten in mehreren IP-Fragmenten hinaus,
+beim Responder kommen diese Fragmente gar nicht
+oder nicht vollständig an.
+
+Bei IKE_SA_INIT kann das Problem
+in den meisten Fällen 
+durch sorgfältige Auswahl und Anordnung der Proposals
+elimiert werden,
+so dass diese Datagramme ohne Fragmentierung
+beim Peer ankommen können.
+
+Für IKE_AUTH und andere verschlüsselte Austausche
+gibt es das in RFC 7383 :cite:`RFC7383` spezifizierte Verfahren
+IKEv2 Message Fragmentation.
+Bei diesem Verfahren werden IKEv2-Nachrichten,
+die nicht in einem Datagramm gesendet werden können,
+vor dem Verschlüsseln fragmentiert,
+und beim Peer nach dem Entschlüsseln
+aber vor der Weiterverarbeitung zusammengesetzt.
+Der Hauptvorteil dieses Verfahrens ist,
+dass die Fragmente durch Verschlüsselung geschützt sind
+und so einige DoS-Angriffe,
+die bei Fragmentierung auf IP-Ebene möglich wären,
+wirksam unterbunden werden.
+
+Ob und wie dieses Verfahren von den Peers unterstützt wird,
+hängt von der verwendeten Software und Version ab.
+Dazu kann ich hier keine Aussagen treffen.
+Finde ich im IKE_SA_INIT-Austausch Notify-Payloads
+mit der Nachricht IKEV2_FRAGMENTATION_SUPPORTED
+sowohl im Request als auch im Response,
+kann ich davon ausgehen,
+dass beide Peers das Verfahren unterstützen.
+
 Inkompatibilität
 ----------------
 
