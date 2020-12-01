@@ -42,7 +42,7 @@ aus und führt den Diffie-Hellman-Austausch durch.
 Im Idealfall werden dabei nur zwei Datagramme gesendet
 - eins in jeder Richtung.
 
-.. topic:: Nonce
+.. admonition:: Nonce
 
    .. index:: ! Nonce
 
