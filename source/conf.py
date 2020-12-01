@@ -170,9 +170,15 @@ vdivide={1.2in,*,*}
 %\publishers{These are the publishers}
 %\extratitle{\centering This is the extra title}
 \uppertitleback{
+\textbf{Fehlersuche bei IKEv2 IPsec VPN}
+
+\textcopyright~Mathias Weidner, 2020
+}
+\lowertitleback{
 Aktuelle Informationene zu diesem Buch finden sich unter
 \url{http://buecher.mamawe.net/}.
 
+\vspace{1cm}
 \includegraphics[width=3cm,angle=0]{by-sa.pdf}
 
 Dieses Werk ist unter einer Creative Commons Lizenz vom Typ
