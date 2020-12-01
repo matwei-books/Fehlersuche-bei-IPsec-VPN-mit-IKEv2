@@ -173,6 +173,9 @@ vdivide={1.2in,*,*}
 \textbf{Fehlersuche bei IKEv2 IPsec VPN}
 
 \textcopyright~Mathias Weidner, 2020
+
+\vspace{1cm}
+\textbf{ISBN:} 9798574888759 (Papierversion)
 }
 \lowertitleback{
 Aktuelle Informationene zu diesem Buch finden sich unter
