@@ -65,7 +65,7 @@ die ich als wesentlich für die Fehlersuche erachte:
    Mit einem Paketmitschnitt kann ich somit fundierte Aussagen
    zu mir fremden Systemen treffen.
 
-.. topic:: GUI
+.. admonition:: GUI
 
    .. index:: ! GUI
 

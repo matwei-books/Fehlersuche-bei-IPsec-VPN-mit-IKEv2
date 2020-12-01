@@ -305,7 +305,7 @@ Vermute ich Netzwerkprobleme zwischen den beiden VPN-Gateways, so muss
 ich zusätzlich ICMP-Traffic mitschneiden. Der Filterausdruck dafür kann
 dann so aussehen::
 
-  ICMP or host peerAddress
+  icmp or host peerAddress
 
 Dabei bekomme ich allerdings auch ICMP-Traffic,
 der sich auf andere VPNs bezieht.

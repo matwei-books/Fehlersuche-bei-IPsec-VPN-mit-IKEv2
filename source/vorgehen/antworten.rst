@@ -225,7 +225,7 @@ und in Ruhe ausprobieren,
 welche Einstellungen genügend Informationen
 und möglichst wenig Beifang liefern.
 
-.. topic:: Beifang
+.. admonition:: Beifang
 
    .. index:: ! Beifang
 

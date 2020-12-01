@@ -161,7 +161,7 @@ nicht immer identisch mit der Source Address aus dem IP-Header.
 Path-MTU-Discovery
 ------------------
 
-.. topic:: MTU / PMTU
+.. admonition:: MTU / PMTU
 
    .. index:: ! MTU
       see: Maximum Transmission Unit; MTU

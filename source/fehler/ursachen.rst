@@ -9,15 +9,17 @@ Fehlerursachen
 Keine Verbindung
 ----------------
 
-Eine recht häufiger Fehler ist,
-dass überhaupt keine Netzwerkverbindung zwischen den VPN-Gateways besteht.
+Wenn ich keine VPN-Verbindung bekomme,
+liegt es sehr häufig daran,
+dass überhaupt keine Netzwerkverbindung
+zwischen den VPN-Gateways besteht.
 Das kann mehrere Ursachen haben.
 Vielleicht ist die Leitung an einer Stelle unterbrochen,
 weil jemand das Kabel getrennt hat,
 weil ein Gateway ausgefallen ist
 oder eine Firewall den Datenverkehr unterbindet.
-Auch bei Routingproblemen kommen die Datagramme nicht dort an, wo sie
-hin sollen.
+Auch bei Routingproblemen kommen die Datagramme oft nicht dort an,
+wo sie hin sollen.
 
 Ich erkenne eine unterbrochene Verbindung am sichersten mit einem
 Paketmitschnitt.
@@ -270,6 +272,10 @@ Wireshark nur die IKE-Datagramme.
 
    udp and ( port 500 or ( port 4500 and udp[8:4] = 0 ) )
 
+.. raw:: latex
+
+   \clearpage
+
 Bin ich hingegen am ESP-Traffic interessiert,
 verwende ich folgenden Filter::
 
@@ -493,7 +499,7 @@ Die PMTU kann hingegen für verschiedene Datenströme eines Endgerätes
 unterschiedlich sein, sie ist daher eine Merkmal jedes einzelnen Flows
 und muss für diesen ermittelt werden.
 
-.. topic:: Flow
+.. admonition:: Flow
 
    .. index:: ! Flow
 
@@ -562,6 +568,10 @@ Datagramms an das sendende VPN-Gateway geschickt wird, kann dieses
 anhand des SPI und der Sequenznummer prinzipiell den ursprünglichen
 Datenstrom bestimmen und eine angepasste ICMP-Nachricht für den
 ursprünglichen Sender generieren.
+
+.. raw:: latex
+
+   \clearpage
 
 Prinzipiell heißt nicht immer, sondern nur unter bestimmten
 Voraussetzungen.
@@ -844,6 +854,10 @@ denen der Anti-Replay-Check fehlschlagen kann:
 Diese Probleme werden durch hohe Bandbreite und dementsprechend viele
 Datagramme, die in kurzer Zeit hintereinander eintreffen, noch
 verschärft.
+
+.. raw:: latex
+
+   \clearpage
 
 Habe ich ein Problem mit Anti-Replay-Checks, muss ich die verworfenen
 Datagramme anhand der Log-Nachrichten identifizieren und mit einem

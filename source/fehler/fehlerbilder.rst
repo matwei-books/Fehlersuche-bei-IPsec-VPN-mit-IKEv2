@@ -386,7 +386,7 @@ Einfluss auf die Konfiguration des betreffenden Paketfilters zu nehmen.
 
 Bei Punkt 4 gehört eine geeignete Ausnahmeregel auf die Host-Firewall.
 
-.. topic:: MSS-Clamping
+.. admonition:: MSS-Clamping
 
    .. index:: ! MSS-Clamping
 
@@ -444,7 +444,11 @@ c) Unterstützt das Betriebssystem der Endgeräte Smart MTU Black Hole
 Die ersten beiden Möglichkeiten führen auch für andere Verbindungen
 zu einem ungünstigeren Verhältnis von Nutzdaten zu Protokoll-Overhead.
 
-.. topic:: Smart MTU Black Hole Detection
+.. raw:: latex
+
+   \clearpage
+
+.. admonition:: Smart MTU Black Hole Detection
 
    .. index:: ICMP Black Hole
 

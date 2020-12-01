@@ -52,9 +52,13 @@ Anschließend kümmert sich ``viconfig``
 um das Leeren des Configuration-Cache,
 so dass die geänderten Einstellungen aktiv werden.
 
+.. raw:: latex
+
+   \clearpage
+
 .. index:: ! vi
 
-.. topic:: vi
+.. admonition:: vi
 
    Der Editor *vi* geht auf den visuellen Modus des Unix-Editors *ex*
    aus dem Jahr 1976 zurück und ist seitdem auf den meisten

@@ -45,9 +45,10 @@ Die sieben Schichten des OSI-Modells sind:
     1    Bitübertragungsschicht physical layer
  ======= ====================== =====================
 
-Um wirklich nützlich zu sein,
-brauche ich noch den Bezug zu real existierenden Protokollen,
-mit denen ich in meiner täglichen Arbeit zu tun habe.
+Diese Schichten werden
+erst durch den Bezug zu real existierenden Protokollen,
+mit denen ich in meiner täglichen Arbeit zu tun habe,
+wirklich nützlich.
 
 .. index:: DNS, HTTP, IP, LDAP, SMTP, TCP, UDP
 
