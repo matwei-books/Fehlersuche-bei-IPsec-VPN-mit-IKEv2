@@ -19,7 +19,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'Fehlersuche bei IKEv2 IPsec VPN'
+project = 'Fehlersuche bei IPsec VPN mit IKEv2'
 copyright = '2020, Mathias Weidner'
 author = 'Mathias Weidner'
 
@@ -170,7 +170,8 @@ vdivide={1.2in,*,*}
 %\publishers{These are the publishers}
 %\extratitle{\centering This is the extra title}
 \uppertitleback{
-\textbf{Fehlersuche bei IKEv2 IPsec VPN}
+\textbf{Fehlersuche bei IPsec VPN}
+\textbf{mit IKEv2}
 
 \textcopyright~Mathias Weidner, 2020
 
@@ -207,7 +208,8 @@ latex_docclass = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'FehlersuchebeiIKEv2IPsecVPN.tex', 'Fehlersuche bei IKEv2 IPsec VPN',
+    (master_doc, 'FehlersuchebeiIKEv2IPsecVPN.tex',
+    'Fehlersuche bei IPsec VPN mit IKEv2',
      'Mathias Weidner', 'manual'),
 ]
 
@@ -218,7 +220,7 @@ latex_use_xindy = True;
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'fehlersuchebeiikev2ipsecvpn', 'Fehlersuche bei IKEv2 IPsec VPN',
+    (master_doc, 'fehlersuchebeiikev2ipsecvpn', 'Fehlersuche bei IPsec VPN mit IKEv2',
      [author], 1)
 ]
 
@@ -229,7 +231,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'FehlersuchebeiIKEv2IPsecVPN', 'Fehlersuche bei IKEv2 IPsec VPN',
+    (master_doc, 'FehlersuchebeiIKEv2IPsecVPN', 'Fehlersuche bei IPsec VPN mit IKEv2',
      author, 'FehlersuchebeiIKEv2IPsecVPN', 'One line description of project.',
      'Miscellaneous'),
 ]
