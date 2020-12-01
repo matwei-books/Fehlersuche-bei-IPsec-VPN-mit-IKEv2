@@ -20,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Fehlersuche bei IKEv2 IPsec VPN'
-copyright = '2018, Mathias Weidner'
+copyright = '2020, Mathias Weidner'
 author = 'Mathias Weidner'
 
 # The short X.Y version
@@ -109,6 +109,8 @@ htmlhelp_basename = 'FehlersuchebeiIKEv2IPsecVPNdoc'
 
 # -- Options for LaTeX output ------------------------------------------------
 
+latex_additional_files = [ 'images/by-sa.pdf' ]
+
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #
@@ -168,8 +170,18 @@ vdivide={1.2in,*,*}
 %\publishers{These are the publishers}
 %\extratitle{\centering This is the extra title}
 \uppertitleback{
-    This work is licensed under a Creative Commons\\
-    Attribution-NonCommercial-ShareAlike 3.0 Unported License
+Aktuelle Informationene zu diesem Buch finden sich unter
+\url{http://buecher.mamawe.net/}.
+
+\includegraphics[width=3cm,angle=0]{by-sa.pdf}
+
+Dieses Werk ist unter einer Creative Commons Lizenz vom Typ
+Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International
+zugänglich.
+Um eine Kopie dieser Lizenz einzusehen,
+konsultieren Sie \url{http://creativecommons.org/licenses/by-sa/4.0/}
+oder wenden Sie sich brieflich
+an Creative Commons, Postfach 1866, Mountain View, California, 94042, USA.
 }
 %\lowertitleback{The lower part of the backtitle}
 %\dedication{This sample is dedicated to all unsuccessful trials so far}
