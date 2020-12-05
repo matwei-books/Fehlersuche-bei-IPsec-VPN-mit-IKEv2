@@ -180,7 +180,7 @@ vdivide={1.2in,*,*}
 \textbf{ISBN:} 9798574888759 (Papierversion)
 }
 \lowertitleback{
-Aktuelle Informationene zu diesem Buch finden sich unter
+Aktuelle Informationen zu diesem Buch finden sich unter
 \url{http://buecher.mamawe.net/}.
 
 \vspace{1cm}

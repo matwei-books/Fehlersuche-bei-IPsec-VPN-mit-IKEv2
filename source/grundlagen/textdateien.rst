@@ -21,7 +21,7 @@ Konfigurationsdateien, wenn diese als Text vorliegen.
    von verschiedener Seite Log-Software empfohlen,
    die den Umgang mit den Logs gut unterstützen kann
    und so viele Filtermöglichkeiten bietet
-   oder gar Nachrichten korrellieren kann.
+   oder gar Nachrichten korrelieren kann.
 
    Fakt ist, dass ich noch von keinem dieser Programme,
    das ich bisher erleben durfte,
@@ -267,6 +267,9 @@ interessiert, die ich mit der Option ``-l`` bekomme.
 Diese kann ich in der Shell als Argument an ``less`` übergeben::
 
   less $(grep -lr Muster /etc)
+
+.. index::
+   single: reguläre Ausdrücke; Beispiele
 
 Manchmal finde ich auf einem System als Konfigurationsdatei eine
 modifizierte Template-Datei mit großen Mengen an Kommentaren und nur
@@ -527,6 +530,7 @@ entfernt wurde.
 In diesem Fall half ein Perl-Modul, die Konfiguration zu sortieren, so
 dass der Vergleich nur noch die kleine tatsächliche Änderung anzeigte.
 
+.. index:: ! reguläre Ausdrücke
 .. _regex:
 
 Reguläre Ausdrücke
@@ -647,6 +651,9 @@ Ich verwende am häufigsten die folgenden Zeichenklassen.
 Reguläre Ausdrücke bieten noch viel mehr Möglichkeiten.
 Für eine fundierte Einarbeitung verweise ich
 auf die Handbuchseiten der entsprechenden Programme.
+
+.. index::
+   single: reguläre Ausdrücke; Beispiele
 
 Beispiele für reguläre Ausdrücke
 ................................
