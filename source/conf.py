@@ -22,6 +22,7 @@
 project = 'Fehlersuche bei IPsec VPN mit IKEv2'
 copyright = '2020, Mathias Weidner'
 author = 'Mathias Weidner'
+today = '05.12.2020'
 
 # The short X.Y version
 version = '0.1'
