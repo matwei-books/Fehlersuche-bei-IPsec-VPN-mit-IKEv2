@@ -198,6 +198,8 @@ an Creative Commons, Postfach 1866, Mountain View, California, 94042, USA.
 %\dedication{This sample is dedicated to all unsuccessful trials so far}
 \maketitle
 ''',
+##  this option is only for the print version
+#   'passoptionstopackages': r'\PassOptionsToPackage{monochrome}{xcolor}',
    'releasename': '',
 }
 

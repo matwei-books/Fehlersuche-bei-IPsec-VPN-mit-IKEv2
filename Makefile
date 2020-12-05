@@ -68,6 +68,10 @@ epub: Makefile
 latexpdf: Makefile
 	$(SPHINXBUILD) -M latexpdf "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
+printpdf: Makefile
+	$(SPHINXBUILD) -E -b latex -c print "$(SOURCEDIR)" "$(BUILDDIR)/latex" $(SPHINXOPTS) $(O)
+	cd build/latex && make
+
 draftpaths:
 	[ -d build/draft/grundlagen ] || mkdir -p build/draft/grundlagen
 	[ -d build/draft/ikev2 ] || mkdir -p build/draft/ikev2
