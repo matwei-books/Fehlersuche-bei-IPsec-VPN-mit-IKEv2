@@ -272,4 +272,5 @@ numfig = True
 
 autosectionlabel_prefix_document = True
 
+bibtex_bibfiles = ['troubleshoot-ipsec.bib']
 # vim: set sw=4 ts=4 et:
