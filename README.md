@@ -2,7 +2,7 @@
 # Fehlersuche bei IPsec-VPN mit IKEv2
 
 Dieses Buch ist eine Erweiterung und Ergänzung einer Artikelreihe in der Zeitschrift [UpTimes](http://guug.de/uptimes/) und eines Workshops, den ich 2018 hielt.
-Das Buch ist Work in progress, im Verzeichnis [source](source) sind die Quellen.
+Das Buch ist [veröffentlicht][buecher], dieses Repository ist archiviert.
 
 Half-managed IPsec-VPN ist wie ein Ochsenkarren mit Tieren aus verschiedenen Ställen und Treibern, die sich nicht kennen.
 Der Vergleich hinkt, aber geht, sagte mein Vater oft.
@@ -23,6 +23,7 @@ Dieses Werk ist lizensiert unter den Bedingungen der
 
 [![CC BY-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
 
+[buecher]: https://buecher.mamawe.net/buecher/troubleshoot-ipsec/
 [cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
 [cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
 
